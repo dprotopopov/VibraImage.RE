@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="@10" Category="CodeSchema_ProjectItem" Bounds="19.9999971538433,39.7999768105628,132.538000077079,25.9980000770791" FilePath="$(VsSolution)\code\vienginebase.cpp" Label="vienginebase.cpp" />
+    <Node Id="@2" Category="CodeSchema_PoundIncludeFile" Bounds="-3.79983103471204E-06,-0.20012504769484,345.513001030753,199.594298023246" FilePath="$(VsSolution)\vibraimage\vibraimage.vcxproj" Group="Expanded" Label="vibraimage.vcxproj" Language="{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}" />
+    <Node Id="@4" Category="CodeSchema_ProjectItem" Bounds="106.255004783238,153.396073408638,129.628000077079,25.998000077079" FilePath="$(VsSolution)\code\vienginethread.h" Label="vienginethread.h" UseManualLocation="True" />
+    <Node Id="@6" Category="CodeSchema_ProjectItem" Bounds="110.620000968541,96.5979733315588,119.298000077079,25.998000077079" FilePath="$(VsSolution)\code\vienginebase.h" Label="viEngineBase.h" UseManualLocation="True" />
+    <Node Id="@8" Category="CodeSchema_ProjectItem" Bounds="183.024997153843,39.7999768105627,142.488000077079,25.998000077079" FilePath="$(VsSolution)\code\vienginethread.cpp" Label="vienginethread.cpp" />
+  </Nodes>
+  <Links>
+    <Link Source="@10" Target="@6" Category="PoundInclude" Bounds="105.493546788022,65.7979750293842,38.0953014720184,25.7587725670198" />
+    <Link Source="@2" Target="@10" Category="Contains" />
+    <Link Source="@2" Target="@4" Category="Contains" />
+    <Link Source="@2" Target="@6" Category="Contains" />
+    <Link Source="@2" Target="@8" Category="Contains" />
+    <Link Source="@6" Target="@4" Category="PoundInclude" Bounds="170.452093224506,122.595977272426,0.307069102904791,21.800988248441" />
+    <Link Source="@8" Target="@6" Category="PoundInclude" Bounds="196.949151550747,65.7979750293842,38.0952970566749,25.7587722135273" />
+  </Links>
+  <Categories>
+    <Category Id="CodeSchema_PoundIncludeFile" Label="Файл проекта C++" BasedOn="File" CanBeDataDriven="True" IsProviderRoot="False" NavigationActionLabel="Файл проекта C++" />
+    <Category Id="CodeSchema_ProjectItem" Label="Элемент проекта" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" NavigationActionLabel="Элементы проекта" />
+    <Category Id="Contains" Label="Содержит" Description="Указывает, содержит ли источник связи целевой объект" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Содержится в" IsContainment="True" OutgoingActionLabel="Содержит" />
+    <Category Id="File" Label="Файл" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" NavigationActionLabel="Файлы" />
+    <Category Id="PoundInclude" Label="#include" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Источник #include" OutgoingActionLabel="#include" />
+  </Categories>
+  <Properties>
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="FilePath" Label="Путь файла" Description="Путь файла" DataType="System.String" />
+    <Property Id="Group" Label="Группа" Description="Отображать узел как группу" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="Icon" Label="Значок" Description="Значок" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="Метка" Description="Отображаемая метка аннотируемого объекта" DataType="System.String" />
+    <Property Id="Language" Label="Язык" Description="Язык" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="Сборка" ValueType="Uri" />
+    <Name Id="File" Label="Файл" ValueType="Uri" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(VsSolutionUri)/VibraImage/VibraImage.vcxproj" />
+    <Alias n="2" Id="(@1)" />
+    <Alias n="3" Uri="File=$(VsSolutionUri)/code/viEngineThread.h" />
+    <Alias n="4" Id="(@1 @3)" />
+    <Alias n="5" Uri="File=$(VsSolutionUri)/code/viEngineBase.h" />
+    <Alias n="6" Id="(@1 @5)" />
+    <Alias n="7" Uri="File=$(VsSolutionUri)/code/viEngineThread.cpp" />
+    <Alias n="8" Id="(@1 @7)" />
+    <Alias n="9" Uri="File=$(VsSolutionUri)/code/viEngineBase.cpp" />
+    <Alias n="10" Id="(@1 @9)" />
+  </IdentifierAliases>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="Файл проекта C++" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('CodeSchema_PoundIncludeFile')" />
+      <Setter Property="Background" Value="#FFEFEFEF" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Внешние" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('Externals')" />
+      <Setter Property="Background" Value="#FFA08080" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Исходный файл" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('CodeSchema_ProjectItem')" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Группа #include" ValueLabel="Имеет категорию">
+      <Condition Expression="HasCategory('CodeSchema_PoundIncludeGroup')" />
+      <Setter Property="Background" Value="#FFEFEFEF" />
+    </Style>
+  </Styles>
+  <Paths>
+    <Path Id="VsSolution" Value="D:\Projects\VibraImage.RE" />
+    <Path Id="VsSolutionUri" Value="file:///D:/Projects/VibraImage.RE" />
+  </Paths>
+</DirectedGraph>

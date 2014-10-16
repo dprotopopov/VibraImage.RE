@@ -1,0 +1,10 @@
+﻿Сборка начата 16.10.2014 20:12:25.
+     1>Проект "D:\Projects\VibraImage.RE\VibraImage\VibraImage.vcxproj" в узле 2 (целевые объекты Build).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /ZI /clr /ZW /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /FR"Debug\\" /Gd /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\mscorlib.dll" /analyze- /errorReport:prompt /clr:nostdlib ..\code\viEngineBase.cpp ..\code\viEngineThread.cpp
+     1>cl : командная строка error D8016: несовместимые параметры командной строки "/ZI" и "/clr"
+     1>Сборка проекта "D:\Projects\VibraImage.RE\VibraImage\VibraImage.vcxproj" завершена (целевые объекты Build) с ошибкой.
+
+Ошибка сборки.
+
+Затраченное время: 00:00:00.73

@@ -1,0 +1,5 @@
+<Modules>
+  <Module PersistentId="4434EA69-08B0-49EF-95DD-495C6491DD1A" ModuleId="VibraImage" />
+  <Module PersistentId="System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, mvid=c08d55d3-6463-439d-b112-60f6502ec141" ModuleId="System.Core" />
+  <Module PersistentId="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, mvid=fcb9dac8-ae3a-4886-93b0-f4cd5b0db0be" ModuleId="mscorlib" />
+</Modules>
