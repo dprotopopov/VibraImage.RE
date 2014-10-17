@@ -1,6 +1,6 @@
-#pragma once
+п»ї#pragma once
 /// <summary>
-/// Предположительно данный класс является классом для управления доступом к ресурсам в многопоточных приложениях
+/// РїСЂРµРґРїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕ РґР°РЅРЅС‹Р№ РєР»Р°СЃСЃ СЏРІР»СЏРµС‚СЃСЏ РєР»Р°СЃСЃРѕРј РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїРѕРј Рє СЂРµСЃСѓСЂСЃР°Рј РІ РјРЅРѕРіРѕРїРѕС‚РѕС‡РЅС‹С… РїСЂРёР»РѕР¶РµРЅРёСЏС…
 /// Represents the access-control mechanism used in controlling access to a resource in a multithreaded program.
 /// http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx
 /// </summary>

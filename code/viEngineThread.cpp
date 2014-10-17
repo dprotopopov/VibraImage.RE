@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include "VIEngine.h"
 #include "VIEngineBase.h"
 #include ".\vienginethread.h"
@@ -1659,8 +1659,9 @@ int CVIEngineThread::MakeAuraColorA(int nSum, int x, int y)
 }
 
 /// <summary>
+/// Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res
 /// </summary>
-/// <param name=""></param>
+/// <param name="res"></param>
 int CVIEngineThread::res2n(int res)
 {
     switch(res)
@@ -1683,8 +1684,9 @@ int CVIEngineThread::res2n(int res)
 
 
 /// <summary>
+/// Вычисление признака работы в режиме A согласно списку допустимых значений переменной res
 /// </summary>
-/// <param name=""></param>
+/// <param name="res"></param>
 bool CVIEngineThread::IsModeA(int res)
 {
     switch(res)

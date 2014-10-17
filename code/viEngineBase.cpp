@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include "VIEngine.h"
 #include "vienginebase.h"
 #include "vienginesimple.h"
@@ -2237,8 +2237,16 @@ void CVIEngineBase::MakeStress(bool bModeB)
 }
 
 /// <summary>
+/// Чтение настроечного параметра VI_VAR_STAT_CFG_SIN
+/// Вычисление sin ( t * 2 * M_PI * n )
+/// где t - значение текущего времени по таймеру m_timer
+/// M_PI = 3.1415926...
+/// n - значение настроечного параметра VI_VAR_STAT_CFG_SIN
+/// И сохранение вычисленного значения в настроечном параметре VI_VAR_STAT_RES_SIN
+/// То есть 
+/// настроечный параметр VI_VAR_STAT_CFG_SIN является частотой синусоидального сигнала
+/// настроечный параметр VI_VAR_STAT_RES_SIN хранит значение синусоидального сигнала в текущий момент времени по таймеру m_timer
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::MakeSin(void)
 {
     double t = m_timer.Get();
@@ -2249,8 +2257,14 @@ void CVIEngineBase::MakeSin(void)
 
 
 /// <summary>
+/// Вызов одноимённой функции с параметром из списка парамертов по-очереди
+///         VI_RESULT_VI2_A,
+///         VI_RESULT_VI2_B,
+///         VI_RESULT_VI1_A,
+///         VI_RESULT_VI1_B,
+///         VI_RESULT_VI0_A,
+///         VI_RESULT_VI0_B
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::tmp_aura_draw(void)
 {
     int id[] =

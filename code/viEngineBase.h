@@ -329,6 +329,8 @@ inline bool CVIEngineBase::IsSkip(void)
 }
 
 /// <summary>
+/// Проверка значения настроесного параметра VI_FACE_ENABLE
+/// Возвращает true если параметр VI_FACE_ENABLE установлен в ненулевое значение
 /// </summary>
 inline bool CVIEngineBase::NeedSrcImageProc()
 {

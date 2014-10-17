@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "VIEngineEvent.h"
 #include "PointSSE.h"
@@ -131,10 +131,20 @@ public:
     int MakeAuraColorA(int nSum, int x, int y);
     void MakeIntResult(float * pf, short * pi, mmx_array<float>& hX, mmx_array<float>& hY, int w, int h);
 };
+/// <summary>
+/// Функция преобразования числа с плавающей точкой в целое число
+/// Округление производится до ближайшего целого
+/// </summary>
+/// <param name="v">Число с плавающей точкой</param>
 inline int CVIEngineThread::round(float v)
 {
     return (int)(v>=0? v+0.5f : v-0.5f);
 }
+/// <summary>
+/// Признак режима B
+/// Расситывается как отрицание признака режима A
+/// </summary>
+/// <param name="res"></param>
 inline bool CVIEngineThread::IsModeB(int res)
 {
     return !IsModeA(res);

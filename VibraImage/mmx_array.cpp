@@ -1,4 +1,4 @@
-#include "mmx_array.h"
+﻿#include "mmx_array.h"
 
 
 mmx_array<class T>::mmx_array()

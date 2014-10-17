@@ -1,6 +1,11 @@
-#pragma once
+п»ї#pragma once
+/// <summary>
+/// РЎРїРёСЃРѕРє РЅР°СЃС‚СЂРѕРµС‡РЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ, РёСЃРїРѕР»СЊР·СѓРµРјС‹С… РІ РїСЂРѕРіСЂР°РјРјРµ
+/// </summary>
 enum
 {
+	VI_FACE_ENABLE,
+	VI_MODE_RESULT,
 	VI_VAR_NFRAME,
 	VI_VAR_FPSMAXF,
 	VI_VAR_FPSMAXR
@@ -44,6 +49,8 @@ enum
 	VI_VAR_STAT_RES_P11F,
 	VI_VAR_STAT_RES_P12A,
 	VI_VAR_STAT_RES_P12F,
+	VI_VAR_STAT_CFG_SIN,
+	VI_VAR_STAT_RES_SIN,
 	VI_FILTER_AM,
 	VI_FILTER_SP,
 	VI_FILTER_CT,
@@ -74,7 +81,7 @@ enum
 	VI_FILTER_F6_N
 };
 /// <summary>
-/// Предположительно данный класс является списком настроечеых параметров алгоритмов программы 
+/// Р”Р°РЅРЅС‹Р№ РєР»Р°СЃСЃ РїСЂРµРґРЅР°Р·РЅР°С‡РµРЅ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ СЃРїРёСЃРєРѕРј РЅР°СЃС‚СЂРѕРµС‡РµС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ Р°Р»РіРѕСЂРёС‚РјРѕРІ РїСЂРѕРіСЂР°РјРјС‹ 
 /// </summary>
 class CVIEngineConfig
 {

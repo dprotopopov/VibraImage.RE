@@ -1,0 +1,79 @@
+\hypertarget{class_c_m_t_single_lock}{\section{C\+M\+T\+Single\+Lock Class Reference}
+\label{class_c_m_t_single_lock}\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
+}
+
+
+предположительно данный класс является классом для управления доступом к ресурсам в многопоточных приложениях Represents the access-\/control mechanism used in controlling access to a resource in a multithreaded program. \href{http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/bwk62eb7.\+aspx}  
+
+
+
+
+{\ttfamily \#include $<$M\+T\+Single\+Lock.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_m_t_single_lock_accef84bf825a836b952f32223ec757bc}{C\+M\+T\+Single\+Lock} (int n\+Locks, bool b\+Lock)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \end{DoxyCompactList}\item 
+B\+O\+O\+L \hyperlink{class_c_m_t_single_lock_a7586857614ac3719accc53d56e97573c}{Lock} ()
+\begin{DoxyCompactList}\small\item\em Блокирование одного семафора \end{DoxyCompactList}\item 
+B\+O\+O\+L \hyperlink{class_c_m_t_single_lock_a16f80923c0768c3814be13c4061d4c53}{Unlock} ()
+\begin{DoxyCompactList}\small\item\em Разблокирование одного семафора \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+предположительно данный класс является классом для управления доступом к ресурсам в многопоточных приложениях Represents the access-\/control mechanism used in controlling access to a resource in a multithreaded program. \href{http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/bwk62eb7.\+aspx} 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_m_t_single_lock_accef84bf825a836b952f32223ec757bc}{\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
+\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
+\subsubsection[{C\+M\+T\+Single\+Lock}]{\setlength{\rightskip}{0pt plus 5cm}C\+M\+T\+Single\+Lock\+::\+C\+M\+T\+Single\+Lock (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Locks, }
+\item[{bool}]{b\+Lock}
+\end{DoxyParamCaption}
+)}}\label{class_c_m_t_single_lock_accef84bf825a836b952f32223ec757bc}
+
+
+Конструктор класса 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+Locks} & Количество создаваемых семафоров\\
+\hline
+{\em b\+Lock} & Признак блокировать все семафоры при создании инстанса данного класса\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_m_t_single_lock_a7586857614ac3719accc53d56e97573c}{\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!Lock@{Lock}}
+\index{Lock@{Lock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
+\subsubsection[{Lock}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L C\+M\+T\+Single\+Lock\+::\+Lock (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_m_t_single_lock_a7586857614ac3719accc53d56e97573c}
+
+
+Блокирование одного семафора 
+
+\hypertarget{class_c_m_t_single_lock_a16f80923c0768c3814be13c4061d4c53}{\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!Unlock@{Unlock}}
+\index{Unlock@{Unlock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
+\subsubsection[{Unlock}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L C\+M\+T\+Single\+Lock\+::\+Unlock (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_m_t_single_lock_a16f80923c0768c3814be13c4061d4c53}
+
+
+Разблокирование одного семафора 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vibra\+Image/M\+T\+Single\+Lock.\+h\item 
+Vibra\+Image/M\+T\+Single\+Lock.\+cpp\end{DoxyCompactItemize}

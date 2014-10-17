@@ -87,6 +87,7 @@
     <ClInclude Include="MTSingleLock.h" />
     <ClInclude Include="VIEngineConfig.h" />
     <ClInclude Include="VIEngineEvent.h" />
+    <ClInclude Include="VI_RESULT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

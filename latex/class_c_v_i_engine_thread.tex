@@ -1,0 +1,659 @@
+\hypertarget{class_c_v_i_engine_thread}{\section{C\+V\+I\+Engine\+Thread Class Reference}
+\label{class_c_v_i_engine_thread}\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+}
+
+
+Класс для реализации расчётов в многопоточной среде Является классом для управления одним потоком расчётов  
+
+
+
+
+{\ttfamily \#include $<$vi\+Engine\+Thread.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r}{tag\+S\+U\+M\+M\+\_\+\+P\+T\+R}
+\item 
+struct \hyperlink{struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t}{tag\+T\+M\+P\+\_\+\+A\+U\+R\+A\+\_\+\+S\+T\+A\+T}
+\item 
+struct \hyperlink{struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t}{tag\+T\+M\+P\+\_\+\+S\+T\+A\+T}
+\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_c_v_i_engine_thread_adaf393bce3e0f8abe027cbfae7acfffb}{typedef struct \\*
+\hyperlink{struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r}{C\+V\+I\+Engine\+Thread\+::tag\+S\+U\+M\+M\+\_\+\+P\+T\+R} {\bfseries S\+U\+M\+M\+\_\+\+P\+T\+R}}\label{class_c_v_i_engine_thread_adaf393bce3e0f8abe027cbfae7acfffb}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a963dcd94cfc9dd191a6c4dc50458797f}{typedef struct \\*
+\hyperlink{struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t}{C\+V\+I\+Engine\+Thread\+::tag\+T\+M\+P\+\_\+\+S\+T\+A\+T} {\bfseries T\+M\+P\+\_\+\+S\+T\+A\+T}}\label{class_c_v_i_engine_thread_a963dcd94cfc9dd191a6c4dc50458797f}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a07cb3ebb98282ee62c81cf9b257e335c}{typedef struct \\*
+\hyperlink{struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t}{C\+V\+I\+Engine\+Thread\+::tag\+T\+M\+P\+\_\+\+A\+U\+R\+A\+\_\+\+S\+T\+A\+T} {\bfseries T\+M\+P\+\_\+\+A\+U\+R\+A\+\_\+\+S\+T\+A\+T}}\label{class_c_v_i_engine_thread_a07cb3ebb98282ee62c81cf9b257e335c}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_v_i_engine_thread_ae988fa69cb7743794ab221309f581d62}{C\+V\+I\+Engine\+Thread} (\hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base} $\ast$p\+Base)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \end{DoxyCompactList}\item 
+\hyperlink{class_c_v_i_engine_thread_a62a261241845149502fceb9a98f75ce0}{$\sim$\+C\+V\+I\+Engine\+Thread} (void)
+\item 
+virtual bool \hyperlink{class_c_v_i_engine_thread_a6ce21dad9996e7dba3b23882d010db17}{Start} (void)
+\item 
+virtual void \hyperlink{class_c_v_i_engine_thread_a5a8d55cd216084f924cd75b8ede97fc8}{Stop} (void)
+\item 
+int \hyperlink{class_c_v_i_engine_thread_ab377abdaf5512ce301f5a5f817a4ec7f}{round} (float v)
+\begin{DoxyCompactList}\small\item\em Функция преобразования числа с плавающей точкой в целое число Округление производится до ближайшего целого \end{DoxyCompactList}\item 
+void \hyperlink{class_c_v_i_engine_thread_a8bd3c1702025f3db9b6e29c2dcb2b264}{Init} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a608a3c62caea2e713736b5b8efd2f6ea}{Clear\+Stat} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a36b1ea71981bd36fa9545fa68e98e78b}{Make\+Result\+Src} (int res)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a30b43140ec42578567286895a960cb4f}{Make\+Result\+Src8} (int res)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a3df2d213ef88168193cabc7a6bad8c6c}{Make\+Result\+Src24} (int res)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a02bac0a7df7e985164b867ea3433bb40}{Make\+Result\+V\+I} (int res)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_ab6c4ea18d353a7dc00aa1698c379afde}{Make\+Result\+Delta} (int res)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a7e13a627c4b748b2a897e5cfb314f0a2}{Filter\+S\+P} (float $\ast$p)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a900848dc88ad3445296cbd72c467875c}{Filter\+S\+Psse} (float $\ast$p)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a138c31012cd6924325231acdd4fbba49}{Make\+Aura\+V6} (int n\+Sum, bool b\+Mode\+B)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a6194597cfb410aaa4a3b291f9dbe13cd}{Make\+Aura\+Stat} (int n\+Sum, bool b\+Mode\+B)
+\item 
+float $\ast$ \hyperlink{class_c_v_i_engine_thread_a157eaab33c9c5c2a157b458a4a0eb1f4}{Get\+Sum\+Ptr} (int n\+Sum, bool b\+Mode\+B)
+\item 
+short $\ast$ \hyperlink{class_c_v_i_engine_thread_ac9185cf585d0d141ccd42b7891020776}{Get\+Sum\+Ptr\+I} (int n\+Sum, bool b\+Mode\+B)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_ae6cccc248ff3e63ee357ec6453f2ce4b}{Make\+Result\+Aura\+Draw} (int n, D\+W\+O\+R\+D $\ast$img\+Res, int r\+Mode)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a61e44ad37880d66e07855e751b67d9d3}{Make\+Result\+Aura\+Draw\+Mix} (int n, D\+W\+O\+R\+D $\ast$img\+Res, int r\+Mode)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_abf2a40038d465ccb943072431774c6ae}{Make\+Result\+V\+I\+Draw} (int n, D\+W\+O\+R\+D $\ast$img\+Res, int r\+Mode)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a6e69080c6da14f8bb61c0615180bd088}{Make\+Sum\+Stat} (int n\+Sum, \hyperlink{struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r}{S\+U\+M\+M\+\_\+\+P\+T\+R} \&S)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_ac5a7ba8ea2d72478af174b471d73fd5c}{Make\+Aura\+Stat\+Hist} (A\+U\+R\+A\+\_\+\+S\+T\+A\+T \&stat)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a83784b07cdfcd4f006fbfa41aacd4d86}{Make\+Aura\+Stat\+Transform} (A\+U\+R\+A\+\_\+\+S\+T\+A\+T \&stat)
+\item 
+int \hyperlink{class_c_v_i_engine_thread_a5c5e1e4c1a32d38b39af4547ed4b5827}{Make\+Aura\+Color\+A} (int n\+Sum, int x, int y)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a77e3066544a8804d4cc5250ac9f4c54b}{Make\+Int\+Result} (float $\ast$pf, short $\ast$pi, \hyperlink{classmmx__array}{mmx\+\_\+array}$<$ float $>$ \&h\+X, \hyperlink{classmmx__array}{mmx\+\_\+array}$<$ float $>$ \&h\+Y, int w, int h)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{class_c_v_i_engine_thread_a45d685448f47622c68e8f78593f7b69d}{res2n} (int res)
+\begin{DoxyCompactList}\small\item\em Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res \end{DoxyCompactList}\item 
+static bool \hyperlink{class_c_v_i_engine_thread_a85ffa17426e02ff2d5b03c5f37a1b0f8}{Is\+Mode\+A} (int res)
+\begin{DoxyCompactList}\small\item\em Вычисление признака работы в режиме A согласно списку допустимых значений переменной res \end{DoxyCompactList}\item 
+static bool \hyperlink{class_c_v_i_engine_thread_a4bbe730e3cd1bdadb1da99cce23fa8db}{Is\+Mode\+B} (int res)
+\begin{DoxyCompactList}\small\item\em Признак режима B Расситывается как отрицание признака режима A \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_c_v_i_engine_thread_a771ad7767cb35813f6671f497b075496}{\hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base} $\ast$ {\bfseries m\+\_\+p\+Base}}\label{class_c_v_i_engine_thread_a771ad7767cb35813f6671f497b075496}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_ac297ce260db221d74422e3c7e8e03e27}{\hyperlink{class_c_v_i_engine_config}{C\+V\+I\+Engine\+Config} $\ast$ {\bfseries m\+\_\+p\+Cfg}}\label{class_c_v_i_engine_thread_ac297ce260db221d74422e3c7e8e03e27}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a1ac54d72e0fe75fff96d82b115df962c}{H\+A\+N\+D\+L\+E {\bfseries m\+\_\+h\+Thread}}\label{class_c_v_i_engine_thread_a1ac54d72e0fe75fff96d82b115df962c}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a9cc3627d5a28cc22d6e33cdb052a7f4d}{D\+W\+O\+R\+D {\bfseries m\+\_\+n\+Id}}\label{class_c_v_i_engine_thread_a9cc3627d5a28cc22d6e33cdb052a7f4d}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a8b580461aa6df1676e9e31b2a46bcc7e}{std\+::vector$<$ int $>$ {\bfseries m\+\_\+n\+Sum}}\label{class_c_v_i_engine_thread_a8b580461aa6df1676e9e31b2a46bcc7e}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a6c0ce9aab9b56cdd97087404af92fbb0}{\hyperlink{class_c_v_i_engine_event}{C\+V\+I\+Engine\+Event} {\bfseries m\+\_\+events} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}\label{class_c_v_i_engine_thread_a6c0ce9aab9b56cdd97087404af92fbb0}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_af84f80046cb905dda7623ef8a2ea956b}{\hyperlink{class_c_v_i_engine_event}{C\+V\+I\+Engine\+Event} {\bfseries m\+\_\+ev\+Ready}}\label{class_c_v_i_engine_thread_af84f80046cb905dda7623ef8a2ea956b}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a19834ce7dacd0ff5d1cc4615c040830c}{int {\bfseries m\+\_\+y\+S}}\label{class_c_v_i_engine_thread_a19834ce7dacd0ff5d1cc4615c040830c}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_ae9849fe1f1cba016b9df4e33fd9c2092}{int {\bfseries m\+\_\+y\+E}}\label{class_c_v_i_engine_thread_ae9849fe1f1cba016b9df4e33fd9c2092}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_aa356e0ebc6490ee932679fb7ca5021b5}{std\+::vector$<$ \hyperlink{struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t}{T\+M\+P\+\_\+\+S\+T\+A\+T} $>$ {\bfseries m\+\_\+stat}}\label{class_c_v_i_engine_thread_aa356e0ebc6490ee932679fb7ca5021b5}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_af213b9d425f314412e3de05774960c3f}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ {\bfseries m\+\_\+tmp}}\label{class_c_v_i_engine_thread_af213b9d425f314412e3de05774960c3f}
+
+\item 
+\hypertarget{class_c_v_i_engine_thread_a6ffad2b9d46d3d237d194b7d07720f6b}{\hyperlink{struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t}{T\+M\+P\+\_\+\+A\+U\+R\+A\+\_\+\+S\+T\+A\+T} {\bfseries m\+\_\+tmp\+\_\+aura}}\label{class_c_v_i_engine_thread_a6ffad2b9d46d3d237d194b7d07720f6b}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_c_v_i_engine_thread_a24ed1bd13eea28048ed010e65697e578}{Main} ()
+\item 
+void \hyperlink{class_c_v_i_engine_thread_aa9882f7bd24457ef387daf9b878d9e36}{On\+Event\+Add\+F} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_ac41086d9d426c39ce9a5ab78bdff6f8d}{On\+Event\+Summ} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a59da3179cc28387c9ebe468cdb33bcb1}{On\+Event\+Result} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_ae5c43326cf2db88c2233f60412113e14}{On\+Event\+Delta} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a5631fcb6ffa27a49f369ae01473862a2}{On\+Event\+Aura} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_ade67a36c8b54ee5bb4fae3dac9871274}{On\+Event\+Sum\+Stat} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_aa6eb58239fd138860ec06da35715ab9f}{On\+Event\+Sum\+Filter} (void)
+\item 
+void \hyperlink{class_c_v_i_engine_thread_a6b428d3d881e10a03902dbf16742084e}{Make\+Summ\+Ptr} (int n, \hyperlink{struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r}{S\+U\+M\+M\+\_\+\+P\+T\+R} $\ast$p\+Summ)
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_thread_abf714adf1c42385f396ebe4ff48f181c}{Thread\+Proc} (L\+P\+V\+O\+I\+D lp\+Parameter)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Класс для реализации расчётов в многопоточной среде Является классом для управления одним потоком расчётов 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_v_i_engine_thread_ae988fa69cb7743794ab221309f581d62}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{C\+V\+I\+Engine\+Thread}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Thread\+::\+C\+V\+I\+Engine\+Thread (
+\begin{DoxyParamCaption}
+\item[{{\bf C\+V\+I\+Engine\+Base} $\ast$}]{p\+Base}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_ae988fa69cb7743794ab221309f581d62}
+
+
+Конструктор класса 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Base} & Указатель на класс реализаций алгоритмов программы\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_v_i_engine_thread_a62a261241845149502fceb9a98f75ce0}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!````~C\+V\+I\+Engine\+Thread@{$\sim$\+C\+V\+I\+Engine\+Thread}}
+\index{````~C\+V\+I\+Engine\+Thread@{$\sim$\+C\+V\+I\+Engine\+Thread}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{$\sim$\+C\+V\+I\+Engine\+Thread}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Thread\+::$\sim$\+C\+V\+I\+Engine\+Thread (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a62a261241845149502fceb9a98f75ce0}
+
+
+
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_v_i_engine_thread_a608a3c62caea2e713736b5b8efd2f6ea}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Clear\+Stat@{Clear\+Stat}}
+\index{Clear\+Stat@{Clear\+Stat}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Clear\+Stat}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Clear\+Stat (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a608a3c62caea2e713736b5b8efd2f6ea}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a7e13a627c4b748b2a897e5cfb314f0a2}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Filter\+S\+P@{Filter\+S\+P}}
+\index{Filter\+S\+P@{Filter\+S\+P}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Filter\+S\+P}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Filter\+S\+P (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{p}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a7e13a627c4b748b2a897e5cfb314f0a2}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a900848dc88ad3445296cbd72c467875c}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Filter\+S\+Psse@{Filter\+S\+Psse}}
+\index{Filter\+S\+Psse@{Filter\+S\+Psse}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Filter\+S\+Psse}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Filter\+S\+Psse (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{p}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a900848dc88ad3445296cbd72c467875c}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a157eaab33c9c5c2a157b458a4a0eb1f4}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Get\+Sum\+Ptr@{Get\+Sum\+Ptr}}
+\index{Get\+Sum\+Ptr@{Get\+Sum\+Ptr}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Get\+Sum\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}float $\ast$ C\+V\+I\+Engine\+Thread\+::\+Get\+Sum\+Ptr (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Sum, }
+\item[{bool}]{b\+Mode\+B}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a157eaab33c9c5c2a157b458a4a0eb1f4}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_ac9185cf585d0d141ccd42b7891020776}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Get\+Sum\+Ptr\+I@{Get\+Sum\+Ptr\+I}}
+\index{Get\+Sum\+Ptr\+I@{Get\+Sum\+Ptr\+I}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Get\+Sum\+Ptr\+I}]{\setlength{\rightskip}{0pt plus 5cm}short $\ast$ C\+V\+I\+Engine\+Thread\+::\+Get\+Sum\+Ptr\+I (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Sum, }
+\item[{bool}]{b\+Mode\+B}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_ac9185cf585d0d141ccd42b7891020776}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a8bd3c1702025f3db9b6e29c2dcb2b264}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Init@{Init}}
+\index{Init@{Init}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Init}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a8bd3c1702025f3db9b6e29c2dcb2b264}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a85ffa17426e02ff2d5b03c5f37a1b0f8}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Is\+Mode\+A@{Is\+Mode\+A}}
+\index{Is\+Mode\+A@{Is\+Mode\+A}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Is\+Mode\+A}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Thread\+::\+Is\+Mode\+A (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_c_v_i_engine_thread_a85ffa17426e02ff2d5b03c5f37a1b0f8}
+
+
+Вычисление признака работы в режиме A согласно списку допустимых значений переменной res 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_v_i_engine_thread_a4bbe730e3cd1bdadb1da99cce23fa8db}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Is\+Mode\+B@{Is\+Mode\+B}}
+\index{Is\+Mode\+B@{Is\+Mode\+B}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Is\+Mode\+B}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Thread\+::\+Is\+Mode\+B (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{class_c_v_i_engine_thread_a4bbe730e3cd1bdadb1da99cce23fa8db}
+
+
+Признак режима B Расситывается как отрицание признака режима A 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_v_i_engine_thread_a24ed1bd13eea28048ed010e65697e578}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Main@{Main}}
+\index{Main@{Main}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Main}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}}\label{class_c_v_i_engine_thread_a24ed1bd13eea28048ed010e65697e578}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a5c5e1e4c1a32d38b39af4547ed4b5827}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Aura\+Color\+A@{Make\+Aura\+Color\+A}}
+\index{Make\+Aura\+Color\+A@{Make\+Aura\+Color\+A}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Aura\+Color\+A}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Thread\+::\+Make\+Aura\+Color\+A (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Sum, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a5c5e1e4c1a32d38b39af4547ed4b5827}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a6194597cfb410aaa4a3b291f9dbe13cd}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Aura\+Stat@{Make\+Aura\+Stat}}
+\index{Make\+Aura\+Stat@{Make\+Aura\+Stat}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Aura\+Stat}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Aura\+Stat (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Sum, }
+\item[{bool}]{b\+Mode\+B}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a6194597cfb410aaa4a3b291f9dbe13cd}
+
+
+
+
+проход 1
+
+проход 2 \hypertarget{class_c_v_i_engine_thread_ac5a7ba8ea2d72478af174b471d73fd5c}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Aura\+Stat\+Hist@{Make\+Aura\+Stat\+Hist}}
+\index{Make\+Aura\+Stat\+Hist@{Make\+Aura\+Stat\+Hist}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Aura\+Stat\+Hist}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Aura\+Stat\+Hist (
+\begin{DoxyParamCaption}
+\item[{A\+U\+R\+A\+\_\+\+S\+T\+A\+T \&}]{stat}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_ac5a7ba8ea2d72478af174b471d73fd5c}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a83784b07cdfcd4f006fbfa41aacd4d86}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Aura\+Stat\+Transform@{Make\+Aura\+Stat\+Transform}}
+\index{Make\+Aura\+Stat\+Transform@{Make\+Aura\+Stat\+Transform}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Aura\+Stat\+Transform}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Aura\+Stat\+Transform (
+\begin{DoxyParamCaption}
+\item[{A\+U\+R\+A\+\_\+\+S\+T\+A\+T \&}]{stat}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a83784b07cdfcd4f006fbfa41aacd4d86}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a138c31012cd6924325231acdd4fbba49}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Aura\+V6@{Make\+Aura\+V6}}
+\index{Make\+Aura\+V6@{Make\+Aura\+V6}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Aura\+V6}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Aura\+V6 (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Sum, }
+\item[{bool}]{b\+Mode\+B}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a138c31012cd6924325231acdd4fbba49}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a77e3066544a8804d4cc5250ac9f4c54b}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Int\+Result@{Make\+Int\+Result}}
+\index{Make\+Int\+Result@{Make\+Int\+Result}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Int\+Result}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Int\+Result (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{pf, }
+\item[{short $\ast$}]{pi, }
+\item[{{\bf mmx\+\_\+array}$<$ float $>$ \&}]{h\+X, }
+\item[{{\bf mmx\+\_\+array}$<$ float $>$ \&}]{h\+Y, }
+\item[{int}]{w, }
+\item[{int}]{h}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a77e3066544a8804d4cc5250ac9f4c54b}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_ae6cccc248ff3e63ee357ec6453f2ce4b}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Aura\+Draw@{Make\+Result\+Aura\+Draw}}
+\index{Make\+Result\+Aura\+Draw@{Make\+Result\+Aura\+Draw}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+Aura\+Draw}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Aura\+Draw (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{D\+W\+O\+R\+D $\ast$}]{img\+Res, }
+\item[{int}]{r\+Mode}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_ae6cccc248ff3e63ee357ec6453f2ce4b}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a61e44ad37880d66e07855e751b67d9d3}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Aura\+Draw\+Mix@{Make\+Result\+Aura\+Draw\+Mix}}
+\index{Make\+Result\+Aura\+Draw\+Mix@{Make\+Result\+Aura\+Draw\+Mix}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+Aura\+Draw\+Mix}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Aura\+Draw\+Mix (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{D\+W\+O\+R\+D $\ast$}]{img\+Res, }
+\item[{int}]{r\+Mode}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a61e44ad37880d66e07855e751b67d9d3}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_ab6c4ea18d353a7dc00aa1698c379afde}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Delta@{Make\+Result\+Delta}}
+\index{Make\+Result\+Delta@{Make\+Result\+Delta}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+Delta}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Delta (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_ab6c4ea18d353a7dc00aa1698c379afde}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a36b1ea71981bd36fa9545fa68e98e78b}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Src@{Make\+Result\+Src}}
+\index{Make\+Result\+Src@{Make\+Result\+Src}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+Src}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Src (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a36b1ea71981bd36fa9545fa68e98e78b}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a3df2d213ef88168193cabc7a6bad8c6c}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Src24@{Make\+Result\+Src24}}
+\index{Make\+Result\+Src24@{Make\+Result\+Src24}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+Src24}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Src24 (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a3df2d213ef88168193cabc7a6bad8c6c}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a30b43140ec42578567286895a960cb4f}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Src8@{Make\+Result\+Src8}}
+\index{Make\+Result\+Src8@{Make\+Result\+Src8}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+Src8}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Src8 (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a30b43140ec42578567286895a960cb4f}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a02bac0a7df7e985164b867ea3433bb40}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+V\+I@{Make\+Result\+V\+I}}
+\index{Make\+Result\+V\+I@{Make\+Result\+V\+I}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+V\+I}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+V\+I (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a02bac0a7df7e985164b867ea3433bb40}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_abf2a40038d465ccb943072431774c6ae}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+V\+I\+Draw@{Make\+Result\+V\+I\+Draw}}
+\index{Make\+Result\+V\+I\+Draw@{Make\+Result\+V\+I\+Draw}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Result\+V\+I\+Draw}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+V\+I\+Draw (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{D\+W\+O\+R\+D $\ast$}]{img\+Res, }
+\item[{int}]{r\+Mode}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_abf2a40038d465ccb943072431774c6ae}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a6b428d3d881e10a03902dbf16742084e}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Summ\+Ptr@{Make\+Summ\+Ptr}}
+\index{Make\+Summ\+Ptr@{Make\+Summ\+Ptr}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Summ\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Summ\+Ptr (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{{\bf C\+V\+I\+Engine\+Thread\+::\+S\+U\+M\+M\+\_\+\+P\+T\+R} $\ast$}]{p\+Summ}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_a6b428d3d881e10a03902dbf16742084e}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a6e69080c6da14f8bb61c0615180bd088}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Sum\+Stat@{Make\+Sum\+Stat}}
+\index{Make\+Sum\+Stat@{Make\+Sum\+Stat}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Make\+Sum\+Stat}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Sum\+Stat (
+\begin{DoxyParamCaption}
+\item[{int}]{n\+Sum, }
+\item[{{\bf S\+U\+M\+M\+\_\+\+P\+T\+R} \&}]{S}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_thread_a6e69080c6da14f8bb61c0615180bd088}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_aa9882f7bd24457ef387daf9b878d9e36}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Add\+F@{On\+Event\+Add\+F}}
+\index{On\+Event\+Add\+F@{On\+Event\+Add\+F}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Add\+F}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Add\+F (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_aa9882f7bd24457ef387daf9b878d9e36}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a5631fcb6ffa27a49f369ae01473862a2}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Aura@{On\+Event\+Aura}}
+\index{On\+Event\+Aura@{On\+Event\+Aura}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Aura}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Aura (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_a5631fcb6ffa27a49f369ae01473862a2}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_ae5c43326cf2db88c2233f60412113e14}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Delta@{On\+Event\+Delta}}
+\index{On\+Event\+Delta@{On\+Event\+Delta}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Delta}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Delta (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_ae5c43326cf2db88c2233f60412113e14}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a59da3179cc28387c9ebe468cdb33bcb1}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Result@{On\+Event\+Result}}
+\index{On\+Event\+Result@{On\+Event\+Result}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Result}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Result (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_a59da3179cc28387c9ebe468cdb33bcb1}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_aa6eb58239fd138860ec06da35715ab9f}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Sum\+Filter@{On\+Event\+Sum\+Filter}}
+\index{On\+Event\+Sum\+Filter@{On\+Event\+Sum\+Filter}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Sum\+Filter}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Sum\+Filter (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_aa6eb58239fd138860ec06da35715ab9f}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_ac41086d9d426c39ce9a5ab78bdff6f8d}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Summ@{On\+Event\+Summ}}
+\index{On\+Event\+Summ@{On\+Event\+Summ}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Summ}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Summ (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_ac41086d9d426c39ce9a5ab78bdff6f8d}
+
+
+
+
+S\+U\+M\+M A
+
+S\+U\+M\+M B\hypertarget{class_c_v_i_engine_thread_ade67a36c8b54ee5bb4fae3dac9871274}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Sum\+Stat@{On\+Event\+Sum\+Stat}}
+\index{On\+Event\+Sum\+Stat@{On\+Event\+Sum\+Stat}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{On\+Event\+Sum\+Stat}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+On\+Event\+Sum\+Stat (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_ade67a36c8b54ee5bb4fae3dac9871274}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a45d685448f47622c68e8f78593f7b69d}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!res2n@{res2n}}
+\index{res2n@{res2n}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{res2n}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Thread\+::res2n (
+\begin{DoxyParamCaption}
+\item[{int}]{res}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{class_c_v_i_engine_thread_a45d685448f47622c68e8f78593f7b69d}
+
+
+Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res 
+
+
+\begin{DoxyParams}{Parameters}
+{\em res} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_v_i_engine_thread_ab377abdaf5512ce301f5a5f817a4ec7f}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!round@{round}}
+\index{round@{round}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{round}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Thread\+::round (
+\begin{DoxyParamCaption}
+\item[{float}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_c_v_i_engine_thread_ab377abdaf5512ce301f5a5f817a4ec7f}
+
+
+Функция преобразования числа с плавающей точкой в целое число Округление производится до ближайшего целого 
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & Число с плавающей точкой\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_v_i_engine_thread_a6ce21dad9996e7dba3b23882d010db17}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Start@{Start}}
+\index{Start@{Start}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Start}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Thread\+::\+Start (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_c_v_i_engine_thread_a6ce21dad9996e7dba3b23882d010db17}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_a5a8d55cd216084f924cd75b8ede97fc8}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Stop@{Stop}}
+\index{Stop@{Stop}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Stop}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Stop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{class_c_v_i_engine_thread_a5a8d55cd216084f924cd75b8ede97fc8}
+
+
+
+
+\hypertarget{class_c_v_i_engine_thread_abf714adf1c42385f396ebe4ff48f181c}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Thread\+Proc@{Thread\+Proc}}
+\index{Thread\+Proc@{Thread\+Proc}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
+\subsubsection[{Thread\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}D\+W\+O\+R\+D C\+V\+I\+Engine\+Thread\+::\+Thread\+Proc (
+\begin{DoxyParamCaption}
+\item[{L\+P\+V\+O\+I\+D}]{lp\+Parameter}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_abf714adf1c42385f396ebe4ff48f181c}
+
+
+
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+code/vi\+Engine\+Thread.\+h\item 
+code/vi\+Engine\+Thread.\+cpp\end{DoxyCompactItemize}
