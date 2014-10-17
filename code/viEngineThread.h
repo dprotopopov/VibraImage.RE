@@ -63,8 +63,8 @@ public:
 
     }TMP_AURA_STAT;
 public:
-    CVIEngineBase *     m_pBase;
-    CVIEngineConfig*    m_pCfg;
+    CVIEngineBase *     m_pBase; // Ссылка на общий родительский инстанс класса реализованных алгоритмов программы
+    CVIEngineConfig*    m_pCfg; // Ссылка на общий инстанс класса настроечных параметров (является членом класса CVIEngineBase)
 
     HANDLE              m_hThread; // Идентификатор потока (указатель на поток), в соответствии со способом идентмфикации параллельных потоков Windows
     DWORD               m_nId; // Номер параллельного потока
@@ -76,7 +76,7 @@ public:
     int             m_yS,m_yE;
 public:
     std::vector<TMP_STAT>   m_stat;
-    mmx_array2<float>       m_tmp;
+    mmx_array2<float>       m_tmp; // Временный двумерный массив размещаемый в видео памяти
     TMP_AURA_STAT           m_tmp_aura;
 public:
     CVIEngineThread(CVIEngineBase *pBase);
@@ -142,7 +142,7 @@ inline int CVIEngineThread::round(float v)
 }
 /// <summary>
 /// Признак режима B
-/// Расситывается как отрицание признака режима A
+/// Расчитывается как отрицание признака режима A
 /// </summary>
 /// <param name="res"></param>
 inline bool CVIEngineThread::IsModeB(int res)

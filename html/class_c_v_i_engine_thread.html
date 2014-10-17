@@ -61,7 +61,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -139,8 +138,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab377abdaf5512ce301f5a5f817a4ec7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция преобразования числа с плавающей точкой в целое число Округление производится до ближайшего целого  <a href="#ab377abdaf5512ce301f5a5f817a4ec7f">More...</a><br /></td></tr>
 <tr class="separator:ab377abdaf5512ce301f5a5f817a4ec7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a8bd3c1702025f3db9b6e29c2dcb2b264">Init</a> (void)</td></tr>
+<tr class="memdesc:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предоставленная реализация функции только устанавливает размер массива m_stat равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы. m_stat.resize(m_pBase-&gt;m_stat.size());  <a href="#a8bd3c1702025f3db9b6e29c2dcb2b264">More...</a><br /></td></tr>
 <tr class="separator:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a608a3c62caea2e713736b5b8efd2f6ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a608a3c62caea2e713736b5b8efd2f6ea">ClearStat</a> (void)</td></tr>
+<tr class="memdesc:a608a3c62caea2e713736b5b8efd2f6ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предоставленная реализация функции делает ничего  <a href="#a608a3c62caea2e713736b5b8efd2f6ea">More...</a><br /></td></tr>
 <tr class="separator:a608a3c62caea2e713736b5b8efd2f6ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36b1ea71981bd36fa9545fa68e98e78b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a36b1ea71981bd36fa9545fa68e98e78b">MakeResultSrc</a> (int res)</td></tr>
 <tr class="separator:a36b1ea71981bd36fa9545fa68e98e78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -179,6 +180,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c5e1e4c1a32d38b39af4547ed4b5827"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a5c5e1e4c1a32d38b39af4547ed4b5827">MakeAuraColorA</a> (int nSum, int x, int y)</td></tr>
 <tr class="separator:a5c5e1e4c1a32d38b39af4547ed4b5827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77e3066544a8804d4cc5250ac9f4c54b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a77e3066544a8804d4cc5250ac9f4c54b">MakeIntResult</a> (float *pf, short *pi, <a class="el" href="classmmx__array.html">mmx_array</a>&lt; float &gt; &amp;hX, <a class="el" href="classmmx__array.html">mmx_array</a>&lt; float &gt; &amp;hY, int w, int h)</td></tr>
+<tr class="memdesc:a77e3066544a8804d4cc5250ac9f4c54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой ( значений [0.0;1.0]? ) в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a77e3066544a8804d4cc5250ac9f4c54b">More...</a><br /></td></tr>
 <tr class="separator:a77e3066544a8804d4cc5250ac9f4c54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -190,7 +192,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a85ffa17426e02ff2d5b03c5f37a1b0f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление признака работы в режиме A согласно списку допустимых значений переменной res  <a href="#a85ffa17426e02ff2d5b03c5f37a1b0f8">More...</a><br /></td></tr>
 <tr class="separator:a85ffa17426e02ff2d5b03c5f37a1b0f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bbe730e3cd1bdadb1da99cce23fa8db"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a4bbe730e3cd1bdadb1da99cce23fa8db">IsModeB</a> (int res)</td></tr>
-<tr class="memdesc:a4bbe730e3cd1bdadb1da99cce23fa8db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Признак режима B Расситывается как отрицание признака режима A  <a href="#a4bbe730e3cd1bdadb1da99cce23fa8db">More...</a><br /></td></tr>
+<tr class="memdesc:a4bbe730e3cd1bdadb1da99cce23fa8db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Признак режима B Расчитывается как отрицание признака режима A  <a href="#a4bbe730e3cd1bdadb1da99cce23fa8db">More...</a><br /></td></tr>
 <tr class="separator:a4bbe730e3cd1bdadb1da99cce23fa8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -241,6 +243,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac41086d9d426c39ce9a5ab78bdff6f8d">OnEventSumm</a> (void)</td></tr>
 <tr class="separator:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59da3179cc28387c9ebe468cdb33bcb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a59da3179cc28387c9ebe468cdb33bcb1">OnEventResult</a> (void)</td></tr>
+<tr class="memdesc:a59da3179cc28387c9ebe468cdb33bcb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами у значения настроечного параметра VI_MODE_RESULT Список обрабатываемых флагов (согласно очерёдности обработки): VI_RESULT_SRC_0, VI_RESULT_SRC_A, VI_RESULT_SRC_B, VI_RESULT_VI0_A, VI_RESULT_VI0_B, VI_RESULT_VI1_A, VI_RESULT_VI1_B, VI_RESULT_VI2_A, VI_RESULT_VI2_B, VI_RESULT_DELTA_A, VI_RESULT_DELTA_A,  <a href="#a59da3179cc28387c9ebe468cdb33bcb1">More...</a><br /></td></tr>
 <tr class="separator:a59da3179cc28387c9ebe468cdb33bcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5c43326cf2db88c2233f60412113e14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ae5c43326cf2db88c2233f60412113e14">OnEventDelta</a> (void)</td></tr>
 <tr class="separator:ae5c43326cf2db88c2233f60412113e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -318,7 +321,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Предоставленная реализация функции делает ничего </p>
 
 </div>
 </div>
@@ -428,7 +431,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Предоставленная реализация функции только устанавливает размер массива m_stat равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы. m_stat.resize(m_pBase-&gt;m_stat.size()); </p>
 
 </div>
 </div>
@@ -486,7 +489,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Признак режима B Расситывается как отрицание признака режима A </p>
+<p>Признак режима B Расчитывается как отрицание признака режима A </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">res</td><td></td></tr>
@@ -697,7 +700,18 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой ( значений [0.0;1.0]? ) в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pf</td><td>Указатель на массив чисел с плавающей точкой. Вход.</td></tr>
+    <tr><td class="paramname">pi</td><td>Указатель на массив целых чисел. Выход.</td></tr>
+    <tr><td class="paramname">hX</td><td>Сумма элементов по столбцам исходного массива. Выход. Размер массива устанавливается равным ширине изображения. </td></tr>
+    <tr><td class="paramname">hY</td><td>Сумма элементов по строкам исходного массива. Выход. Размер массива устанавливается равным высоте изображения. </td></tr>
+    <tr><td class="paramname">w</td><td>Ширина изображения в пикселях</td></tr>
+    <tr><td class="paramname">h</td><td>Высота изображения в пикселях</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1057,7 +1071,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами у значения настроечного параметра VI_MODE_RESULT Список обрабатываемых флагов (согласно очерёдности обработки): VI_RESULT_SRC_0, VI_RESULT_SRC_A, VI_RESULT_SRC_B, VI_RESULT_VI0_A, VI_RESULT_VI0_B, VI_RESULT_VI1_A, VI_RESULT_VI1_B, VI_RESULT_VI2_A, VI_RESULT_VI2_B, VI_RESULT_DELTA_A, VI_RESULT_DELTA_A, </p>
 
 </div>
 </div>
@@ -1290,7 +1304,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 17 2014 05:12:18 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 17 2014 10:49:29 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

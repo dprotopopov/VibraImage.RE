@@ -1,5 +1,5 @@
-2014/10/17-04:05:45.914 54b0 Recovering log #9
-2014/10/17-04:05:45.914 54b0 Level-0 table #11: started
-2014/10/17-04:05:46.003 54b0 Level-0 table #11: 226 bytes OK
-2014/10/17-04:05:46.128 54b0 Delete type=0 #9
-2014/10/17-04:05:46.128 54b0 Delete type=3 #7
+2014/10/17-10:30:52.976 a3c Recovering log #19
+2014/10/17-10:30:52.976 a3c Level-0 table #21: started
+2014/10/17-10:30:53.101 a3c Level-0 table #21: 230 bytes OK
+2014/10/17-10:30:53.273 a3c Delete type=0 #19
+2014/10/17-10:30:53.273 a3c Delete type=3 #17

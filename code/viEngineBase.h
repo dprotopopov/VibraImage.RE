@@ -54,8 +54,9 @@ return (tmp.front()+tmp.back())/2;
 }
 
 /// <summary>
-/// Базовый класс для описания алгоритмов программы
-/// Поддерживает выполнение расчётов в многопоточной среде
+/// Базовый класс для описания алгоритмов программы.
+/// Поддерживает выполнение расчётов в многопоточной среде.
+/// В программе создаётся только один инстанс данного класса.
 /// </summary>
 class CVIEngineBase
 {
@@ -74,8 +75,8 @@ class CVIEngineBase
 
 	public:
 	int m_nThreadsRqst;
-	int m_nThreads;
-	CVIEngineThread* m_therads[8];
+	int m_nThreads; // Текущее количество паралельных потоков вычислений, т.е. текущее количество инстансов классов CVIEngineThread для управления потоками вычислений
+	CVIEngineThread* m_therads[8]; // Массив(стек) ссылок на инстансы классов для управления потоками вычислений
 	CMTCriticalSection m_locks[LVI_CNT];
 	CVIEngineEvent m_events[EVI_CNT];
 

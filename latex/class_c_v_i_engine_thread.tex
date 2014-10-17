@@ -48,9 +48,9 @@ virtual void \hyperlink{class_c_v_i_engine_thread_a5a8d55cd216084f924cd75b8ede97
 int \hyperlink{class_c_v_i_engine_thread_ab377abdaf5512ce301f5a5f817a4ec7f}{round} (float v)
 \begin{DoxyCompactList}\small\item\em Функция преобразования числа с плавающей точкой в целое число Округление производится до ближайшего целого \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_thread_a8bd3c1702025f3db9b6e29c2dcb2b264}{Init} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Предоставленная реализация функции только устанавливает размер массива m\+\_\+stat равным размеру массива m\+\_\+stat родительского инстанса класса реализованных алгоритмов программы. m\+\_\+stat.\+resize(m\+\_\+p\+Base-\/$>$m\+\_\+stat.\+size()); \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_thread_a608a3c62caea2e713736b5b8efd2f6ea}{Clear\+Stat} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Предоставленная реализация функции делает ничего \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_thread_a36b1ea71981bd36fa9545fa68e98e78b}{Make\+Result\+Src} (int res)
 \item 
 void \hyperlink{class_c_v_i_engine_thread_a30b43140ec42578567286895a960cb4f}{Make\+Result\+Src8} (int res)
@@ -88,7 +88,7 @@ void \hyperlink{class_c_v_i_engine_thread_a83784b07cdfcd4f006fbfa41aacd4d86}{Mak
 int \hyperlink{class_c_v_i_engine_thread_a5c5e1e4c1a32d38b39af4547ed4b5827}{Make\+Aura\+Color\+A} (int n\+Sum, int x, int y)
 \item 
 void \hyperlink{class_c_v_i_engine_thread_a77e3066544a8804d4cc5250ac9f4c54b}{Make\+Int\+Result} (float $\ast$pf, short $\ast$pi, \hyperlink{classmmx__array}{mmx\+\_\+array}$<$ float $>$ \&h\+X, \hyperlink{classmmx__array}{mmx\+\_\+array}$<$ float $>$ \&h\+Y, int w, int h)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Массовая операция конвертации элементов друхмерного массива 4-\/х байтных чисел с плавающей точкой ( значений \mbox{[}0.\+0;1.\+0\mbox{]}? ) в двухмерный массив целых 4-\/х байтных чисел \mbox{[}0;255\mbox{]} с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-\/м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей S\+S\+E Каждый пискель в видеопамяти состоит из 4-\/х регистров R\+G\+B\+A, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология S\+S\+E уже является устаревшей. Современные видеокарты N\+V\+I\+D\+I\+A поддерживают технологию C\+U\+D\+A, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было -\/ чудес не бывает. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -97,7 +97,7 @@ static int \hyperlink{class_c_v_i_engine_thread_a45d685448f47622c68e8f78593f7b69
 static bool \hyperlink{class_c_v_i_engine_thread_a85ffa17426e02ff2d5b03c5f37a1b0f8}{Is\+Mode\+A} (int res)
 \begin{DoxyCompactList}\small\item\em Вычисление признака работы в режиме A согласно списку допустимых значений переменной res \end{DoxyCompactList}\item 
 static bool \hyperlink{class_c_v_i_engine_thread_a4bbe730e3cd1bdadb1da99cce23fa8db}{Is\+Mode\+B} (int res)
-\begin{DoxyCompactList}\small\item\em Признак режима B Расситывается как отрицание признака режима A \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Признак режима B Расчитывается как отрицание признака режима A \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -147,7 +147,7 @@ void \hyperlink{class_c_v_i_engine_thread_aa9882f7bd24457ef387daf9b878d9e36}{On\
 void \hyperlink{class_c_v_i_engine_thread_ac41086d9d426c39ce9a5ab78bdff6f8d}{On\+Event\+Summ} (void)
 \item 
 void \hyperlink{class_c_v_i_engine_thread_a59da3179cc28387c9ebe468cdb33bcb1}{On\+Event\+Result} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами у значения настроечного параметра V\+I\+\_\+\+M\+O\+D\+E\+\_\+\+R\+E\+S\+U\+L\+T Список обрабатываемых флагов (согласно очерёдности обработки)\+: V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+0, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+A, \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_thread_ae5c43326cf2db88c2233f60412113e14}{On\+Event\+Delta} (void)
 \item 
 void \hyperlink{class_c_v_i_engine_thread_a5631fcb6ffa27a49f369ae01473862a2}{On\+Event\+Aura} (void)
@@ -210,7 +210,7 @@ static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_thread_abf71
 )}}\label{class_c_v_i_engine_thread_a608a3c62caea2e713736b5b8efd2f6ea}
 
 
-
+Предоставленная реализация функции делает ничего 
 
 \hypertarget{class_c_v_i_engine_thread_a7e13a627c4b748b2a897e5cfb314f0a2}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Filter\+S\+P@{Filter\+S\+P}}
 \index{Filter\+S\+P@{Filter\+S\+P}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
@@ -267,7 +267,7 @@ static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_thread_abf71
 )}}\label{class_c_v_i_engine_thread_a8bd3c1702025f3db9b6e29c2dcb2b264}
 
 
-
+Предоставленная реализация функции только устанавливает размер массива m\+\_\+stat равным размеру массива m\+\_\+stat родительского инстанса класса реализованных алгоритмов программы. m\+\_\+stat.\+resize(m\+\_\+p\+Base-\/$>$m\+\_\+stat.\+size()); 
 
 \hypertarget{class_c_v_i_engine_thread_a85ffa17426e02ff2d5b03c5f37a1b0f8}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Is\+Mode\+A@{Is\+Mode\+A}}
 \index{Is\+Mode\+A@{Is\+Mode\+A}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
@@ -294,7 +294,7 @@ static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_thread_abf71
 )\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{class_c_v_i_engine_thread_a4bbe730e3cd1bdadb1da99cce23fa8db}
 
 
-Признак режима B Расситывается как отрицание признака режима A 
+Признак режима B Расчитывается как отрицание признака режима A 
 
 
 \begin{DoxyParams}{Parameters}
@@ -387,8 +387,23 @@ static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_thread_abf71
 )}}\label{class_c_v_i_engine_thread_a77e3066544a8804d4cc5250ac9f4c54b}
 
 
+Массовая операция конвертации элементов друхмерного массива 4-\/х байтных чисел с плавающей точкой ( значений \mbox{[}0.\+0;1.\+0\mbox{]}? ) в двухмерный массив целых 4-\/х байтных чисел \mbox{[}0;255\mbox{]} с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-\/м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей S\+S\+E Каждый пискель в видеопамяти состоит из 4-\/х регистров R\+G\+B\+A, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология S\+S\+E уже является устаревшей. Современные видеокарты N\+V\+I\+D\+I\+A поддерживают технологию C\+U\+D\+A, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было -\/ чудес не бывает. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em pf} & Указатель на массив чисел с плавающей точкой. Вход.\\
+\hline
+{\em pi} & Указатель на массив целых чисел. Выход.\\
+\hline
+{\em h\+X} & Сумма элементов по столбцам исходного массива. Выход. Размер массива устанавливается равным ширине изображения. \\
+\hline
+{\em h\+Y} & Сумма элементов по строкам исходного массива. Выход. Размер массива устанавливается равным высоте изображения. \\
+\hline
+{\em w} & Ширина изображения в пикселях\\
+\hline
+{\em h} & Высота изображения в пикселях\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_thread_ae6cccc248ff3e63ee357ec6453f2ce4b}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!Make\+Result\+Aura\+Draw@{Make\+Result\+Aura\+Draw}}
 \index{Make\+Result\+Aura\+Draw@{Make\+Result\+Aura\+Draw}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}
 \subsubsection[{Make\+Result\+Aura\+Draw}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Thread\+::\+Make\+Result\+Aura\+Draw (
@@ -549,7 +564,7 @@ static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_thread_abf71
 )\hspace{0.3cm}{\ttfamily [protected]}}}\label{class_c_v_i_engine_thread_a59da3179cc28387c9ebe468cdb33bcb1}
 
 
-
+Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами у значения настроечного параметра V\+I\+\_\+\+M\+O\+D\+E\+\_\+\+R\+E\+S\+U\+L\+T Список обрабатываемых флагов (согласно очерёдности обработки)\+: V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+0, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+B, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+A, V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+A, 
 
 \hypertarget{class_c_v_i_engine_thread_aa6eb58239fd138860ec06da35715ab9f}{\index{C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}!On\+Event\+Sum\+Filter@{On\+Event\+Sum\+Filter}}
 \index{On\+Event\+Sum\+Filter@{On\+Event\+Sum\+Filter}!C\+V\+I\+Engine\+Thread@{C\+V\+I\+Engine\+Thread}}

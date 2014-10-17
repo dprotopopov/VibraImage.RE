@@ -1,5 +1,5 @@
-2014/10/17-01:09:18.095 54b0 Recovering log #6
-2014/10/17-01:09:18.095 54b0 Level-0 table #8: started
-2014/10/17-01:09:18.149 54b0 Level-0 table #8: 2787 bytes OK
-2014/10/17-01:09:18.240 54b0 Delete type=0 #6
-2014/10/17-01:09:18.240 54b0 Delete type=3 #4
+2014/10/17-09:17:58.298 54b0 Recovering log #15
+2014/10/17-09:17:58.298 54b0 Level-0 table #18: started
+2014/10/17-09:17:58.376 54b0 Level-0 table #18: 472 bytes OK
+2014/10/17-09:17:58.501 54b0 Delete type=0 #15
+2014/10/17-09:17:58.501 54b0 Delete type=3 #13

@@ -76,8 +76,10 @@
     <ClCompile Include="mmx_array.cpp" />
     <ClCompile Include="mmx_array2.cpp" />
     <ClCompile Include="MTSingleLock.cpp" />
+    <ClCompile Include="PointSSE.cpp" />
     <ClCompile Include="VIEngineConfig.cpp" />
     <ClCompile Include="VIEngineEvent.cpp" />
+    <ClCompile Include="VITimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\code\viEngineBase.h" />
@@ -85,8 +87,10 @@
     <ClInclude Include="mmx_array.h" />
     <ClInclude Include="mmx_array2.h" />
     <ClInclude Include="MTSingleLock.h" />
+    <ClInclude Include="PointSSE.h" />
     <ClInclude Include="VIEngineConfig.h" />
     <ClInclude Include="VIEngineEvent.h" />
+    <ClInclude Include="VITimer.h" />
     <ClInclude Include="VI_RESULT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

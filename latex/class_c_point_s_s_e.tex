@@ -1,0 +1,161 @@
+\hypertarget{class_c_point_s_s_e}{\section{C\+Point\+S\+S\+E Class Reference}
+\label{class_c_point_s_s_e}\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+}
+
+
+Структура для работы с пикселем в видеопамяти по технологии S\+S\+E. Каждый пискель в видеопамяти является блоком из 4-\/х регистров для обработки 4-\/х каналов сигнала R\+G\+B\+A. Которые могут записыватся и считыватся в-\/из видеопамять из-\/в ОЗУ как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти применяют аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно, либо при выполнении сложения-\/умножения. То есть достаточно записать в регистры видеопамятм 4 числа с плавающей точкой, а потом считать эти же 4 числа как целые. Реальный способ представления данных в видеопамяти определяет производитель оборудования, и как правило это хранение мантисы из диапазона \mbox{[}0.\+0;1.\+0\mbox{]}. При этом одновременно при чтении-\/запииси может производится умножение-\/деление на некоторую величину хранящуюся в системном регистре видеокарты. Технология S\+S\+E уже является устаревшей. Современные видеокарты N\+V\+I\+D\+I\+A поддерживают технологию C\+U\+D\+A, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было -\/ чудес не бывает.  
+
+
+
+
+{\ttfamily \#include $<$Point\+S\+S\+E.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_point_s_s_e_ade2da0d5d55a42f93b516b351da78bcc}{C\+Point\+S\+S\+E} ()
+\begin{DoxyCompactList}\small\item\em Инициализация регистра видеопамяти \end{DoxyCompactList}\item 
+\hyperlink{class_c_point_s_s_e_abd611f212d90b86e7d64e35ed0028b23}{C\+Point\+S\+S\+E} (float value)
+\item 
+void \hyperlink{class_c_point_s_s_e_a8a516dcceb3bf62c514b98161fbee9e8}{set0} ()
+\begin{DoxyCompactList}\small\item\em Установка значений регистров видеопамяти в нулевое значение \end{DoxyCompactList}\item 
+void \hyperlink{class_c_point_s_s_e_aaf16570e1b45b827b2daf5cc7a72e1b5}{limit\+\_\+hi} (\hyperlink{class_c_point_s_s_e}{C\+Point\+S\+S\+E} value)
+\begin{DoxyCompactList}\small\item\em Задание умножающего-\/делящего коэффициента при чтении-\/записи из-\/в видеопамять из-\/в ОЗУ \end{DoxyCompactList}\item 
+void \hyperlink{class_c_point_s_s_e_a350aeb352b3d2bc72ca55be04f1efd09}{export2c} (float $\ast$ph)
+\begin{DoxyCompactList}\small\item\em пересялка 16 байт из видеопамяти в память ОЗУ \end{DoxyCompactList}\item 
+void \hyperlink{class_c_point_s_s_e_a852d887d77c016dd40e8ab17a2b80c08}{operator=} (float $\ast$ph)
+\begin{DoxyCompactList}\small\item\em Запись 16 байт из ОЗУ в видеопамять \end{DoxyCompactList}\item 
+void \hyperlink{class_c_point_s_s_e_a6ebb1e404c03632ddf217fae1853c61e}{operator+=} (\hyperlink{class_c_point_s_s_e}{C\+Point\+S\+S\+E} p)
+\begin{DoxyCompactList}\small\item\em Прибавление к данному блоку-\/пикселю из 4 регистров в видеопамяти значений из другого блока из 4-\/х регистров в видеопамяти \end{DoxyCompactList}\item 
+float \hyperlink{class_c_point_s_s_e_af4363118542095ec40ee22933cbb99d6}{sum} ()
+\begin{DoxyCompactList}\small\item\em Суммирование значений 4-\/х регистров одного блока-\/пикселя и возврат результата в виде числа с плавающей точкой \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Структура для работы с пикселем в видеопамяти по технологии S\+S\+E. Каждый пискель в видеопамяти является блоком из 4-\/х регистров для обработки 4-\/х каналов сигнала R\+G\+B\+A. Которые могут записыватся и считыватся в-\/из видеопамять из-\/в ОЗУ как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти применяют аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно, либо при выполнении сложения-\/умножения. То есть достаточно записать в регистры видеопамятм 4 числа с плавающей точкой, а потом считать эти же 4 числа как целые. Реальный способ представления данных в видеопамяти определяет производитель оборудования, и как правило это хранение мантисы из диапазона \mbox{[}0.\+0;1.\+0\mbox{]}. При этом одновременно при чтении-\/запииси может производится умножение-\/деление на некоторую величину хранящуюся в системном регистре видеокарты. Технология S\+S\+E уже является устаревшей. Современные видеокарты N\+V\+I\+D\+I\+A поддерживают технологию C\+U\+D\+A, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было -\/ чудес не бывает. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_point_s_s_e_ade2da0d5d55a42f93b516b351da78bcc}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{C\+Point\+S\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::\+C\+Point\+S\+S\+E (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_ade2da0d5d55a42f93b516b351da78bcc}
+
+
+Инициализация регистра видеопамяти 
+
+\hypertarget{class_c_point_s_s_e_abd611f212d90b86e7d64e35ed0028b23}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{C\+Point\+S\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::\+C\+Point\+S\+S\+E (
+\begin{DoxyParamCaption}
+\item[{float}]{value}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_abd611f212d90b86e7d64e35ed0028b23}
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & Значение для инициализации\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_point_s_s_e_a350aeb352b3d2bc72ca55be04f1efd09}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!export2c@{export2c}}
+\index{export2c@{export2c}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{export2c}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::export2c (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{ph}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_a350aeb352b3d2bc72ca55be04f1efd09}
+
+
+пересялка 16 байт из видеопамяти в память ОЗУ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ph} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_point_s_s_e_aaf16570e1b45b827b2daf5cc7a72e1b5}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!limit\+\_\+hi@{limit\+\_\+hi}}
+\index{limit\+\_\+hi@{limit\+\_\+hi}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{limit\+\_\+hi}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::limit\+\_\+hi (
+\begin{DoxyParamCaption}
+\item[{{\bf C\+Point\+S\+S\+E}}]{value}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_aaf16570e1b45b827b2daf5cc7a72e1b5}
+
+
+Задание умножающего-\/делящего коэффициента при чтении-\/записи из-\/в видеопамять из-\/в ОЗУ 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_point_s_s_e_a6ebb1e404c03632ddf217fae1853c61e}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{operator+=}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::operator+= (
+\begin{DoxyParamCaption}
+\item[{{\bf C\+Point\+S\+S\+E}}]{p}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_a6ebb1e404c03632ddf217fae1853c61e}
+
+
+Прибавление к данному блоку-\/пикселю из 4 регистров в видеопамяти значений из другого блока из 4-\/х регистров в видеопамяти 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_point_s_s_e_a852d887d77c016dd40e8ab17a2b80c08}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!operator=@{operator=}}
+\index{operator=@{operator=}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::operator= (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{ph}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_a852d887d77c016dd40e8ab17a2b80c08}
+
+
+Запись 16 байт из ОЗУ в видеопамять 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ph} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_point_s_s_e_a8a516dcceb3bf62c514b98161fbee9e8}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!set0@{set0}}
+\index{set0@{set0}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{set0}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::set0 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_a8a516dcceb3bf62c514b98161fbee9e8}
+
+
+Установка значений регистров видеопамяти в нулевое значение 
+
+\hypertarget{class_c_point_s_s_e_af4363118542095ec40ee22933cbb99d6}{\index{C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}!sum@{sum}}
+\index{sum@{sum}!C\+Point\+S\+S\+E@{C\+Point\+S\+S\+E}}
+\subsubsection[{sum}]{\setlength{\rightskip}{0pt plus 5cm}C\+Point\+S\+S\+E\+::sum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_point_s_s_e_af4363118542095ec40ee22933cbb99d6}
+
+
+Суммирование значений 4-\/х регистров одного блока-\/пикселя и возврат результата в виде числа с плавающей точкой 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vibra\+Image/Point\+S\+S\+E.\+h\item 
+Vibra\+Image/Point\+S\+S\+E.\+cpp\end{DoxyCompactItemize}

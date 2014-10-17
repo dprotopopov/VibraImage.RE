@@ -381,6 +381,20 @@ void CVIEngineThread::OnEventSumm(void)
 
 
 /// <summary>
+/// Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами 
+/// у значения настроечного параметра VI_MODE_RESULT
+/// Список обрабатываемых флагов (согласно очерёдности обработки):
+///		VI_RESULT_SRC_0,
+///		VI_RESULT_SRC_A,
+///		VI_RESULT_SRC_B,
+///		VI_RESULT_VI0_A,
+///		VI_RESULT_VI0_B,
+///		VI_RESULT_VI1_A,
+///		VI_RESULT_VI1_B,
+///		VI_RESULT_VI2_A,
+///		VI_RESULT_VI2_B,
+///		VI_RESULT_DELTA_A,
+///		VI_RESULT_DELTA_A,
 /// </summary>
 void CVIEngineThread::OnEventResult(void)
 {
@@ -490,6 +504,9 @@ void CVIEngineThread::MakeSummPtr(int n, CVIEngineThread::SUMM_PTR* pSumm)
 
 
 /// <summary>
+/// Предоставленная реализация функции только устанавливает размер массива m_stat
+/// равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы.
+/// m_stat.resize(m_pBase->m_stat.size());
 /// </summary>
 /// <param name=""></param>
 void CVIEngineThread::Init(void)
@@ -503,8 +520,8 @@ void CVIEngineThread::Init(void)
 }
 
 /// <summary>
+/// Предоставленная реализация функции делает ничего
 /// </summary>
-/// <param name=""></param>
 void CVIEngineThread::ClearStat(void)
 {
     for(UINT k = 0; k < m_stat.size(); ++k)
@@ -1712,50 +1729,86 @@ bool CVIEngineThread::IsModeA(int res)
 }
 
 /// <summary>
+/// Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой ( значений [0.0;1.0]? )
+/// в двухмерный массив целых 4-х байтных чисел [0;255] с округлением,
+/// и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива.
+/// Количество элементов в строке исходного массива должно быть кратно 4-м.
+/// Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE
+/// Каждый пискель в видеопамяти состоит из 4-х регистров RGBA,
+/// которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой.
+/// Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно.
+/// То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые.
+/// Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах.
+/// Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга.
+/// Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает.
 /// </summary>
-/// <param name=""></param>
+/// <param name="pf">Указатель на массив чисел с плавающей точкой. Вход.</param>
+/// <param name="pi">Указатель на массив целых чисел. Выход.</param>
+/// <param name="hX">
+/// Сумма элементов по столбцам исходного массива. Выход.
+/// Размер массива устанавливается равным ширине изображения.
+/// </param>
+/// <param name="hY">
+/// Сумма элементов по строкам исходного массива. Выход.
+/// Размер массива устанавливается равным высоте изображения.
+/// </param>
+/// <param name="w">Ширина изображения в пикселях</param>
+/// <param name="h">Высота изображения в пикселях</param>
 void CVIEngineThread::MakeIntResult(float * pf, short * pi,
                                     mmx_array<float>& hX, mmx_array<float>& hY, int w, int h)
 {
-    CPointSSE v255(255.0f);
+    CPointSSE v255(255.0f); // Переменная в видеопамяти, состоящая из 4-х регистров.
     CPointSSE v,vx,vy;
 
     hX.resize(w,true);
     hY.resize(h,false);
 
-
+	// Изменение размера временного массива под размер текущего обрабатываемого монохромного изображения
     if(m_tmp.w != w || m_tmp.h != h)
         m_tmp.resize(w,h,false);
 
-    float *psy = m_tmp.p;
+    float *psy = m_tmp.p; // Получения указателя на элементы временного массива
 
-    for(int y = 0; y < h; ++y)
+    for(int y = 0; y < h; ++y) // Цикл по строкам изображения
     {
-        float *phx = hX.p;
-        vy.set0();
+        float *phx = hX.p; // Получение ссылки на массив элементов с количеством равным ширине изображения
+        vy.set0(); // Присвоение переменной значения нуля. Присвоение значения нуля происходит одновременно в 4-х регистрах
 
-        for(int x = 0; x < w; x+=4)
+        for(int x = 0; x < w; x+=4) // Цикл по элементам строки изображения
         {
-            v = pf;
-            v.limit_hi(v255);
+            v = pf; // Присвоение текущего значения указателя. Присвоение значений происходит одновременно в 4-х регистрах
+            v.limit_hi(v255); // Указание, что значения [0.0;1.0] у 4-х регистров видеопамяти должны умножатся на 255 при преобразрвании к целому, то есть к диапазону [0;255]
 
-            vx = phx;
-            vx += v;
-            vx.export2c(phx);
+			vx = phx; // Присвоение текущего значения по указателю. Присвоение значений происходит одновременно в 4-х регистрах
+			vx += v; // Прибавление текущего значения. Прибавление значений происходит одновременно в 4-х регистрах
+            vx.export2c(phx); // Сохранение вычисленных знвчений. Сохранение значений происходит одновременно в 4-х регистрах
 
-            vy += v;
+            vy += v; // Накопление суммы. Суммирование происходит одновременно в 4-х регистрах
 
+			// Нижеследующий блок является одновременной конвертацией сразу 4-х чисел с плавающей точкой в 4 целях числа
+			// Как правило, при равных мощностях ЦП и видеокарты, вычисления с плавающей точкой являются более долгой операцией 
+			// на процессоре и данная техника позволяет ускорить вычисления с помощью видеокарты
+
+			// The __m64 data type is for use with the MMX and 3DNow! intrinsics, and is defined in xmmintrin.h.
+			// You should not access the __m64 fields directly. You can, however, see these types in the debugger. A variable of type __m64 maps to the MM[0-7] registers.
+			// Variables of type _m64 are automatically aligned on 8 - byte boundaries.
+			// The __m64 data type is not supported on x64 processors.Applications that use __m64 as part of MMX intrinsics must be rewritten to use equivalent SSE and SSE2 intrinsics.
+			// http://msdn.microsoft.com/en-us/library/08x3t697.aspx
+			// Converts the four single-precision, floating-point values in a to four signed 16-bit integer values.
+			// http://msdn.microsoft.com/en-us/library/yk5x06zy(v=vs.90).aspx
             __m64 i = _mm_cvtps_pi16(v.p);
             (*(ULONGLONG*)pi) = i.m64_u64;
 
             pf += 4;
-            pi += 4;
-            phx += 4;
+			pi += 4; 
+			phx += 4; // Смещение указателя на 4 элемента == переходу к обработке следующих 4-х элемента строки изображения
         }
 
-        vy.export2c(psy + (y<<2));
+        vy.export2c(psy + (y<<2)); // Сохранение накопленной суммы по соответствующему адресу массива m_tmp
     }
 
+	// Empties the multimedia state.
+	// http://msdn.microsoft.com/en-us/library/6303a3sf(v=vs.90).aspx
     _mm_empty();
 
     {
@@ -1771,5 +1824,7 @@ void CVIEngineThread::MakeIntResult(float * pf, short * pi,
         }
     }
 
-    _mm_empty();
+	// Empties the multimedia state.
+	// http://msdn.microsoft.com/en-us/library/6303a3sf(v=vs.90).aspx
+	_mm_empty();
 }
