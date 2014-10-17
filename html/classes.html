@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -84,22 +84,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">Class Index</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="qindex"><a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_T">T</a></div>
+<div class="qindex"><a class="qindex" href="#letter_A">A</a>&#160;|&#160;<a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_I">I</a>&#160;|&#160;<a class="qindex" href="#letter_L">L</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_S">S</a>&#160;|&#160;<a class="qindex" href="#letter_T">T</a></div>
 <table style="margin: 10px; white-space: nowrap;" align="center" width="95%" border="0" cellspacing="0" cellpadding="0">
-<tr><td rowspan="2" valign="bottom"><a name="letter_C"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;C&#160;&#160;</div></td></tr></table>
-</td><td valign="top"><a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_c_v_i_timer.html">CVITimer</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t.html">CVIEngineThread::tagTMP_AURA_STAT</a>&#160;&#160;&#160;</td></tr>
-<tr><td valign="top"><a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a>&#160;&#160;&#160;</td><td rowspan="2" valign="bottom"><a name="letter_m"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;m&#160;&#160;</div></td></tr></table>
-</td><td rowspan="2" valign="bottom"><a name="letter_t"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;t&#160;&#160;</div></td></tr></table>
+<tr><td rowspan="2" valign="bottom"><a name="letter_A"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;A&#160;&#160;</div></td></tr></table>
+</td><td valign="top"><a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a>&#160;&#160;&#160;</td><td rowspan="2" valign="bottom"><a name="letter_S"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;S&#160;&#160;</div></td></tr></table>
+</td><td rowspan="2" valign="bottom"><a name="letter_m"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;m&#160;&#160;</div></td></tr></table>
 </td><td valign="top"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html">CVIEngineThread::tagTMP_STAT</a>&#160;&#160;&#160;</td></tr>
-<tr><td valign="top"><a class="el" href="class_c_m_t_single_lock.html">CMTSingleLock</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;&#160;&#160;</td><td></td></tr>
-<tr><td valign="top"><a class="el" href="class_c_point_s_s_e.html">CPointSSE</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_c_v_i_engine_thread.html">CVIEngineThread</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="classmmx__array.html">mmx_array</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r.html">CVIEngineThread::tagSUMM_PTR</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_s_u_m___i_m_g.html">SUM_IMG</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="classmmx__array.html">mmx_array</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_a_u_r_a___s_t_a_t___l_i_n_e.html">AURA_STAT_LINE</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_c_v_i_engine_simple.html">CVIEngineSimple</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td rowspan="2" valign="bottom"><a name="letter_C"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;C&#160;&#160;</div></td></tr></table>
+</td><td valign="top"><a class="el" href="class_c_v_i_engine_thread.html">CVIEngineThread</a>&#160;&#160;&#160;</td><td rowspan="2" valign="bottom"><a name="letter_i"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;i&#160;&#160;</div></td></tr></table>
+</td><td rowspan="2" valign="bottom"><a name="letter_t"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;t&#160;&#160;</div></td></tr></table>
+</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_c_v_i_timer.html">CVITimer</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_c_m_t_single_lock.html">CMTSingleLock</a>&#160;&#160;&#160;</td><td rowspan="2" valign="bottom"><a name="letter_F"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;F&#160;&#160;</div></td></tr></table>
+</td><td valign="top"><a class="el" href="classil_f_r_a_m_e___i_m_g.html">ilFRAME_IMG</a>&#160;&#160;&#160;</td><td valign="top"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r.html">CVIEngineThread::tagSUMM_PTR</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td valign="top"><a class="el" href="class_c_point_s_s_e.html">CPointSSE</a>&#160;&#160;&#160;</td><td rowspan="2" valign="bottom"><a name="letter_l"></a><table border="0" cellspacing="0" cellpadding="0"><tr><td><div class="ah">&#160;&#160;l&#160;&#160;</div></td></tr></table>
+</td><td valign="top"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t.html">CVIEngineThread::tagTMP_AURA_STAT</a>&#160;&#160;&#160;</td><td></td></tr>
+<tr><td></td><td valign="top"><a class="el" href="class_f_r_a_m_e___i_m_g.html">FRAME_IMG</a>&#160;&#160;&#160;</td><td></td><td></td></tr>
+<tr><td></td><td></td><td valign="top"><a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;&#160;&#160;</td><td></td><td></td></tr>
 <tr><td></td><td></td><td></td><td></td><td></td></tr>
 </table>
-<div class="qindex"><a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_T">T</a></div>
+<div class="qindex"><a class="qindex" href="#letter_A">A</a>&#160;|&#160;<a class="qindex" href="#letter_C">C</a>&#160;|&#160;<a class="qindex" href="#letter_F">F</a>&#160;|&#160;<a class="qindex" href="#letter_I">I</a>&#160;|&#160;<a class="qindex" href="#letter_L">L</a>&#160;|&#160;<a class="qindex" href="#letter_M">M</a>&#160;|&#160;<a class="qindex" href="#letter_S">S</a>&#160;|&#160;<a class="qindex" href="#letter_T">T</a></div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 17 2014 10:49:29 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 03:23:55 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -94,7 +94,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Класс для реализации расчётов в многопоточной среде Является классом для управления одним потоком расчётов  
+<p>Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком расчётов. Ускорение рассчётов достигается за счёт создания нескольких инстансов данного класса (потоков вычисления), одновременно производящмх общёт изображения. Разделение заданий происходит с помощью разделения между потоками диапазонов строк обрабатываемого изображения. Диапазон обрабатываемых строк инстансом данного класа задаётся членами класса m_yS,m_yE. Аналогичное разделение заданий между процессами реализованно в проекте <a href="https://github.com/dprotopopov/MedianFilter">https://github.com/dprotopopov/MedianFilter</a>. Сужествуют и другие способы разделения заданий - но от перемены слагаемых сумма не меняется.  
  <a href="class_c_v_i_engine_thread.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="vi_engine_thread_8h_source.html">viEngineThread.h</a>&gt;</code></p>
@@ -106,6 +106,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t.html">tagTMP_AURA_STAT</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html">tagTMP_STAT</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Структура для хранения статистики по вычисленному фрагменту дельта-изображения для одного процесса  <a href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -114,9 +115,9 @@ Public Types</h2></td></tr>
 typedef struct <br class="typebreak" />
 <a class="el" href="struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r.html">CVIEngineThread::tagSUMM_PTR</a>&#160;</td><td class="memItemRight" valign="bottom"><b>SUMM_PTR</b></td></tr>
 <tr class="separator:adaf393bce3e0f8abe027cbfae7acfffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a963dcd94cfc9dd191a6c4dc50458797f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a963dcd94cfc9dd191a6c4dc50458797f"></a>
-typedef struct <br class="typebreak" />
-<a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html">CVIEngineThread::tagTMP_STAT</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TMP_STAT</b></td></tr>
+<tr class="memitem:a963dcd94cfc9dd191a6c4dc50458797f"><td class="memItemLeft" align="right" valign="top">typedef struct <br class="typebreak" />
+<a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html">CVIEngineThread::tagTMP_STAT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a963dcd94cfc9dd191a6c4dc50458797f">TMP_STAT</a></td></tr>
+<tr class="memdesc:a963dcd94cfc9dd191a6c4dc50458797f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Структура для хранения статистики по вычисленному фрагменту дельта-изображения для одного процесса  <a href="#a963dcd94cfc9dd191a6c4dc50458797f">More...</a><br /></td></tr>
 <tr class="separator:a963dcd94cfc9dd191a6c4dc50458797f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07cb3ebb98282ee62c81cf9b257e335c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a07cb3ebb98282ee62c81cf9b257e335c"></a>
 typedef struct <br class="typebreak" />
@@ -131,56 +132,74 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a62a261241845149502fceb9a98f75ce0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a62a261241845149502fceb9a98f75ce0">~CVIEngineThread</a> (void)</td></tr>
 <tr class="separator:a62a261241845149502fceb9a98f75ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce21dad9996e7dba3b23882d010db17"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6ce21dad9996e7dba3b23882d010db17">Start</a> (void)</td></tr>
+<tr class="memdesc:a6ce21dad9996e7dba3b23882d010db17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура создания параллельной нити в Windows  <a href="#a6ce21dad9996e7dba3b23882d010db17">More...</a><br /></td></tr>
 <tr class="separator:a6ce21dad9996e7dba3b23882d010db17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a8d55cd216084f924cd75b8ede97fc8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a5a8d55cd216084f924cd75b8ede97fc8">Stop</a> (void)</td></tr>
+<tr class="memdesc:a5a8d55cd216084f924cd75b8ede97fc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура завершения ранее созданной параллельной нити в Windows  <a href="#a5a8d55cd216084f924cd75b8ede97fc8">More...</a><br /></td></tr>
 <tr class="separator:a5a8d55cd216084f924cd75b8ede97fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab377abdaf5512ce301f5a5f817a4ec7f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ab377abdaf5512ce301f5a5f817a4ec7f">round</a> (float v)</td></tr>
 <tr class="memdesc:ab377abdaf5512ce301f5a5f817a4ec7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция преобразования числа с плавающей точкой в целое число Округление производится до ближайшего целого  <a href="#ab377abdaf5512ce301f5a5f817a4ec7f">More...</a><br /></td></tr>
 <tr class="separator:ab377abdaf5512ce301f5a5f817a4ec7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a8bd3c1702025f3db9b6e29c2dcb2b264">Init</a> (void)</td></tr>
-<tr class="memdesc:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предоставленная реализация функции только устанавливает размер массива m_stat равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы. m_stat.resize(m_pBase-&gt;m_stat.size());  <a href="#a8bd3c1702025f3db9b6e29c2dcb2b264">More...</a><br /></td></tr>
+<tr class="memdesc:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предоставленная реализация функции только устанавливает размер массива m_stat равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы. m_stat.resize(m_pBase-&gt;m_stat.size()); Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a8bd3c1702025f3db9b6e29c2dcb2b264">More...</a><br /></td></tr>
 <tr class="separator:a8bd3c1702025f3db9b6e29c2dcb2b264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a608a3c62caea2e713736b5b8efd2f6ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a608a3c62caea2e713736b5b8efd2f6ea">ClearStat</a> (void)</td></tr>
 <tr class="memdesc:a608a3c62caea2e713736b5b8efd2f6ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Предоставленная реализация функции делает ничего  <a href="#a608a3c62caea2e713736b5b8efd2f6ea">More...</a><br /></td></tr>
 <tr class="separator:a608a3c62caea2e713736b5b8efd2f6ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36b1ea71981bd36fa9545fa68e98e78b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a36b1ea71981bd36fa9545fa68e98e78b">MakeResultSrc</a> (int res)</td></tr>
+<tr class="memdesc:a36b1ea71981bd36fa9545fa68e98e78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Формирование изображения для отображения. Тип формируемого изображения - цветного или монохромного - определяется настроечным параметром VI_MODE_COLOR и наличием исходного цветного изображения. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#a36b1ea71981bd36fa9545fa68e98e78b">More...</a><br /></td></tr>
 <tr class="separator:a36b1ea71981bd36fa9545fa68e98e78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30b43140ec42578567286895a960cb4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a30b43140ec42578567286895a960cb4f">MakeResultSrc8</a> (int res)</td></tr>
+<tr class="memdesc:a30b43140ec42578567286895a960cb4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Формирование монохромного изображения для отображения. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#a30b43140ec42578567286895a960cb4f">More...</a><br /></td></tr>
 <tr class="separator:a30b43140ec42578567286895a960cb4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3df2d213ef88168193cabc7a6bad8c6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a3df2d213ef88168193cabc7a6bad8c6c">MakeResultSrc24</a> (int res)</td></tr>
+<tr class="memdesc:a3df2d213ef88168193cabc7a6bad8c6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Формирование цветного изображения для отображения. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#a3df2d213ef88168193cabc7a6bad8c6c">More...</a><br /></td></tr>
 <tr class="separator:a3df2d213ef88168193cabc7a6bad8c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02bac0a7df7e985164b867ea3433bb40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a02bac0a7df7e985164b867ea3433bb40">MakeResultVI</a> (int res)</td></tr>
+<tr class="memdesc:a02bac0a7df7e985164b867ea3433bb40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#a02bac0a7df7e985164b867ea3433bb40">More...</a><br /></td></tr>
 <tr class="separator:a02bac0a7df7e985164b867ea3433bb40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6c4ea18d353a7dc00aa1698c379afde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ab6c4ea18d353a7dc00aa1698c379afde">MakeResultDelta</a> (int res)</td></tr>
+<tr class="memdesc:ab6c4ea18d353a7dc00aa1698c379afde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#ab6c4ea18d353a7dc00aa1698c379afde">More...</a><br /></td></tr>
 <tr class="separator:ab6c4ea18d353a7dc00aa1698c379afde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e13a627c4b748b2a897e5cfb314f0a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a7e13a627c4b748b2a897e5cfb314f0a2">FilterSP</a> (float *p)</td></tr>
+<tr class="memdesc:a7e13a627c4b748b2a897e5cfb314f0a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Фильтр устранения шумов изображения (вариант SP) Для каждого пикселя исхоного изображения проверяются яркость 4-х точек - слева, справа, сверх, снизу. Если две и более из них имеют значения яркость меньше 1.0, то в результирующее изображение записывается пиксель нулевой яркости. Иначе копируем в результирующее изображение текущее значение яркости данного пикселя. Поля в один пиксель не обрабатываются. Результат возвращается в том же массиве где были исходны данные. Размер изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a7e13a627c4b748b2a897e5cfb314f0a2">More...</a><br /></td></tr>
 <tr class="separator:a7e13a627c4b748b2a897e5cfb314f0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a900848dc88ad3445296cbd72c467875c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a900848dc88ad3445296cbd72c467875c">FilterSPsse</a> (float *p)</td></tr>
+<tr class="memdesc:a900848dc88ad3445296cbd72c467875c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Фильтр устранения шумов изображения (вариант SP с применением технологии SSE) Спецификация фильтра аналогична FilterSP. Используется технология SSE для ускорения вычислений. Для каждого пикселя исхоного изображения проверяются яркость 4-х точек - слева, справа, сверх, снизу. Если две и более из них имеют значения яркость меньше 1.0, то в результирующее изображение записывается пиксель нулевой яркости. Иначе копируем в результирующее изображение текущее значение яркости данного пикселя. Поля в один пиксель не обрабатываются. Результат возвращается в том же массиве где были исходны данные. Размер изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a900848dc88ad3445296cbd72c467875c">More...</a><br /></td></tr>
 <tr class="separator:a900848dc88ad3445296cbd72c467875c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a138c31012cd6924325231acdd4fbba49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a138c31012cd6924325231acdd4fbba49">MakeAuraV6</a> (int nSum, bool bModeB)</td></tr>
+<tr class="memdesc:a138c31012cd6924325231acdd4fbba49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a138c31012cd6924325231acdd4fbba49">More...</a><br /></td></tr>
 <tr class="separator:a138c31012cd6924325231acdd4fbba49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6194597cfb410aaa4a3b291f9dbe13cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6194597cfb410aaa4a3b291f9dbe13cd">MakeAuraStat</a> (int nSum, bool bModeB)</td></tr>
+<tr class="memdesc:a6194597cfb410aaa4a3b291f9dbe13cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Подготовка данных для визуализации работы методики. Исходные данные: m_tmp_aura.statHist; // гистограмма цветов m_tmp_aura.statHistA; // гистограмма цветов по кадру m_tmp_aura.statHistW; // гистограмма цветов*ширину m_tmp_aura.statHistC; // гистограмма цветов в контуре m_tmp_aura.iLine; // округленный цвет Выходные данные: Для режима A результат в массив m_pBase-&gt;m_stat[nSum].auraA.line; Для режима B результат в массив m_pBase-&gt;m_stat[nSum].auraB.line; Размер результирующего массива равен высоте изображения. Реализация расчётов линий для рисования скрыта в отсутствуюших файлах. Шаги алгоритма: 1-й проход: Определение центра линии - видимо просто берётся средневзвешенная позиция по яркости в линии; Определение цвета линии - видимо просто берётся средневзвешенная по гистограммам цветов всего изображения и гистограмма цветов в линии; Определение длины линии - видимо просто берётся длина линии умноженная на коэффициент корреляции гистограммам цветов всего изображения и гистограмма цветов в линии; 2-й проход: Длина линии разделяется между левой и правой половинами изображения относительно своего центра - похоже разделение происходит по правилу пифагоровых штанов. Как виаулизировать на самом деле не относится к цели методики как я понимаю - здесь главное чтобы было красиво и внушительно. Целью методики как я понимаю было создание полиграфа. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a6194597cfb410aaa4a3b291f9dbe13cd">More...</a><br /></td></tr>
 <tr class="separator:a6194597cfb410aaa4a3b291f9dbe13cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a157eaab33c9c5c2a157b458a4a0eb1f4"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a157eaab33c9c5c2a157b458a4a0eb1f4">GetSumPtr</a> (int nSum, bool bModeB)</td></tr>
+<tr class="memdesc:a157eaab33c9c5c2a157b458a4a0eb1f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение указателя на массив 4-х байтных чисел с плавающей точкой, являющижся уровнями яркости пикселей Для режима A return m_pBase-&gt;m_summ[nSum].i[h*2]; Для режима B return m_pBase-&gt;m_summ[nSum].i[h*3]; Размер изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a157eaab33c9c5c2a157b458a4a0eb1f4">More...</a><br /></td></tr>
 <tr class="separator:a157eaab33c9c5c2a157b458a4a0eb1f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9185cf585d0d141ccd42b7891020776"><td class="memItemLeft" align="right" valign="top">short *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac9185cf585d0d141ccd42b7891020776">GetSumPtrI</a> (int nSum, bool bModeB)</td></tr>
+<tr class="memdesc:ac9185cf585d0d141ccd42b7891020776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение указателя на массив целых 4-х байтных чисел, являющижся уровнями яркости пикселей Для режима A return m_pBase-&gt;m_summ[nSum].si[0]; Для режима B return m_pBase-&gt;m_summ[nSum].si[h]; Размер изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#ac9185cf585d0d141ccd42b7891020776">More...</a><br /></td></tr>
 <tr class="separator:ac9185cf585d0d141ccd42b7891020776"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6cccc248ff3e63ee357ec6453f2ce4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ae6cccc248ff3e63ee357ec6453f2ce4b">MakeResultAuraDraw</a> (int n, DWORD *imgRes, int rMode)</td></tr>
+<tr class="memdesc:ae6cccc248ff3e63ee357ec6453f2ce4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Рисование ауры поверх изображения по указанному адресу с заменой цветов ауры на 4-х байтные цвета из палитры. Исходные данные: Для режима A исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraA Для режима B исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraB Палитра берётся по адресу m_pBase-&gt;m_palI. Формат данных в палитре не типизирован - происходит просто копирование 4-х байт при присвоении значения. Размер палитры 256 цветов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#ae6cccc248ff3e63ee357ec6453f2ce4b">More...</a><br /></td></tr>
 <tr class="separator:ae6cccc248ff3e63ee357ec6453f2ce4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61e44ad37880d66e07855e751b67d9d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a61e44ad37880d66e07855e751b67d9d3">MakeResultAuraDrawMix</a> (int n, DWORD *imgRes, int rMode)</td></tr>
+<tr class="memdesc:a61e44ad37880d66e07855e751b67d9d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Рисование ауры поверх изображения по указанному адресу со смешиванием цветов RGB ауры с исходным RGB изображением. Цвета ауры заменяются на 4-х байтные цвета из палитры в формате RGBQUAD. Исходные данные: Для режима A исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraA Для режима B исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraB Палитра берётся по адресу m_pBase-&gt;m_palI и полагается что она представлена в формате RGBQUAD. Размер палитры 256 цветов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#a61e44ad37880d66e07855e751b67d9d3">More...</a><br /></td></tr>
 <tr class="separator:a61e44ad37880d66e07855e751b67d9d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf2a40038d465ccb943072431774c6ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#abf2a40038d465ccb943072431774c6ae">MakeResultVIDraw</a> (int n, DWORD *imgRes, int rMode)</td></tr>
+<tr class="memdesc:abf2a40038d465ccb943072431774c6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование изображения в 4-х байтном целочисленном представлении по указанному адресу с заменой цветов на 4-х байтные цвета из палитры. Исходные данные: Для режима A исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase-&gt;m_summ[n].si[0] Для режима B исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase-&gt;m_summ[n].si[h] Палитра берётся по адресу m_pBase-&gt;m_palI. Размер палитры 256 цветов. Бэк формируется белым, если значение настроечного параметра VI_MODE_WBG битово пересекается с rMode. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#abf2a40038d465ccb943072431774c6ae">More...</a><br /></td></tr>
 <tr class="separator:abf2a40038d465ccb943072431774c6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e69080c6da14f8bb61c0615180bd088"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6e69080c6da14f8bb61c0615180bd088">MakeSumStat</a> (int nSum, <a class="el" href="struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r.html">SUMM_PTR</a> &amp;S)</td></tr>
+<tr class="memdesc:a6e69080c6da14f8bb61c0615180bd088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если кратко, то это реализация следующей процедуры с использованием технологии SSE m_stat[nSum].sumAi = CУММА S.RetA ; m_stat[nSum].cntAi = 1[ СУММА S.RetA ]; m_stat[nSum].sumBi = CУММА S.RetB ; m_stat[nSum].cntAi = 1[ СУММА S.RetB ]; Описка программиста или так задумано? где 1[] - замена ненулевых значений на 1.0 Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a6e69080c6da14f8bb61c0615180bd088">More...</a><br /></td></tr>
 <tr class="separator:a6e69080c6da14f8bb61c0615180bd088"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5a7ba8ea2d72478af174b471d73fd5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac5a7ba8ea2d72478af174b471d73fd5c">MakeAuraStatHist</a> (AURA_STAT &amp;stat)</td></tr>
+<tr class="memitem:ac5a7ba8ea2d72478af174b471d73fd5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac5a7ba8ea2d72478af174b471d73fd5c">MakeAuraStatHist</a> (<a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;stat)</td></tr>
+<tr class="memdesc:ac5a7ba8ea2d72478af174b471d73fd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод не имеет никакого программного кода  <a href="#ac5a7ba8ea2d72478af174b471d73fd5c">More...</a><br /></td></tr>
 <tr class="separator:ac5a7ba8ea2d72478af174b471d73fd5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83784b07cdfcd4f006fbfa41aacd4d86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a83784b07cdfcd4f006fbfa41aacd4d86">MakeAuraStatTransform</a> (AURA_STAT &amp;stat)</td></tr>
+<tr class="memitem:a83784b07cdfcd4f006fbfa41aacd4d86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a83784b07cdfcd4f006fbfa41aacd4d86">MakeAuraStatTransform</a> (<a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;stat)</td></tr>
 <tr class="separator:a83784b07cdfcd4f006fbfa41aacd4d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c5e1e4c1a32d38b39af4547ed4b5827"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a5c5e1e4c1a32d38b39af4547ed4b5827">MakeAuraColorA</a> (int nSum, int x, int y)</td></tr>
 <tr class="separator:a5c5e1e4c1a32d38b39af4547ed4b5827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77e3066544a8804d4cc5250ac9f4c54b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a77e3066544a8804d4cc5250ac9f4c54b">MakeIntResult</a> (float *pf, short *pi, <a class="el" href="classmmx__array.html">mmx_array</a>&lt; float &gt; &amp;hX, <a class="el" href="classmmx__array.html">mmx_array</a>&lt; float &gt; &amp;hY, int w, int h)</td></tr>
-<tr class="memdesc:a77e3066544a8804d4cc5250ac9f4c54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой ( значений [0.0;1.0]? ) в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a77e3066544a8804d4cc5250ac9f4c54b">More...</a><br /></td></tr>
+<tr class="memdesc:a77e3066544a8804d4cc5250ac9f4c54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a77e3066544a8804d4cc5250ac9f4c54b">More...</a><br /></td></tr>
 <tr class="separator:a77e3066544a8804d4cc5250ac9f4c54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -225,7 +244,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>m_yS</b></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>m_yE</b></td></tr>
 <tr class="separator:ae9849fe1f1cba016b9df4e33fd9c2092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa356e0ebc6490ee932679fb7ca5021b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa356e0ebc6490ee932679fb7ca5021b5"></a>
-std::vector&lt; <a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html">TMP_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat</b></td></tr>
+std::vector&lt; <a class="el" href="class_c_v_i_engine_thread.html#a963dcd94cfc9dd191a6c4dc50458797f">TMP_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat</b></td></tr>
 <tr class="separator:aa356e0ebc6490ee932679fb7ca5021b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af213b9d425f314412e3de05774960c3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af213b9d425f314412e3de05774960c3f"></a>
 <a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tmp</b></td></tr>
@@ -237,33 +256,56 @@ std::vector&lt; <a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a24ed1bd13eea28048ed010e65697e578"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a24ed1bd13eea28048ed010e65697e578">Main</a> ()</td></tr>
+<tr class="memdesc:a24ed1bd13eea28048ed010e65697e578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - m_events[EVI_DONE].Set() То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady.  <a href="#a24ed1bd13eea28048ed010e65697e578">More...</a><br /></td></tr>
 <tr class="separator:a24ed1bd13eea28048ed010e65697e578"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9882f7bd24457ef387daf9b878d9e36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#aa9882f7bd24457ef387daf9b878d9e36">OnEventAddF</a> (void)</td></tr>
+<tr class="memdesc:aa9882f7bd24457ef387daf9b878d9e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование изображения (имеется вводу только обрабатываемый данным инстансом фрагмент изображения) из начиная с первого элемента первой строки члена m_arrSrc единственного инстанса родительского класса m_pBase в начиная с первого элемента первой строки члена m_imgSrcF инстанса данного класса в количестве ширина*высота. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). То есть просто передача данных для дальнейших расчётов в параллельный поток обработки. Хотя для Windows это абсолютно не нужно - можно работать с общей памятью и не дублировать данные для отдельных процессов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#aa9882f7bd24457ef387daf9b878d9e36">More...</a><br /></td></tr>
 <tr class="separator:aa9882f7bd24457ef387daf9b878d9e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac41086d9d426c39ce9a5ab78bdff6f8d">OnEventSumm</a> (void)</td></tr>
+<tr class="memdesc:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если кратко, то это реализация следующей процедуры с использованием технологии SSE int nSumm = m_pBase-&gt;m_summ.size(); SUMM_PTR* pSumm = new SUMM_PTR[nSumm]; для каждого элемента массива pSumm: MakeSummPtr(k, pSumm + k); if(!disableA) CRetA = lo[(CSummA + DeltaA - CDeltaA) * divA, fth] if(!disableB) CRetB = lo[(CSummB + 1[DeltaA] - 1[CDeltaA]) * divB, fth] delete pSumm; где указанные переменные являются массивами на которые указывают члены структуры SUMM_PTR, divA и divB - числа указанные в структуре SUMM_PTR, lo[] - применение фильтра подавления слабых сигналов с пороговым значением fth, 1[] - замена ненулевых значений на 1.0 и fth = значение настроечного настроечного параметра VI_VAR_TH disableA = значение настроечного настроечного параметра VI_FILTER_DISABLE_A disableB = значение настроечного настроечного параметра VI_FILTER_DISABLE_B Первая формула похожа на расчёт яркости заливки рисунка Вторая формула похожа на расчёт яркости контура рисунка Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#ac41086d9d426c39ce9a5ab78bdff6f8d">More...</a><br /></td></tr>
 <tr class="separator:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59da3179cc28387c9ebe468cdb33bcb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a59da3179cc28387c9ebe468cdb33bcb1">OnEventResult</a> (void)</td></tr>
 <tr class="memdesc:a59da3179cc28387c9ebe468cdb33bcb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами у значения настроечного параметра VI_MODE_RESULT Список обрабатываемых флагов (согласно очерёдности обработки): VI_RESULT_SRC_0, VI_RESULT_SRC_A, VI_RESULT_SRC_B, VI_RESULT_VI0_A, VI_RESULT_VI0_B, VI_RESULT_VI1_A, VI_RESULT_VI1_B, VI_RESULT_VI2_A, VI_RESULT_VI2_B, VI_RESULT_DELTA_A, VI_RESULT_DELTA_A,  <a href="#a59da3179cc28387c9ebe468cdb33bcb1">More...</a><br /></td></tr>
 <tr class="separator:a59da3179cc28387c9ebe468cdb33bcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5c43326cf2db88c2233f60412113e14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ae5c43326cf2db88c2233f60412113e14">OnEventDelta</a> (void)</td></tr>
+<tr class="memdesc:ae5c43326cf2db88c2233f60412113e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются. Если установлен настроечный параметр VI_FILTER_DELTA_STRETCH, то дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO); иначе дельта-сигнал уровня яркости меньше filterDeltaLO считается шумом и подавляется (считается минимальной яркостью) и если указано ненулевое значение настроечного параметра VI_FILTER_CT, то применяется неизвестный фильтр подавления шума <a class="el" href="class_c_v_i_engine_simple.html#a2b0441394c18c07d7d90fb13998c0355" title="Один из каких-то алгоритмов подавлени¤ шумов с использованием возможностей технологии SSE под названи...">CVIEngineSimple::FilterCT</a> где filterDeltaLO - значение настроечного параметра VI_FILTER_DELTA_LO Оба указанных из способов являются одними из множества способов подавления шумов. Рассчитывается dsumAsum = сумма значений яркости всех пикселей в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Рассчитывается dsumBsum = количество пикселей с ненулевыми значениями яркости в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Значения dsumAsum и dsumВsum записываются во все элементы массива статистики m_stat. Я же говорил, что лишние теоретические изыски при расчёте дельта-сигнала особо не нужны. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#ae5c43326cf2db88c2233f60412113e14">More...</a><br /></td></tr>
 <tr class="separator:ae5c43326cf2db88c2233f60412113e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5631fcb6ffa27a49f369ae01473862a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a5631fcb6ffa27a49f369ae01473862a2">OnEventAura</a> (void)</td></tr>
+<tr class="memdesc:a5631fcb6ffa27a49f369ae01473862a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Просто цикл по вызову метода MakeAuraV6 для всех значений массива m_nSum Используются настроечные параметры VI_FILTER_DISABLE_A и VI_FILTER_DISABLE_B, а так же настроечные параметры вида VI_FILTER_DISABLE_VI0+k для определения необходимости запускать метод MakeAuraV6 и запускать ли его в режимах A и B Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a5631fcb6ffa27a49f369ae01473862a2">More...</a><br /></td></tr>
 <tr class="separator:a5631fcb6ffa27a49f369ae01473862a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade67a36c8b54ee5bb4fae3dac9871274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ade67a36c8b54ee5bb4fae3dac9871274">OnEventSumStat</a> (void)</td></tr>
 <tr class="separator:ade67a36c8b54ee5bb4fae3dac9871274"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6eb58239fd138860ec06da35715ab9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#aa6eb58239fd138860ec06da35715ab9f">OnEventSumFilter</a> (void)</td></tr>
+<tr class="memdesc:aa6eb58239fd138860ec06da35715ab9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#aa6eb58239fd138860ec06da35715ab9f">More...</a><br /></td></tr>
 <tr class="separator:aa6eb58239fd138860ec06da35715ab9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b428d3d881e10a03902dbf16742084e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6b428d3d881e10a03902dbf16742084e">MakeSummPtr</a> (int n, <a class="el" href="struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r.html">SUMM_PTR</a> *pSumm)</td></tr>
+<tr class="memdesc:a6b428d3d881e10a03902dbf16742084e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#a6b428d3d881e10a03902dbf16742084e">More...</a><br /></td></tr>
 <tr class="separator:a6b428d3d881e10a03902dbf16742084e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:abf714adf1c42385f396ebe4ff48f181c"><td class="memItemLeft" align="right" valign="top">static DWORD WINAPI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#abf714adf1c42385f396ebe4ff48f181c">ThreadProc</a> (LPVOID lpParameter)</td></tr>
+<tr class="memdesc:abf714adf1c42385f396ebe4ff48f181c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Функция, адрес которой передайтся при создании паралельной нити в Windows Единственное её действие - передать управление на цикл обработки флагов событий, задаваемых для данного инстанса вычеслений. То есть вызвать функцию <a class="el" href="class_c_v_i_engine_thread.html#a24ed1bd13eea28048ed010e65697e578" title="Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - m_events[EVI_DONE].Set() То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. ">CVIEngineThread::Main()</a>  <a href="#abf714adf1c42385f396ebe4ff48f181c">More...</a><br /></td></tr>
 <tr class="separator:abf714adf1c42385f396ebe4ff48f181c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Класс для реализации расчётов в многопоточной среде Является классом для управления одним потоком расчётов </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="textblock"><p>Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком расчётов. Ускорение рассчётов достигается за счёт создания нескольких инстансов данного класса (потоков вычисления), одновременно производящмх общёт изображения. Разделение заданий происходит с помощью разделения между потоками диапазонов строк обрабатываемого изображения. Диапазон обрабатываемых строк инстансом данного класа задаётся членами класса m_yS,m_yE. Аналогичное разделение заданий между процессами реализованно в проекте <a href="https://github.com/dprotopopov/MedianFilter">https://github.com/dprotopopov/MedianFilter</a>. Сужествуют и другие способы разделения заданий - но от перемены слагаемых сумма не меняется. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a class="anchor" id="a963dcd94cfc9dd191a6c4dc50458797f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___s_t_a_t.html">CVIEngineThread::tagTMP_STAT</a>  <a class="el" href="class_c_v_i_engine_thread.html#a963dcd94cfc9dd191a6c4dc50458797f">CVIEngineThread::TMP_STAT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Структура для хранения статистики по вычисленному фрагменту дельта-изображения для одного процесса </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae988fa69cb7743794ab221309f581d62"></a>
 <div class="memitem">
 <div class="memproto">
@@ -339,7 +381,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Фильтр устранения шумов изображения (вариант SP) Для каждого пикселя исхоного изображения проверяются яркость 4-х точек - слева, справа, сверх, снизу. Если две и более из них имеют значения яркость меньше 1.0, то в результирующее изображение записывается пиксель нулевой яркости. Иначе копируем в результирующее изображение текущее значение яркости данного пикселя. Поля в один пиксель не обрабатываются. Результат возвращается в том же массиве где были исходны данные. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Указатель на список значений яркостей монохромного изображения</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -357,7 +405,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Фильтр устранения шумов изображения (вариант SP с применением технологии SSE) Спецификация фильтра аналогична FilterSP. Используется технология SSE для ускорения вычислений. Для каждого пикселя исхоного изображения проверяются яркость 4-х точек - слева, справа, сверх, снизу. Если две и более из них имеют значения яркость меньше 1.0, то в результирующее изображение записывается пиксель нулевой яркости. Иначе копируем в результирующее изображение текущее значение яркости данного пикселя. Поля в один пиксель не обрабатываются. Результат возвращается в том же массиве где были исходны данные. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -385,7 +439,14 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение указателя на массив 4-х байтных чисел с плавающей точкой, являющижся уровнями яркости пикселей Для режима A return m_pBase-&gt;m_summ[nSum].i[h*2]; Для режима B return m_pBase-&gt;m_summ[nSum].i[h*3]; Размер изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nSum</td><td></td></tr>
+    <tr><td class="paramname">bModeB</td><td>Признак формирования результата для режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -413,7 +474,14 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение указателя на массив целых 4-х байтных чисел, являющижся уровнями яркости пикселей Для режима A return m_pBase-&gt;m_summ[nSum].si[0]; Для режима B return m_pBase-&gt;m_summ[nSum].si[h]; Размер изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nSum</td><td></td></tr>
+    <tr><td class="paramname">bModeB</td><td>Признак формирования результата для режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -431,7 +499,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Предоставленная реализация функции только устанавливает размер массива m_stat равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы. m_stat.resize(m_pBase-&gt;m_stat.size()); </p>
+<p>Предоставленная реализация функции только устанавливает размер массива m_stat равным размеру массива m_stat родительского инстанса класса реализованных алгоритмов программы. m_stat.resize(m_pBase-&gt;m_stat.size()); Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -520,7 +588,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - m_events[EVI_DONE].Set() То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. </p>
 
 </div>
 </div>
@@ -582,7 +650,14 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Подготовка данных для визуализации работы методики. Исходные данные: m_tmp_aura.statHist; // гистограмма цветов m_tmp_aura.statHistA; // гистограмма цветов по кадру m_tmp_aura.statHistW; // гистограмма цветов*ширину m_tmp_aura.statHistC; // гистограмма цветов в контуре m_tmp_aura.iLine; // округленный цвет Выходные данные: Для режима A результат в массив m_pBase-&gt;m_stat[nSum].auraA.line; Для режима B результат в массив m_pBase-&gt;m_stat[nSum].auraB.line; Размер результирующего массива равен высоте изображения. Реализация расчётов линий для рисования скрыта в отсутствуюших файлах. Шаги алгоритма: 1-й проход: Определение центра линии - видимо просто берётся средневзвешенная позиция по яркости в линии; Определение цвета линии - видимо просто берётся средневзвешенная по гистограммам цветов всего изображения и гистограмма цветов в линии; Определение длины линии - видимо просто берётся длина линии умноженная на коэффициент корреляции гистограммам цветов всего изображения и гистограмма цветов в линии; 2-й проход: Длина линии разделяется между левой и правой половинами изображения относительно своего центра - похоже разделение происходит по правилу пифагоровых штанов. Как виаулизировать на самом деле не относится к цели методики как я понимаю - здесь главное чтобы было красиво и внушительно. Целью методики как я понимаю было создание полиграфа. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nSum</td><td>Индекс элемента в массиве m_pBase-&gt;m_stat</td></tr>
+    <tr><td class="paramname">bModeB</td><td>Признак формирования результата для режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>проход 1</p>
 <p>проход 2 </p>
 
@@ -595,14 +670,20 @@ Static Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void CVIEngineThread::MakeAuraStatHist </td>
           <td>(</td>
-          <td class="paramtype">AURA_STAT &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;&#160;</td>
           <td class="paramname"><em>stat</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Метод не имеет никакого программного кода </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stat</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -613,7 +694,7 @@ Static Protected Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void CVIEngineThread::MakeAuraStatTransform </td>
           <td>(</td>
-          <td class="paramtype">AURA_STAT &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;&#160;</td>
           <td class="paramname"><em>stat</em></td><td>)</td>
           <td></td>
         </tr>
@@ -621,6 +702,12 @@ Static Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stat</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -648,7 +735,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bModeB</td><td>Признак формирования результата для режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -700,13 +793,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой ( значений [0.0;1.0]? ) в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<p>Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pf</td><td>Указатель на массив чисел с плавающей точкой. Вход.</td></tr>
     <tr><td class="paramname">pi</td><td>Указатель на массив целых чисел. Выход.</td></tr>
-    <tr><td class="paramname">hX</td><td>Сумма элементов по столбцам исходного массива. Выход. Размер массива устанавливается равным ширине изображения. </td></tr>
-    <tr><td class="paramname">hY</td><td>Сумма элементов по строкам исходного массива. Выход. Размер массива устанавливается равным высоте изображения. </td></tr>
+    <tr><td class="paramname">hX</td><td>Сумма элементов по столбцам исходного массива. Выход. Размер массива устанавливается равным переданному параметру ширины изображения. </td></tr>
+    <tr><td class="paramname">hY</td><td>Сумма элементов по строкам исходного массива. Выход. Размер массива устанавливается равным переданному параметру высоты изображения. </td></tr>
     <tr><td class="paramname">w</td><td>Ширина изображения в пикселях</td></tr>
     <tr><td class="paramname">h</td><td>Высота изображения в пикселях</td></tr>
   </table>
@@ -745,7 +838,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Рисование ауры поверх изображения по указанному адресу с заменой цветов ауры на 4-х байтные цвета из палитры. Исходные данные: Для режима A исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraA Для режима B исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraB Палитра берётся по адресу m_pBase-&gt;m_palI. Формат данных в палитре не типизирован - происходит просто копирование 4-х байт при присвоении значения. Размер палитры 256 цветов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
 
 </div>
 </div>
@@ -779,7 +872,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Рисование ауры поверх изображения по указанному адресу со смешиванием цветов RGB ауры с исходным RGB изображением. Цвета ауры заменяются на 4-х байтные цвета из палитры в формате RGBQUAD. Исходные данные: Для режима A исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraA Для режима B исходные списки левых и правых линий для рисования берутся из структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> по адресу m_pBase-&gt;m_statRelease[n].auraB Палитра берётся по адресу m_pBase-&gt;m_palI и полагается что она представлена в формате RGBQUAD. Размер палитры 256 цветов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
 
 </div>
 </div>
@@ -797,7 +890,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
 
 </div>
 </div>
@@ -815,7 +908,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Формирование изображения для отображения. Тип формируемого изображения - цветного или монохромного - определяется настроечным параметром VI_MODE_COLOR и наличием исходного цветного изображения. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -833,7 +932,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Формирование цветного изображения для отображения. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -851,7 +956,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Формирование монохромного изображения для отображения. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -869,7 +980,13 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -903,7 +1020,15 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Копирование изображения в 4-х байтном целочисленном представлении по указанному адресу с заменой цветов на 4-х байтные цвета из палитры. Исходные данные: Для режима A исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase-&gt;m_summ[n].si[0] Для режима B исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase-&gt;m_summ[n].si[h] Палитра берётся по адресу m_pBase-&gt;m_palI. Размер палитры 256 цветов. Бэк формируется белым, если значение настроечного параметра VI_MODE_WBG битово пересекается с rMode. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td></td></tr>
+    <tr><td class="paramname">imgRes</td><td>Указатель на изображение, где каждый пиксель предствлет 4-мя байтами</td></tr>
+    <tr><td class="paramname">rMode</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -939,7 +1064,14 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>Индекс элемента в массиве</td></tr>
+    <tr><td class="paramname">pSumm</td><td>Указатель на структуру (указатель на n-тый элемент ранее созданного массива)</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -967,7 +1099,14 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Если кратко, то это реализация следующей процедуры с использованием технологии SSE m_stat[nSum].sumAi = CУММА S.RetA ; m_stat[nSum].cntAi = 1[ СУММА S.RetA ]; m_stat[nSum].sumBi = CУММА S.RetB ; m_stat[nSum].cntAi = 1[ СУММА S.RetB ]; Описка программиста или так задумано? где 1[] - замена ненулевых значений на 1.0 Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nSum</td><td></td></tr>
+    <tr><td class="paramname">S</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -993,7 +1132,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Копирование изображения (имеется вводу только обрабатываемый данным инстансом фрагмент изображения) из начиная с первого элемента первой строки члена m_arrSrc единственного инстанса родительского класса m_pBase в начиная с первого элемента первой строки члена m_imgSrcF инстанса данного класса в количестве ширина*высота. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). То есть просто передача данных для дальнейших расчётов в параллельный поток обработки. Хотя для Windows это абсолютно не нужно - можно работать с общей памятью и не дублировать данные для отдельных процессов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. </p>
 
 </div>
 </div>
@@ -1019,7 +1158,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Просто цикл по вызову метода MakeAuraV6 для всех значений массива m_nSum Используются настроечные параметры VI_FILTER_DISABLE_A и VI_FILTER_DISABLE_B, а так же настроечные параметры вида VI_FILTER_DISABLE_VI0+k для определения необходимости запускать метод MakeAuraV6 и запускать ли его в режимах A и B Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1045,7 +1184,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются. Если установлен настроечный параметр VI_FILTER_DELTA_STRETCH, то дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO); иначе дельта-сигнал уровня яркости меньше filterDeltaLO считается шумом и подавляется (считается минимальной яркостью) и если указано ненулевое значение настроечного параметра VI_FILTER_CT, то применяется неизвестный фильтр подавления шума <a class="el" href="class_c_v_i_engine_simple.html#a2b0441394c18c07d7d90fb13998c0355" title="Один из каких-то алгоритмов подавлени¤ шумов с использованием возможностей технологии SSE под названи...">CVIEngineSimple::FilterCT</a> где filterDeltaLO - значение настроечного параметра VI_FILTER_DELTA_LO Оба указанных из способов являются одними из множества способов подавления шумов. Рассчитывается dsumAsum = сумма значений яркости всех пикселей в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Рассчитывается dsumBsum = количество пикселей с ненулевыми значениями яркости в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Значения dsumAsum и dsumВsum записываются во все элементы массива статистики m_stat. Я же говорил, что лишние теоретические изыски при расчёте дельта-сигнала особо не нужны. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 
 </div>
 </div>
@@ -1097,7 +1236,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1123,7 +1262,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Если кратко, то это реализация следующей процедуры с использованием технологии SSE int nSumm = m_pBase-&gt;m_summ.size(); SUMM_PTR* pSumm = new SUMM_PTR[nSumm]; для каждого элемента массива pSumm: MakeSummPtr(k, pSumm + k); if(!disableA) CRetA = lo[(CSummA + DeltaA - CDeltaA) * divA, fth] if(!disableB) CRetB = lo[(CSummB + 1[DeltaA] - 1[CDeltaA]) * divB, fth] delete pSumm; где указанные переменные являются массивами на которые указывают члены структуры SUMM_PTR, divA и divB - числа указанные в структуре SUMM_PTR, lo[] - применение фильтра подавления слабых сигналов с пороговым значением fth, 1[] - замена ненулевых значений на 1.0 и fth = значение настроечного настроечного параметра VI_VAR_TH disableA = значение настроечного настроечного параметра VI_FILTER_DISABLE_A disableB = значение настроечного настроечного параметра VI_FILTER_DISABLE_B Первая формула похожа на расчёт яркости заливки рисунка Вторая формула похожа на расчёт яркости контура рисунка Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 <p>SUMM A</p>
 <p>SUMM B</p>
 
@@ -1241,7 +1380,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Процедура создания параллельной нити в Windows </p>
 
 </div>
 </div>
@@ -1267,7 +1406,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Процедура завершения ранее созданной параллельной нити в Windows </p>
 
 </div>
 </div>
@@ -1293,7 +1432,13 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Функция, адрес которой передайтся при создании паралельной нити в Windows Единственное её действие - передать управление на цикл обработки флагов событий, задаваемых для данного инстанса вычеслений. То есть вызвать функцию <a class="el" href="class_c_v_i_engine_thread.html#a24ed1bd13eea28048ed010e65697e578" title="Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - m_events[EVI_DONE].Set() То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. ">CVIEngineThread::Main()</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lpParameter</td><td>Указатель на созданный инстанс класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> к которому собственно и относится эта параллельная нить </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1304,7 +1449,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 17 2014 10:49:29 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 03:23:55 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

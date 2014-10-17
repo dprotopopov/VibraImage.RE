@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -88,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Структура для работы с пикселем в видеопамяти по технологии SSE. Каждый пискель в видеопамяти является блоком из 4-х регистров для обработки 4-х каналов сигнала RGBA. Которые могут записыватся и считыватся в-из видеопамять из-в ОЗУ как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти применяют аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно, либо при выполнении сложения-умножения. То есть достаточно записать в регистры видеопамятм 4 числа с плавающей точкой, а потом считать эти же 4 числа как целые. Реальный способ представления данных в видеопамяти определяет производитель оборудования, и как правило это хранение мантисы из диапазона [0.0;1.0]. При этом одновременно при чтении-запииси может производится умножение-деление на некоторую величину хранящуюся в системном регистре видеокарты. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает.  
+<p>Структура для работы с пикселем в видеопамяти по технологии SSE. Каждый пискель в видеопамяти является блоком из 4-х регистров для обработки 4-х каналов сигнала RGBA. Которые могут записыватся и считыватся в-из видеопамять из-в ОЗУ как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти применяют аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно, либо при выполнении сложения-умножения. То есть достаточно записать в регистры видеопамятм 4 числа с плавающей точкой, а потом считать эти же 4 числа как целые. Реальный способ представления данных в видеопамяти определяет производитель оборудования, и как правило это хранение мантисы из диапазона [0.0;1.0]. При этом одновременно при чтении-записи может производится умножение-деление на некоторую величину хранящуюся в системном регистре видеокарты. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает.  
  <a href="class_c_point_s_s_e.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_point_s_s_e_8h_source.html">PointSSE.h</a>&gt;</code></p>
@@ -104,8 +104,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8a516dcceb3bf62c514b98161fbee9e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Установка значений регистров видеопамяти в нулевое значение  <a href="#a8a516dcceb3bf62c514b98161fbee9e8">More...</a><br /></td></tr>
 <tr class="separator:a8a516dcceb3bf62c514b98161fbee9e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf16570e1b45b827b2daf5cc7a72e1b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_point_s_s_e.html#aaf16570e1b45b827b2daf5cc7a72e1b5">limit_hi</a> (<a class="el" href="class_c_point_s_s_e.html">CPointSSE</a> value)</td></tr>
-<tr class="memdesc:aaf16570e1b45b827b2daf5cc7a72e1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задание умножающего-делящего коэффициента при чтении-записи из-в видеопамять из-в ОЗУ  <a href="#aaf16570e1b45b827b2daf5cc7a72e1b5">More...</a><br /></td></tr>
+<tr class="memdesc:aaf16570e1b45b827b2daf5cc7a72e1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задание верхнего уровня обрабатываемого сигнала Исходный сигнал уровня яркости больше порогового значения считается шумом и подавляется (считается максимальной яркостью)  <a href="#aaf16570e1b45b827b2daf5cc7a72e1b5">More...</a><br /></td></tr>
 <tr class="separator:aaf16570e1b45b827b2daf5cc7a72e1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e340ea125461e31714dc68825ef15cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_point_s_s_e.html#a1e340ea125461e31714dc68825ef15cc">limit_lo</a> (<a class="el" href="class_c_point_s_s_e.html">CPointSSE</a> value)</td></tr>
+<tr class="memdesc:a1e340ea125461e31714dc68825ef15cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задание нижнего уровня обрабатываемого сигнала Исходный сигнал уровня яркости меньше порогового значения считается шумом и подавляется (считается минимальной яркостью)  <a href="#a1e340ea125461e31714dc68825ef15cc">More...</a><br /></td></tr>
+<tr class="separator:a1e340ea125461e31714dc68825ef15cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51947ec82f02f89fc6774c8c5a6d77c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_point_s_s_e.html#a51947ec82f02f89fc6774c8c5a6d77c0">mask_nz</a> (<a class="el" href="class_c_point_s_s_e.html">CPointSSE</a> value)</td></tr>
+<tr class="memdesc:a51947ec82f02f89fc6774c8c5a6d77c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Всем ненулевым значением в регистрах присваивается указанное значение  <a href="#a51947ec82f02f89fc6774c8c5a6d77c0">More...</a><br /></td></tr>
+<tr class="separator:a51947ec82f02f89fc6774c8c5a6d77c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a350aeb352b3d2bc72ca55be04f1efd09"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_point_s_s_e.html#a350aeb352b3d2bc72ca55be04f1efd09">export2c</a> (float *ph)</td></tr>
 <tr class="memdesc:a350aeb352b3d2bc72ca55be04f1efd09"><td class="mdescLeft">&#160;</td><td class="mdescRight">пересялка 16 байт из видеопамяти в память ОЗУ  <a href="#a350aeb352b3d2bc72ca55be04f1efd09">More...</a><br /></td></tr>
 <tr class="separator:a350aeb352b3d2bc72ca55be04f1efd09"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,12 +121,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6ebb1e404c03632ddf217fae1853c61e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_point_s_s_e.html#a6ebb1e404c03632ddf217fae1853c61e">operator+=</a> (<a class="el" href="class_c_point_s_s_e.html">CPointSSE</a> p)</td></tr>
 <tr class="memdesc:a6ebb1e404c03632ddf217fae1853c61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Прибавление к данному блоку-пикселю из 4 регистров в видеопамяти значений из другого блока из 4-х регистров в видеопамяти  <a href="#a6ebb1e404c03632ddf217fae1853c61e">More...</a><br /></td></tr>
 <tr class="separator:a6ebb1e404c03632ddf217fae1853c61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49cb91e742db4965d51bc88455ba1ee7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49cb91e742db4965d51bc88455ba1ee7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (<a class="el" href="class_c_point_s_s_e.html">CPointSSE</a> p)</td></tr>
+<tr class="separator:a49cb91e742db4965d51bc88455ba1ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea588903399e10259c4f9b9ad5eb26e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aea588903399e10259c4f9b9ad5eb26e5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>abs</b> ()</td></tr>
+<tr class="separator:aea588903399e10259c4f9b9ad5eb26e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af4363118542095ec40ee22933cbb99d6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_point_s_s_e.html#af4363118542095ec40ee22933cbb99d6">sum</a> ()</td></tr>
 <tr class="memdesc:af4363118542095ec40ee22933cbb99d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Суммирование значений 4-х регистров одного блока-пикселя и возврат результата в виде числа с плавающей точкой  <a href="#af4363118542095ec40ee22933cbb99d6">More...</a><br /></td></tr>
 <tr class="separator:af4363118542095ec40ee22933cbb99d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Структура для работы с пикселем в видеопамяти по технологии SSE. Каждый пискель в видеопамяти является блоком из 4-х регистров для обработки 4-х каналов сигнала RGBA. Которые могут записыватся и считыватся в-из видеопамять из-в ОЗУ как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти применяют аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно, либо при выполнении сложения-умножения. То есть достаточно записать в регистры видеопамятм 4 числа с плавающей точкой, а потом считать эти же 4 числа как целые. Реальный способ представления данных в видеопамяти определяет производитель оборудования, и как правило это хранение мантисы из диапазона [0.0;1.0]. При этом одновременно при чтении-запииси может производится умножение-деление на некоторую величину хранящуюся в системном регистре видеокарты. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<div class="textblock"><p>Структура для работы с пикселем в видеопамяти по технологии SSE. Каждый пискель в видеопамяти является блоком из 4-х регистров для обработки 4-х каналов сигнала RGBA. Которые могут записыватся и считыватся в-из видеопамять из-в ОЗУ как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти применяют аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно, либо при выполнении сложения-умножения. То есть достаточно записать в регистры видеопамятм 4 числа с плавающей точкой, а потом считать эти же 4 числа как целые. Реальный способ представления данных в видеопамяти определяет производитель оборудования, и как правило это хранение мантисы из диапазона [0.0;1.0]. При этом одновременно при чтении-записи может производится умножение-деление на некоторую величину хранящуюся в системном регистре видеокарты. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешовой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ade2da0d5d55a42f93b516b351da78bcc"></a>
 <div class="memitem">
@@ -202,10 +214,58 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Задание умножающего-делящего коэффициента при чтении-записи из-в видеопамять из-в ОЗУ </p>
+<p>Задание верхнего уровня обрабатываемого сигнала Исходный сигнал уровня яркости больше порогового значения считается шумом и подавляется (считается максимальной яркостью) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td></td></tr>
+    <tr><td class="paramname">value</td><td>Пороговое значение яркости</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1e340ea125461e31714dc68825ef15cc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CPointSSE::limit_lo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_point_s_s_e.html">CPointSSE</a>&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Задание нижнего уровня обрабатываемого сигнала Исходный сигнал уровня яркости меньше порогового значения считается шумом и подавляется (считается минимальной яркостью) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Пороговое значение яркости</td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a51947ec82f02f89fc6774c8c5a6d77c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CPointSSE::mask_nz </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_c_point_s_s_e.html">CPointSSE</a>&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Всем ненулевым значением в регистрах присваивается указанное значение </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>Новое значение яркости у регистров с ненулевыми значениями</td></tr>
   </table>
   </dd>
 </dl>
@@ -301,7 +361,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 17 2014 10:49:29 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 03:23:54 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

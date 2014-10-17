@@ -100,15 +100,15 @@ class CVIEngineBase
 	int m_cMake[EVI_CNT];
 	public:
 	float* m_imgSrcF;
-	mmx_array2<BYTE> m_imgSrc8; // двумерный массив монохромного изображения
-	mmx_array2<RGBTRIPLE> m_imgSrc24; // двумерный массив цветного изображения (RGB)
+	mmx_array2<BYTE> m_imgSrc8; // Двумерный массив монохромного изображения [0;255]
+	mmx_array2<RGBTRIPLE> m_imgSrc24; // Двумерный массив цветного изображения (RGB). The RGBTRIPLE structure describes a color consisting of relative intensities of red, green, and blue. The bmciColors member of the BITMAPCOREINFO structure consists of an array of RGBTRIPLE structures. http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx
 
-	mmx_array2<BYTE> m_imgSrcMask; // двумерный массив монохромного изображения-маски
+	mmx_array2<BYTE> m_imgSrcMask; // Двумерный массив чисел [0;255] монохромного изображения-маски, хранящий накладываемую на обрабарываемые исходные данные маску яркости пикселей
 
-	lFRAME_IMG m_arrSrc;
-	lFRAME_IMG m_arrDelta;
+	lFRAME_IMG m_arrSrc; // Массив (очередь) указателей на инстансы типа FRAME_IMG (способ хранения очереди исходных изображений)
+	lFRAME_IMG m_arrDelta; // Массив (очередь) указателей на инстансы типа FRAME_IMG (способ хранения очереди расчитанных дельт-изображений)
 
-	mmx_array2<float> m_srcMask;
+	mmx_array2<float> m_srcMask; // Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабарываемые исходные данные маску яркости пикселей
 
 	std::vector<SUM_IMG> m_summ;
 	std::vector<SUMM_STAT> m_stat;

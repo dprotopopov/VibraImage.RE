@@ -6,10 +6,12 @@ enum
 {
 	VI_FACE_ENABLE,
 	VI_MODE_RESULT,
+	VI_MODE_WBG, // Отображать результаты на белом фоне, иначе бэк чёрный
 	VI_VAR_NFRAME,
 	VI_VAR_FPSMAXF,
 	VI_VAR_FPSMAXR
 	VI_VAR_NFRAME_IN,
+	VI_VAR_TH,
 	VI_VAR_STAT_INTEGR0A,
 	VI_VAR_STAT_INTEGR0B,
 	VI_VAR_STAT_INTEGR1A,
@@ -53,11 +55,11 @@ enum
 	VI_VAR_STAT_RES_SIN,
 	VI_FILTER_AM,
 	VI_FILTER_SP,
-	VI_FILTER_CT,
+	VI_FILTER_CT, // Параметр неизвестного алгоритма подавления шумов (фильтра) при расчёте дельта-изображения
 	VI_FILTER_DISABLE_A,
 	VI_FILTER_DISABLE_B,
 	VI_FILTER_NSKIP,
-	VI_FILTER_PAUSE,
+	VI_FILTER_PAUSE, // Флаг приостановки работы фильтров
 	VI_FILTER_FPSDIV,
 	VI_FILTER_FPSDIV_RQST,
 	VI_FILTER_FPS2IN,
@@ -74,8 +76,8 @@ enum
 	VI_FILTER_MOTION_LEVEL,
 	VI_FILTER_MOTION_10X,
 	VI_FILTER_MOTION_AUTO_RESET,
-	VI_FILTER_DELTA_STRETCH,
-	VI_FILTER_DELTA_LO,
+	VI_FILTER_DELTA_STRETCH, // Растягивать уровни яркости при расчёте дельта-изображения - дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO)
+	VI_FILTER_DELTA_LO, // Нижний уровень яркости для подавления шумов при расчёте дельта-изображения
 	VI_FILTER_BWT_F6_HI, 
 	VI_FILTER_BWT_F6_LO, 
 	VI_FILTER_F6_N

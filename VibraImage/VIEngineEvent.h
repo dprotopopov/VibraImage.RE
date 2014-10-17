@@ -4,7 +4,7 @@
 /// </summary>
 enum
 {
-	EVI_DONE,
+	EVI_DONE, // Сигнал к завершению работы процесса
 	EVI_ADD8_READY,
 	EVI_ADD8,
 	EVI_ADDF,
@@ -13,7 +13,7 @@ enum
 	EVI_SUM_FILTER,
 	EVI_SUM_STAT,
 	EVI_AURA,
-	EVI_RESULT,
+	EVI_RESULT, // Сигнал готовности процесса продолжить работу
 	EVI_CNT // Количество возможный событий == индексу данного элемента в перечислении
 };
 /// <summary>

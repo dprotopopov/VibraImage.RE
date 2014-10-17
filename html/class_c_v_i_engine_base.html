@@ -69,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -98,6 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1349de29adc90869f463b17fb03904c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1349de29adc90869f463b17fb03904c1">CVIEngineBase</a> (int nThread)</td></tr>
+<tr class="memdesc:a1349de29adc90869f463b17fb03904c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор класса Инициализация переменных программы. Определение оптимального количества параллельных нитей для вычислений.  <a href="#a1349de29adc90869f463b17fb03904c1">More...</a><br /></td></tr>
 <tr class="separator:a1349de29adc90869f463b17fb03904c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28dba2a06eda33294836c5241f497112"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a28dba2a06eda33294836c5241f497112">~CVIEngineBase</a> (void)</td></tr>
 <tr class="separator:a28dba2a06eda33294836c5241f497112"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -111,8 +112,10 @@ RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (al
 <tr class="memitem:a180f4a67ef6b4137c8b8565310aa7834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a180f4a67ef6b4137c8b8565310aa7834">AddImageThreadLocal8</a> ()</td></tr>
 <tr class="separator:a180f4a67ef6b4137c8b8565310aa7834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a053908c9c2c18583a13e6f6f79c8eeab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a053908c9c2c18583a13e6f6f79c8eeab">CreateThreads</a> (bool bLock=true)</td></tr>
+<tr class="memdesc:a053908c9c2c18583a13e6f6f79c8eeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск параллельных потоков для вычислений.  <a href="#a053908c9c2c18583a13e6f6f79c8eeab">More...</a><br /></td></tr>
 <tr class="separator:a053908c9c2c18583a13e6f6f79c8eeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0905eba46bb64f25a2d91f8b39a3f994"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0905eba46bb64f25a2d91f8b39a3f994">CloseThreads</a> (bool bLock=true)</td></tr>
+<tr class="memdesc:a0905eba46bb64f25a2d91f8b39a3f994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Останов ранее запущенных параллельных потоков для вычислений.  <a href="#a0905eba46bb64f25a2d91f8b39a3f994">More...</a><br /></td></tr>
 <tr class="separator:a0905eba46bb64f25a2d91f8b39a3f994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac886baeaf14b16970d089edaf6767a79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac886baeaf14b16970d089edaf6767a79">AddImage</a> (void *p, int w, int h, int bpp, double t, int nRef=0)</td></tr>
 <tr class="separator:ac886baeaf14b16970d089edaf6767a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,14 +124,19 @@ RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (al
 <tr class="memitem:a3426944a03bac2f5a8c135c217f9cf8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3426944a03bac2f5a8c135c217f9cf8c">MakeImage</a> (float *pFI, BYTE *pBI, int w, int h)</td></tr>
 <tr class="separator:a3426944a03bac2f5a8c135c217f9cf8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a930661f73cc7c449c166071631be595d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a930661f73cc7c449c166071631be595d">SetSize</a> (int w, int h, int cnt)</td></tr>
+<tr class="memdesc:a930661f73cc7c449c166071631be595d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение новых размеров изображения в настроечных параметрах VI_VAR_SIZE. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений.  <a href="#a930661f73cc7c449c166071631be595d">More...</a><br /></td></tr>
 <tr class="separator:a930661f73cc7c449c166071631be595d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a042d710f3a5be21538478ad157680828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a042d710f3a5be21538478ad157680828">SetCount</a> (int cnt, bool bLock=true)</td></tr>
+<tr class="memdesc:a042d710f3a5be21538478ad157680828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти.  <a href="#a042d710f3a5be21538478ad157680828">More...</a><br /></td></tr>
 <tr class="separator:a042d710f3a5be21538478ad157680828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4764b56d4269ed5cd101dddf545e039d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4764b56d4269ed5cd101dddf545e039d">CheckFPSDIV</a> ()</td></tr>
+<tr class="memdesc:a4764b56d4269ed5cd101dddf545e039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF.  <a href="#a4764b56d4269ed5cd101dddf545e039d">More...</a><br /></td></tr>
 <tr class="separator:a4764b56d4269ed5cd101dddf545e039d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535">NextSrc</a> (void)</td></tr>
+<tr class="memdesc:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сдвиг очереди кадров  <a href="#aa1aa2604f40dd77bc49ca6ff8fd81535">More...</a><br /></td></tr>
 <tr class="separator:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a305c1b2285ddfcdbb021597f0b3dbd39">WaitThreads</a> (void)</td></tr>
+<tr class="memdesc:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации.  <a href="#a305c1b2285ddfcdbb021597f0b3dbd39">More...</a><br /></td></tr>
 <tr class="separator:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af12866653055639e69a61224615af7fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af12866653055639e69a61224615af7fe">Sync</a> (void)</td></tr>
 <tr class="separator:af12866653055639e69a61224615af7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,7 +158,7 @@ RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (al
 <tr class="separator:a2b86bf7f377f62e7a701fb3466708d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10d6138a2c8f4c4c946bf930c268be6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b">ClearStat</a> (void)</td></tr>
 <tr class="separator:a10d6138a2c8f4c4c946bf930c268be6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#adb910c0d7f06cf1f3ea7b2347aed1751">ClearStat</a> (SUMM_STAT &amp;S)</td></tr>
+<tr class="memitem:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#adb910c0d7f06cf1f3ea7b2347aed1751">ClearStat</a> (<a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &amp;S)</td></tr>
 <tr class="separator:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96dd47cc32f324e133644e7f823507ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96dd47cc32f324e133644e7f823507ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MakeDefPal</b> (RGBQUAD *pal)</td></tr>
@@ -229,18 +237,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memitem:a784d5489bb89efa567e207d3539de0da"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a784d5489bb89efa567e207d3539de0da">MakeCharming</a> (int *pHist256, int len)</td></tr>
 <tr class="separator:a784d5489bb89efa567e207d3539de0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2617136f50ae63442e88809037ab9ff0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2617136f50ae63442e88809037ab9ff0">MakeEntropyX</a> (int *pHist256, int len)</td></tr>
-<tr class="memdesc:a2617136f50ae63442e88809037ab9ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление энтропии по гистограмме сигнала (Вариант X - заимствование идеи из статистического критерия X^2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i Сумма pHist256(i) = количество пикселей исходного изображения = ширина*высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-равномерного распределения, то есть Если flen - максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen - M)^2 И вычисляется значение return ( Сумма dd(i)*pHist256(i) / Сумма pHist256(i) ) / sqrt( Сумма dd(i)*dd(i)*pHist256(i) / Сумма pHist256(i) )  <a href="#a2617136f50ae63442e88809037ab9ff0">More...</a><br /></td></tr>
+<tr class="memdesc:a2617136f50ae63442e88809037ab9ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант X - заимствование идеи из статистического критерия X^2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-равномерного распределения, то есть Если flen - максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen - M)^2 И вычисляется значение return ( СУММА dd(i)*pHist256(i) / СУММА pHist256(i) ) / sqrt( СУММА dd(i)*dd(i)*pHist256(i) / СУММА pHist256(i) )  <a href="#a2617136f50ae63442e88809037ab9ff0">More...</a><br /></td></tr>
 <tr class="separator:a2617136f50ae63442e88809037ab9ff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4893abd93ae9de7f3913f24c872b23f8"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4893abd93ae9de7f3913f24c872b23f8">MakeEntropyH</a> (int *pHist256, int len)</td></tr>
+<tr class="memdesc:a4893abd93ae9de7f3913f24c872b23f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант Н - заимствование идеи из статистического критерия наиболее мощный) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: n = СУММА pHist256(i), sum = СУММА ( pHist256(i) / n ) * log10( n * d / pHist256(i) ), return sum; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0  <a href="#a4893abd93ae9de7f3913f24c872b23f8">More...</a><br /></td></tr>
 <tr class="separator:a4893abd93ae9de7f3913f24c872b23f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4a6d774f1ebf9e8bf595c3e3e60f06a7">MakeEntropyD</a> (int *pHist256, int len)</td></tr>
+<tr class="memdesc:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собствееное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: d = 1.0/len, n = СУММА pHist256(i), sm = СУММА pHist256(i) * log10( pHist256(i) ), Delta = (d*n/2)*pow(10,-1.0*sm/n), return Delta; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0  <a href="#a4a6d774f1ebf9e8bf595c3e3e60f06a7">More...</a><br /></td></tr>
 <tr class="separator:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13baee159190df5a7fb94bb58f55065"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa13baee159190df5a7fb94bb58f55065">MakeEntropyS</a> (int *pHist256, int len)</td></tr>
-<tr class="memdesc:aa13baee159190df5a7fb94bb58f55065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление энтропии по гистограмме сигнала (Вариант S - заимствование идеи из ...) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i Сумма pHist256(i) = количество пикселей исходного изображения = ширина*высота Сперва в таблице pHist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm - количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.0 до 1.0 (максимальнвя яркость на данном монохромном изображении равна 1.0) И вычисляется значение return log( Сумма abs( (i*fps/len - Xm) * ( pHist256(i) - Pm ) ) / len ) где fps - количество кадров/сек из настроечных параметров алгоритмов (параметр VI_VAR_FPSOUTR) В данной реализации элементы i, для которых pHist256(i) == 0 или i == 0, не участвуют в расчётах суммы  <a href="#aa13baee159190df5a7fb94bb58f55065">More...</a><br /></td></tr>
+<tr class="memdesc:aa13baee159190df5a7fb94bb58f55065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант S - заимствование идеи у инженера-телеграфиста Шенона, работавшего в начале прошлого века в компании Bell) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Сперва в таблице pHist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm - количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.0 до 1.0 (максимальнвя яркость на данном монохромном изображении равна 1.0) И вычисляется значение return log( СУММА abs( (i*fps/len - Xm) * ( pHist256(i) - Pm ) ) / len ) где fps - количество кадров/сек из настроечных параметров алгоритмов (параметр VI_VAR_FPSOUTR) В данной реализации элементы i, для которых pHist256(i) == 0 или i == 0, не участвуют в расчётах суммы  <a href="#aa13baee159190df5a7fb94bb58f55065">More...</a><br /></td></tr>
 <tr class="separator:aa13baee159190df5a7fb94bb58f55065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bde6b4202b8dfa683becb522949e09c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4bde6b4202b8dfa683becb522949e09c">MakeComN</a> (int *pHist256, int len)</td></tr>
+<tr class="memdesc:a4bde6b4202b8dfa683becb522949e09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения статистики по гистограмме сигнала. Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: nPI = (0.5/M_PI)*(0.5/M_PI); M = ( СУММА i * pHist256(i) ) / ( СУММА pHist256(i) ); dx(i) = pHist256(i) - M; t(i) = i - M; z(i) = nPI*exp(-0.5*t(i)*t(i)); SumZ = СУММА nPI*exp(-0.5*t(i)*t(i)); S = sqrt( ( СУММА dx(i) * dx(i) * pHist256(i) ) / ( СУММА pHist256(i) ) ); K = ( СУММА z(i) ) / ( СУММА pHist256(i) ); return max( 0.0, min( sqrt( СУММА (pHist256[i] * K - z(i))^2 ) / sqrt( СУММА z(i)^2 ) , 1.0 ) );  <a href="#a4bde6b4202b8dfa683becb522949e09c">More...</a><br /></td></tr>
 <tr class="separator:a4bde6b4202b8dfa683becb522949e09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6eaa6b468b27249a359a67ce1ce32c4f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a6eaa6b468b27249a359a67ce1ce32c4f">MakeComS</a> (AURA_STAT &amp;aura)</td></tr>
+<tr class="memitem:a6eaa6b468b27249a359a67ce1ce32c4f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a6eaa6b468b27249a359a67ce1ce32c4f">MakeComS</a> (<a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;aura)</td></tr>
 <tr class="separator:a6eaa6b468b27249a359a67ce1ce32c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2575b5618d3f87d4b10bb1f7294a3bad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2575b5618d3f87d4b10bb1f7294a3bad">SrcMaskLoad</a> (LPCWSTR file)</td></tr>
 <tr class="memdesc:a2575b5618d3f87d4b10bb1f7294a3bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загрузка монохромного изображения m_imgSrcMask из файла Задание размера монохромного изображения m_imgSrcMask равным ширине и высоте изображения в файле Заполнение монохромного изображения m_imgSrcMask значениями 0x00 и 0xFF на основании значений пикселей изображения в файле При этом при заполнении m_imgSrcMask значениями используется вертикально перевёрнутое изображения из файла В m_imgSrcMask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение COLORREF (чёрный цвет) и записывается значение 0xFF во всех остальных случаяж The COLORREF value is used to specify an RGB color.  <a href="#a2575b5618d3f87d4b10bb1f7294a3bad">More...</a><br /></td></tr>
@@ -249,8 +260,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memdesc:a1d96cf239567fda73e26950353c69159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение монохромного изображения m_imgSrcMask в файле Сперва каждому пикселю в m_imgSrcMask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0xFFFFFF на основании значений пикселей в m_imgSrcMask В память записывается значение 0x00000000 если соответствующий пиксель в m_imgSrcMask имеет нулевое значение (чёрный цвет) и записывается значение 0x00FFFFFF во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла  <a href="#a1d96cf239567fda73e26950353c69159">More...</a><br /></td></tr>
 <tr class="separator:a1d96cf239567fda73e26950353c69159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac394163149bb674cf127f16392f41047"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac394163149bb674cf127f16392f41047">SrcMaskReset</a> ()</td></tr>
+<tr class="memdesc:ac394163149bb674cf127f16392f41047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистка двумерного массива m_imgSrcMask Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#ac394163149bb674cf127f16392f41047">More...</a><br /></td></tr>
 <tr class="separator:ac394163149bb674cf127f16392f41047"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa12afe22df5c306e03eb855d4fed4fce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa12afe22df5c306e03eb855d4fed4fce">SrcMaskErase</a> (int x, int y)</td></tr>
+<tr class="memdesc:aa12afe22df5c306e03eb855d4fed4fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Присвоение нулевого значения элементу двумерного массива m_imgSrcMask по указанным координатам. Если массив m_imgSrcMask пустой то он создаётся с размерами взятыми у m_imgSrc8 и заполняется байтами 0xFF. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#aa12afe22df5c306e03eb855d4fed4fce">More...</a><br /></td></tr>
 <tr class="separator:aa12afe22df5c306e03eb855d4fed4fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa7d51c8145d1094997fc485508dd402"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aaa7d51c8145d1094997fc485508dd402">GetAura</a> (int *pCWL, int *pCWR, int *pCR, int *pCL, int nProc, bool bB)</td></tr>
 <tr class="separator:aaa7d51c8145d1094997fc485508dd402"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -368,22 +381,22 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>m_imgSrcF</b></td>
 <a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; BYTE &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_imgSrcMask</b></td></tr>
 <tr class="separator:a879bfc4065da678c4ca67ed828b05a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b14da4c2f0ccba53a81ab89b89b2a03"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b14da4c2f0ccba53a81ab89b89b2a03"></a>
-lFRAME_IMG&#160;</td><td class="memItemRight" valign="bottom"><b>m_arrSrc</b></td></tr>
+<a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_arrSrc</b></td></tr>
 <tr class="separator:a9b14da4c2f0ccba53a81ab89b89b2a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd1077e6704b0f6bbc788c4d3e7f150e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd1077e6704b0f6bbc788c4d3e7f150e"></a>
-lFRAME_IMG&#160;</td><td class="memItemRight" valign="bottom"><b>m_arrDelta</b></td></tr>
+<a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_arrDelta</b></td></tr>
 <tr class="separator:abd1077e6704b0f6bbc788c4d3e7f150e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b3b91816e3f19ec5e531c5ad903be98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b3b91816e3f19ec5e531c5ad903be98"></a>
 <a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_srcMask</b></td></tr>
 <tr class="separator:a0b3b91816e3f19ec5e531c5ad903be98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b792994f8c587ebdd4296031032f68"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29b792994f8c587ebdd4296031032f68"></a>
-std::vector&lt; SUM_IMG &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_summ</b></td></tr>
+std::vector&lt; <a class="el" href="class_s_u_m___i_m_g.html">SUM_IMG</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_summ</b></td></tr>
 <tr class="separator:a29b792994f8c587ebdd4296031032f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73ff2aaa9eeb589ce6ea73ef5dd62fda"></a>
-std::vector&lt; SUMM_STAT &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat</b></td></tr>
+std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat</b></td></tr>
 <tr class="separator:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0a3c99fb49cddb42615132833b483d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0a3c99fb49cddb42615132833b483d5"></a>
-std::vector&lt; SUMM_STAT &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_statRelease</b></td></tr>
+std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_statRelease</b></td></tr>
 <tr class="separator:ab0a3c99fb49cddb42615132833b483d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91282745c78c776f8922e20c4f3198f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91282745c78c776f8922e20c4f3198f5"></a>
 CVIEngineProc2x&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat2</b></td></tr>
@@ -472,7 +485,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Конструктор класса Инициализация переменных программы. Определение оптимального количества параллельных нитей для вычислений. </p>
 
 </div>
 </div>
@@ -709,7 +722,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF. </p>
 
 </div>
 </div>
@@ -766,7 +779,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
         <tr>
           <td class="memname">void CVIEngineBase::ClearStat </td>
           <td>(</td>
-          <td class="paramtype">SUMM_STAT &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &amp;&#160;</td>
           <td class="paramname"><em>S</em></td><td>)</td>
           <td></td>
         </tr>
@@ -791,7 +804,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Останов ранее запущенных параллельных потоков для вычислений. </p>
 
 </div>
 </div>
@@ -809,7 +822,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Запуск параллельных потоков для вычислений. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bLock</td><td></td></tr>
@@ -1447,7 +1460,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление значения статистики по гистограмме сигнала. Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: nPI = (0.5/M_PI)*(0.5/M_PI); M = ( СУММА i * pHist256(i) ) / ( СУММА pHist256(i) ); dx(i) = pHist256(i) - M; t(i) = i - M; z(i) = nPI*exp(-0.5*t(i)*t(i)); SumZ = СУММА nPI*exp(-0.5*t(i)*t(i)); S = sqrt( ( СУММА dx(i) * dx(i) * pHist256(i) ) / ( СУММА pHist256(i) ) ); K = ( СУММА z(i) ) / ( СУММА pHist256(i) ); return max( 0.0, min( sqrt( СУММА (pHist256[i] * K - z(i))^2 ) / sqrt( СУММА z(i)^2 ) , 1.0 ) ); </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
+    <tr><td class="paramname">len</td><td>Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1458,7 +1478,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
         <tr>
           <td class="memname">float CVIEngineBase::MakeComS </td>
           <td>(</td>
-          <td class="paramtype">AURA_STAT &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;&#160;</td>
           <td class="paramname"><em>aura</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1466,6 +1486,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><div class="memdoc">
 
 <p></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aura</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1493,7 +1519,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собствееное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: d = 1.0/len, n = СУММА pHist256(i), sm = СУММА pHist256(i) * log10( pHist256(i) ), Delta = (d*n/2)*pow(10,-1.0*sm/n), return Delta; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
+    <tr><td class="paramname">len</td><td>Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1521,7 +1554,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление значения энтропии по гистограмме сигнала (Вариант Н - заимствование идеи из статистического критерия наиболее мощный) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: n = СУММА pHist256(i), sum = СУММА ( pHist256(i) / n ) * log10( n * d / pHist256(i) ), return sum; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0 </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
+    <tr><td class="paramname">len</td><td>Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1549,10 +1589,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Вычисление энтропии по гистограмме сигнала (Вариант S - заимствование идеи из ...) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i Сумма pHist256(i) = количество пикселей исходного изображения = ширина*высота Сперва в таблице pHist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm - количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.0 до 1.0 (максимальнвя яркость на данном монохромном изображении равна 1.0) И вычисляется значение return log( Сумма abs( (i*fps/len - Xm) * ( pHist256(i) - Pm ) ) / len ) где fps - количество кадров/сек из настроечных параметров алгоритмов (параметр VI_VAR_FPSOUTR) В данной реализации элементы i, для которых pHist256(i) == 0 или i == 0, не участвуют в расчётах суммы </p>
+<p>Вычисление значения энтропии по гистограмме сигнала (Вариант S - заимствование идеи у инженера-телеграфиста Шенона, работавшего в начале прошлого века в компании Bell) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Сперва в таблице pHist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm - количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.0 до 1.0 (максимальнвя яркость на данном монохромном изображении равна 1.0) И вычисляется значение return log( СУММА abs( (i*fps/len - Xm) * ( pHist256(i) - Pm ) ) / len ) где fps - количество кадров/сек из настроечных параметров алгоритмов (параметр VI_VAR_FPSOUTR) В данной реализации элементы i, для которых pHist256(i) == 0 или i == 0, не участвуют в расчётах суммы </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pHist256</td><td>Гистограмма однотонного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
+    <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
     <tr><td class="paramname">len</td><td>Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 </td></tr>
   </table>
   </dd>
@@ -1584,10 +1624,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Вычисление энтропии по гистограмме сигнала (Вариант X - заимствование идеи из статистического критерия X^2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i Сумма pHist256(i) = количество пикселей исходного изображения = ширина*высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-равномерного распределения, то есть Если flen - максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen - M)^2 И вычисляется значение return ( Сумма dd(i)*pHist256(i) / Сумма pHist256(i) ) / sqrt( Сумма dd(i)*dd(i)*pHist256(i) / Сумма pHist256(i) ) </p>
+<p>Вычисление значения энтропии по гистограмме сигнала (Вариант X - заимствование идеи из статистического критерия X^2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-равномерного распределения, то есть Если flen - максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen - M)^2 И вычисляется значение return ( СУММА dd(i)*pHist256(i) / СУММА pHist256(i) ) / sqrt( СУММА dd(i)*dd(i)*pHist256(i) / СУММА pHist256(i) ) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pHist256</td><td>Гистограмма однотонного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
+    <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
     <tr><td class="paramname">len</td><td>Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 </td></tr>
   </table>
   </dd>
@@ -1650,6 +1690,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><div class="memdoc">
 
 <p></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pFI</td><td></td></tr>
+    <tr><td class="paramname">pBI</td><td></td></tr>
+    <tr><td class="paramname">w</td><td>Ширина изображения</td></tr>
+    <tr><td class="paramname">h</td><td>Высота изображения</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1920,7 +1969,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сдвиг очереди кадров </p>
 
 </div>
 </div>
@@ -2076,7 +2125,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cnt</td><td>Новое количество обрабатываемых кадров</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2168,7 +2223,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сохранение новых размеров изображения в настроечных параметрах VI_VAR_SIZE. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">w</td><td>Ширина изображения</td></tr>
+    <tr><td class="paramname">h</td><td>Высота изображения</td></tr>
+    <tr><td class="paramname">cnt</td><td>Новое количество обрабатываемых кадров</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2224,7 +2287,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Присвоение нулевого значения элементу двумерного массива m_imgSrcMask по указанным координатам. Если массив m_imgSrcMask пустой то он создаётся с размерами взятыми у m_imgSrc8 и заполняется байтами 0xFF. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>x координата элемента</td></tr>
+    <tr><td class="paramname">y</td><td>y координата элемента</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2265,7 +2335,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Очистка двумерного массива m_imgSrcMask Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 
 </div>
 </div>
@@ -2429,7 +2499,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации. </p>
 
 </div>
 </div>
@@ -2440,7 +2510,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 17 2014 10:49:29 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 03:23:54 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

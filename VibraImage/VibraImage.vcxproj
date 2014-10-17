@@ -79,17 +79,21 @@
     <ClCompile Include="PointSSE.cpp" />
     <ClCompile Include="VIEngineConfig.cpp" />
     <ClCompile Include="VIEngineEvent.cpp" />
+    <ClCompile Include="VIEngineSimple.cpp" />
     <ClCompile Include="VITimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\code\viEngineBase.h" />
     <ClInclude Include="..\code\viEngineThread.h" />
+    <ClInclude Include="IMG.h" />
     <ClInclude Include="mmx_array.h" />
     <ClInclude Include="mmx_array2.h" />
     <ClInclude Include="MTSingleLock.h" />
     <ClInclude Include="PointSSE.h" />
+    <ClInclude Include="STAT.h" />
     <ClInclude Include="VIEngineConfig.h" />
     <ClInclude Include="VIEngineEvent.h" />
+    <ClInclude Include="VIEngineSimple.h" />
     <ClInclude Include="VITimer.h" />
     <ClInclude Include="VI_RESULT.h" />
   </ItemGroup>

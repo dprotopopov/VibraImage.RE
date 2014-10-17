@@ -14,7 +14,7 @@
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{class_c_v_i_engine_base_a1349de29adc90869f463b17fb03904c1}{C\+V\+I\+Engine\+Base} (int n\+Thread)
-\item 
+\begin{DoxyCompactList}\small\item\em Конструктор класса Инициализация переменных программы. Определение оптимального количества параллельных нитей для вычислений. \end{DoxyCompactList}\item 
 \hyperlink{class_c_v_i_engine_base_a28dba2a06eda33294836c5241f497112}{$\sim$\+C\+V\+I\+Engine\+Base} (void)
 \item 
 \hypertarget{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}{R\+G\+B\+Q\+U\+A\+D {\bfseries \+\_\+\+\_\+declspec} (align(16)) m\+\_\+pal\+I\mbox{[}256\mbox{]}}\label{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}
@@ -27,9 +27,9 @@ int \hyperlink{class_c_v_i_engine_base_ac9fbe14762f4d2bf7d0bffe451a329ee}{Add\+I
 void \hyperlink{class_c_v_i_engine_base_a180f4a67ef6b4137c8b8565310aa7834}{Add\+Image\+Thread\+Local8} ()
 \item 
 void \hyperlink{class_c_v_i_engine_base_a053908c9c2c18583a13e6f6f79c8eeab}{Create\+Threads} (bool b\+Lock=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Запуск параллельных потоков для вычислений. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a0905eba46bb64f25a2d91f8b39a3f994}{Close\+Threads} (bool b\+Lock=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Останов ранее запущенных параллельных потоков для вычислений. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_ac886baeaf14b16970d089edaf6767a79}{Add\+Image} (void $\ast$p, int w, int h, int bpp, double t, int n\+Ref=0)
 \item 
 bool \hyperlink{class_c_v_i_engine_base_a3fe6ae4f9ac6b9422c22d99878f424f5}{Add\+Image8} ()
@@ -37,15 +37,15 @@ bool \hyperlink{class_c_v_i_engine_base_a3fe6ae4f9ac6b9422c22d99878f424f5}{Add\+
 bool \hyperlink{class_c_v_i_engine_base_a3426944a03bac2f5a8c135c217f9cf8c}{Make\+Image} (float $\ast$p\+F\+I, B\+Y\+T\+E $\ast$p\+B\+I, int w, int h)
 \item 
 bool \hyperlink{class_c_v_i_engine_base_a930661f73cc7c449c166071631be595d}{Set\+Size} (int w, int h, int cnt)
-\item 
+\begin{DoxyCompactList}\small\item\em Сохранение новых размеров изображения в настроечных параметрах V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a042d710f3a5be21538478ad157680828}{Set\+Count} (int cnt, bool b\+Lock=true)
-\item 
+\begin{DoxyCompactList}\small\item\em Сброс настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E. Изменение размера массивов m\+\_\+arr\+Src и m\+\_\+arr\+Delta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a4764b56d4269ed5cd101dddf545e039d}{Check\+F\+P\+S\+D\+I\+V} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Восстановление значения настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V значением настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T. В случае если настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V отличался от настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T, производится очистка массива m\+\_\+src\+F. \end{DoxyCompactList}\item 
 \hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ \& \hyperlink{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{Next\+Src} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Сдвиг очереди кадров \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a305c1b2285ddfcdbb021597f0b3dbd39}{Wait\+Threads} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_af12866653055639e69a61224615af7fe}{Sync} (void)
 \item 
 void \hyperlink{class_c_v_i_engine_base_a4b6c77fcb50dcb01f299d7e0f4b05ea6}{Set\+Summ\+Count} (int cnt, int $\ast$p\+N)
@@ -66,7 +66,7 @@ void \hyperlink{class_c_v_i_engine_base_a2b86bf7f377f62e7a701fb3466708d04}{Make\
 \item 
 void \hyperlink{class_c_v_i_engine_base_a10d6138a2c8f4c4c946bf930c268be6b}{Clear\+Stat} (void)
 \item 
-void \hyperlink{class_c_v_i_engine_base_adb910c0d7f06cf1f3ea7b2347aed1751}{Clear\+Stat} (S\+U\+M\+M\+\_\+\+S\+T\+A\+T \&S)
+void \hyperlink{class_c_v_i_engine_base_adb910c0d7f06cf1f3ea7b2347aed1751}{Clear\+Stat} (\hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} \&S)
 \item 
 \hypertarget{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}{void {\bfseries Make\+Def\+Pal} (R\+G\+B\+Q\+U\+A\+D $\ast$pal)}\label{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}
 
@@ -143,25 +143,25 @@ void \hyperlink{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}{Make\
 float \hyperlink{class_c_v_i_engine_base_a784d5489bb89efa567e207d3539de0da}{Make\+Charming} (int $\ast$p\+Hist256, int len)
 \item 
 float \hyperlink{class_c_v_i_engine_base_a2617136f50ae63442e88809037ab9ff0}{Make\+Entropy\+X} (int $\ast$p\+Hist256, int len)
-\begin{DoxyCompactList}\small\item\em Вычисление энтропии по гистограмме сигнала (Вариант X -\/ заимствование идеи из статистического критерия X$^\wedge$2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i Сумма p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-\/равномерного распределения, то есть Если flen -\/ максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen -\/ M)$^\wedge$2 И вычисляется значение return ( Сумма dd(i)$\ast$p\+Hist256(i) / Сумма p\+Hist256(i) ) / sqrt( Сумма dd(i)$\ast$dd(i)$\ast$p\+Hist256(i) / Сумма p\+Hist256(i) ) \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Вычисление значения энтропии по гистограмме сигнала (Вариант X -\/ заимствование идеи из статистического критерия X$^\wedge$2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-\/равномерного распределения, то есть Если flen -\/ максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen -\/ M)$^\wedge$2 И вычисляется значение return ( СУММА dd(i)$\ast$p\+Hist256(i) / СУММА p\+Hist256(i) ) / sqrt( СУММА dd(i)$\ast$dd(i)$\ast$p\+Hist256(i) / СУММА p\+Hist256(i) ) \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a4893abd93ae9de7f3913f24c872b23f8}{Make\+Entropy\+H} (int $\ast$p\+Hist256, int len)
-\item 
+\begin{DoxyCompactList}\small\item\em Вычисление значения энтропии по гистограмме сигнала (Вариант Н -\/ заимствование идеи из статистического критерия наиболее мощный) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: n = СУММА p\+Hist256(i), sum = СУММА ( p\+Hist256(i) / n ) $\ast$ log10( n $\ast$ d / p\+Hist256(i) ), return sum; где при подсчёте сумм берутся все i кроме p\+Hist256(i) == 0 или i == 0 \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a4a6d774f1ebf9e8bf595c3e3e60f06a7}{Make\+Entropy\+D} (int $\ast$p\+Hist256, int len)
-\item 
+\begin{DoxyCompactList}\small\item\em Вычисление значения энтропии по гистограмме сигнала (Вариант D -\/ заимствование идеи из ... видимо совсем собствееное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: d = 1.\+0/len, n = СУММА p\+Hist256(i), sm = СУММА p\+Hist256(i) $\ast$ log10( p\+Hist256(i) ), Delta = (d$\ast$n/2)$\ast$pow(10,-\/1.\+0$\ast$sm/n), return Delta; где при подсчёте сумм берутся все i кроме p\+Hist256(i) == 0 или i == 0 \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_aa13baee159190df5a7fb94bb58f55065}{Make\+Entropy\+S} (int $\ast$p\+Hist256, int len)
-\begin{DoxyCompactList}\small\item\em Вычисление энтропии по гистограмме сигнала (Вариант S -\/ заимствование идеи из ...) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i Сумма p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Сперва в таблице p\+Hist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm -\/ количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.\+0 до 1.\+0 (максимальнвя яркость на данном монохромном изображении равна 1.\+0) И вычисляется значение return log( Сумма abs( (i$\ast$fps/len -\/ Xm) $\ast$ ( p\+Hist256(i) -\/ Pm ) ) / len ) где fps -\/ количество кадров/сек из настроечных параметров алгоритмов (параметр V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R) В данной реализации элементы i, для которых p\+Hist256(i) == 0 или i == 0, не участвуют в расчётах суммы \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Вычисление значения энтропии по гистограмме сигнала (Вариант S -\/ заимствование идеи у инженера-\/телеграфиста Шенона, работавшего в начале прошлого века в компании Bell) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Сперва в таблице p\+Hist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm -\/ количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.\+0 до 1.\+0 (максимальнвя яркость на данном монохромном изображении равна 1.\+0) И вычисляется значение return log( СУММА abs( (i$\ast$fps/len -\/ Xm) $\ast$ ( p\+Hist256(i) -\/ Pm ) ) / len ) где fps -\/ количество кадров/сек из настроечных параметров алгоритмов (параметр V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R) В данной реализации элементы i, для которых p\+Hist256(i) == 0 или i == 0, не участвуют в расчётах суммы \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a4bde6b4202b8dfa683becb522949e09c}{Make\+Com\+N} (int $\ast$p\+Hist256, int len)
-\item 
-float \hyperlink{class_c_v_i_engine_base_a6eaa6b468b27249a359a67ce1ce32c4f}{Make\+Com\+S} (A\+U\+R\+A\+\_\+\+S\+T\+A\+T \&aura)
+\begin{DoxyCompactList}\small\item\em Вычисление значения статистики по гистограмме сигнала. Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: n\+P\+I = (0.\+5/\+M\+\_\+\+P\+I)$\ast$(0.\+5/\+M\+\_\+\+P\+I); M = ( СУММА i $\ast$ p\+Hist256(i) ) / ( СУММА p\+Hist256(i) ); dx(i) = p\+Hist256(i) -\/ M; t(i) = i -\/ M; z(i) = n\+P\+I$\ast$exp(-\/0.\+5$\ast$t(i)$\ast$t(i)); Sum\+Z = СУММА n\+P\+I$\ast$exp(-\/0.\+5$\ast$t(i)$\ast$t(i)); S = sqrt( ( СУММА dx(i) $\ast$ dx(i) $\ast$ p\+Hist256(i) ) / ( СУММА p\+Hist256(i) ) ); K = ( СУММА z(i) ) / ( СУММА p\+Hist256(i) ); return max( 0.\+0, min( sqrt( СУММА (p\+Hist256\mbox{[}i\mbox{]} $\ast$ K -\/ z(i))$^\wedge$2 ) / sqrt( СУММА z(i)$^\wedge$2 ) , 1.\+0 ) ); \end{DoxyCompactList}\item 
+float \hyperlink{class_c_v_i_engine_base_a6eaa6b468b27249a359a67ce1ce32c4f}{Make\+Com\+S} (\hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T} \&aura)
 \item 
 bool \hyperlink{class_c_v_i_engine_base_a2575b5618d3f87d4b10bb1f7294a3bad}{Src\+Mask\+Load} (L\+P\+C\+W\+S\+T\+R file)
 \begin{DoxyCompactList}\small\item\em Загрузка монохромного изображения m\+\_\+img\+Src\+Mask из файла Задание размера монохромного изображения m\+\_\+img\+Src\+Mask равным ширине и высоте изображения в файле Заполнение монохромного изображения m\+\_\+img\+Src\+Mask значениями 0x00 и 0x\+F\+F на основании значений пикселей изображения в файле При этом при заполнении m\+\_\+img\+Src\+Mask значениями используется вертикально перевёрнутое изображения из файла В m\+\_\+img\+Src\+Mask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение C\+O\+L\+O\+R\+R\+E\+F (чёрный цвет) и записывается значение 0x\+F\+F во всех остальных случаяж The C\+O\+L\+O\+R\+R\+E\+F value is used to specify an R\+G\+B color. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a1d96cf239567fda73e26950353c69159}{Src\+Mask\+Save} (L\+P\+C\+W\+S\+T\+R file)
 \begin{DoxyCompactList}\small\item\em Сохранение монохромного изображения m\+\_\+img\+Src\+Mask в файле Сперва каждому пикселю в m\+\_\+img\+Src\+Mask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0x\+F\+F\+F\+F\+F\+F на основании значений пикселей в m\+\_\+img\+Src\+Mask В память записывается значение 0x00000000 если соответствующий пиксель в m\+\_\+img\+Src\+Mask имеет нулевое значение (чёрный цвет) и записывается значение 0x00\+F\+F\+F\+F\+F\+F во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_ac394163149bb674cf127f16392f41047}{Src\+Mask\+Reset} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Очистка двумерного массива m\+\_\+img\+Src\+Mask Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_aa12afe22df5c306e03eb855d4fed4fce}{Src\+Mask\+Erase} (int x, int y)
-\item 
+\begin{DoxyCompactList}\small\item\em Присвоение нулевого значения элементу двумерного массива m\+\_\+img\+Src\+Mask по указанным координатам. Если массив m\+\_\+img\+Src\+Mask пустой то он создаётся с размерами взятыми у m\+\_\+img\+Src8 и заполняется байтами 0x\+F\+F. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_aaa7d51c8145d1094997fc485508dd402}{Get\+Aura} (int $\ast$p\+C\+W\+L, int $\ast$p\+C\+W\+R, int $\ast$p\+C\+R, int $\ast$p\+C\+L, int n\+Proc, bool b\+B)
 \item 
 bool \hyperlink{class_c_v_i_engine_base_a33937f3f067ec0fa9829c7a40b54be50}{Can\+Make\+Hist} (int id)
@@ -276,22 +276,22 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 \hypertarget{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ B\+Y\+T\+E $>$ {\bfseries m\+\_\+img\+Src\+Mask}}\label{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G {\bfseries m\+\_\+arr\+Src}}\label{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}
+\hypertarget{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}{\hyperlink{classl_f_r_a_m_e___i_m_g}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} {\bfseries m\+\_\+arr\+Src}}\label{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G {\bfseries m\+\_\+arr\+Delta}}\label{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}
+\hypertarget{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}{\hyperlink{classl_f_r_a_m_e___i_m_g}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} {\bfseries m\+\_\+arr\+Delta}}\label{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}
 
 \item 
 \hypertarget{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ {\bfseries m\+\_\+src\+Mask}}\label{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{std\+::vector$<$ S\+U\+M\+\_\+\+I\+M\+G $>$ {\bfseries m\+\_\+summ}}\label{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}
+\hypertarget{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{std\+::vector$<$ \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G} $>$ {\bfseries m\+\_\+summ}}\label{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}{std\+::vector$<$ S\+U\+M\+M\+\_\+\+S\+T\+A\+T $>$ {\bfseries m\+\_\+stat}}\label{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}
+\hypertarget{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}{std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ {\bfseries m\+\_\+stat}}\label{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{std\+::vector$<$ S\+U\+M\+M\+\_\+\+S\+T\+A\+T $>$ {\bfseries m\+\_\+stat\+Release}}\label{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}
+\hypertarget{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ {\bfseries m\+\_\+stat\+Release}}\label{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}
 
 \item 
 \hypertarget{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}{C\+V\+I\+Engine\+Proc2x {\bfseries m\+\_\+stat2}}\label{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}
@@ -380,7 +380,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a1349de29adc90869f463b17fb03904c1}
 
 
-
+Конструктор класса Инициализация переменных программы. Определение оптимального количества параллельных нитей для вычислений. 
 
 \hypertarget{class_c_v_i_engine_base_a28dba2a06eda33294836c5241f497112}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!````~C\+V\+I\+Engine\+Base@{$\sim$\+C\+V\+I\+Engine\+Base}}
 \index{````~C\+V\+I\+Engine\+Base@{$\sim$\+C\+V\+I\+Engine\+Base}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -513,7 +513,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a4764b56d4269ed5cd101dddf545e039d}
 
 
-
+Восстановление значения настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V значением настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T. В случае если настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V отличался от настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T, производится очистка массива m\+\_\+src\+F. 
 
 \hypertarget{class_c_v_i_engine_base_a65b898d96c06c5c9bf9f388b4a70f740}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Check\+N\+Rqst@{Check\+N\+Rqst}}
 \index{Check\+N\+Rqst@{Check\+N\+Rqst}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -542,7 +542,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 \index{Clear\+Stat@{Clear\+Stat}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Clear\+Stat}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Clear\+Stat (
 \begin{DoxyParamCaption}
-\item[{S\+U\+M\+M\+\_\+\+S\+T\+A\+T \&}]{S}
+\item[{{\bf S\+U\+M\+M\+\_\+\+S\+T\+A\+T} \&}]{S}
 \end{DoxyParamCaption}
 )}}\label{class_c_v_i_engine_base_adb910c0d7f06cf1f3ea7b2347aed1751}
 
@@ -558,7 +558,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a0905eba46bb64f25a2d91f8b39a3f994}
 
 
-
+Останов ранее запущенных параллельных потоков для вычислений. 
 
 \hypertarget{class_c_v_i_engine_base_a053908c9c2c18583a13e6f6f79c8eeab}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Create\+Threads@{Create\+Threads}}
 \index{Create\+Threads@{Create\+Threads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -569,7 +569,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a053908c9c2c18583a13e6f6f79c8eeab}
 
 
-
+Запуск параллельных потоков для вычислений. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -852,19 +852,31 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a4bde6b4202b8dfa683becb522949e09c}
 
 
+Вычисление значения статистики по гистограмме сигнала. Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: n\+P\+I = (0.\+5/\+M\+\_\+\+P\+I)$\ast$(0.\+5/\+M\+\_\+\+P\+I); M = ( СУММА i $\ast$ p\+Hist256(i) ) / ( СУММА p\+Hist256(i) ); dx(i) = p\+Hist256(i) -\/ M; t(i) = i -\/ M; z(i) = n\+P\+I$\ast$exp(-\/0.\+5$\ast$t(i)$\ast$t(i)); Sum\+Z = СУММА n\+P\+I$\ast$exp(-\/0.\+5$\ast$t(i)$\ast$t(i)); S = sqrt( ( СУММА dx(i) $\ast$ dx(i) $\ast$ p\+Hist256(i) ) / ( СУММА p\+Hist256(i) ) ); K = ( СУММА z(i) ) / ( СУММА p\+Hist256(i) ); return max( 0.\+0, min( sqrt( СУММА (p\+Hist256\mbox{[}i\mbox{]} $\ast$ K -\/ z(i))$^\wedge$2 ) / sqrt( СУММА z(i)$^\wedge$2 ) , 1.\+0 ) ); 
 
 
+\begin{DoxyParams}{Parameters}
+{\em p\+Hist256} & Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
+\hline
+{\em len} & Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a6eaa6b468b27249a359a67ce1ce32c4f}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Com\+S@{Make\+Com\+S}}
 \index{Make\+Com\+S@{Make\+Com\+S}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Com\+S}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Com\+S (
 \begin{DoxyParamCaption}
-\item[{A\+U\+R\+A\+\_\+\+S\+T\+A\+T \&}]{aura}
+\item[{{\bf A\+U\+R\+A\+\_\+\+S\+T\+A\+T} \&}]{aura}
 \end{DoxyParamCaption}
 )}}\label{class_c_v_i_engine_base_a6eaa6b468b27249a359a67ce1ce32c4f}
 
 
 
 
+
+\begin{DoxyParams}{Parameters}
+{\em aura} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a4a6d774f1ebf9e8bf595c3e3e60f06a7}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Entropy\+D@{Make\+Entropy\+D}}
 \index{Make\+Entropy\+D@{Make\+Entropy\+D}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Entropy\+D}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Entropy\+D (
@@ -875,8 +887,15 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a4a6d774f1ebf9e8bf595c3e3e60f06a7}
 
 
+Вычисление значения энтропии по гистограмме сигнала (Вариант D -\/ заимствование идеи из ... видимо совсем собствееное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: d = 1.\+0/len, n = СУММА p\+Hist256(i), sm = СУММА p\+Hist256(i) $\ast$ log10( p\+Hist256(i) ), Delta = (d$\ast$n/2)$\ast$pow(10,-\/1.\+0$\ast$sm/n), return Delta; где при подсчёте сумм берутся все i кроме p\+Hist256(i) == 0 или i == 0 
 
 
+\begin{DoxyParams}{Parameters}
+{\em p\+Hist256} & Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
+\hline
+{\em len} & Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a4893abd93ae9de7f3913f24c872b23f8}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Entropy\+H@{Make\+Entropy\+H}}
 \index{Make\+Entropy\+H@{Make\+Entropy\+H}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Entropy\+H}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Entropy\+H (
@@ -887,8 +906,15 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a4893abd93ae9de7f3913f24c872b23f8}
 
 
+Вычисление значения энтропии по гистограмме сигнала (Вариант Н -\/ заимствование идеи из статистического критерия наиболее мощный) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: n = СУММА p\+Hist256(i), sum = СУММА ( p\+Hist256(i) / n ) $\ast$ log10( n $\ast$ d / p\+Hist256(i) ), return sum; где при подсчёте сумм берутся все i кроме p\+Hist256(i) == 0 или i == 0 
 
 
+\begin{DoxyParams}{Parameters}
+{\em p\+Hist256} & Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
+\hline
+{\em len} & Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_aa13baee159190df5a7fb94bb58f55065}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Entropy\+S@{Make\+Entropy\+S}}
 \index{Make\+Entropy\+S@{Make\+Entropy\+S}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Entropy\+S}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Entropy\+S (
@@ -899,11 +925,11 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_aa13baee159190df5a7fb94bb58f55065}
 
 
-Вычисление энтропии по гистограмме сигнала (Вариант S -\/ заимствование идеи из ...) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i Сумма p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Сперва в таблице p\+Hist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm -\/ количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.\+0 до 1.\+0 (максимальнвя яркость на данном монохромном изображении равна 1.\+0) И вычисляется значение return log( Сумма abs( (i$\ast$fps/len -\/ Xm) $\ast$ ( p\+Hist256(i) -\/ Pm ) ) / len ) где fps -\/ количество кадров/сек из настроечных параметров алгоритмов (параметр V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R) В данной реализации элементы i, для которых p\+Hist256(i) == 0 или i == 0, не участвуют в расчётах суммы 
+Вычисление значения энтропии по гистограмме сигнала (Вариант S -\/ заимствование идеи у инженера-\/телеграфиста Шенона, работавшего в начале прошлого века в компании Bell) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Сперва в таблице p\+Hist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm -\/ количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.\+0 до 1.\+0 (максимальнвя яркость на данном монохромном изображении равна 1.\+0) И вычисляется значение return log( СУММА abs( (i$\ast$fps/len -\/ Xm) $\ast$ ( p\+Hist256(i) -\/ Pm ) ) / len ) где fps -\/ количество кадров/сек из настроечных параметров алгоритмов (параметр V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R) В данной реализации элементы i, для которых p\+Hist256(i) == 0 или i == 0, не участвуют в расчётах суммы 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\+Hist256} & Гистограмма однотонного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
+{\em p\+Hist256} & Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
 \hline
 {\em len} & Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 \\
 \hline
@@ -918,11 +944,11 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a2617136f50ae63442e88809037ab9ff0}
 
 
-Вычисление энтропии по гистограмме сигнала (Вариант X -\/ заимствование идеи из статистического критерия X$^\wedge$2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i Сумма p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-\/равномерного распределения, то есть Если flen -\/ максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen -\/ M)$^\wedge$2 И вычисляется значение return ( Сумма dd(i)$\ast$p\+Hist256(i) / Сумма p\+Hist256(i) ) / sqrt( Сумма dd(i)$\ast$dd(i)$\ast$p\+Hist256(i) / Сумма p\+Hist256(i) ) 
+Вычисление значения энтропии по гистограмме сигнала (Вариант X -\/ заимствование идеи из статистического критерия X$^\wedge$2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-\/равномерного распределения, то есть Если flen -\/ максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen -\/ M)$^\wedge$2 И вычисляется значение return ( СУММА dd(i)$\ast$p\+Hist256(i) / СУММА p\+Hist256(i) ) / sqrt( СУММА dd(i)$\ast$dd(i)$\ast$p\+Hist256(i) / СУММА p\+Hist256(i) ) 
 
 
 \begin{DoxyParams}{Parameters}
-{\em p\+Hist256} & Гистограмма однотонного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
+{\em p\+Hist256} & Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
 \hline
 {\em len} & Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 \\
 \hline
@@ -952,6 +978,17 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 
 
 
+
+\begin{DoxyParams}{Parameters}
+{\em p\+F\+I} & \\
+\hline
+{\em p\+B\+I} & \\
+\hline
+{\em w} & Ширина изображения\\
+\hline
+{\em h} & Высота изображения\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_aa31de24bd1b50c4206e8c3a6603985b2}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Motion@{Make\+Motion}}
 \index{Make\+Motion@{Make\+Motion}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Motion}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Make\+Motion (
@@ -1097,7 +1134,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}
 
 
-
+Сдвиг очереди кадров 
 
 \hypertarget{class_c_v_i_engine_base_ad6e23a29501fa69951a0cc9405bae96a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!On\+New\+Var@{On\+New\+Var}}
 \index{On\+New\+Var@{On\+New\+Var}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1175,8 +1212,13 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a042d710f3a5be21538478ad157680828}
 
 
+Сброс настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E. Изменение размера массивов m\+\_\+arr\+Src и m\+\_\+arr\+Delta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em cnt} & Новое количество обрабатываемых кадров\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a4507f1ddf8b2931693f85e97dafe7cda}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Set\+Registry@{Set\+Registry}}
 \index{Set\+Registry@{Set\+Registry}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Set\+Registry}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Set\+Registry (
@@ -1213,8 +1255,17 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a930661f73cc7c449c166071631be595d}
 
 
+Сохранение новых размеров изображения в настроечных параметрах V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em w} & Ширина изображения\\
+\hline
+{\em h} & Высота изображения\\
+\hline
+{\em cnt} & Новое количество обрабатываемых кадров\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a4b6c77fcb50dcb01f299d7e0f4b05ea6}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Set\+Summ\+Count@{Set\+Summ\+Count}}
 \index{Set\+Summ\+Count@{Set\+Summ\+Count}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Set\+Summ\+Count}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Set\+Summ\+Count (
@@ -1237,8 +1288,15 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_aa12afe22df5c306e03eb855d4fed4fce}
 
 
+Присвоение нулевого значения элементу двумерного массива m\+\_\+img\+Src\+Mask по указанным координатам. Если массив m\+\_\+img\+Src\+Mask пустой то он создаётся с размерами взятыми у m\+\_\+img\+Src8 и заполняется байтами 0x\+F\+F. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em x} & x координата элемента\\
+\hline
+{\em y} & y координата элемента\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a2575b5618d3f87d4b10bb1f7294a3bad}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Src\+Mask\+Load@{Src\+Mask\+Load}}
 \index{Src\+Mask\+Load@{Src\+Mask\+Load}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Src\+Mask\+Load}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Src\+Mask\+Load (
@@ -1264,7 +1322,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_ac394163149bb674cf127f16392f41047}
 
 
-
+Очистка двумерного массива m\+\_\+img\+Src\+Mask Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 \hypertarget{class_c_v_i_engine_base_a1d96cf239567fda73e26950353c69159}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Src\+Mask\+Save@{Src\+Mask\+Save}}
 \index{Src\+Mask\+Save@{Src\+Mask\+Save}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1362,7 +1420,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )}}\label{class_c_v_i_engine_base_a305c1b2285ddfcdbb021597f0b3dbd39}
 
 
-
+Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации. 
 
 
 
