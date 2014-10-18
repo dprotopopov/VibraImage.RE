@@ -45,6 +45,9 @@
     <ClCompile Include="VIEngineSimple.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="VIEngineAudio2.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\code\viEngineBase.h">
@@ -84,6 +87,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="IMG.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="VIEngineAudio2.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

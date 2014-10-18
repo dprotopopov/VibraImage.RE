@@ -1,0 +1,91 @@
+\hypertarget{class_c_v_i_engine_audio2}{\section{C\+V\+I\+Engine\+Audio2 Class Reference}
+\label{class_c_v_i_engine_audio2}\index{C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}}
+}
+
+
+Видимо реализация A\+P\+I для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось. Вероятнее всего просто запускается параллельная нить в Windows? которая отвечает за захват изображения и звука через стандартные A\+P\+I мультимедиа Windows, и выдаёт результат в программу по запросам от программы.  
+
+
+
+
+{\ttfamily \#include $<$V\+I\+Engine\+Audio2.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_c_v_i_engine_audio2_a4db9b77fbe4864a556fe9dc1238a80d8}{C\+V\+I\+Engine\+Audio2} (\hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base} $\ast$p\+Base)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \end{DoxyCompactList}\item 
+void \hyperlink{class_c_v_i_engine_audio2_aee0cdfbeb4e06c36cb37058b3856c927}{New\+Source} ()
+\begin{DoxyCompactList}\small\item\em Видимо не более чем процедура подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. \end{DoxyCompactList}\item 
+void \hyperlink{class_c_v_i_engine_audio2_a249e86a49ebb16d71c276df7db8d41bb}{On\+Video} ()
+\begin{DoxyCompactList}\small\item\em Видимо просто запуск процедуры для копирования текущего кадра данных от медийного устройства в инстанс класса \hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_c_v_i_engine_audio2_a9554d5bac2f77277384394c21fd407bb}{bool {\bfseries m\+\_\+b\+Done}}\label{class_c_v_i_engine_audio2_a9554d5bac2f77277384394c21fd407bb}
+
+\item 
+\hypertarget{class_c_v_i_engine_audio2_ac3643ec0788589e78238776f56b9d796}{H\+A\+N\+D\+L\+E {\bfseries m\+\_\+h\+Thread}}\label{class_c_v_i_engine_audio2_ac3643ec0788589e78238776f56b9d796}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_c_v_i_engine_audio2_a63d3b5cc992e619dc07d688c16403af2}{\hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base} $\ast$ {\bfseries m\+\_\+p\+Base}}\label{class_c_v_i_engine_audio2_a63d3b5cc992e619dc07d688c16403af2}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Видимо реализация A\+P\+I для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось. Вероятнее всего просто запускается параллельная нить в Windows? которая отвечает за захват изображения и звука через стандартные A\+P\+I мультимедиа Windows, и выдаёт результат в программу по запросам от программы. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_c_v_i_engine_audio2_a4db9b77fbe4864a556fe9dc1238a80d8}{\index{C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}!C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}}
+\index{C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}!C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}}
+\subsubsection[{C\+V\+I\+Engine\+Audio2}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Audio2\+::\+C\+V\+I\+Engine\+Audio2 (
+\begin{DoxyParamCaption}
+\item[{{\bf C\+V\+I\+Engine\+Base} $\ast$}]{p\+Base}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_audio2_a4db9b77fbe4864a556fe9dc1238a80d8}
+
+
+Конструктор класса 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p\+Base} & Указатель на инстанс класса \hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base}. Этот инстанс единственный в работающей программе.\\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_c_v_i_engine_audio2_aee0cdfbeb4e06c36cb37058b3856c927}{\index{C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}!New\+Source@{New\+Source}}
+\index{New\+Source@{New\+Source}!C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}}
+\subsubsection[{New\+Source}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Audio2\+::\+New\+Source (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_audio2_aee0cdfbeb4e06c36cb37058b3856c927}
+
+
+Видимо не более чем процедура подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. 
+
+\hypertarget{class_c_v_i_engine_audio2_a249e86a49ebb16d71c276df7db8d41bb}{\index{C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}!On\+Video@{On\+Video}}
+\index{On\+Video@{On\+Video}!C\+V\+I\+Engine\+Audio2@{C\+V\+I\+Engine\+Audio2}}
+\subsubsection[{On\+Video}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Audio2\+::\+On\+Video (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_audio2_a249e86a49ebb16d71c276df7db8d41bb}
+
+
+Видимо просто запуск процедуры для копирования текущего кадра данных от медийного устройства в инстанс класса \hyperlink{class_c_v_i_engine_base}{C\+V\+I\+Engine\+Base} 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vibra\+Image/V\+I\+Engine\+Audio2.\+h\item 
+Vibra\+Image/V\+I\+Engine\+Audio2.\+cpp\end{DoxyCompactItemize}

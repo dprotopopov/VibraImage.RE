@@ -105,7 +105,8 @@ CVIEngineBase::~CVIEngineBase(void)
 }
 
 /// <summary>
-/// Запуск параллельных потоков для вычислений.
+/// Запуск параллельных нитей Windows для параллельных вычислений.
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name="bLock"></param>
 void CVIEngineBase::CreateThreads(bool bLock)
@@ -141,8 +142,8 @@ void CVIEngineBase::CreateThreads(bool bLock)
 
     lock.Unlock();
 
-    m_hThreadAddImage = CreateThread(0,0,AddImageThread,this,0,0);
-    m_hThreadAddImage8 = CreateThread(0,0,AddImageThread8,this,0,0);
+    m_hThreadAddImage = CreateThread(0,0,AddImageThread,this,0,0); // Создание параллельной нити с обработчиком AddImageThreadLocal
+    m_hThreadAddImage8 = CreateThread(0,0,AddImageThread8,this,0,0); // Создание параллельной нити с обработчиком AddImageThreadLocal8
 
     SetThreadPriority(m_hThreadAddImage8,THREAD_PRIORITY_HIGHEST);
     SetThreadPriority(m_hThreadAddImage,THREAD_PRIORITY_ABOVE_NORMAL);
@@ -210,7 +211,6 @@ void CVIEngineBase::CloseThreads(bool bLock)
 
 /// <summary>
 /// </summary>
-/// <param name=""></param>
 bool CVIEngineBase::AddImage8()
 {
     if(!m_cfg.GetI1(VI_VAR_NFRAME_IN))
@@ -327,12 +327,20 @@ bool CVIEngineBase::CheckFPSDIV()
 }
 
 /// <summary>
+/// Процедура получения очередной порции данных для обработки.
+/// Список шагов:
+/// Действия по оптимизации частоты обработки кадров.
+/// Синхронизация таймера.
+/// Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
+/// Подготовка масок для обрабатываемых изображений.
+/// Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек.
+/// Поднятие флагов готовности данных для дальнейшей обработки.
 /// </summary>
 /// <param name="p"></param>
 /// <param name="w">Ширина изображения</param>
 /// <param name="h">Высота изображения</param>
 /// <param name="bpp"></param>
-/// <param name="t"></param>
+/// <param name="t">Отметка времени</param>
 /// <param name="nRef"></param>
 bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
 {
@@ -355,11 +363,11 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
     if(p && w && h )
     {
         if(!m_timerSync.Add(t) )
-            NewSource();
+            NewSource(); // Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
 
-        m_audio.OnVideo();
+        m_audio.OnVideo(); // Запуск процедуры для копирования текущего кадра данных от медийного устройства в инстанс класса CVIEngineBase
     } else
-        NewSource();
+        NewSource(); // Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
 
     if( m_summ.empty() )
     {
@@ -529,9 +537,32 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
 }
 
 /// <summary>
+/// Процедура обработки очередной порции кадров изображения.
+/// Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов.
+/// Часть расчётов осуществляется в параллельных потоках.
+/// Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, 
+/// то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make.
+/// Шаги:
+/// Сброс если надо - Reset(true);
+/// Сдвиг очереди кадров - NextSrc();
+/// Сброс ранее рассчитанных данных - ClearStat();
+/// Получение очередного изображения CVIEngineFace::AddImage;
+/// Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений;
+/// Сведение результатов от фрагментов вместе и расчёт статистических значений;
+/// Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического:
+///		MakeAnger();
+///		MakeStress();
+///		MakeState();
+/// Вызов процедур подготовки результатов для визуализации;
+/// Вызов процедуры визуализации результатов - MakeFaceDraw();
+/// Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра:
+///		m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put());
+///		m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1);
+/// Конец процедуры;
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name="pFI"></param>
-/// <param name="pBI"></param>
+/// <param name="pFI">Указатель на массив пикселей в формате чисел с плавющей точной. Видимо зарезервировано для дайнейшего использования.</param>
+/// <param name="pBI">Указатель на массив пикселей в формате целых чисел. Использование зависит от флагов при компилировании программы в исполняемый код.</param>
 /// <param name="w">Ширина изображения</param>
 /// <param name="h">Высота изображения</param>
 bool CVIEngineBase::MakeImage(float* pFI, BYTE *pBI, int w, int h)
@@ -556,43 +587,43 @@ bool CVIEngineBase::MakeImage(float* pFI, BYTE *pBI, int w, int h)
 
     m_imgSrcF = pFI;
     if(!m_bStop)
-        NextSrc();
+        NextSrc(); // Сдвиг очереди кадров
 
     if(!m_bStop) // 080227
         ClearStat();
 
     #ifndef SEQ_DISABLE_FACE
-    CVIEngineFace::AddImage(this,pBI,w,h);
+    CVIEngineFace::AddImage(this,pBI,w,h); // Получение очередного изображения
     #endif
 
     if(!m_bStop)
-        Make(EVI_ADDF);
+        Make(EVI_ADDF); // Поднятие флага у сигнала, чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения
 
     if(!m_bStop)
-        Make(EVI_DELTA);
+		Make(EVI_DELTA); // Поднятие флага у сигнала, чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения
 
     if(!m_bStop)
-        Make(EVI_SUM);
+		Make(EVI_SUM); // Поднятие флага у сигнала, чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения
 
     if(!m_bStop)
-        Make(EVI_SUM_FILTER);
+		Make(EVI_SUM_FILTER); // Поднятие флага у сигнала, чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения
 
     #ifndef SEQ_DISABLE_FACE
     CVIEngineFace::Sync(this);
     #endif
 
     if(!m_bStop)
-        Make(EVI_SUM_STAT);
+		Make(EVI_SUM_STAT); // Поднятие флага у сигнала, чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения
 
     if(!m_bStop)
         MakeStatSum();
 
 
     if(!m_bStop && m_cfg.GetI1(VI_VAR_NFRAME) > 3)
-        Make(EVI_AURA);
+        Make(EVI_AURA);  // Поднятие флага у сигнала, чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения
 
 
-    MakeMotion();
+    MakeMotion(); /// Вызов метода Reset() если выполняется условие от процедуры сенсора движения.
 
     if(!m_bStop)
         StatUpdate();
@@ -701,6 +732,7 @@ bool CVIEngineBase::SetSize(int w, int h, int cnt)
 /// <summary>
 /// Сброс настроечного параметра VI_VAR_NFRAME.
 /// Изменение размера массивов m_arrSrc и m_arrDelta до размера  cnt + 1 и изменение размеров аллокированной под кадры памяти.
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name="cnt">Новое количество обрабатываемых кадров</param>
 void CVIEngineBase::SetCount(int cnt, bool bLock)
@@ -762,7 +794,7 @@ mmx_array2<float>& CVIEngineBase::NextSrc(void)
 
 /// <summary>
 /// Ожидание готовности всех параллельных потоков обработки изображения.
-/// Используется для синхронизации.
+/// Используется для синхронизации параллельных вычислений.
 /// </summary>
 void CVIEngineBase::WaitThreads(void)
 {
@@ -865,6 +897,7 @@ bool CVIEngineBase::SetResultPtr(int id, void* ptr, int w, int h)
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 bool CVIEngineBase::GetResultPtr(int id, void ** ptr, int* pw, int* ph)
@@ -888,8 +921,11 @@ bool CVIEngineBase::GetResultPtr(int id, void ** ptr, int* pw, int* ph)
 
 
 /// <summary>
+/// Поднятие флага сигнала command у всех параллельных процессов.
+/// m_therads[k]->m_events[command].Set();
+/// Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру.
 /// </summary>
-/// <param name=""></param>
+/// <param name="command">Идентификатор сигнала-события</param>
 void CVIEngineBase::Make(int command)
 {
     m_cMake[command] ++;
@@ -909,8 +945,11 @@ void CVIEngineBase::Make(int command)
 }
 
 /// <summary>
+/// Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв.
+/// Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) 
+/// То есть простенько - без вяких лишних околонаучных движений.
+/// SYSTEM_INFO info; GetSystemInfo(&info); nProc = info.dwNumberOfProcessors;
 /// </summary>
-/// <param name=""></param>
 int CVIEngineBase::GetOptimalThreadCount(void)
 {
     int nProc = 1;
@@ -936,6 +975,11 @@ int CVIEngineBase::GetOptimalThreadCount(void)
 }
 
 /// <summary>
+/// Объединение результатов, рассчитанных в отдельный параллельный процессах для отдельных фрагментов изображений в единый результат в одном месте, то есть для инстанса данного класса и расчёт средних значений по всему изображению.
+/// Паралельные процессы сохраняют посчитанные результаты в своих инстансах CVIEngineThread в массивах структур m_stat.
+/// Данная процедура объединяет все эти результаты в массиве m_stat и что-то делит на количество пикселей в изображении (суммарную яркость, количество ненулевых пикселей и т.д.) - то есть рассчитывает усреднёные значения.
+/// Перед выполнении данной процедуры надо убедится в завершении расчётов в каждом отдельном параллельном потоке, поскольку в данном методе вызовов синхронизации нет - здесь полагается что все потоки вычислений уже закончили свои вычисления по текущему кадру.
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::MakeStatSum(void)
@@ -994,8 +1038,10 @@ void CVIEngineBase::MakeStatSum(void)
 }
 
 /// <summary>
+/// Сброс, очистка и обнуление ранее вычисленных статистических значений.
+/// То есть подготовка данных структуры SUMM_STAT к очередному циклу обработки.
 /// </summary>
-/// <param name=""></param>
+/// <param name="S">Ссылка на инстанс структуря SUMM_STAT</param>
 void CVIEngineBase::ClearStat(SUMM_STAT& S)
 {
     S.sumAi = 0;
@@ -1054,6 +1100,9 @@ void CVIEngineBase::ClearStat(SUMM_STAT& S)
 }
 
 /// <summary>
+/// Сброс, очистка и обнуление ранее вычисленных статистических значений.
+/// То есть подготовка массива m_stat структуры SUMM_STAT к очередному циклу обработки.
+/// Процедура вызывает одноимённый метод для каждого элемента массива m_stat.
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::ClearStat(void)
@@ -1068,8 +1117,9 @@ void CVIEngineBase::ClearStat(void)
 }
 
 /// <summary>
+/// Задание идентификатора ключа в реестре Windows для хранения настроечных параметров
 /// </summary>
-/// <param name=""></param>
+/// <param name="group">Идентификатор ключа в реестре Windows</param>
 void CVIEngineBase::SetRegistry(LPCTSTR group)
 {
     m_cfg.SetRegistry(group);
@@ -1107,6 +1157,7 @@ bool CVIEngineBase::GetSrcLine8(int x, int y, float* px, float* py)
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 bool CVIEngineBase::GetSumHist(int id, float* px, float* py)
@@ -1146,6 +1197,7 @@ bool CVIEngineBase::GetSumHist(int id, float* px, float* py)
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 bool CVIEngineBase::GetSrcLine(int x, int y, float* px, float* py)
@@ -1267,6 +1319,52 @@ bool CVIEngineBase::GetSrcLine(int x, int y, float* px, float* py)
 
 
 /// <summary>
+/// Расчёт величин определённых в методике и записи их в настроечные параметры
+/// BOOL disabled2X =m_cfg.GetI1(VI_FILTER_DISABLE_2X);
+/// VI_VAR_STAT_INTEGR0A = m_stat[0].sumAin;
+/// VI_VAR_STAT_INTEGR0A = m_stat[0].sumBin;
+/// VI_VAR_STAT_INTEGR1A = m_stat[1].sumAin;
+/// VI_VAR_STAT_INTEGR1A = m_stat[1].sumBin;
+/// VI_VAR_STAT_INTEGR2A = m_stat[2].sumAin;
+/// VI_VAR_STAT_INTEGR2A = m_stat[2].sumBin;
+/// VI_VAR_STAT_RES_A1 = m_stat[0].dsumAin;
+/// if(disabled2X) VI_VAR_STAT_RES_A1X = m_stat[0].dsumAin;
+/// VI_VAR_STAT_RES_A2 = ( (m_stat[1].auraA.sline.sumL / m_stat[1].auraA.sline.cl) + (m_stat[1].auraA.sline.sumR / m_stat[1].auraA.sline.cr) ) / 2;
+/// VI_VAR_STAT_RES_A3 = ( (m_stat[0].auraA.sline.sumL / m_stat[0].auraA.sline.cl) + (m_stat[0].auraA.sline.sumR / m_stat[0].auraA.sline.cr) ) / 2;
+/// VI_VAR_STAT_RES_A4 =  m_statAVG.Get(VI_VAR_STAT_RES_A1);
+/// if(disabled2X) VI_VAR_STAT_RES_A4X =  m_statAVG.Get(VI_VAR_STAT_RES_A1X) ;
+/// VI_VAR_STAT_RES_F1 = m_stat[0].dsumBin;
+/// VI_VAR_STAT_RES_F2 = ( (m_stat[1].auraB.sline.sumL / m_stat[1].auraB.sline.cl) + (m_stat[1].auraB.sline.sumR / m_stat[1].auraB.sline.cr) ) / 2;
+/// VI_VAR_STAT_RES_F3 = ( (m_stat[0].auraB.sline.sumL / m_stat[0].auraB.sline.cl) + (m_stat[0].auraB.sline.sumR / m_stat[0].auraB.sline.cr) ) / 2;
+/// VI_VAR_STAT_RES_F4 =  max(m_stat[0]auraA.sline.maxL, m_stat[0]>auraA.sline.maxR);
+/// VI_VAR_STAT_RES_F5 = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1);
+/// if(disabled2X) VI_VAR_STAT_RES_F5X = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1X);
+/// VI_VAR_STAT_RES_S1 = (m_stat[2].auraA.sline.sumL - m_stat[2].auraA.sline.sumR) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr);
+/// VI_VAR_STAT_RES_S2 = (m_stat[1].auraA.sline.sumL - m_stat[1].auraA.sline.sumR) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr);
+/// VI_VAR_STAT_RES_S2 = (m_stat[0].auraA.sline.sumL - m_stat[0].auraA.sline.sumR) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr);
+/// VI_VAR_STAT_RES_S4 = (m_stat[2].auraA.sline.cl - m_stat[2].auraA.sline.cr) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr);
+/// VI_VAR_STAT_RES_S5 = (m_stat[1].auraA.sline.cl - m_stat[1].auraA.sline.cr) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr);
+/// VI_VAR_STAT_RES_S6 = (m_stat[0].auraA.sline.cl - m_stat[0].auraA.sline.cr) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr);
+/// VI_VAR_STAT_RES_S7 = m_stat[0].auraA.sline.maxL - m_stat[0].auraA.sline.maxR;
+/// VI_VAR_STAT_RES_P1 = m_stat[1].auraB.statCS;
+/// VI_VAR_STAT_RES_P2 = m_stat[0].auraB.statCS;
+/// VI_VAR_STAT_RES_P3 = m_stat[1].auraB.statSim;
+/// VI_VAR_STAT_RES_P4 = m_stat[0].auraB.statSim;
+/// hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraA.statHistW :m_stat[0].auraA.statHist;
+/// VI_VAR_STAT_RES_P8A = MakeCharming(hist.p, hist.s);
+/// VI_VAR_STAT_RES_P9A = MakeEntropyH(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P10A = MakeEntropyD(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P11A = MakeEntropyX(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P12A = MakeEntropyS(hist.p,hist.s);
+/// hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraB.statHistW :m_stat[0].auraB.statHist;
+/// VI_VAR_STAT_RES_P8F = MakeCharming(hist.p, hist.s);
+/// VI_VAR_STAT_RES_P9F = MakeEntropyH(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P10F = MakeEntropyD(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P11F = MakeEntropyX(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P12F = MakeEntropyS(hist.p,hist.s);
+/// VI_VAR_STAT_RES_P16 = MakeComN(hist.p, hist.s);
+/// VI_VAR_STAT_RES_P17 = MakeComS(m_stat[0].auraA);
+/// VI_VAR_STAT_RES_P18 = (VI_VAR_STAT_RES_P16 + VI_VAR_STAT_RES_P17) / 2;
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::StatUpdate(void)
@@ -1685,8 +1783,11 @@ void CVIEngineBase::StatUpdate(void)
     ///////////////////////////////
 }
 /// <summary>
+/// Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры
+/// В качестве параметра передаётся указатель на инстанс данного класса.
+/// Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal8 инстанса данного класса.
 /// </summary>
-/// <param name=""></param>
+/// <param name="lpParameter">Указатель на параметры передаваемые при создании параллельной нити Windows, в данном случае - указатель на инстанс данного класса</param>
 DWORD CVIEngineBase::AddImageThread8(LPVOID lpParameter)
 {
     CVIEngineBase *pThis = (CVIEngineBase *)lpParameter;
@@ -1697,8 +1798,11 @@ DWORD CVIEngineBase::AddImageThread8(LPVOID lpParameter)
 }
 
 /// <summary>
+/// Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры
+/// В качестве параметра передаётся указатель на инстанс данного класса.
+/// Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal инстанса данного класса.
 /// </summary>
-/// <param name=""></param>
+/// <param name="lpParameter">Указатель на параметры передаваемые при создании параллельной нити Windows, в данном случае - указатель на инстанс данного класса</param>
 DWORD CVIEngineBase::AddImageThread(LPVOID lpParameter)
 {
     CVIEngineBase *pThis = (CVIEngineBase *)lpParameter;
@@ -1810,6 +1914,10 @@ int CVIEngineBase::AddImageThreadProc()
 }
 
 /// <summary>
+/// Запуск метода AddImageThreadProc в цикле пока не скажут - Хватит! - while(!m_bDone && !m_bStop)
+/// Если задан настроечный параметр VI_FILTER_FPSDIV, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды.
+/// Иначе вычисления приостанавливаются на 1/4 секунды.
+/// Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::AddImageThreadLocal()
@@ -1835,8 +1943,16 @@ void CVIEngineBase::AddImageThreadLocal()
 }
 
 /// <summary>
+/// Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone && !m_bStop)
+/// То есть используется сигнально-событийная схема работы программы.
+/// Для каждого сигнала предусмотрен свой обработчик.
+/// По окончании обработки каждого сигнала взводится флаг m_evReady.
+/// По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE.
+/// В цикле производится ожидание до появление флага EVI_DONE.
+/// Eсли не был поднят флаг EVI_ADD8, то вызывается метод AddImage8();
+/// Всегда поднимается флаг готовности кадра  m_events[EVI_ADD8_READY].Set();
+/// Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::AddImageThreadLocal8()
 {
     while(!m_bDone && !m_bStop)
@@ -1858,14 +1974,18 @@ void CVIEngineBase::AddImageThreadLocal8()
 }
 
 /// <summary>
+/// Останов вычислений.
+/// Сохранение текущих значений настроечных параметров
+/// Останов захвата изображения или звука
+/// Останов дочерних потоков вычислений
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::Stop(void)
 {
     m_bStop = 1;
-    m_cfg.RegSave();
+    m_cfg.RegSave(); // Сохранение текущих значений настроечных параметров
 
-    m_audio.m_bDone = true;
+    m_audio.m_bDone = true; // Останов захвата изображения или звука
 
     Sleep(500);
 
@@ -1881,8 +2001,11 @@ void CVIEngineBase::Stop(void)
 
 
 /// <summary>
+/// Приостанов вычислений.
+/// То есть в VI_FILTER_PAUSE записывается нужный признак.
+/// Все процессы периодически считывают VI_FILTER_PAUSE и могут приостановить свои вычисления и расчёты или возобновить.
 /// </summary>
-/// <param name=""></param>
+/// <param name="bSet">Признак паузы или продолжения</param>
 void CVIEngineBase::Pause(bool bSet)
 {
     m_cfg.PutI1(VI_FILTER_PAUSE,bSet?1:0);
@@ -1890,8 +2013,20 @@ void CVIEngineBase::Pause(bool bSet)
 
 
 /// <summary>
+/// Сброс, то есть фактически перезапуск работы приложения.
+/// Действия:
+/// Пауза;
+/// Очиска результатов ClearStat();
+/// Очиска элементов массива m_summ;
+/// Обнуление буферов для хранения изображений;
+/// Обнуление настроечных параметров из диапазона  [VI_STAT_START;VI_STAT_END];
+/// Обнуление настроечных параметров из диапазона  [VI_STAT_EXT_START;VI_STAT_EXT_END];
+/// Обнуление m_statFFT, m_statAVG, m_procF6;
+/// Обнуление VI_VAR_NDROP;
+/// Снятие с паузы;
+/// Очистка параметра VI_VAR_RESET;
 /// </summary>
-/// <param name=""></param>
+/// <param name="bReset"></param>
 void CVIEngineBase::Reset(bool bReset)
 {
     if(!bReset && m_cfg.GetI1(VI_VAR_SIZE))
@@ -1950,8 +2085,11 @@ void CVIEngineBase::Reset(bool bReset)
 }
 
 /// <summary>
+/// Реализация метода не содержит программного кода.
 /// </summary>
-/// <param name=""></param>
+/// <param name="src"></param>
+/// <param name="sw"></param>
+/// <param name="sh"></param>
 void CVIEngineBase::MakeStatFS2(float* src, int sw, int sh)
 {
 }
@@ -1986,6 +2124,7 @@ void CVIEngineBase::Start(void)
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 bool CVIEngineBase::CheckNRqst(int w, int h)
@@ -2033,6 +2172,7 @@ bool CVIEngineBase::CheckNRqst(int w, int h)
 
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::MakeResultSrc()
@@ -2209,6 +2349,7 @@ void CVIEngineBase::MakeStress(void)
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::MakeStress(bool bModeB)
@@ -2318,8 +2459,9 @@ void CVIEngineBase::tmp_aura_draw(int res)
 
 
 /// <summary>
+/// Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.
 /// </summary>
-/// <param name=""></param>
+/// <param name="id">Идентификатор настроечного параметра</param>
 void CVIEngineBase::OnNewVarDidable(int id)
 {
     int v = m_cfg.GetI1(id);
@@ -2330,8 +2472,12 @@ void CVIEngineBase::OnNewVarDidable(int id)
 }
 
 /// <summary>
+/// Чтение настройки для процедуры сенсора определения факта движения на основе ранее расчитанных статистических данных
+/// Если bSet == false и VI_FILTER_DISABLE_VI1 ненеулевой, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0
+/// Иначе если VI_FILTER_MOTION не указан, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0
+/// Иначе производится ряд расчётов по настроечным параметрам, результат записывается в VI_FILTER_MOTION_SET и возвращается вычисленная величина
 /// </summary>
-/// <param name=""></param>
+/// <param name="bSet">Признак необходимости пересчёта значения настроечного параметра</param>
 int CVIEngineBase::IsMotion(bool bSet)
 {
     if(!bSet)
@@ -2375,11 +2521,15 @@ int CVIEngineBase::IsMotion(bool bSet)
 }
 
 /// <summary>
+/// Вызов метода Reset() если выполняется условие от процедуры сенсора движения.
+/// Получение текущего параметра для процедуры сенсора движения noise = IsMotion(true);
+/// Проверка необходимости вызова процедуры Reset - т.е. проверка условия noise == 3 || noise == -2 || m_statRelease[1].cntAin > 0.7f;
+/// Вызов  Reset() если условие выполняется
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::MakeMotion(void)
 {
-    int noise = IsMotion(true);
+    int noise = IsMotion(true); /// Получение текущего параметра для процедуры сенсора движения
     bool bReset = false;
     if(m_cfg.GetI1(VI_FILTER_MOTION_AUTO_RESET))
     {
@@ -2396,8 +2546,8 @@ void CVIEngineBase::MakeMotion(void)
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name=""></param>
 float CVIEngineBase::MakeStateMacro(void)
 {
     #ifndef SEQ_DISABLE_MACRO_MODE_PLUS
@@ -2649,7 +2799,7 @@ float CVIEngineBase::MakeEntropyH(int* pHist256, int len)
 }
 
 /// <summary>
-/// Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собствееное творчество)
+/// Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собственное творчество)
 /// Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных
 /// Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец.
 /// В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255
@@ -3137,16 +3287,19 @@ bool CVIEngineBase::GetAura(int * pCWL, int * pCWR, int * pCR, int * pCL, int nP
 }
 
 /// <summary>
+/// Проверка возможности потроения гистограммы указаного типа.
+/// Всегда возвращает true.
+/// В известном коде программы не используется.
 /// </summary>
-/// <param name=""></param>
+/// <param name="id">Идентификатор типа гистограммы</param>
 bool CVIEngineBase::CanMakeHist(int id)
 {
     return true;
 }
 
 /// <summary>
+/// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::MakeFaceDraw(void)
 {
     #ifndef SEQ_DISABLE_FACE
@@ -3172,11 +3325,12 @@ void CVIEngineBase::MakeFaceDraw(void)
 }
 
 /// <summary>
+/// Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
 /// </summary>
 /// <param name=""></param>
 void CVIEngineBase::NewSource()
 {
-    m_audio.NewSource();
+	m_audio.NewSource(); // Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
 
     CMTSingleLock   lock(m_locks + LVI_ALL, true);
     Reset(true);

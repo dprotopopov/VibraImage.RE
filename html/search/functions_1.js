@@ -8,6 +8,7 @@ var searchData=
   ['cmtsinglelock',['CMTSingleLock',['../class_c_m_t_single_lock.html#accef84bf825a836b952f32223ec757bc',1,'CMTSingleLock']]],
   ['cpointsse',['CPointSSE',['../class_c_point_s_s_e.html#ade2da0d5d55a42f93b516b351da78bcc',1,'CPointSSE::CPointSSE()'],['../class_c_point_s_s_e.html#abd611f212d90b86e7d64e35ed0028b23',1,'CPointSSE::CPointSSE(float value)']]],
   ['createthreads',['CreateThreads',['../class_c_v_i_engine_base.html#a053908c9c2c18583a13e6f6f79c8eeab',1,'CVIEngineBase']]],
+  ['cviengineaudio2',['CVIEngineAudio2',['../class_c_v_i_engine_audio2.html#a4db9b77fbe4864a556fe9dc1238a80d8',1,'CVIEngineAudio2']]],
   ['cvienginebase',['CVIEngineBase',['../class_c_v_i_engine_base.html#a1349de29adc90869f463b17fb03904c1',1,'CVIEngineBase']]],
   ['cvienginethread',['CVIEngineThread',['../class_c_v_i_engine_thread.html#ae988fa69cb7743794ab221309f581d62',1,'CVIEngineThread']]]
 ];

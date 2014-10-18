@@ -101,15 +101,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1f474cfcfadee9f76567fc84a10c5ad9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_config.html#a1f474cfcfadee9f76567fc84a10c5ad9">GetF1</a> (int key)</td></tr>
 <tr class="memdesc:a1f474cfcfadee9f76567fc84a10c5ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение настроечного параметра по идентификатору ключа Возвращаемый тип - число с плавающей точкой  <a href="#a1f474cfcfadee9f76567fc84a10c5ad9">More...</a><br /></td></tr>
 <tr class="separator:a1f474cfcfadee9f76567fc84a10c5ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac32483113b3f4cff0fb2dbbe2f00f420"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_config.html#ac32483113b3f4cff0fb2dbbe2f00f420">GetI</a> (int key, int &amp;value1, int &amp;value2)</td></tr>
-<tr class="memdesc:ac32483113b3f4cff0fb2dbbe2f00f420"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение настроечного параметра по идентификатору ключа Возвращаемый тип - пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру  <a href="#ac32483113b3f4cff0fb2dbbe2f00f420">More...</a><br /></td></tr>
-<tr class="separator:ac32483113b3f4cff0fb2dbbe2f00f420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7721cb9715f79730d622f7e9c930a333"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_config.html#a7721cb9715f79730d622f7e9c930a333">GetI</a> (int key, int &amp;value1, int &amp;value2)</td></tr>
+<tr class="memdesc:a7721cb9715f79730d622f7e9c930a333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение настроечного параметра по идентификатору ключа Возвращаемый тип - пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру Возвращает true если настроечный параметр задан, fase в противном случае.  <a href="#a7721cb9715f79730d622f7e9c930a333">More...</a><br /></td></tr>
+<tr class="separator:a7721cb9715f79730d622f7e9c930a333"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a4a7b7c7a9c1152998eabddf2ed020d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_config.html#a5a4a7b7c7a9c1152998eabddf2ed020d">PutI1</a> (int key, int value)</td></tr>
 <tr class="memdesc:a5a4a7b7c7a9c1152998eabddf2ed020d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение настроечного параметра по идентификатору ключа Сохраняемый тип - целое  <a href="#a5a4a7b7c7a9c1152998eabddf2ed020d">More...</a><br /></td></tr>
 <tr class="separator:a5a4a7b7c7a9c1152998eabddf2ed020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ac9297ee130cbf9b4d44bf812b3dd89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_config.html#a6ac9297ee130cbf9b4d44bf812b3dd89">PutF1</a> (int key, float value)</td></tr>
 <tr class="memdesc:a6ac9297ee130cbf9b4d44bf812b3dd89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение настроечного параметра по идентификатору ключа Сохраняемый тип - число с плавающей точкой  <a href="#a6ac9297ee130cbf9b4d44bf812b3dd89">More...</a><br /></td></tr>
 <tr class="separator:a6ac9297ee130cbf9b4d44bf812b3dd89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad063dddb079aa1951199b446253ccbf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_config.html#ad063dddb079aa1951199b446253ccbf3">RegSave</a> ()</td></tr>
+<tr class="memdesc:ad063dddb079aa1951199b446253ccbf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение текущих значений настроечных параметров. Видимо в регистре Windows, а может в файле - это видимо можно регулировать использованием разных плагинов.  <a href="#ad063dddb079aa1951199b446253ccbf3">More...</a><br /></td></tr>
+<tr class="separator:ad063dddb079aa1951199b446253ccbf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a128b4b313ccf161aaccdf47af2f2a208"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a128b4b313ccf161aaccdf47af2f2a208"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SetRegistry</b> (LPCTSTR group)</td></tr>
+<tr class="separator:a128b4b313ccf161aaccdf47af2f2a208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Класс предназначен для управления списком настроечных параметров алгоритмов программы. В программе создаётся только один инстанс данного класса (реализован как член m_cfg класса <a class="el" href="class_c_v_i_engine_base.html" title="Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной сре...">CVIEngineBase</a>). </p>
@@ -138,12 +144,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac32483113b3f4cff0fb2dbbe2f00f420"></a>
+<a class="anchor" id="a7721cb9715f79730d622f7e9c930a333"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void CVIEngineConfig::GetI </td>
+          <td class="memname">bool CVIEngineConfig::GetI </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>key</em>, </td>
@@ -168,7 +174,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Получение настроечного параметра по идентификатору ключа Возвращаемый тип - пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру </p>
+<p>Получение настроечного параметра по идентификатору ключа Возвращаемый тип - пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру Возвращает true если настроечный параметр задан, fase в противном случае. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>Идентификатор ключа</td></tr>
@@ -274,6 +280,23 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ad063dddb079aa1951199b446253ccbf3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CVIEngineConfig::RegSave </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Сохранение текущих значений настроечных параметров. Видимо в регистре Windows, а может в файле - это видимо можно регулировать использованием разных плагинов. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>VibraImage/<a class="el" href="_v_i_engine_config_8h_source.html">VIEngineConfig.h</a></li>
 <li>VibraImage/VIEngineConfig.cpp</li>
@@ -281,7 +304,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 03:23:54 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 22:48:47 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

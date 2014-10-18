@@ -1,59 +1,57 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.cpp" caret="320" fromTop="19" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineEvent.cpp" caret="64" fromTop="5" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:MTSingleLock.h" caret="396" fromTop="9" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:MTSingleLock.cpp" caret="305" fromTop="11" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VITimer.h" caret="217" fromTop="12" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VITimer.cpp" caret="51" fromTop="5" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VI_RESULT.h" caret="0" fromTop="0" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:mmx_array.h" caret="379" fromTop="12" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:mmx_array.cpp" caret="0" fromTop="0" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineSimple.cpp" caret="166" fromTop="13" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:PointSSE.h" caret="1591" fromTop="23" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:PointSSE.cpp" caret="280" fromTop="13" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:mmx_array2.h" caret="327" fromTop="9" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineEvent.h" caret="332" fromTop="15" />
     <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:mmx_array2.cpp" caret="0" fromTop="0" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.h" caret="213" fromTop="8" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="60281" fromTop="1814" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:STAT.h" caret="301" fromTop="7" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineSimple.h" caret="523" fromTop="15" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.h/l:..?code?viEngineThread.h" caret="2115" fromTop="53" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="0" fromTop="0" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="18667" fromTop="17" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:IMG.h" caret="943" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VITimer.cpp" caret="732" fromTop="35" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineEvent.h" caret="893" fromTop="10" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.h/l:..?code?viEngineThread.h" caret="2924" fromTop="78" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineAudio2.h" caret="864" fromTop="13" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VITimer.h" caret="314" fromTop="16" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:PointSSE.cpp" caret="60" fromTop="0" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineAudio2.cpp" caret="86" fromTop="5" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.cpp" caret="803" fromTop="5" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="2345" fromTop="10" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.h" caret="2649" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="19566" fromTop="16" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="350" fromTop="13" />
   </RecentFiles>
   <RecentEdits>
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:STAT.h" caret="610" fromTop="17" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="15" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="10" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="15" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="14" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="15" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="5316" fromTop="9" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="18" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="20" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="64208" fromTop="7" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="22422" fromTop="12" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="38158" fromTop="10" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="37417" fromTop="10" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="33540" fromTop="15" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="32614" fromTop="5" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="34229" fromTop="18" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="33060" fromTop="13" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="34677" fromTop="22" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="57522" fromTop="17" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="52945" fromTop="25" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="47928" fromTop="12" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="47290" fromTop="11" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="39277" fromTop="12" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="39230" fromTop="11" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineSimple.h" caret="495" fromTop="12" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:STAT.h" caret="774" fromTop="27" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="40545" fromTop="11" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="38976" fromTop="7" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="40060" fromTop="16" />
-    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineThread.cpp/l:..?code?viEngineThread.cpp" caret="39526" fromTop="18" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="36694" fromTop="17" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="3214" fromTop="9" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="16880" fromTop="9" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="20403" fromTop="6" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="21823" fromTop="10" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="25639" fromTop="9" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="28535" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="32723" fromTop="9" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="33636" fromTop="7" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.h" caret="2649" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.cpp" caret="1003" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:VIEngineConfig.cpp" caret="803" fromTop="5" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="63218" fromTop="5" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="64235" fromTop="6" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="60401" fromTop="6" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="68479" fromTop="6" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="74465" fromTop="6" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="98014" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="10762" fromTop="10" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="11057" fromTop="14" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="6359" fromTop="11" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="9781" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="9308" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="15365" fromTop="7" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.cpp/l:..?code?viEngineBase.cpp" caret="5687" fromTop="7" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="3753" fromTop="14" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="3741" fromTop="8" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="2056" fromTop="19" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="1709" fromTop="12" />
+    <File id="4434EA69-08B0-49EF-95DD-495C6491DD1A/f:viEngineBase.h/l:..?code?viEngineBase.h" caret="270" fromTop="10" />
   </RecentEdits>
 </RecentFiles>

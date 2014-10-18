@@ -77,6 +77,7 @@
     <ClCompile Include="mmx_array2.cpp" />
     <ClCompile Include="MTSingleLock.cpp" />
     <ClCompile Include="PointSSE.cpp" />
+    <ClCompile Include="VIEngineAudio2.cpp" />
     <ClCompile Include="VIEngineConfig.cpp" />
     <ClCompile Include="VIEngineEvent.cpp" />
     <ClCompile Include="VIEngineSimple.cpp" />
@@ -91,6 +92,7 @@
     <ClInclude Include="MTSingleLock.h" />
     <ClInclude Include="PointSSE.h" />
     <ClInclude Include="STAT.h" />
+    <ClInclude Include="VIEngineAudio2.h" />
     <ClInclude Include="VIEngineConfig.h" />
     <ClInclude Include="VIEngineEvent.h" />
     <ClInclude Include="VIEngineSimple.h" />

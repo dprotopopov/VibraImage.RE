@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['add',['Add',['../class_c_v_i_timer_sync.html#a01c73c79ab01183645d5d84e9b5952ec',1,'CVITimerSync']]],
   ['addimage',['AddImage',['../class_c_v_i_engine_base.html#ac886baeaf14b16970d089edaf6767a79',1,'CVIEngineBase']]],
   ['addimage8',['AddImage8',['../class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5',1,'CVIEngineBase']]],
   ['addimagethread',['AddImageThread',['../class_c_v_i_engine_base.html#ad9c65ff1caec8b5042fd55628c515373',1,'CVIEngineBase']]],

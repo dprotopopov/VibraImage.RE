@@ -7,7 +7,7 @@ enum
 	VI_FACE_ENABLE,
 	VI_MODE_RESULT,
 	VI_MODE_WBG, // Отображать результаты на белом фоне, иначе бэк чёрный
-	VI_VAR_NFRAME,
+	VI_VAR_NFRAME, // Номер текущего обрабатываемого кадра с момента начала работы программы m_cfg.PutI1(VI_VAR_NFRAME,  m_cfg.GetI1(VI_VAR_NFRAME)+1);
 	VI_VAR_FPSMAXF,
 	VI_VAR_FPSMAXR
 	VI_VAR_NFRAME_IN,
@@ -93,8 +93,10 @@ public:
 	~CVIEngineConfig();
 	int GetI1(int key);
 	float GetF1(int key);
-	void GetI(int key, int &value1, int &value2);
+	bool GetI(int key, int &value1, int &value2);
 	void PutI1(int key, int value);
 	void PutF1(int key, float value);
+	void RegSave(); // Сохранение текущих значений настроечных параметров
+	void SetRegistry(LPCTSTR group);
 };
 

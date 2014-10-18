@@ -90,7 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной среде. В программе создаётся только один инстанс данного класса.  
+<p>Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной среде. В программе создаётся только один инстанс данного класса. Для ускорения расчётов он создаёт несколько дочерних инстансов класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>, выполняющих обсчёт отдельных фрагментов полного изображения в параллельных нитях на компьютере. Количество создаваемых инстансов класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> равно количеству процессоров на компьютере, но не более 8-ми. В свою очередь выполнение методов данного класса осуществляется так же в одной из созданных нитей параллельных вычислений, то есть инстанс класса создаётся и управляется внешними механизмами программы как обычным параллельным потоком - например - через графический пользовательский интерфейс. И управление запуском отдельных процедур, так же как у инстанса класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>, осуществляется через модель событийных триггеров. То есть кто-то или что-то или он сам поднимают флаг события. В цикле проверяется не поднят ли какой-нибудь флаг. Если какой-то флаг поднят то выполняется запрограммированное действие. Помимо нитей для ускорения обработки расчётов по изображению, запускаются ещё 2 параллельные нити - одна с высоким приоритетом, а другая с обычным. Первая нить отвечает за захват и визуализацию кадров изображения в реальном режиме времени. Вторая нить отвечат за захват и расчёт медлено меняющихся параметров - то есть собственно расчётных параметров методики.  
  <a href="class_c_v_i_engine_base.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="vi_engine_base_8h_source.html">viEngineBase.h</a>&gt;</code></p>
@@ -106,28 +106,32 @@ Public Member Functions</h2></td></tr>
 RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (align(16)) m_palI[256]</td></tr>
 <tr class="separator:acd0542a6476a6eed4568c900ab5af5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a6ca94a8d39e8a76e5be4698cc2eff06b">AddImageThreadLocal</a> ()</td></tr>
+<tr class="memdesc:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск метода AddImageThreadProc в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) Если задан настроечный параметр VI_FILTER_FPSDIV, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды. Иначе вычисления приостанавливаются на 1/4 секунды. Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить  <a href="#a6ca94a8d39e8a76e5be4698cc2eff06b">More...</a><br /></td></tr>
 <tr class="separator:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9fbe14762f4d2bf7d0bffe451a329ee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac9fbe14762f4d2bf7d0bffe451a329ee">AddImageThreadProc</a> ()</td></tr>
 <tr class="separator:ac9fbe14762f4d2bf7d0bffe451a329ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a180f4a67ef6b4137c8b8565310aa7834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a180f4a67ef6b4137c8b8565310aa7834">AddImageThreadLocal8</a> ()</td></tr>
+<tr class="memdesc:a180f4a67ef6b4137c8b8565310aa7834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE. В цикле производится ожидание до появление флага EVI_DONE. Eсли не был поднят флаг EVI_ADD8, то вызывается метод <a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5">AddImage8()</a>; Всегда поднимается флаг готовности кадра m_events[EVI_ADD8_READY].Set(); Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить  <a href="#a180f4a67ef6b4137c8b8565310aa7834">More...</a><br /></td></tr>
 <tr class="separator:a180f4a67ef6b4137c8b8565310aa7834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a053908c9c2c18583a13e6f6f79c8eeab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a053908c9c2c18583a13e6f6f79c8eeab">CreateThreads</a> (bool bLock=true)</td></tr>
-<tr class="memdesc:a053908c9c2c18583a13e6f6f79c8eeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск параллельных потоков для вычислений.  <a href="#a053908c9c2c18583a13e6f6f79c8eeab">More...</a><br /></td></tr>
+<tr class="memdesc:a053908c9c2c18583a13e6f6f79c8eeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a053908c9c2c18583a13e6f6f79c8eeab">More...</a><br /></td></tr>
 <tr class="separator:a053908c9c2c18583a13e6f6f79c8eeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0905eba46bb64f25a2d91f8b39a3f994"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0905eba46bb64f25a2d91f8b39a3f994">CloseThreads</a> (bool bLock=true)</td></tr>
 <tr class="memdesc:a0905eba46bb64f25a2d91f8b39a3f994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Останов ранее запущенных параллельных потоков для вычислений.  <a href="#a0905eba46bb64f25a2d91f8b39a3f994">More...</a><br /></td></tr>
 <tr class="separator:a0905eba46bb64f25a2d91f8b39a3f994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac886baeaf14b16970d089edaf6767a79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac886baeaf14b16970d089edaf6767a79">AddImage</a> (void *p, int w, int h, int bpp, double t, int nRef=0)</td></tr>
+<tr class="memdesc:ac886baeaf14b16970d089edaf6767a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура получения очередной порции данных для обработки. Список шагов: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки.  <a href="#ac886baeaf14b16970d089edaf6767a79">More...</a><br /></td></tr>
 <tr class="separator:ac886baeaf14b16970d089edaf6767a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fe6ae4f9ac6b9422c22d99878f424f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5">AddImage8</a> ()</td></tr>
 <tr class="separator:a3fe6ae4f9ac6b9422c22d99878f424f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3426944a03bac2f5a8c135c217f9cf8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3426944a03bac2f5a8c135c217f9cf8c">MakeImage</a> (float *pFI, BYTE *pBI, int w, int h)</td></tr>
+<tr class="memdesc:a3426944a03bac2f5a8c135c217f9cf8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги: Сброс если надо - Reset(true); Сдвиг очереди кадров - <a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535" title="Сдвиг очереди кадров ">NextSrc()</a>; Сброс ранее рассчитанных данных - <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Получение очередного изображения CVIEngineFace::AddImage; Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического: <a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf">MakeAnger()</a>; <a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c">MakeStress()</a>; <a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d">MakeState()</a>; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов - <a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc" title="Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. ">MakeFaceDraw()</a>; Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра: m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a3426944a03bac2f5a8c135c217f9cf8c">More...</a><br /></td></tr>
 <tr class="separator:a3426944a03bac2f5a8c135c217f9cf8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a930661f73cc7c449c166071631be595d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a930661f73cc7c449c166071631be595d">SetSize</a> (int w, int h, int cnt)</td></tr>
 <tr class="memdesc:a930661f73cc7c449c166071631be595d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение новых размеров изображения в настроечных параметрах VI_VAR_SIZE. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений.  <a href="#a930661f73cc7c449c166071631be595d">More...</a><br /></td></tr>
 <tr class="separator:a930661f73cc7c449c166071631be595d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a042d710f3a5be21538478ad157680828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a042d710f3a5be21538478ad157680828">SetCount</a> (int cnt, bool bLock=true)</td></tr>
-<tr class="memdesc:a042d710f3a5be21538478ad157680828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти.  <a href="#a042d710f3a5be21538478ad157680828">More...</a><br /></td></tr>
+<tr class="memdesc:a042d710f3a5be21538478ad157680828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a042d710f3a5be21538478ad157680828">More...</a><br /></td></tr>
 <tr class="separator:a042d710f3a5be21538478ad157680828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4764b56d4269ed5cd101dddf545e039d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4764b56d4269ed5cd101dddf545e039d">CheckFPSDIV</a> ()</td></tr>
 <tr class="memdesc:a4764b56d4269ed5cd101dddf545e039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF.  <a href="#a4764b56d4269ed5cd101dddf545e039d">More...</a><br /></td></tr>
@@ -136,7 +140,7 @@ RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (al
 <tr class="memdesc:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сдвиг очереди кадров  <a href="#aa1aa2604f40dd77bc49ca6ff8fd81535">More...</a><br /></td></tr>
 <tr class="separator:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a305c1b2285ddfcdbb021597f0b3dbd39">WaitThreads</a> (void)</td></tr>
-<tr class="memdesc:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации.  <a href="#a305c1b2285ddfcdbb021597f0b3dbd39">More...</a><br /></td></tr>
+<tr class="memdesc:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений.  <a href="#a305c1b2285ddfcdbb021597f0b3dbd39">More...</a><br /></td></tr>
 <tr class="separator:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af12866653055639e69a61224615af7fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af12866653055639e69a61224615af7fe">Sync</a> (void)</td></tr>
 <tr class="separator:af12866653055639e69a61224615af7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,16 +153,22 @@ RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (al
 <tr class="memitem:a38d38d266d48fad44435eec46a1086a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a38d38d266d48fad44435eec46a1086a6">SetResultPtr</a> (int id, void *ptr, int w, int h)</td></tr>
 <tr class="separator:a38d38d266d48fad44435eec46a1086a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99f7df701bfe9d53121e5cd00167e591"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a99f7df701bfe9d53121e5cd00167e591">GetResultPtr</a> (int id, void **ptr, int *pw, int *ph)</td></tr>
+<tr class="memdesc:a99f7df701bfe9d53121e5cd00167e591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a99f7df701bfe9d53121e5cd00167e591">More...</a><br /></td></tr>
 <tr class="separator:a99f7df701bfe9d53121e5cd00167e591"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa59b55fc315394f4c19cb7d95c399913"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa59b55fc315394f4c19cb7d95c399913">Make</a> (int command)</td></tr>
+<tr class="memdesc:aa59b55fc315394f4c19cb7d95c399913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поднятие флага сигнала command у всех параллельных процессов. m_therads[k]-&gt;m_events[command].Set(); Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру.  <a href="#aa59b55fc315394f4c19cb7d95c399913">More...</a><br /></td></tr>
 <tr class="separator:aa59b55fc315394f4c19cb7d95c399913"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0174d46d3d28931a648e0437f0686d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1e0174d46d3d28931a648e0437f0686d">GetOptimalThreadCount</a> (void)</td></tr>
+<tr class="memdesc:a1e0174d46d3d28931a648e0437f0686d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) То есть простенько - без вяких лишних околонаучных движений. SYSTEM_INFO info; GetSystemInfo(&amp;info); nProc = info.dwNumberOfProcessors;  <a href="#a1e0174d46d3d28931a648e0437f0686d">More...</a><br /></td></tr>
 <tr class="separator:a1e0174d46d3d28931a648e0437f0686d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b86bf7f377f62e7a701fb3466708d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2b86bf7f377f62e7a701fb3466708d04">MakeStatSum</a> (void)</td></tr>
+<tr class="memdesc:a2b86bf7f377f62e7a701fb3466708d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Объединение результатов, рассчитанных в отдельный параллельный процессах для отдельных фрагментов изображений в единый результат в одном месте, то есть для инстанса данного класса и расчёт средних значений по всему изображению. Паралельные процессы сохраняют посчитанные результаты в своих инстансах <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> в массивах структур m_stat. Данная процедура объединяет все эти результаты в массиве m_stat и что-то делит на количество пикселей в изображении (суммарную яркость, количество ненулевых пикселей и т.д.) - то есть рассчитывает усреднёные значения. Перед выполнении данной процедуры надо убедится в завершении расчётов в каждом отдельном параллельном потоке, поскольку в данном методе вызовов синхронизации нет - здесь полагается что все потоки вычислений уже закончили свои вычисления по текущему кадру. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a2b86bf7f377f62e7a701fb3466708d04">More...</a><br /></td></tr>
 <tr class="separator:a2b86bf7f377f62e7a701fb3466708d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10d6138a2c8f4c4c946bf930c268be6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b">ClearStat</a> (void)</td></tr>
+<tr class="memdesc:a10d6138a2c8f4c4c946bf930c268be6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_stat структуры <a class="el" href="class_s_u_m_m___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">SUMM_STAT</a> к очередному циклу обработки. Процедура вызывает одноимённый метод для каждого элемента массива m_stat.  <a href="#a10d6138a2c8f4c4c946bf930c268be6b">More...</a><br /></td></tr>
 <tr class="separator:a10d6138a2c8f4c4c946bf930c268be6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#adb910c0d7f06cf1f3ea7b2347aed1751">ClearStat</a> (<a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &amp;S)</td></tr>
+<tr class="memdesc:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка данных структуры <a class="el" href="class_s_u_m_m___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">SUMM_STAT</a> к очередному циклу обработки.  <a href="#adb910c0d7f06cf1f3ea7b2347aed1751">More...</a><br /></td></tr>
 <tr class="separator:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96dd47cc32f324e133644e7f823507ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96dd47cc32f324e133644e7f823507ad"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MakeDefPal</b> (RGBQUAD *pal)</td></tr>
@@ -167,32 +177,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>MakeDefPal</b> (RGBQU
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag, int id)</td></tr>
 <tr class="separator:a22ba2d068df7651b957bb7cb00a324be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4507f1ddf8b2931693f85e97dafe7cda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4507f1ddf8b2931693f85e97dafe7cda">SetRegistry</a> (LPCTSTR group)</td></tr>
+<tr class="memdesc:a4507f1ddf8b2931693f85e97dafe7cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задание идентификатора ключа в реестре Windows для хранения настроечных параметров  <a href="#a4507f1ddf8b2931693f85e97dafe7cda">More...</a><br /></td></tr>
 <tr class="separator:a4507f1ddf8b2931693f85e97dafe7cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#abcb53c55dac3fb076b4e8f5b88e48e6a">GetSrcLine</a> (int x, int y, float *px=0, float *py=0)</td></tr>
+<tr class="memdesc:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#abcb53c55dac3fb076b4e8f5b88e48e6a">More...</a><br /></td></tr>
 <tr class="separator:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf9d381d837873e8c66babffa6f6bfd1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aaf9d381d837873e8c66babffa6f6bfd1">GetSrcLine8</a> (int x, int y, float *px=0, float *py=0)</td></tr>
 <tr class="separator:aaf9d381d837873e8c66babffa6f6bfd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e295decbf2fabf485467c2dee1bb51f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1e295decbf2fabf485467c2dee1bb51f">GetSumHist</a> (int id, float *px=0, float *py=0)</td></tr>
+<tr class="memdesc:a1e295decbf2fabf485467c2dee1bb51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a1e295decbf2fabf485467c2dee1bb51f">More...</a><br /></td></tr>
 <tr class="separator:a1e295decbf2fabf485467c2dee1bb51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6e23a29501fa69951a0cc9405bae96a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ad6e23a29501fa69951a0cc9405bae96a">OnNewVar</a> (int id, int subID=0)</td></tr>
 <tr class="separator:ad6e23a29501fa69951a0cc9405bae96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fcb2c48c5d0f103dd1e001f8a4ec35f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1fcb2c48c5d0f103dd1e001f8a4ec35f">StatUpdate</a> (void)</td></tr>
+<tr class="memdesc:a1fcb2c48c5d0f103dd1e001f8a4ec35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт величин определённых в методике и записи их в настроечные параметры BOOL disabled2X =m_cfg.GetI1(VI_FILTER_DISABLE_2X); VI_VAR_STAT_INTEGR0A = m_stat[0].sumAin; VI_VAR_STAT_INTEGR0A = m_stat[0].sumBin; VI_VAR_STAT_INTEGR1A = m_stat[1].sumAin; VI_VAR_STAT_INTEGR1A = m_stat[1].sumBin; VI_VAR_STAT_INTEGR2A = m_stat[2].sumAin; VI_VAR_STAT_INTEGR2A = m_stat[2].sumBin; VI_VAR_STAT_RES_A1 = m_stat[0].dsumAin; if(disabled2X) VI_VAR_STAT_RES_A1X = m_stat[0].dsumAin; VI_VAR_STAT_RES_A2 = ( (m_stat[1].auraA.sline.sumL / m_stat[1].auraA.sline.cl) + (m_stat[1].auraA.sline.sumR / m_stat[1].auraA.sline.cr) ) / 2; VI_VAR_STAT_RES_A3 = ( (m_stat[0].auraA.sline.sumL / m_stat[0].auraA.sline.cl) + (m_stat[0].auraA.sline.sumR / m_stat[0].auraA.sline.cr) ) / 2; VI_VAR_STAT_RES_A4 = m_statAVG.Get(VI_VAR_STAT_RES_A1); if(disabled2X) VI_VAR_STAT_RES_A4X = m_statAVG.Get(VI_VAR_STAT_RES_A1X) ; VI_VAR_STAT_RES_F1 = m_stat[0].dsumBin; VI_VAR_STAT_RES_F2 = ( (m_stat[1].auraB.sline.sumL / m_stat[1].auraB.sline.cl) + (m_stat[1].auraB.sline.sumR / m_stat[1].auraB.sline.cr) ) / 2; VI_VAR_STAT_RES_F3 = ( (m_stat[0].auraB.sline.sumL / m_stat[0].auraB.sline.cl) + (m_stat[0].auraB.sline.sumR / m_stat[0].auraB.sline.cr) ) / 2; VI_VAR_STAT_RES_F4 = max(m_stat[0]auraA.sline.maxL, m_stat[0]&gt;auraA.sline.maxR); VI_VAR_STAT_RES_F5 = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1); if(disabled2X) VI_VAR_STAT_RES_F5X = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1X); VI_VAR_STAT_RES_S1 = (m_stat[2].auraA.sline.sumL - m_stat[2].auraA.sline.sumR) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr); VI_VAR_STAT_RES_S2 = (m_stat[1].auraA.sline.sumL - m_stat[1].auraA.sline.sumR) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr); VI_VAR_STAT_RES_S2 = (m_stat[0].auraA.sline.sumL - m_stat[0].auraA.sline.sumR) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr); VI_VAR_STAT_RES_S4 = (m_stat[2].auraA.sline.cl - m_stat[2].auraA.sline.cr) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr); VI_VAR_STAT_RES_S5 = (m_stat[1].auraA.sline.cl - m_stat[1].auraA.sline.cr) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr); VI_VAR_STAT_RES_S6 = (m_stat[0].auraA.sline.cl - m_stat[0].auraA.sline.cr) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr); VI_VAR_STAT_RES_S7 = m_stat[0].auraA.sline.maxL - m_stat[0].auraA.sline.maxR; VI_VAR_STAT_RES_P1 = m_stat[1].auraB.statCS; VI_VAR_STAT_RES_P2 = m_stat[0].auraB.statCS; VI_VAR_STAT_RES_P3 = m_stat[1].auraB.statSim; VI_VAR_STAT_RES_P4 = m_stat[0].auraB.statSim; hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraA.statHistW :m_stat[0].auraA.statHist; VI_VAR_STAT_RES_P8A = MakeCharming(hist.p, hist.s); VI_VAR_STAT_RES_P9A = MakeEntropyH(hist.p,hist.s); VI_VAR_STAT_RES_P10A = MakeEntropyD(hist.p,hist.s); VI_VAR_STAT_RES_P11A = MakeEntropyX(hist.p,hist.s); VI_VAR_STAT_RES_P12A = MakeEntropyS(hist.p,hist.s); hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraB.statHistW :m_stat[0].auraB.statHist; VI_VAR_STAT_RES_P8F = MakeCharming(hist.p, hist.s); VI_VAR_STAT_RES_P9F = MakeEntropyH(hist.p,hist.s); VI_VAR_STAT_RES_P10F = MakeEntropyD(hist.p,hist.s); VI_VAR_STAT_RES_P11F = MakeEntropyX(hist.p,hist.s); VI_VAR_STAT_RES_P12F = MakeEntropyS(hist.p,hist.s); VI_VAR_STAT_RES_P16 = MakeComN(hist.p, hist.s); VI_VAR_STAT_RES_P17 = MakeComS(m_stat[0].auraA); VI_VAR_STAT_RES_P18 = (VI_VAR_STAT_RES_P16 + VI_VAR_STAT_RES_P17) / 2;  <a href="#a1fcb2c48c5d0f103dd1e001f8a4ec35f">More...</a><br /></td></tr>
 <tr class="separator:a1fcb2c48c5d0f103dd1e001f8a4ec35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3a9bb0a97a8ed3ac6e16980dc22a424"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ae3a9bb0a97a8ed3ac6e16980dc22a424">Stop</a> (void)</td></tr>
+<tr class="memdesc:ae3a9bb0a97a8ed3ac6e16980dc22a424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Останов вычислений. Сохранение текущих значений настроечных параметров Останов захвата изображения или звука Останов дочерних потоков вычислений  <a href="#ae3a9bb0a97a8ed3ac6e16980dc22a424">More...</a><br /></td></tr>
 <tr class="separator:ae3a9bb0a97a8ed3ac6e16980dc22a424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f426874bb7e7dfa183b7145dab79128"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2f426874bb7e7dfa183b7145dab79128">Pause</a> (bool bSet)</td></tr>
+<tr class="memdesc:a2f426874bb7e7dfa183b7145dab79128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Приостанов вычислений. То есть в VI_FILTER_PAUSE записывается нужный признак. Все процессы периодически считывают VI_FILTER_PAUSE и могут приостановить свои вычисления и расчёты или возобновить.  <a href="#a2f426874bb7e7dfa183b7145dab79128">More...</a><br /></td></tr>
 <tr class="separator:a2f426874bb7e7dfa183b7145dab79128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27a3545d7253a59150ea9c16e7b4f0ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac">Reset</a> (bool bReset=false)</td></tr>
+<tr class="memdesc:a27a3545d7253a59150ea9c16e7b4f0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Очиска элементов массива m_summ; Обнуление буферов для хранения изображений; Обнуление настроечных параметров из диапазона [VI_STAT_START;VI_STAT_END]; Обнуление настроечных параметров из диапазона [VI_STAT_EXT_START;VI_STAT_EXT_END]; Обнуление m_statFFT, m_statAVG, m_procF6; Обнуление VI_VAR_NDROP; Снятие с паузы; Очистка параметра VI_VAR_RESET;  <a href="#a27a3545d7253a59150ea9c16e7b4f0ac">More...</a><br /></td></tr>
 <tr class="separator:a27a3545d7253a59150ea9c16e7b4f0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a2bee3b656476fdc3cb488a7019d7ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4a2bee3b656476fdc3cb488a7019d7ae">MakeStatFS2</a> (float *src, int sw, int sh)</td></tr>
+<tr class="memdesc:a4a2bee3b656476fdc3cb488a7019d7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация метода не содержит программного кода.  <a href="#a4a2bee3b656476fdc3cb488a7019d7ae">More...</a><br /></td></tr>
 <tr class="separator:a4a2bee3b656476fdc3cb488a7019d7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d2e5915b3c1c9f6172291305a99bfe5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a7d2e5915b3c1c9f6172291305a99bfe5">FlushFPS</a> (void)</td></tr>
 <tr class="separator:a7d2e5915b3c1c9f6172291305a99bfe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2c697a4748558b48789feca6a105042"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab2c697a4748558b48789feca6a105042">Start</a> (void)</td></tr>
 <tr class="separator:ab2c697a4748558b48789feca6a105042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65b898d96c06c5c9bf9f388b4a70f740"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a65b898d96c06c5c9bf9f388b4a70f740">CheckNRqst</a> (int w, int h)</td></tr>
+<tr class="memdesc:a65b898d96c06c5c9bf9f388b4a70f740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a65b898d96c06c5c9bf9f388b4a70f740">More...</a><br /></td></tr>
 <tr class="separator:a65b898d96c06c5c9bf9f388b4a70f740"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad231ab7aee4acfc00e9a55e778443ee4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ad231ab7aee4acfc00e9a55e778443ee4">MakeResultSrc</a> ()</td></tr>
+<tr class="memdesc:ad231ab7aee4acfc00e9a55e778443ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#ad231ab7aee4acfc00e9a55e778443ee4">More...</a><br /></td></tr>
 <tr class="separator:ad231ab7aee4acfc00e9a55e778443ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a238c46a9344e280e609dcd974ce40a02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a238c46a9344e280e609dcd974ce40a02">GetStatHistN</a> (int res, int *pHist256, float *pFPS)</td></tr>
 <tr class="separator:a238c46a9344e280e609dcd974ce40a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,6 +229,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memitem:a04eac6867b0a19908706aa4181fc017e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a04eac6867b0a19908706aa4181fc017e">MakeAnger</a> (bool bModeB)</td></tr>
 <tr class="separator:a04eac6867b0a19908706aa4181fc017e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35022e842e74177678858dddd0d274ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a35022e842e74177678858dddd0d274ee">MakeStress</a> (bool bModeB)</td></tr>
+<tr class="memdesc:a35022e842e74177678858dddd0d274ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a35022e842e74177678858dddd0d274ee">More...</a><br /></td></tr>
 <tr class="separator:a35022e842e74177678858dddd0d274ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5e0da5e3318399f27c259733db69be0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af5e0da5e3318399f27c259733db69be0">MakeSin</a> (void)</td></tr>
 <tr class="memdesc:af5e0da5e3318399f27c259733db69be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Чтение настроечного параметра VI_VAR_STAT_CFG_SIN Вычисление sin ( t * 2 * M_PI * n ) где t - значение текущего времени по таймеру m_timer M_PI = 3.1415926... n - значение настроечного параметра VI_VAR_STAT_CFG_SIN И сохранение вычисленного значения в настроечном параметре VI_VAR_STAT_RES_SIN То есть настроечный параметр VI_VAR_STAT_CFG_SIN является частотой синусоидального сигнала настроечный параметр VI_VAR_STAT_RES_SIN хранит значение синусоидального сигнала в текущий момент времени по таймеру m_timer  <a href="#af5e0da5e3318399f27c259733db69be0">More...</a><br /></td></tr>
@@ -219,20 +240,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memitem:a9037ada333cb78e24b8178703c1bace4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a9037ada333cb78e24b8178703c1bace4">tmp_aura_draw</a> (int res)</td></tr>
 <tr class="separator:a9037ada333cb78e24b8178703c1bace4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb7d69a59c1067240f248d50d7172ba6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afb7d69a59c1067240f248d50d7172ba6">OnNewVarDidable</a> (int id)</td></tr>
+<tr class="memdesc:afb7d69a59c1067240f248d50d7172ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.  <a href="#afb7d69a59c1067240f248d50d7172ba6">More...</a><br /></td></tr>
 <tr class="separator:afb7d69a59c1067240f248d50d7172ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9ac11fcc300832a72d0be60be3419e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab9ac11fcc300832a72d0be60be3419e6">IsMotion</a> (bool bSet=false)</td></tr>
+<tr class="memdesc:ab9ac11fcc300832a72d0be60be3419e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Чтение настройки для процедуры сенсора определения факта движения на основе ранее расчитанных статистических данных Если bSet == false и VI_FILTER_DISABLE_VI1 ненеулевой, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0 Иначе если VI_FILTER_MOTION не указан, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0 Иначе производится ряд расчётов по настроечным параметрам, результат записывается в VI_FILTER_MOTION_SET и возвращается вычисленная величина  <a href="#ab9ac11fcc300832a72d0be60be3419e6">More...</a><br /></td></tr>
 <tr class="separator:ab9ac11fcc300832a72d0be60be3419e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa31de24bd1b50c4206e8c3a6603985b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa31de24bd1b50c4206e8c3a6603985b2">MakeMotion</a> (void)</td></tr>
+<tr class="memdesc:aa31de24bd1b50c4206e8c3a6603985b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вызов метода <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если выполняется условие от процедуры сенсора движения. Получение текущего параметра для процедуры сенсора движения noise = IsMotion(true); Проверка необходимости вызова процедуры Reset - т.е. проверка условия noise == 3 || noise == -2 || m_statRelease[1].cntAin &gt; 0.7f; Вызов <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если условие выполняется  <a href="#aa31de24bd1b50c4206e8c3a6603985b2">More...</a><br /></td></tr>
 <tr class="separator:aa31de24bd1b50c4206e8c3a6603985b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bedb5c81d496c6c5496ba88cea82eb7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1bedb5c81d496c6c5496ba88cea82eb7">IsSkip</a> (void)</td></tr>
 <tr class="separator:a1bedb5c81d496c6c5496ba88cea82eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa77b261660041465a8d3e68a7088dd0d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d">MakeState</a> (void)</td></tr>
 <tr class="separator:aa77b261660041465a8d3e68a7088dd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab42744ae341c3653c24ae3fd38bc7ceb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab42744ae341c3653c24ae3fd38bc7ceb">MakeStateMacro</a> (void)</td></tr>
+<tr class="memdesc:ab42744ae341c3653c24ae3fd38bc7ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#ab42744ae341c3653c24ae3fd38bc7ceb">More...</a><br /></td></tr>
 <tr class="separator:ab42744ae341c3653c24ae3fd38bc7ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a835724aef2b6afbc88d5db31e8a13a08"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a835724aef2b6afbc88d5db31e8a13a08">MakeState</a> (float Ag, float St, float Tn)</td></tr>
 <tr class="separator:a835724aef2b6afbc88d5db31e8a13a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc">MakeFaceDraw</a> ()</td></tr>
+<tr class="memdesc:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a18c5dc58d55a37295b3dd4c451fb86fc">More...</a><br /></td></tr>
 <tr class="separator:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a784d5489bb89efa567e207d3539de0da"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a784d5489bb89efa567e207d3539de0da">MakeCharming</a> (int *pHist256, int len)</td></tr>
 <tr class="separator:a784d5489bb89efa567e207d3539de0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,7 +269,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memdesc:a4893abd93ae9de7f3913f24c872b23f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант Н - заимствование идеи из статистического критерия наиболее мощный) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: n = СУММА pHist256(i), sum = СУММА ( pHist256(i) / n ) * log10( n * d / pHist256(i) ), return sum; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0  <a href="#a4893abd93ae9de7f3913f24c872b23f8">More...</a><br /></td></tr>
 <tr class="separator:a4893abd93ae9de7f3913f24c872b23f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4a6d774f1ebf9e8bf595c3e3e60f06a7">MakeEntropyD</a> (int *pHist256, int len)</td></tr>
-<tr class="memdesc:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собствееное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: d = 1.0/len, n = СУММА pHist256(i), sm = СУММА pHist256(i) * log10( pHist256(i) ), Delta = (d*n/2)*pow(10,-1.0*sm/n), return Delta; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0  <a href="#a4a6d774f1ebf9e8bf595c3e3e60f06a7">More...</a><br /></td></tr>
+<tr class="memdesc:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собственное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: d = 1.0/len, n = СУММА pHist256(i), sm = СУММА pHist256(i) * log10( pHist256(i) ), Delta = (d*n/2)*pow(10,-1.0*sm/n), return Delta; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0  <a href="#a4a6d774f1ebf9e8bf595c3e3e60f06a7">More...</a><br /></td></tr>
 <tr class="separator:a4a6d774f1ebf9e8bf595c3e3e60f06a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13baee159190df5a7fb94bb58f55065"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa13baee159190df5a7fb94bb58f55065">MakeEntropyS</a> (int *pHist256, int len)</td></tr>
 <tr class="memdesc:aa13baee159190df5a7fb94bb58f55065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант S - заимствование идеи у инженера-телеграфиста Шенона, работавшего в начале прошлого века в компании Bell) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Сперва в таблице pHist256 находим элемент i с наиболее часто вcтречающейся яркостью и для него вычисляется Pm - количество таких пикселей и Xm = m/len = то есть значение яркости выраженное от 0.0 до 1.0 (максимальнвя яркость на данном монохромном изображении равна 1.0) И вычисляется значение return log( СУММА abs( (i*fps/len - Xm) * ( pHist256(i) - Pm ) ) / len ) где fps - количество кадров/сек из настроечных параметров алгоритмов (параметр VI_VAR_FPSOUTR) В данной реализации элементы i, для которых pHist256(i) == 0 или i == 0, не участвуют в расчётах суммы  <a href="#aa13baee159190df5a7fb94bb58f55065">More...</a><br /></td></tr>
@@ -268,18 +294,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memitem:aaa7d51c8145d1094997fc485508dd402"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aaa7d51c8145d1094997fc485508dd402">GetAura</a> (int *pCWL, int *pCWR, int *pCR, int *pCL, int nProc, bool bB)</td></tr>
 <tr class="separator:aaa7d51c8145d1094997fc485508dd402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33937f3f067ec0fa9829c7a40b54be50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a33937f3f067ec0fa9829c7a40b54be50">CanMakeHist</a> (int id)</td></tr>
+<tr class="memdesc:a33937f3f067ec0fa9829c7a40b54be50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка возможности потроения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется.  <a href="#a33937f3f067ec0fa9829c7a40b54be50">More...</a><br /></td></tr>
 <tr class="separator:a33937f3f067ec0fa9829c7a40b54be50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d144bb4fec300b83067404ffdc9ae6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1d144bb4fec300b83067404ffdc9ae6f">NeedSrcImageProc</a> ()</td></tr>
-<tr class="memdesc:a1d144bb4fec300b83067404ffdc9ae6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка значения настроесного параметра VI_FACE_ENABLE Возвращает true если параметр VI_FACE_ENABLE установлен в ненулевое значение  <a href="#a1d144bb4fec300b83067404ffdc9ae6f">More...</a><br /></td></tr>
+<tr class="memdesc:a1d144bb4fec300b83067404ffdc9ae6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка значения настроечного параметра VI_FACE_ENABLE Возвращает true если параметр VI_FACE_ENABLE установлен в ненулевое значение  <a href="#a1d144bb4fec300b83067404ffdc9ae6f">More...</a><br /></td></tr>
 <tr class="separator:a1d144bb4fec300b83067404ffdc9ae6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcadee160287c12571501a09c222bea3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afcadee160287c12571501a09c222bea3">NewSource</a> ()</td></tr>
+<tr class="memdesc:afcadee160287c12571501a09c222bea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.  <a href="#afcadee160287c12571501a09c222bea3">More...</a><br /></td></tr>
 <tr class="separator:afcadee160287c12571501a09c222bea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad9c65ff1caec8b5042fd55628c515373"><td class="memItemLeft" align="right" valign="top">static DWORD WINAPI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ad9c65ff1caec8b5042fd55628c515373">AddImageThread</a> (LPVOID lpParameter)</td></tr>
+<tr class="memdesc:ad9c65ff1caec8b5042fd55628c515373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры В качестве параметра передаётся указатель на инстанс данного класса. Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal инстанса данного класса.  <a href="#ad9c65ff1caec8b5042fd55628c515373">More...</a><br /></td></tr>
 <tr class="separator:ad9c65ff1caec8b5042fd55628c515373"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb273d8d1df0ad615bec58b0a9c5f1cc"><td class="memItemLeft" align="right" valign="top">static DWORD WINAPI&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#acb273d8d1df0ad615bec58b0a9c5f1cc">AddImageThread8</a> (LPVOID lpParameter)</td></tr>
+<tr class="memdesc:acb273d8d1df0ad615bec58b0a9c5f1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры В качестве параметра передаётся указатель на инстанс данного класса. Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal8 инстанса данного класса.  <a href="#acb273d8d1df0ad615bec58b0a9c5f1cc">More...</a><br /></td></tr>
 <tr class="separator:acb273d8d1df0ad615bec58b0a9c5f1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96058275b74d792351596a389ee29bbd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a96058275b74d792351596a389ee29bbd">res2n</a> (int res)</td></tr>
 <tr class="separator:a96058275b74d792351596a389ee29bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -306,7 +336,7 @@ void *&#160;</td><td class="memItemRight" valign="bottom"><b>CallbackOnImg8Data<
 <a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_cfg</b></td></tr>
 <tr class="separator:a867f7342010985b0b21beb4feaf354b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af996670eec8597e3529bfd0a2ec2585e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af996670eec8597e3529bfd0a2ec2585e"></a>
-CVIEngineAudio2&#160;</td><td class="memItemRight" valign="bottom"><b>m_audio</b></td></tr>
+<a class="el" href="class_c_v_i_engine_audio2.html">CVIEngineAudio2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_audio</b></td></tr>
 <tr class="separator:af996670eec8597e3529bfd0a2ec2585e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36e1cc3cb814a08af53e9b4076b51dae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36e1cc3cb814a08af53e9b4076b51dae"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>m_nThreadsRqst</b></td></tr>
@@ -327,7 +357,7 @@ CMTCriticalSection&#160;</td><td class="memItemRight" valign="bottom"><b>m_locks
 <a class="el" href="class_c_v_i_timer.html">CVITimer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_timer</b></td></tr>
 <tr class="separator:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8709ba629c654585cc38d13ccf3a23b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8709ba629c654585cc38d13ccf3a23b8"></a>
-CVITimerSync&#160;</td><td class="memItemRight" valign="bottom"><b>m_timerSync</b></td></tr>
+<a class="el" href="class_c_v_i_timer_sync.html">CVITimerSync</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_timerSync</b></td></tr>
 <tr class="separator:a8709ba629c654585cc38d13ccf3a23b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e3c27e7d2ed527eca5445a669080838"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e3c27e7d2ed527eca5445a669080838"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tMakeImage</b></td></tr>
@@ -469,7 +499,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <tr class="separator:a81b0c7b485feb8404fa06b2e91300d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной среде. В программе создаётся только один инстанс данного класса. </p>
+<div class="textblock"><p>Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной среде. В программе создаётся только один инстанс данного класса. Для ускорения расчётов он создаёт несколько дочерних инстансов класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>, выполняющих обсчёт отдельных фрагментов полного изображения в параллельных нитях на компьютере. Количество создаваемых инстансов класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> равно количеству процессоров на компьютере, но не более 8-ми. В свою очередь выполнение методов данного класса осуществляется так же в одной из созданных нитей параллельных вычислений, то есть инстанс класса создаётся и управляется внешними механизмами программы как обычным параллельным потоком - например - через графический пользовательский интерфейс. И управление запуском отдельных процедур, так же как у инстанса класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>, осуществляется через модель событийных триггеров. То есть кто-то или что-то или он сам поднимают флаг события. В цикле проверяется не поднят ли какой-нибудь флаг. Если какой-то флаг поднят то выполняется запрограммированное действие. Помимо нитей для ускорения обработки расчётов по изображению, запускаются ещё 2 параллельные нити - одна с высоким приоритетом, а другая с обычным. Первая нить отвечает за захват и визуализацию кадров изображения в реальном режиме времени. Вторая нить отвечат за захват и расчёт медлено меняющихся параметров - то есть собственно расчётных параметров методики. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1349de29adc90869f463b17fb03904c1"></a>
 <div class="memitem">
@@ -556,14 +586,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Процедура получения очередной порции данных для обработки. Список шагов: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td></td></tr>
     <tr><td class="paramname">w</td><td>Ширина изображения</td></tr>
     <tr><td class="paramname">h</td><td>Высота изображения</td></tr>
     <tr><td class="paramname">bpp</td><td></td></tr>
-    <tr><td class="paramname">t</td><td></td></tr>
+    <tr><td class="paramname">t</td><td>Отметка времени</td></tr>
     <tr><td class="paramname">nRef</td><td></td></tr>
   </table>
   </dd>
@@ -610,7 +640,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры В качестве параметра передаётся указатель на инстанс данного класса. Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal инстанса данного класса. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lpParameter</td><td>Указатель на параметры передаваемые при создании параллельной нити Windows, в данном случае - указатель на инстанс данного класса</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -636,7 +672,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры В качестве параметра передаётся указатель на инстанс данного класса. Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal8 инстанса данного класса. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lpParameter</td><td>Указатель на параметры передаваемые при создании параллельной нити Windows, в данном случае - указатель на инстанс данного класса</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -653,7 +695,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Запуск метода AddImageThreadProc в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) Если задан настроечный параметр VI_FILTER_FPSDIV, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды. Иначе вычисления приостанавливаются на 1/4 секунды. Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить </p>
 
 </div>
 </div>
@@ -670,7 +712,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE. В цикле производится ожидание до появление флага EVI_DONE. Eсли не был поднят флаг EVI_ADD8, то вызывается метод <a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5">AddImage8()</a>; Всегда поднимается флаг готовности кадра m_events[EVI_ADD8_READY].Set(); Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить </p>
 
 </div>
 </div>
@@ -705,7 +747,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Проверка возможности потроения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Идентификатор типа гистограммы</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -750,7 +798,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -768,7 +816,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_stat структуры <a class="el" href="class_s_u_m_m___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">SUMM_STAT</a> к очередному циклу обработки. Процедура вызывает одноимённый метод для каждого элемента массива m_stat. </p>
 
 </div>
 </div>
@@ -786,7 +834,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка данных структуры <a class="el" href="class_s_u_m_m___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">SUMM_STAT</a> к очередному циклу обработки. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">S</td><td>Ссылка на инстанс структуря <a class="el" href="class_s_u_m_m___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">SUMM_STAT</a></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -822,7 +876,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Запуск параллельных потоков для вычислений. </p>
+<p>Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">bLock</td><td></td></tr>
@@ -916,7 +970,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) То есть простенько - без вяких лишних околонаучных движений. SYSTEM_INFO info; GetSystemInfo(&amp;info); nProc = info.dwNumberOfProcessors; </p>
 
 </div>
 </div>
@@ -956,7 +1010,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -996,7 +1050,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1206,7 +1260,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1324,7 +1378,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Чтение настройки для процедуры сенсора определения факта движения на основе ранее расчитанных статистических данных Если bSet == false и VI_FILTER_DISABLE_VI1 ненеулевой, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0 Иначе если VI_FILTER_MOTION не указан, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0 Иначе производится ряд расчётов по настроечным параметрам, результат записывается в VI_FILTER_MOTION_SET и возвращается вычисленная величина </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bSet</td><td>Признак необходимости пересчёта значения настроечного параметра</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1368,7 +1428,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Поднятие флага сигнала command у всех параллельных процессов. m_therads[k]-&gt;m_events[command].Set(); Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>Идентификатор сигнала-события</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1519,7 +1585,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собствееное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: d = 1.0/len, n = СУММА pHist256(i), sm = СУММА pHist256(i) * log10( pHist256(i) ), Delta = (d*n/2)*pow(10,-1.0*sm/n), return Delta; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0 </p>
+<p>Вычисление значения энтропии по гистограмме сигнала (Вариант D - заимствование идеи из ... видимо совсем собственное творчество) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: d = 1.0/len, n = СУММА pHist256(i), sm = СУММА pHist256(i) * log10( pHist256(i) ), Delta = (d*n/2)*pow(10,-1.0*sm/n), return Delta; где при подсчёте сумм берутся все i кроме pHist256(i) == 0 или i == 0 </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
@@ -1649,7 +1715,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1689,16 +1755,17 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги: Сброс если надо - Reset(true); Сдвиг очереди кадров - <a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535" title="Сдвиг очереди кадров ">NextSrc()</a>; Сброс ранее рассчитанных данных - <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Получение очередного изображения CVIEngineFace::AddImage; Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического: <a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf">MakeAnger()</a>; <a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c">MakeStress()</a>; <a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d">MakeState()</a>; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов - <a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc" title="Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. ">MakeFaceDraw()</a>; Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра: m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pFI</td><td></td></tr>
-    <tr><td class="paramname">pBI</td><td></td></tr>
+    <tr><td class="paramname">pFI</td><td>Указатель на массив пикселей в формате чисел с плавющей точной. Видимо зарезервировано для дайнейшего использования.</td></tr>
+    <tr><td class="paramname">pBI</td><td>Указатель на массив пикселей в формате целых чисел. Использование зависит от флагов при компилировании программы в исполняемый код.</td></tr>
     <tr><td class="paramname">w</td><td>Ширина изображения</td></tr>
     <tr><td class="paramname">h</td><td>Высота изображения</td></tr>
   </table>
   </dd>
 </dl>
+<p>Вызов метода <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если выполняется условие от процедуры сенсора движения. </p>
 
 </div>
 </div>
@@ -1716,7 +1783,8 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вызов метода <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если выполняется условие от процедуры сенсора движения. Получение текущего параметра для процедуры сенсора движения noise = IsMotion(true); Проверка необходимости вызова процедуры Reset - т.е. проверка условия noise == 3 || noise == -2 || m_statRelease[1].cntAin &gt; 0.7f; Вызов <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если условие выполняется </p>
+<p>Получение текущего параметра для процедуры сенсора движения </p>
 
 </div>
 </div>
@@ -1733,7 +1801,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1821,7 +1889,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1855,7 +1923,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Реализация метода не содержит программного кода. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td></td></tr>
+    <tr><td class="paramname">sw</td><td></td></tr>
+    <tr><td class="paramname">sh</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1873,7 +1949,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Объединение результатов, рассчитанных в отдельный параллельный процессах для отдельных фрагментов изображений в единый результат в одном месте, то есть для инстанса данного класса и расчёт средних значений по всему изображению. Паралельные процессы сохраняют посчитанные результаты в своих инстансах <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> в массивах структур m_stat. Данная процедура объединяет все эти результаты в массиве m_stat и что-то делит на количество пикселей в изображении (суммарную яркость, количество ненулевых пикселей и т.д.) - то есть рассчитывает усреднёные значения. Перед выполнении данной процедуры надо убедится в завершении расчётов в каждом отдельном параллельном потоке, поскольку в данном методе вызовов синхронизации нет - здесь полагается что все потоки вычислений уже закончили свои вычисления по текущему кадру. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1909,7 +1985,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1934,7 +2010,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p>Проверка значения настроесного параметра VI_FACE_ENABLE Возвращает true если параметр VI_FACE_ENABLE установлен в ненулевое значение </p>
+<p>Проверка значения настроечного параметра VI_FACE_ENABLE Возвращает true если параметр VI_FACE_ENABLE установлен в ненулевое значение </p>
 
 </div>
 </div>
@@ -1951,7 +2027,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. </p>
 
 </div>
 </div>
@@ -2008,7 +2084,8 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <p></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">res</td><td></td></tr>
+    <tr><td class="paramname">id</td><td></td></tr>
+    <tr><td class="paramname">subID</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -2029,7 +2106,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Идентификатор настроечного параметра</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2047,7 +2130,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Приостанов вычислений. То есть в VI_FILTER_PAUSE записывается нужный признак. Все процессы периодически считывают VI_FILTER_PAUSE и могут приостановить свои вычисления и расчёты или возобновить. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bSet</td><td>Признак паузы или продолжения</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2097,7 +2186,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Очиска элементов массива m_summ; Обнуление буферов для хранения изображений; Обнуление настроечных параметров из диапазона [VI_STAT_START;VI_STAT_END]; Обнуление настроечных параметров из диапазона [VI_STAT_EXT_START;VI_STAT_EXT_END]; Обнуление m_statFFT, m_statAVG, m_procF6; Обнуление VI_VAR_NDROP; Снятие с паузы; Очистка параметра VI_VAR_RESET; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bReset</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2125,7 +2220,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. </p>
+<p>Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cnt</td><td>Новое количество обрабатываемых кадров</td></tr>
@@ -2149,7 +2244,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Задание идентификатора ключа в реестре Windows для хранения настроечных параметров </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">group</td><td>Идентификатор ключа в реестре Windows</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2395,7 +2496,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Расчёт величин определённых в методике и записи их в настроечные параметры BOOL disabled2X =m_cfg.GetI1(VI_FILTER_DISABLE_2X); VI_VAR_STAT_INTEGR0A = m_stat[0].sumAin; VI_VAR_STAT_INTEGR0A = m_stat[0].sumBin; VI_VAR_STAT_INTEGR1A = m_stat[1].sumAin; VI_VAR_STAT_INTEGR1A = m_stat[1].sumBin; VI_VAR_STAT_INTEGR2A = m_stat[2].sumAin; VI_VAR_STAT_INTEGR2A = m_stat[2].sumBin; VI_VAR_STAT_RES_A1 = m_stat[0].dsumAin; if(disabled2X) VI_VAR_STAT_RES_A1X = m_stat[0].dsumAin; VI_VAR_STAT_RES_A2 = ( (m_stat[1].auraA.sline.sumL / m_stat[1].auraA.sline.cl) + (m_stat[1].auraA.sline.sumR / m_stat[1].auraA.sline.cr) ) / 2; VI_VAR_STAT_RES_A3 = ( (m_stat[0].auraA.sline.sumL / m_stat[0].auraA.sline.cl) + (m_stat[0].auraA.sline.sumR / m_stat[0].auraA.sline.cr) ) / 2; VI_VAR_STAT_RES_A4 = m_statAVG.Get(VI_VAR_STAT_RES_A1); if(disabled2X) VI_VAR_STAT_RES_A4X = m_statAVG.Get(VI_VAR_STAT_RES_A1X) ; VI_VAR_STAT_RES_F1 = m_stat[0].dsumBin; VI_VAR_STAT_RES_F2 = ( (m_stat[1].auraB.sline.sumL / m_stat[1].auraB.sline.cl) + (m_stat[1].auraB.sline.sumR / m_stat[1].auraB.sline.cr) ) / 2; VI_VAR_STAT_RES_F3 = ( (m_stat[0].auraB.sline.sumL / m_stat[0].auraB.sline.cl) + (m_stat[0].auraB.sline.sumR / m_stat[0].auraB.sline.cr) ) / 2; VI_VAR_STAT_RES_F4 = max(m_stat[0]auraA.sline.maxL, m_stat[0]&gt;auraA.sline.maxR); VI_VAR_STAT_RES_F5 = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1); if(disabled2X) VI_VAR_STAT_RES_F5X = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1X); VI_VAR_STAT_RES_S1 = (m_stat[2].auraA.sline.sumL - m_stat[2].auraA.sline.sumR) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr); VI_VAR_STAT_RES_S2 = (m_stat[1].auraA.sline.sumL - m_stat[1].auraA.sline.sumR) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr); VI_VAR_STAT_RES_S2 = (m_stat[0].auraA.sline.sumL - m_stat[0].auraA.sline.sumR) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr); VI_VAR_STAT_RES_S4 = (m_stat[2].auraA.sline.cl - m_stat[2].auraA.sline.cr) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr); VI_VAR_STAT_RES_S5 = (m_stat[1].auraA.sline.cl - m_stat[1].auraA.sline.cr) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr); VI_VAR_STAT_RES_S6 = (m_stat[0].auraA.sline.cl - m_stat[0].auraA.sline.cr) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr); VI_VAR_STAT_RES_S7 = m_stat[0].auraA.sline.maxL - m_stat[0].auraA.sline.maxR; VI_VAR_STAT_RES_P1 = m_stat[1].auraB.statCS; VI_VAR_STAT_RES_P2 = m_stat[0].auraB.statCS; VI_VAR_STAT_RES_P3 = m_stat[1].auraB.statSim; VI_VAR_STAT_RES_P4 = m_stat[0].auraB.statSim; hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraA.statHistW :m_stat[0].auraA.statHist; VI_VAR_STAT_RES_P8A = MakeCharming(hist.p, hist.s); VI_VAR_STAT_RES_P9A = MakeEntropyH(hist.p,hist.s); VI_VAR_STAT_RES_P10A = MakeEntropyD(hist.p,hist.s); VI_VAR_STAT_RES_P11A = MakeEntropyX(hist.p,hist.s); VI_VAR_STAT_RES_P12A = MakeEntropyS(hist.p,hist.s); hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraB.statHistW :m_stat[0].auraB.statHist; VI_VAR_STAT_RES_P8F = MakeCharming(hist.p, hist.s); VI_VAR_STAT_RES_P9F = MakeEntropyH(hist.p,hist.s); VI_VAR_STAT_RES_P10F = MakeEntropyD(hist.p,hist.s); VI_VAR_STAT_RES_P11F = MakeEntropyX(hist.p,hist.s); VI_VAR_STAT_RES_P12F = MakeEntropyS(hist.p,hist.s); VI_VAR_STAT_RES_P16 = MakeComN(hist.p, hist.s); VI_VAR_STAT_RES_P17 = MakeComS(m_stat[0].auraA); VI_VAR_STAT_RES_P18 = (VI_VAR_STAT_RES_P16 + VI_VAR_STAT_RES_P17) / 2; </p>
 
 </div>
 </div>
@@ -2413,7 +2514,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Останов вычислений. Сохранение текущих значений настроечных параметров Останов захвата изображения или звука Останов дочерних потоков вычислений </p>
 
 </div>
 </div>
@@ -2499,7 +2600,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации. </p>
+<p>Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений. </p>
 
 </div>
 </div>
@@ -2510,7 +2611,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 03:23:54 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 22:48:47 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>
