@@ -109,17 +109,17 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a9554d5bac2f77277384394c21fd407bb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9554d5bac2f77277384394c21fd407bb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_bDone</b></td></tr>
+<tr class="memitem:a9554d5bac2f77277384394c21fd407bb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_audio2.html#a9554d5bac2f77277384394c21fd407bb">m_bDone</a></td></tr>
+<tr class="memdesc:a9554d5bac2f77277384394c21fd407bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Флаг завершения работы процесса  <a href="#a9554d5bac2f77277384394c21fd407bb">More...</a><br /></td></tr>
 <tr class="separator:a9554d5bac2f77277384394c21fd407bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3643ec0788589e78238776f56b9d796"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac3643ec0788589e78238776f56b9d796"></a>
-HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThread</b></td></tr>
+<tr class="memitem:ac3643ec0788589e78238776f56b9d796"><td class="memItemLeft" align="right" valign="top">HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_audio2.html#ac3643ec0788589e78238776f56b9d796">m_hThread</a></td></tr>
+<tr class="memdesc:ac3643ec0788589e78238776f56b9d796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Дескриптор нити Windows отвечающей за чтения данных с устройства  <a href="#ac3643ec0788589e78238776f56b9d796">More...</a><br /></td></tr>
 <tr class="separator:ac3643ec0788589e78238776f56b9d796"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a63d3b5cc992e619dc07d688c16403af2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63d3b5cc992e619dc07d688c16403af2"></a>
-<a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_pBase</b></td></tr>
+<tr class="memitem:a63d3b5cc992e619dc07d688c16403af2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_audio2.html#a63d3b5cc992e619dc07d688c16403af2">m_pBase</a></td></tr>
+<tr class="memdesc:a63d3b5cc992e619dc07d688c16403af2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на инстанс класса <a class="el" href="class_c_v_i_engine_base.html" title="Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной сре...">CVIEngineBase</a>. Этот инстанс такого класса единственный в работающей программе.  <a href="#a63d3b5cc992e619dc07d688c16403af2">More...</a><br /></td></tr>
 <tr class="separator:a63d3b5cc992e619dc07d688c16403af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -184,6 +184,57 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a9554d5bac2f77277384394c21fd407bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CVIEngineAudio2::m_bDone</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Флаг завершения работы процесса </p>
+
+</div>
+</div>
+<a class="anchor" id="ac3643ec0788589e78238776f56b9d796"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANDLE CVIEngineAudio2::m_hThread</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Дескриптор нити Windows отвечающей за чтения данных с устройства </p>
+
+</div>
+</div>
+<a class="anchor" id="a63d3b5cc992e619dc07d688c16403af2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a>* CVIEngineAudio2::m_pBase</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Указатель на инстанс класса <a class="el" href="class_c_v_i_engine_base.html" title="Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной сре...">CVIEngineBase</a>. Этот инстанс такого класса единственный в работающей программе. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>VibraImage/<a class="el" href="_v_i_engine_audio2_8h_source.html">VIEngineAudio2.h</a></li>
 <li>VibraImage/VIEngineAudio2.cpp</li>
@@ -191,7 +242,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 22:48:47 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 23:52:37 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

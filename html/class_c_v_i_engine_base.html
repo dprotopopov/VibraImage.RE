@@ -102,8 +102,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1349de29adc90869f463b17fb03904c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28dba2a06eda33294836c5241f497112"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a28dba2a06eda33294836c5241f497112">~CVIEngineBase</a> (void)</td></tr>
 <tr class="separator:a28dba2a06eda33294836c5241f497112"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd0542a6476a6eed4568c900ab5af5d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acd0542a6476a6eed4568c900ab5af5d9"></a>
-RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (align(16)) m_palI[256]</td></tr>
+<tr class="memitem:acd0542a6476a6eed4568c900ab5af5d9"><td class="memItemLeft" align="right" valign="top">RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#acd0542a6476a6eed4568c900ab5af5d9">__declspec</a> (align(16)) m_palI[256]</td></tr>
 <tr class="separator:acd0542a6476a6eed4568c900ab5af5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a6ca94a8d39e8a76e5be4698cc2eff06b">AddImageThreadLocal</a> ()</td></tr>
 <tr class="memdesc:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск метода AddImageThreadProc в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) Если задан настроечный параметр VI_FILTER_FPSDIV, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды. Иначе вычисления приостанавливаются на 1/4 секунды. Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить  <a href="#a6ca94a8d39e8a76e5be4698cc2eff06b">More...</a><br /></td></tr>
@@ -143,6 +142,7 @@ RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><b>__declspec</b> (al
 <tr class="memdesc:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений.  <a href="#a305c1b2285ddfcdbb021597f0b3dbd39">More...</a><br /></td></tr>
 <tr class="separator:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af12866653055639e69a61224615af7fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af12866653055639e69a61224615af7fe">Sync</a> (void)</td></tr>
+<tr class="memdesc:af12866653055639e69a61224615af7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows.  <a href="#af12866653055639e69a61224615af7fe">More...</a><br /></td></tr>
 <tr class="separator:af12866653055639e69a61224615af7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b6c77fcb50dcb01f299d7e0f4b05ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4b6c77fcb50dcb01f299d7e0f4b05ea6">SetSummCount</a> (int cnt, int *pN)</td></tr>
 <tr class="separator:a4b6c77fcb50dcb01f299d7e0f4b05ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -320,176 +320,140 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab3883b66e78478803c693b4ad2f5b0e7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3883b66e78478803c693b4ad2f5b0e7"></a>
-void(*&#160;</td><td class="memItemRight" valign="bottom"><b>CallbackOnNewVar</b> )(void *pUserData, int id, int subID)</td></tr>
+<tr class="memitem:ab3883b66e78478803c693b4ad2f5b0e7"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab3883b66e78478803c693b4ad2f5b0e7">CallbackOnNewVar</a> )(void *pUserData, int id, int subID)</td></tr>
+<tr class="memdesc:ab3883b66e78478803c693b4ad2f5b0e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на функцию. Видимо относится к механизму хранения настроечных параметров. То есть управление хранением настроечных параметров не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё.  <a href="#ab3883b66e78478803c693b4ad2f5b0e7">More...</a><br /></td></tr>
 <tr class="separator:ab3883b66e78478803c693b4ad2f5b0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0d4e70811444be165a4b9c2a4aa7aae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0d4e70811444be165a4b9c2a4aa7aae"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>CallbackOnNewVarData</b></td></tr>
+<tr class="memitem:aa0d4e70811444be165a4b9c2a4aa7aae"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa0d4e70811444be165a4b9c2a4aa7aae">CallbackOnNewVarData</a></td></tr>
+<tr class="memdesc:aa0d4e70811444be165a4b9c2a4aa7aae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnNewVar  <a href="#aa0d4e70811444be165a4b9c2a4aa7aae">More...</a><br /></td></tr>
 <tr class="separator:aa0d4e70811444be165a4b9c2a4aa7aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f0ddf3af6a98c243d97cbcc9be38e18"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f0ddf3af6a98c243d97cbcc9be38e18"></a>
-void(*&#160;</td><td class="memItemRight" valign="bottom"><b>CallbackOnImg8</b> )(void *pUserData, BYTE *i8, int w, int h, double t)</td></tr>
+<tr class="memitem:a4f0ddf3af6a98c243d97cbcc9be38e18"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4f0ddf3af6a98c243d97cbcc9be38e18">CallbackOnImg8</a> )(void *pUserData, BYTE *i8, int w, int h, double t)</td></tr>
+<tr class="memdesc:a4f0ddf3af6a98c243d97cbcc9be38e18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на функцию. Видимо относится к механизму захвата изображений с устройств. То есть получение видеоизображений не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. В доступном коде вызов функции по указателю выполняется в методе AddImage данного класса.  <a href="#a4f0ddf3af6a98c243d97cbcc9be38e18">More...</a><br /></td></tr>
 <tr class="separator:a4f0ddf3af6a98c243d97cbcc9be38e18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfaf1ec8dec9a82c896a90c708dfd756"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abfaf1ec8dec9a82c896a90c708dfd756"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>CallbackOnImg8Data</b></td></tr>
+<tr class="memitem:abfaf1ec8dec9a82c896a90c708dfd756"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#abfaf1ec8dec9a82c896a90c708dfd756">CallbackOnImg8Data</a></td></tr>
+<tr class="memdesc:abfaf1ec8dec9a82c896a90c708dfd756"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnImg8  <a href="#abfaf1ec8dec9a82c896a90c708dfd756">More...</a><br /></td></tr>
 <tr class="separator:abfaf1ec8dec9a82c896a90c708dfd756"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a867f7342010985b0b21beb4feaf354b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a867f7342010985b0b21beb4feaf354b8"></a>
-<a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_cfg</b></td></tr>
+<tr class="memitem:a867f7342010985b0b21beb4feaf354b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a867f7342010985b0b21beb4feaf354b8">m_cfg</a></td></tr>
+<tr class="memdesc:a867f7342010985b0b21beb4feaf354b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Интерфейс для управление значениями настроечных параметров алгоритмов программы (чтение-запись)  <a href="#a867f7342010985b0b21beb4feaf354b8">More...</a><br /></td></tr>
 <tr class="separator:a867f7342010985b0b21beb4feaf354b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af996670eec8597e3529bfd0a2ec2585e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af996670eec8597e3529bfd0a2ec2585e"></a>
-<a class="el" href="class_c_v_i_engine_audio2.html">CVIEngineAudio2</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_audio</b></td></tr>
+<tr class="memitem:af996670eec8597e3529bfd0a2ec2585e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_audio2.html">CVIEngineAudio2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af996670eec8597e3529bfd0a2ec2585e">m_audio</a></td></tr>
+<tr class="memdesc:af996670eec8597e3529bfd0a2ec2585e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо реализация API для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось.  <a href="#af996670eec8597e3529bfd0a2ec2585e">More...</a><br /></td></tr>
 <tr class="separator:af996670eec8597e3529bfd0a2ec2585e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36e1cc3cb814a08af53e9b4076b51dae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a36e1cc3cb814a08af53e9b4076b51dae"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_nThreadsRqst</b></td></tr>
+<tr class="memitem:a36e1cc3cb814a08af53e9b4076b51dae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a36e1cc3cb814a08af53e9b4076b51dae">m_nThreadsRqst</a></td></tr>
 <tr class="separator:a36e1cc3cb814a08af53e9b4076b51dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0041ab05a40ba6a0bca65c78ea9d8189"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0041ab05a40ba6a0bca65c78ea9d8189"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_nThreads</b></td></tr>
+<tr class="memitem:a0041ab05a40ba6a0bca65c78ea9d8189"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0041ab05a40ba6a0bca65c78ea9d8189">m_nThreads</a></td></tr>
 <tr class="separator:a0041ab05a40ba6a0bca65c78ea9d8189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fdf197fd70d474cf4365abba485c461"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fdf197fd70d474cf4365abba485c461"></a>
-<a class="el" href="class_c_v_i_engine_thread.html">CVIEngineThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_therads</b> [8]</td></tr>
+<tr class="memitem:a4fdf197fd70d474cf4365abba485c461"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_thread.html">CVIEngineThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4fdf197fd70d474cf4365abba485c461">m_therads</a> [8]</td></tr>
 <tr class="separator:a4fdf197fd70d474cf4365abba485c461"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a66562cd6aaf7fd0f9ade29c9096b9851"></a>
-CMTCriticalSection&#160;</td><td class="memItemRight" valign="bottom"><b>m_locks</b> [LVI_CNT]</td></tr>
+<tr class="memitem:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="memItemLeft" align="right" valign="top">CMTCriticalSection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a66562cd6aaf7fd0f9ade29c9096b9851">m_locks</a> [LVI_CNT]</td></tr>
 <tr class="separator:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88f59347ca703a36ea9965b96b3ab552"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88f59347ca703a36ea9965b96b3ab552"></a>
-<a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_events</b> [EVI_CNT]</td></tr>
+<tr class="memitem:a88f59347ca703a36ea9965b96b3ab552"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a88f59347ca703a36ea9965b96b3ab552">m_events</a> [EVI_CNT]</td></tr>
 <tr class="separator:a88f59347ca703a36ea9965b96b3ab552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a928c4511d2e46b9cd4b7c9b3b7322855"></a>
-<a class="el" href="class_c_v_i_timer.html">CVITimer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_timer</b></td></tr>
+<tr class="memitem:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_timer.html">CVITimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a928c4511d2e46b9cd4b7c9b3b7322855">m_timer</a></td></tr>
+<tr class="memdesc:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.  <a href="#a928c4511d2e46b9cd4b7c9b3b7322855">More...</a><br /></td></tr>
 <tr class="separator:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8709ba629c654585cc38d13ccf3a23b8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8709ba629c654585cc38d13ccf3a23b8"></a>
-<a class="el" href="class_c_v_i_timer_sync.html">CVITimerSync</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_timerSync</b></td></tr>
+<tr class="memitem:a8709ba629c654585cc38d13ccf3a23b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_timer_sync.html">CVITimerSync</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a8709ba629c654585cc38d13ccf3a23b8">m_timerSync</a></td></tr>
+<tr class="memdesc:a8709ba629c654585cc38d13ccf3a23b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.  <a href="#a8709ba629c654585cc38d13ccf3a23b8">More...</a><br /></td></tr>
 <tr class="separator:a8709ba629c654585cc38d13ccf3a23b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e3c27e7d2ed527eca5445a669080838"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e3c27e7d2ed527eca5445a669080838"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tMakeImage</b></td></tr>
+<tr class="memitem:a0e3c27e7d2ed527eca5445a669080838"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0e3c27e7d2ed527eca5445a669080838">m_tMakeImage</a></td></tr>
 <tr class="separator:a0e3c27e7d2ed527eca5445a669080838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d6409bd350e84190cd6904732c4fe83"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0d6409bd350e84190cd6904732c4fe83"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideo</b></td></tr>
+<tr class="memitem:a0d6409bd350e84190cd6904732c4fe83"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0d6409bd350e84190cd6904732c4fe83">m_tVideo</a></td></tr>
+<tr class="memdesc:a0d6409bd350e84190cd6904732c4fe83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Отметка времени и длительность при обработке изображения кадра  <a href="#a0d6409bd350e84190cd6904732c4fe83">More...</a><br /></td></tr>
 <tr class="separator:a0d6409bd350e84190cd6904732c4fe83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98df2a6b3724ab56deee0ed61e3773f8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98df2a6b3724ab56deee0ed61e3773f8"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoT</b></td></tr>
 <tr class="separator:a98df2a6b3724ab56deee0ed61e3773f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45286d497ebc137775cda4999ff9fed6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a45286d497ebc137775cda4999ff9fed6"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoPrev</b></td></tr>
+<tr class="memitem:a45286d497ebc137775cda4999ff9fed6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a45286d497ebc137775cda4999ff9fed6">m_tVideoPrev</a></td></tr>
+<tr class="memdesc:a45286d497ebc137775cda4999ff9fed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Отметка времени и длительность при обработке изображения предыдущего кадра  <a href="#a45286d497ebc137775cda4999ff9fed6">More...</a><br /></td></tr>
 <tr class="separator:a45286d497ebc137775cda4999ff9fed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac29a85370558b6c5dce1ee2ba1517689"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac29a85370558b6c5dce1ee2ba1517689"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoTPrev</b></td></tr>
 <tr class="separator:ac29a85370558b6c5dce1ee2ba1517689"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bbf6f3d2d6b80fec8d223ffb44a6791"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0bbf6f3d2d6b80fec8d223ffb44a6791"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoDT</b></td></tr>
+<tr class="memitem:a0bbf6f3d2d6b80fec8d223ffb44a6791"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0bbf6f3d2d6b80fec8d223ffb44a6791">m_tVideoDT</a></td></tr>
 <tr class="separator:a0bbf6f3d2d6b80fec8d223ffb44a6791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67a15f389d32a0201997a71dc4695803"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67a15f389d32a0201997a71dc4695803"></a>
-std::list&lt; SRC_IMG &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_srcF</b></td></tr>
+<tr class="memitem:a67a15f389d32a0201997a71dc4695803"><td class="memItemLeft" align="right" valign="top">std::list&lt; SRC_IMG &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a67a15f389d32a0201997a71dc4695803">m_srcF</a></td></tr>
 <tr class="separator:a67a15f389d32a0201997a71dc4695803"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a775fea6c14d39ec6989306017f4f1c9e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a775fea6c14d39ec6989306017f4f1c9e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_bInit</b></td></tr>
+<tr class="memitem:a775fea6c14d39ec6989306017f4f1c9e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a775fea6c14d39ec6989306017f4f1c9e">m_bInit</a></td></tr>
+<tr class="memdesc:a775fea6c14d39ec6989306017f4f1c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Флаг режима инициализации программы  <a href="#a775fea6c14d39ec6989306017f4f1c9e">More...</a><br /></td></tr>
 <tr class="separator:a775fea6c14d39ec6989306017f4f1c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13cd33209e328eed98e79086439748b2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13cd33209e328eed98e79086439748b2"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_bStop</b></td></tr>
+<tr class="memitem:a13cd33209e328eed98e79086439748b2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a13cd33209e328eed98e79086439748b2">m_bStop</a></td></tr>
+<tr class="memdesc:a13cd33209e328eed98e79086439748b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Флаг режима остановки вычислений  <a href="#a13cd33209e328eed98e79086439748b2">More...</a><br /></td></tr>
 <tr class="separator:a13cd33209e328eed98e79086439748b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa780c31b49f591af32d9a40e21978201"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa780c31b49f591af32d9a40e21978201"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_bDone</b></td></tr>
+<tr class="memitem:aa780c31b49f591af32d9a40e21978201"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa780c31b49f591af32d9a40e21978201">m_bDone</a></td></tr>
+<tr class="memdesc:aa780c31b49f591af32d9a40e21978201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Флаг режима завершения работы программы  <a href="#aa780c31b49f591af32d9a40e21978201">More...</a><br /></td></tr>
 <tr class="separator:aa780c31b49f591af32d9a40e21978201"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa909c6b38f749c7b4d848f8b2de331bc"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa909c6b38f749c7b4d848f8b2de331bc"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_bLock</b></td></tr>
+<tr class="memitem:aa909c6b38f749c7b4d848f8b2de331bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa909c6b38f749c7b4d848f8b2de331bc">m_bLock</a></td></tr>
 <tr class="separator:aa909c6b38f749c7b4d848f8b2de331bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f173a318d25c068952f2c68f4248208"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4f173a318d25c068952f2c68f4248208"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_nMake</b></td></tr>
+<tr class="memitem:a4f173a318d25c068952f2c68f4248208"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4f173a318d25c068952f2c68f4248208">m_nMake</a></td></tr>
 <tr class="separator:a4f173a318d25c068952f2c68f4248208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c62f336b24d613e0320d2e6f676b89b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2c62f336b24d613e0320d2e6f676b89b"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_cMake</b> [EVI_CNT]</td></tr>
+<tr class="memitem:a2c62f336b24d613e0320d2e6f676b89b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2c62f336b24d613e0320d2e6f676b89b">m_cMake</a> [EVI_CNT]</td></tr>
 <tr class="separator:a2c62f336b24d613e0320d2e6f676b89b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a359f07597366b8c81727c32c9ff931be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a359f07597366b8c81727c32c9ff931be"></a>
-float *&#160;</td><td class="memItemRight" valign="bottom"><b>m_imgSrcF</b></td></tr>
+<tr class="memitem:a359f07597366b8c81727c32c9ff931be"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a359f07597366b8c81727c32c9ff931be">m_imgSrcF</a></td></tr>
 <tr class="separator:a359f07597366b8c81727c32c9ff931be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa935595a167539c89a4d06a57178d776"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa935595a167539c89a4d06a57178d776"></a>
-<a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; BYTE &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_imgSrc8</b></td></tr>
+<tr class="memitem:aa935595a167539c89a4d06a57178d776"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; BYTE &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa935595a167539c89a4d06a57178d776">m_imgSrc8</a></td></tr>
+<tr class="memdesc:aa935595a167539c89a4d06a57178d776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Двумерный массив монохромного изображения [0;255]  <a href="#aa935595a167539c89a4d06a57178d776">More...</a><br /></td></tr>
 <tr class="separator:aa935595a167539c89a4d06a57178d776"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a252e6e1285e6063718c7d7a874298363"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a252e6e1285e6063718c7d7a874298363"></a>
-<a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; RGBTRIPLE &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_imgSrc24</b></td></tr>
+<tr class="memitem:a252e6e1285e6063718c7d7a874298363"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; RGBTRIPLE &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a252e6e1285e6063718c7d7a874298363">m_imgSrc24</a></td></tr>
+<tr class="memdesc:a252e6e1285e6063718c7d7a874298363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Двумерный массив цветного изображения (RGB). The RGBTRIPLE structure describes a color consisting of relative intensities of red, green, and blue. The bmciColors member of the BITMAPCOREINFO structure consists of an array of RGBTRIPLE structures. <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx</a>  <a href="#a252e6e1285e6063718c7d7a874298363">More...</a><br /></td></tr>
 <tr class="separator:a252e6e1285e6063718c7d7a874298363"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a879bfc4065da678c4ca67ed828b05a05"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a879bfc4065da678c4ca67ed828b05a05"></a>
-<a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; BYTE &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_imgSrcMask</b></td></tr>
+<tr class="memitem:a879bfc4065da678c4ca67ed828b05a05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; BYTE &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a879bfc4065da678c4ca67ed828b05a05">m_imgSrcMask</a></td></tr>
+<tr class="memdesc:a879bfc4065da678c4ca67ed828b05a05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Двумерный массив чисел [0;255] монохромного изображения-маски, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей  <a href="#a879bfc4065da678c4ca67ed828b05a05">More...</a><br /></td></tr>
 <tr class="separator:a879bfc4065da678c4ca67ed828b05a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b14da4c2f0ccba53a81ab89b89b2a03"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b14da4c2f0ccba53a81ab89b89b2a03"></a>
-<a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_arrSrc</b></td></tr>
+<tr class="memitem:a9b14da4c2f0ccba53a81ab89b89b2a03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a9b14da4c2f0ccba53a81ab89b89b2a03">m_arrSrc</a></td></tr>
+<tr class="memdesc:a9b14da4c2f0ccba53a81ab89b89b2a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив (очередь) указателей на инстансы типа <a class="el" href="class_f_r_a_m_e___i_m_g.html" title="Структура для работы с фрагментами монохромных изображений. Монохромные изображения хранятся в виде п...">FRAME_IMG</a> (способ хранения очереди исходных изображений)  <a href="#a9b14da4c2f0ccba53a81ab89b89b2a03">More...</a><br /></td></tr>
 <tr class="separator:a9b14da4c2f0ccba53a81ab89b89b2a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd1077e6704b0f6bbc788c4d3e7f150e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd1077e6704b0f6bbc788c4d3e7f150e"></a>
-<a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_arrDelta</b></td></tr>
+<tr class="memitem:abd1077e6704b0f6bbc788c4d3e7f150e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#abd1077e6704b0f6bbc788c4d3e7f150e">m_arrDelta</a></td></tr>
+<tr class="memdesc:abd1077e6704b0f6bbc788c4d3e7f150e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив (очередь) указателей на инстансы типа <a class="el" href="class_f_r_a_m_e___i_m_g.html" title="Структура для работы с фрагментами монохромных изображений. Монохромные изображения хранятся в виде п...">FRAME_IMG</a> (способ хранения очереди расчитанных дельт-изображений)  <a href="#abd1077e6704b0f6bbc788c4d3e7f150e">More...</a><br /></td></tr>
 <tr class="separator:abd1077e6704b0f6bbc788c4d3e7f150e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b3b91816e3f19ec5e531c5ad903be98"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0b3b91816e3f19ec5e531c5ad903be98"></a>
-<a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_srcMask</b></td></tr>
+<tr class="memitem:a0b3b91816e3f19ec5e531c5ad903be98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0b3b91816e3f19ec5e531c5ad903be98">m_srcMask</a></td></tr>
+<tr class="memdesc:a0b3b91816e3f19ec5e531c5ad903be98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей  <a href="#a0b3b91816e3f19ec5e531c5ad903be98">More...</a><br /></td></tr>
 <tr class="separator:a0b3b91816e3f19ec5e531c5ad903be98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29b792994f8c587ebdd4296031032f68"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29b792994f8c587ebdd4296031032f68"></a>
-std::vector&lt; <a class="el" href="class_s_u_m___i_m_g.html">SUM_IMG</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_summ</b></td></tr>
+<tr class="memitem:a29b792994f8c587ebdd4296031032f68"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_s_u_m___i_m_g.html">SUM_IMG</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a29b792994f8c587ebdd4296031032f68">m_summ</a></td></tr>
 <tr class="separator:a29b792994f8c587ebdd4296031032f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a73ff2aaa9eeb589ce6ea73ef5dd62fda"></a>
-std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat</b></td></tr>
+<tr class="memitem:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a73ff2aaa9eeb589ce6ea73ef5dd62fda">m_stat</a></td></tr>
 <tr class="separator:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0a3c99fb49cddb42615132833b483d5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab0a3c99fb49cddb42615132833b483d5"></a>
-std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_statRelease</b></td></tr>
+<tr class="memitem:ab0a3c99fb49cddb42615132833b483d5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab0a3c99fb49cddb42615132833b483d5">m_statRelease</a></td></tr>
 <tr class="separator:ab0a3c99fb49cddb42615132833b483d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91282745c78c776f8922e20c4f3198f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a91282745c78c776f8922e20c4f3198f5"></a>
-CVIEngineProc2x&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat2</b></td></tr>
+<tr class="memitem:a91282745c78c776f8922e20c4f3198f5"><td class="memItemLeft" align="right" valign="top">CVIEngineProc2x&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a91282745c78c776f8922e20c4f3198f5">m_stat2</a></td></tr>
 <tr class="separator:a91282745c78c776f8922e20c4f3198f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b9c935b9223f0efcc05282e871254d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4b9c935b9223f0efcc05282e871254d"></a>
-std::vector&lt; CVIEngineAura6 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_aura6A</b></td></tr>
+<tr class="memitem:aa4b9c935b9223f0efcc05282e871254d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; CVIEngineAura6 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa4b9c935b9223f0efcc05282e871254d">m_aura6A</a></td></tr>
 <tr class="separator:aa4b9c935b9223f0efcc05282e871254d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4415e8a105218982c6358907ae6f380e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4415e8a105218982c6358907ae6f380e"></a>
-std::vector&lt; CVIEngineAura6 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_aura6B</b></td></tr>
+<tr class="memitem:a4415e8a105218982c6358907ae6f380e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; CVIEngineAura6 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4415e8a105218982c6358907ae6f380e">m_aura6B</a></td></tr>
 <tr class="separator:a4415e8a105218982c6358907ae6f380e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afab397345881a9b8a44e6f8eae9805f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afab397345881a9b8a44e6f8eae9805f0"></a>
-CVIEngineVPos&#160;</td><td class="memItemRight" valign="bottom"><b>m_vPos</b></td></tr>
+<tr class="memitem:afab397345881a9b8a44e6f8eae9805f0"><td class="memItemLeft" align="right" valign="top">CVIEngineVPos&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afab397345881a9b8a44e6f8eae9805f0">m_vPos</a></td></tr>
 <tr class="separator:afab397345881a9b8a44e6f8eae9805f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad8ff35fe2bc6a8d6da03b8f93ea3341"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aad8ff35fe2bc6a8d6da03b8f93ea3341"></a>
-CStatAVG_Pack&#160;</td><td class="memItemRight" valign="bottom"><b>m_statAVG</b></td></tr>
+<tr class="memitem:aad8ff35fe2bc6a8d6da03b8f93ea3341"><td class="memItemLeft" align="right" valign="top">CStatAVG_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aad8ff35fe2bc6a8d6da03b8f93ea3341">m_statAVG</a></td></tr>
 <tr class="separator:aad8ff35fe2bc6a8d6da03b8f93ea3341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a475ef6e1419c21ec5d68097a4cd822ee"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a475ef6e1419c21ec5d68097a4cd822ee"></a>
-CStatFFTW_Pack&#160;</td><td class="memItemRight" valign="bottom"><b>m_statFFT</b></td></tr>
+<tr class="memitem:a475ef6e1419c21ec5d68097a4cd822ee"><td class="memItemLeft" align="right" valign="top">CStatFFTW_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a475ef6e1419c21ec5d68097a4cd822ee">m_statFFT</a></td></tr>
 <tr class="separator:a475ef6e1419c21ec5d68097a4cd822ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb0ef36905047eafd79bea2911824b7f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abb0ef36905047eafd79bea2911824b7f"></a>
-CStatLDF_Pack&#160;</td><td class="memItemRight" valign="bottom"><b>m_statLDF</b></td></tr>
+<tr class="memitem:abb0ef36905047eafd79bea2911824b7f"><td class="memItemLeft" align="right" valign="top">CStatLDF_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#abb0ef36905047eafd79bea2911824b7f">m_statLDF</a></td></tr>
 <tr class="separator:abb0ef36905047eafd79bea2911824b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8628211a0ca23ea36cf4059f3ab47f74"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8628211a0ca23ea36cf4059f3ab47f74"></a>
-CStatFN_Pack&#160;</td><td class="memItemRight" valign="bottom"><b>m_statFn</b></td></tr>
+<tr class="memitem:a8628211a0ca23ea36cf4059f3ab47f74"><td class="memItemLeft" align="right" valign="top">CStatFN_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a8628211a0ca23ea36cf4059f3ab47f74">m_statFn</a></td></tr>
 <tr class="separator:a8628211a0ca23ea36cf4059f3ab47f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63cd16114d368eec7c2bce4c4ac8e9c8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63cd16114d368eec7c2bce4c4ac8e9c8"></a>
-std::list&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_divMaker</b></td></tr>
+<tr class="memitem:a63cd16114d368eec7c2bce4c4ac8e9c8"><td class="memItemLeft" align="right" valign="top">std::list&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a63cd16114d368eec7c2bce4c4ac8e9c8">m_divMaker</a></td></tr>
 <tr class="separator:a63cd16114d368eec7c2bce4c4ac8e9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40a1749d972d33216c2ded69498cc0b1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40a1749d972d33216c2ded69498cc0b1"></a>
-std::map&lt; int, DWORD * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_resultPtr</b></td></tr>
-<tr class="separator:a40a1749d972d33216c2ded69498cc0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec00e6d3113182f3193b3b4345c4e433"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec00e6d3113182f3193b3b4345c4e433"></a>
-SIZE&#160;</td><td class="memItemRight" valign="bottom"><b>m_resultSize</b></td></tr>
+<tr class="memitem:a34c8596778c068f60030853df3589147"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, DWORD * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a34c8596778c068f60030853df3589147">m_resultPtr</a></td></tr>
+<tr class="separator:a34c8596778c068f60030853df3589147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec00e6d3113182f3193b3b4345c4e433"><td class="memItemLeft" align="right" valign="top">SIZE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aec00e6d3113182f3193b3b4345c4e433">m_resultSize</a></td></tr>
 <tr class="separator:aec00e6d3113182f3193b3b4345c4e433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a756c886b931c2c905085558d219d4045"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a756c886b931c2c905085558d219d4045"></a>
-DWORD&#160;</td><td class="memItemRight" valign="bottom"><b>m_resultVer</b></td></tr>
+<tr class="memitem:a756c886b931c2c905085558d219d4045"><td class="memItemLeft" align="right" valign="top">DWORD&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a756c886b931c2c905085558d219d4045">m_resultVer</a></td></tr>
 <tr class="separator:a756c886b931c2c905085558d219d4045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f8d2ef96946316d4b11b4eef209cd35"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3f8d2ef96946316d4b11b4eef209cd35"></a>
-CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><b>m_fpsIn</b></td></tr>
+<tr class="memitem:a3f8d2ef96946316d4b11b4eef209cd35"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3f8d2ef96946316d4b11b4eef209cd35">m_fpsIn</a></td></tr>
 <tr class="separator:a3f8d2ef96946316d4b11b4eef209cd35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68263a05d2dcb87863aac27632c6fefa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a68263a05d2dcb87863aac27632c6fefa"></a>
-CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><b>m_fpsOutF</b></td></tr>
+<tr class="memitem:a68263a05d2dcb87863aac27632c6fefa"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a68263a05d2dcb87863aac27632c6fefa">m_fpsOutF</a></td></tr>
 <tr class="separator:a68263a05d2dcb87863aac27632c6fefa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe15eeaa45219bf0b4c4ffbf08887d4a"></a>
-CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><b>m_fpsDropF</b></td></tr>
+<tr class="memitem:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afe15eeaa45219bf0b4c4ffbf08887d4a">m_fpsDropF</a></td></tr>
 <tr class="separator:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ad39d8c6557ef3c0dd6fb9dc376c8b5"></a>
-CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><b>m_fpsOutR</b></td></tr>
+<tr class="memitem:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2ad39d8c6557ef3c0dd6fb9dc376c8b5">m_fpsOutR</a></td></tr>
 <tr class="separator:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3bd5b977e29332c55f1eaf9a1192d03a"></a>
-CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><b>m_fpsDropR</b></td></tr>
+<tr class="memitem:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3bd5b977e29332c55f1eaf9a1192d03a">m_fpsDropR</a></td></tr>
 <tr class="separator:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a914dcdad5bb4fa5d7c0363122aa5fa0b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a914dcdad5bb4fa5d7c0363122aa5fa0b"></a>
-CVIEngineCrop&#160;</td><td class="memItemRight" valign="bottom"><b>m_crop</b></td></tr>
+<tr class="memitem:a914dcdad5bb4fa5d7c0363122aa5fa0b"><td class="memItemLeft" align="right" valign="top">CVIEngineCrop&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a914dcdad5bb4fa5d7c0363122aa5fa0b">m_crop</a></td></tr>
 <tr class="separator:a914dcdad5bb4fa5d7c0363122aa5fa0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f19c0757146848a5e16bbe1a2a8d6f9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5f19c0757146848a5e16bbe1a2a8d6f9"></a>
-CVIEngineDistortion&#160;</td><td class="memItemRight" valign="bottom"><b>m_Distortion</b></td></tr>
+<tr class="memitem:a5f19c0757146848a5e16bbe1a2a8d6f9"><td class="memItemLeft" align="right" valign="top">CVIEngineDistortion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a5f19c0757146848a5e16bbe1a2a8d6f9">m_Distortion</a></td></tr>
 <tr class="separator:a5f19c0757146848a5e16bbe1a2a8d6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af130df6a0fc2f75aeea417af333755a2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af130df6a0fc2f75aeea417af333755a2"></a>
-CVIEngineProcDT&#160;</td><td class="memItemRight" valign="bottom"><b>m_procF6</b></td></tr>
+<tr class="memitem:af130df6a0fc2f75aeea417af333755a2"><td class="memItemLeft" align="right" valign="top">CVIEngineProcDT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af130df6a0fc2f75aeea417af333755a2">m_procF6</a></td></tr>
 <tr class="separator:af130df6a0fc2f75aeea417af333755a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67ce30a4c5018bdb7d33725094454166"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a67ce30a4c5018bdb7d33725094454166"></a>
-CVIEngineFace *&#160;</td><td class="memItemRight" valign="bottom"><b>m_pFace</b></td></tr>
+<tr class="memitem:a67ce30a4c5018bdb7d33725094454166"><td class="memItemLeft" align="right" valign="top">CVIEngineFace *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a67ce30a4c5018bdb7d33725094454166">m_pFace</a></td></tr>
 <tr class="separator:a67ce30a4c5018bdb7d33725094454166"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d289b3028ab2b3c1a91bf08de42144e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d289b3028ab2b3c1a91bf08de42144e"></a>
 HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage</b></td></tr>
@@ -538,6 +502,24 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="acd0542a6476a6eed4568c900ab5af5d9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">RGBQUAD CVIEngineBase::__declspec </td>
+          <td>(</td>
+          <td class="paramtype">align(16)&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
 <a class="anchor" id="ac886baeaf14b16970d089edaf6767a79"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2540,7 +2522,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">res</td><td></td></tr>
@@ -2604,6 +2586,777 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a4f0ddf3af6a98c243d97cbcc9be38e18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* CVIEngineBase::CallbackOnImg8)(void *pUserData, BYTE *i8, int w, int h, double t)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Указатель на функцию. Видимо относится к механизму захвата изображений с устройств. То есть получение видеоизображений не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. В доступном коде вызов функции по указателю выполняется в методе AddImage данного класса. </p>
+
+</div>
+</div>
+<a class="anchor" id="abfaf1ec8dec9a82c896a90c708dfd756"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* CVIEngineBase::CallbackOnImg8Data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnImg8 </p>
+
+</div>
+</div>
+<a class="anchor" id="ab3883b66e78478803c693b4ad2f5b0e7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* CVIEngineBase::CallbackOnNewVar)(void *pUserData, int id, int subID)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Указатель на функцию. Видимо относится к механизму хранения настроечных параметров. То есть управление хранением настроечных параметров не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa0d4e70811444be165a4b9c2a4aa7aae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* CVIEngineBase::CallbackOnNewVarData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnNewVar </p>
+
+</div>
+</div>
+<a class="anchor" id="abd1077e6704b0f6bbc788c4d3e7f150e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a> CVIEngineBase::m_arrDelta</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Массив (очередь) указателей на инстансы типа <a class="el" href="class_f_r_a_m_e___i_m_g.html" title="Структура для работы с фрагментами монохромных изображений. Монохромные изображения хранятся в виде п...">FRAME_IMG</a> (способ хранения очереди расчитанных дельт-изображений) </p>
+
+</div>
+</div>
+<a class="anchor" id="a9b14da4c2f0ccba53a81ab89b89b2a03"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classl_f_r_a_m_e___i_m_g.html">lFRAME_IMG</a> CVIEngineBase::m_arrSrc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Массив (очередь) указателей на инстансы типа <a class="el" href="class_f_r_a_m_e___i_m_g.html" title="Структура для работы с фрагментами монохромных изображений. Монохромные изображения хранятся в виде п...">FRAME_IMG</a> (способ хранения очереди исходных изображений) </p>
+
+</div>
+</div>
+<a class="anchor" id="af996670eec8597e3529bfd0a2ec2585e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_audio2.html">CVIEngineAudio2</a> CVIEngineBase::m_audio</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Видимо реализация API для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa4b9c935b9223f0efcc05282e871254d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;CVIEngineAura6&gt; CVIEngineBase::m_aura6A</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a4415e8a105218982c6358907ae6f380e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;CVIEngineAura6&gt; CVIEngineBase::m_aura6B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="aa780c31b49f591af32d9a40e21978201"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_bDone</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Флаг режима завершения работы программы </p>
+
+</div>
+</div>
+<a class="anchor" id="a775fea6c14d39ec6989306017f4f1c9e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CVIEngineBase::m_bInit</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Флаг режима инициализации программы </p>
+
+</div>
+</div>
+<a class="anchor" id="aa909c6b38f749c7b4d848f8b2de331bc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_bLock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a13cd33209e328eed98e79086439748b2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_bStop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Флаг режима остановки вычислений </p>
+
+</div>
+</div>
+<a class="anchor" id="a867f7342010985b0b21beb4feaf354b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a> CVIEngineBase::m_cfg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Интерфейс для управление значениями настроечных параметров алгоритмов программы (чтение-запись) </p>
+
+</div>
+</div>
+<a class="anchor" id="a2c62f336b24d613e0320d2e6f676b89b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_cMake[EVI_CNT]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a914dcdad5bb4fa5d7c0363122aa5fa0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CVIEngineCrop CVIEngineBase::m_crop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a5f19c0757146848a5e16bbe1a2a8d6f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CVIEngineDistortion CVIEngineBase::m_Distortion</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a63cd16114d368eec7c2bce4c4ac8e9c8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt;int&gt; CVIEngineBase::m_divMaker</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a88f59347ca703a36ea9965b96b3ab552"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a> CVIEngineBase::m_events[EVI_CNT]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="afe15eeaa45219bf0b4c4ffbf08887d4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFPS CVIEngineBase::m_fpsDropF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a3bd5b977e29332c55f1eaf9a1192d03a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFPS CVIEngineBase::m_fpsDropR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a3f8d2ef96946316d4b11b4eef209cd35"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFPS CVIEngineBase::m_fpsIn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a68263a05d2dcb87863aac27632c6fefa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFPS CVIEngineBase::m_fpsOutF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a2ad39d8c6557ef3c0dd6fb9dc376c8b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFPS CVIEngineBase::m_fpsOutR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a252e6e1285e6063718c7d7a874298363"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt;RGBTRIPLE&gt; CVIEngineBase::m_imgSrc24</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Двумерный массив цветного изображения (RGB). The RGBTRIPLE structure describes a color consisting of relative intensities of red, green, and blue. The bmciColors member of the BITMAPCOREINFO structure consists of an array of RGBTRIPLE structures. <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx</a> </p>
+
+</div>
+</div>
+<a class="anchor" id="aa935595a167539c89a4d06a57178d776"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt;BYTE&gt; CVIEngineBase::m_imgSrc8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Двумерный массив монохромного изображения [0;255] </p>
+
+</div>
+</div>
+<a class="anchor" id="a359f07597366b8c81727c32c9ff931be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float* CVIEngineBase::m_imgSrcF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a879bfc4065da678c4ca67ed828b05a05"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt;BYTE&gt; CVIEngineBase::m_imgSrcMask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Двумерный массив чисел [0;255] монохромного изображения-маски, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей </p>
+
+</div>
+</div>
+<a class="anchor" id="a66562cd6aaf7fd0f9ade29c9096b9851"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CMTCriticalSection CVIEngineBase::m_locks[LVI_CNT]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a4f173a318d25c068952f2c68f4248208"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_nMake</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a0041ab05a40ba6a0bca65c78ea9d8189"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_nThreads</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a36e1cc3cb814a08af53e9b4076b51dae"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineBase::m_nThreadsRqst</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a67ce30a4c5018bdb7d33725094454166"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CVIEngineFace* CVIEngineBase::m_pFace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="af130df6a0fc2f75aeea417af333755a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CVIEngineProcDT CVIEngineBase::m_procF6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a34c8596778c068f60030853df3589147"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;int, DWORD*&gt; CVIEngineBase::m_resultPtr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="aec00e6d3113182f3193b3b4345c4e433"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SIZE CVIEngineBase::m_resultSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a756c886b931c2c905085558d219d4045"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DWORD CVIEngineBase::m_resultVer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a67a15f389d32a0201997a71dc4695803"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::list&lt; SRC_IMG &gt; CVIEngineBase::m_srcF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a0b3b91816e3f19ec5e531c5ad903be98"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt;float&gt; CVIEngineBase::m_srcMask</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей </p>
+
+</div>
+</div>
+<a class="anchor" id="a73ff2aaa9eeb589ce6ea73ef5dd62fda"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a>&gt; CVIEngineBase::m_stat</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a91282745c78c776f8922e20c4f3198f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CVIEngineProc2x CVIEngineBase::m_stat2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="aad8ff35fe2bc6a8d6da03b8f93ea3341"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatAVG_Pack CVIEngineBase::m_statAVG</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a475ef6e1419c21ec5d68097a4cd822ee"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFFTW_Pack CVIEngineBase::m_statFFT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a8628211a0ca23ea36cf4059f3ab47f74"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatFN_Pack CVIEngineBase::m_statFn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="abb0ef36905047eafd79bea2911824b7f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CStatLDF_Pack CVIEngineBase::m_statLDF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="ab0a3c99fb49cddb42615132833b483d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a>&gt; CVIEngineBase::m_statRelease</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a29b792994f8c587ebdd4296031032f68"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_s_u_m___i_m_g.html">SUM_IMG</a>&gt; CVIEngineBase::m_summ</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a4fdf197fd70d474cf4365abba485c461"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_thread.html">CVIEngineThread</a>* CVIEngineBase::m_therads[8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a928c4511d2e46b9cd4b7c9b3b7322855"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_timer.html">CVITimer</a> CVIEngineBase::m_timer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8709ba629c654585cc38d13ccf3a23b8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_timer_sync.html">CVITimerSync</a> CVIEngineBase::m_timerSync</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. </p>
+
+</div>
+</div>
+<a class="anchor" id="a0e3c27e7d2ed527eca5445a669080838"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CVIEngineBase::m_tMakeImage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a0d6409bd350e84190cd6904732c4fe83"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CVIEngineBase::m_tVideo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Отметка времени и длительность при обработке изображения кадра </p>
+
+</div>
+</div>
+<a class="anchor" id="a0bbf6f3d2d6b80fec8d223ffb44a6791"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CVIEngineBase::m_tVideoDT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a45286d497ebc137775cda4999ff9fed6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double CVIEngineBase::m_tVideoPrev</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Отметка времени и длительность при обработке изображения предыдущего кадра </p>
+
+</div>
+</div>
+<a class="anchor" id="afab397345881a9b8a44e6f8eae9805f0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CVIEngineVPos CVIEngineBase::m_vPos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>code/<a class="el" href="vi_engine_base_8h_source.html">viEngineBase.h</a></li>
 <li>code/viEngineBase.cpp</li>
@@ -2611,7 +3364,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 22:48:47 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 23:52:38 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

@@ -6,7 +6,10 @@
 template <class T> class mmx_array
 {
 public:
-	T *p; // Указатель на последавательность элементов в массиве
+	/// <summary>
+	/// Указатель на последавательность элементов в массиве
+	/// </summary>
+	T *p; 
 	mmx_array();
 	~mmx_array();
 	void resize(int length, bool bInitItemsByDefaultValues = true);

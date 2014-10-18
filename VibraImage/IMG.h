@@ -7,7 +7,9 @@
 /// </summary>
 class FRAME_IMG {
 public:
-	mmx_array2<float> i; 
+	/// <summary>
+	/// </summary>
+	mmx_array2<float> i;
 };
 /// <summary>
 /// Структура для работы с монохромными изображениями.
@@ -17,9 +19,17 @@ public:
 /// </summary>
 class SUM_IMG {
 public:
+	/// <summary>
+	/// </summary>
 	int id;
-	float **i; /// Массив указателей на строки изображений то есть на последовательности 4-х байтных чисел с плавающей точкой
-	short **si; /// Массив указателей на строки изображений то есть на последовательности 4-х байтных целых чисел
+	/// <summary>
+	/// Массив указателей на строки изображений то есть на последовательности 4-х байтных чисел с плавающей точкой
+	/// </summary>
+	float **i; 
+	/// <summary>
+	/// Массив указателей на строки изображений то есть на последовательности 4-х байтных целых чисел
+	/// </summary>
+	short **si; 
 };
 
 /// <summary>
@@ -27,7 +37,11 @@ public:
 /// </summary>
 class ilFRAME_IMG {
 public:
+	/// <summary>
+	/// </summary>
 	int n;
+	/// <summary>
+	/// </summary>
 	mmx_array2<float> i;
 };
 

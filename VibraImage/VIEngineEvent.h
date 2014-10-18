@@ -22,6 +22,9 @@ enum
 class CVIEngineEvent
 {
 public:
+	/// <summary>
+	/// Дескриптор события
+	/// </summary>
 	HANDLE m_hEvent;
 	CVIEngineEvent();
 	~CVIEngineEvent();

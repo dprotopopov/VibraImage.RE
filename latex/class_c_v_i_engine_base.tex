@@ -17,8 +17,7 @@
 \begin{DoxyCompactList}\small\item\em Конструктор класса Инициализация переменных программы. Определение оптимального количества параллельных нитей для вычислений. \end{DoxyCompactList}\item 
 \hyperlink{class_c_v_i_engine_base_a28dba2a06eda33294836c5241f497112}{$\sim$\+C\+V\+I\+Engine\+Base} (void)
 \item 
-\hypertarget{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}{R\+G\+B\+Q\+U\+A\+D {\bfseries \+\_\+\+\_\+declspec} (align(16)) m\+\_\+pal\+I\mbox{[}256\mbox{]}}\label{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}
-
+R\+G\+B\+Q\+U\+A\+D \hyperlink{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}{\+\_\+\+\_\+declspec} (align(16)) m\+\_\+pal\+I\mbox{[}256\mbox{]}
 \item 
 void \hyperlink{class_c_v_i_engine_base_a6ca94a8d39e8a76e5be4698cc2eff06b}{Add\+Image\+Thread\+Local} ()
 \begin{DoxyCompactList}\small\item\em Запуск метода Add\+Image\+Thread\+Proc в цикле пока не скажут -\/ Хватит! -\/ while(!m\+\_\+b\+Done \&\& !m\+\_\+b\+Stop) Если задан настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды. Иначе вычисления приостанавливаются на 1/4 секунды. Метод вызывается из \char`\"{}рабочей\char`\"{} нити Windows -\/ то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить \end{DoxyCompactList}\item 
@@ -47,7 +46,7 @@ bool \hyperlink{class_c_v_i_engine_base_a4764b56d4269ed5cd101dddf545e039d}{Check
 void \hyperlink{class_c_v_i_engine_base_a305c1b2285ddfcdbb021597f0b3dbd39}{Wait\+Threads} (void)
 \begin{DoxyCompactList}\small\item\em Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_af12866653055639e69a61224615af7fe}{Sync} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-\/записать данные во все из-\/в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a4b6c77fcb50dcb01f299d7e0f4b05ea6}{Set\+Summ\+Count} (int cnt, int $\ast$p\+N)
 \item 
 int \hyperlink{class_c_v_i_engine_base_adb6193dca9e4f6c71ad6e77df88bc9f7}{Get\+Summ\+Count} (int $\ast$p\+N)
@@ -186,176 +185,121 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_c_v_i_engine_base_ab3883b66e78478803c693b4ad2f5b0e7}{void($\ast$ {\bfseries Callback\+On\+New\+Var} )(void $\ast$p\+User\+Data, int id, int sub\+I\+D)}\label{class_c_v_i_engine_base_ab3883b66e78478803c693b4ad2f5b0e7}
-
+void($\ast$ \hyperlink{class_c_v_i_engine_base_ab3883b66e78478803c693b4ad2f5b0e7}{Callback\+On\+New\+Var} )(void $\ast$p\+User\+Data, int id, int sub\+I\+D)
+\begin{DoxyCompactList}\small\item\em Указатель на функцию. Видимо относится к механизму хранения настроечных параметров. То есть управление хранением настроечных параметров не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{class_c_v_i_engine_base_aa0d4e70811444be165a4b9c2a4aa7aae}{Callback\+On\+New\+Var\+Data}
+\begin{DoxyCompactList}\small\item\em Указатель на данные, передаваемые и возвращаемы в-\/из функцию вызовом её через указатель Callback\+On\+New\+Var \end{DoxyCompactList}\item 
+void($\ast$ \hyperlink{class_c_v_i_engine_base_a4f0ddf3af6a98c243d97cbcc9be38e18}{Callback\+On\+Img8} )(void $\ast$p\+User\+Data, B\+Y\+T\+E $\ast$i8, int w, int h, double t)
+\begin{DoxyCompactList}\small\item\em Указатель на функцию. Видимо относится к механизму захвата изображений с устройств. То есть получение видеоизображений не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. В доступном коде вызов функции по указателю выполняется в методе Add\+Image данного класса. \end{DoxyCompactList}\item 
+void $\ast$ \hyperlink{class_c_v_i_engine_base_abfaf1ec8dec9a82c896a90c708dfd756}{Callback\+On\+Img8\+Data}
+\begin{DoxyCompactList}\small\item\em Указатель на данные, передаваемые и возвращаемы в-\/из функцию вызовом её через указатель Callback\+On\+Img8 \end{DoxyCompactList}\item 
+\hyperlink{class_c_v_i_engine_config}{C\+V\+I\+Engine\+Config} \hyperlink{class_c_v_i_engine_base_a867f7342010985b0b21beb4feaf354b8}{m\+\_\+cfg}
+\begin{DoxyCompactList}\small\item\em Интерфейс для управление значениями настроечных параметров алгоритмов программы (чтение-\/запись) \end{DoxyCompactList}\item 
+\hyperlink{class_c_v_i_engine_audio2}{C\+V\+I\+Engine\+Audio2} \hyperlink{class_c_v_i_engine_base_af996670eec8597e3529bfd0a2ec2585e}{m\+\_\+audio}
+\begin{DoxyCompactList}\small\item\em Видимо реализация A\+P\+I для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось. \end{DoxyCompactList}\item 
+int \hyperlink{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}{m\+\_\+n\+Threads\+Rqst}
 \item 
-\hypertarget{class_c_v_i_engine_base_aa0d4e70811444be165a4b9c2a4aa7aae}{void $\ast$ {\bfseries Callback\+On\+New\+Var\+Data}}\label{class_c_v_i_engine_base_aa0d4e70811444be165a4b9c2a4aa7aae}
-
+int \hyperlink{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}{m\+\_\+n\+Threads}
 \item 
-\hypertarget{class_c_v_i_engine_base_a4f0ddf3af6a98c243d97cbcc9be38e18}{void($\ast$ {\bfseries Callback\+On\+Img8} )(void $\ast$p\+User\+Data, B\+Y\+T\+E $\ast$i8, int w, int h, double t)}\label{class_c_v_i_engine_base_a4f0ddf3af6a98c243d97cbcc9be38e18}
-
+\hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread} $\ast$ \hyperlink{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}{m\+\_\+therads} \mbox{[}8\mbox{]}
 \item 
-\hypertarget{class_c_v_i_engine_base_abfaf1ec8dec9a82c896a90c708dfd756}{void $\ast$ {\bfseries Callback\+On\+Img8\+Data}}\label{class_c_v_i_engine_base_abfaf1ec8dec9a82c896a90c708dfd756}
-
+C\+M\+T\+Critical\+Section \hyperlink{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}{m\+\_\+locks} \mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}
 \item 
-\hypertarget{class_c_v_i_engine_base_a867f7342010985b0b21beb4feaf354b8}{\hyperlink{class_c_v_i_engine_config}{C\+V\+I\+Engine\+Config} {\bfseries m\+\_\+cfg}}\label{class_c_v_i_engine_base_a867f7342010985b0b21beb4feaf354b8}
-
+\hyperlink{class_c_v_i_engine_event}{C\+V\+I\+Engine\+Event} \hyperlink{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}{m\+\_\+events} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}
 \item 
-\hypertarget{class_c_v_i_engine_base_af996670eec8597e3529bfd0a2ec2585e}{\hyperlink{class_c_v_i_engine_audio2}{C\+V\+I\+Engine\+Audio2} {\bfseries m\+\_\+audio}}\label{class_c_v_i_engine_base_af996670eec8597e3529bfd0a2ec2585e}
-
+\hyperlink{class_c_v_i_timer}{C\+V\+I\+Timer} \hyperlink{class_c_v_i_engine_base_a928c4511d2e46b9cd4b7c9b3b7322855}{m\+\_\+timer}
+\begin{DoxyCompactList}\small\item\em Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. \end{DoxyCompactList}\item 
+\hyperlink{class_c_v_i_timer_sync}{C\+V\+I\+Timer\+Sync} \hyperlink{class_c_v_i_engine_base_a8709ba629c654585cc38d13ccf3a23b8}{m\+\_\+timer\+Sync}
+\begin{DoxyCompactList}\small\item\em Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. \end{DoxyCompactList}\item 
+double \hyperlink{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}{m\+\_\+t\+Make\+Image}
 \item 
-\hypertarget{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}{int {\bfseries m\+\_\+n\+Threads\+Rqst}}\label{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}{int {\bfseries m\+\_\+n\+Threads}}\label{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}{\hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread} $\ast$ {\bfseries m\+\_\+therads} \mbox{[}8\mbox{]}}\label{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}{C\+M\+T\+Critical\+Section {\bfseries m\+\_\+locks} \mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}}\label{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}{\hyperlink{class_c_v_i_engine_event}{C\+V\+I\+Engine\+Event} {\bfseries m\+\_\+events} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}\label{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a928c4511d2e46b9cd4b7c9b3b7322855}{\hyperlink{class_c_v_i_timer}{C\+V\+I\+Timer} {\bfseries m\+\_\+timer}}\label{class_c_v_i_engine_base_a928c4511d2e46b9cd4b7c9b3b7322855}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a8709ba629c654585cc38d13ccf3a23b8}{\hyperlink{class_c_v_i_timer_sync}{C\+V\+I\+Timer\+Sync} {\bfseries m\+\_\+timer\+Sync}}\label{class_c_v_i_engine_base_a8709ba629c654585cc38d13ccf3a23b8}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}{double {\bfseries m\+\_\+t\+Make\+Image}}\label{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}{double {\bfseries m\+\_\+t\+Video}}\label{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}
-
-\item 
+double \hyperlink{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}{m\+\_\+t\+Video}
+\begin{DoxyCompactList}\small\item\em Отметка времени и длительность при обработке изображения кадра \end{DoxyCompactList}\item 
 \hypertarget{class_c_v_i_engine_base_a98df2a6b3724ab56deee0ed61e3773f8}{double {\bfseries m\+\_\+t\+Video\+T}}\label{class_c_v_i_engine_base_a98df2a6b3724ab56deee0ed61e3773f8}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_a45286d497ebc137775cda4999ff9fed6}{double {\bfseries m\+\_\+t\+Video\+Prev}}\label{class_c_v_i_engine_base_a45286d497ebc137775cda4999ff9fed6}
-
-\item 
+double \hyperlink{class_c_v_i_engine_base_a45286d497ebc137775cda4999ff9fed6}{m\+\_\+t\+Video\+Prev}
+\begin{DoxyCompactList}\small\item\em Отметка времени и длительность при обработке изображения предыдущего кадра \end{DoxyCompactList}\item 
 \hypertarget{class_c_v_i_engine_base_ac29a85370558b6c5dce1ee2ba1517689}{double {\bfseries m\+\_\+t\+Video\+T\+Prev}}\label{class_c_v_i_engine_base_ac29a85370558b6c5dce1ee2ba1517689}
 
 \item 
-\hypertarget{class_c_v_i_engine_base_a0bbf6f3d2d6b80fec8d223ffb44a6791}{double {\bfseries m\+\_\+t\+Video\+D\+T}}\label{class_c_v_i_engine_base_a0bbf6f3d2d6b80fec8d223ffb44a6791}
-
+double \hyperlink{class_c_v_i_engine_base_a0bbf6f3d2d6b80fec8d223ffb44a6791}{m\+\_\+t\+Video\+D\+T}
 \item 
-\hypertarget{class_c_v_i_engine_base_a67a15f389d32a0201997a71dc4695803}{std\+::list$<$ S\+R\+C\+\_\+\+I\+M\+G $>$ {\bfseries m\+\_\+src\+F}}\label{class_c_v_i_engine_base_a67a15f389d32a0201997a71dc4695803}
-
+std\+::list$<$ S\+R\+C\+\_\+\+I\+M\+G $>$ \hyperlink{class_c_v_i_engine_base_a67a15f389d32a0201997a71dc4695803}{m\+\_\+src\+F}
 \item 
-\hypertarget{class_c_v_i_engine_base_a775fea6c14d39ec6989306017f4f1c9e}{bool {\bfseries m\+\_\+b\+Init}}\label{class_c_v_i_engine_base_a775fea6c14d39ec6989306017f4f1c9e}
-
+bool \hyperlink{class_c_v_i_engine_base_a775fea6c14d39ec6989306017f4f1c9e}{m\+\_\+b\+Init}
+\begin{DoxyCompactList}\small\item\em Флаг режима инициализации программы \end{DoxyCompactList}\item 
+int \hyperlink{class_c_v_i_engine_base_a13cd33209e328eed98e79086439748b2}{m\+\_\+b\+Stop}
+\begin{DoxyCompactList}\small\item\em Флаг режима остановки вычислений \end{DoxyCompactList}\item 
+int \hyperlink{class_c_v_i_engine_base_aa780c31b49f591af32d9a40e21978201}{m\+\_\+b\+Done}
+\begin{DoxyCompactList}\small\item\em Флаг режима завершения работы программы \end{DoxyCompactList}\item 
+int \hyperlink{class_c_v_i_engine_base_aa909c6b38f749c7b4d848f8b2de331bc}{m\+\_\+b\+Lock}
 \item 
-\hypertarget{class_c_v_i_engine_base_a13cd33209e328eed98e79086439748b2}{int {\bfseries m\+\_\+b\+Stop}}\label{class_c_v_i_engine_base_a13cd33209e328eed98e79086439748b2}
-
+int \hyperlink{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}{m\+\_\+n\+Make}
 \item 
-\hypertarget{class_c_v_i_engine_base_aa780c31b49f591af32d9a40e21978201}{int {\bfseries m\+\_\+b\+Done}}\label{class_c_v_i_engine_base_aa780c31b49f591af32d9a40e21978201}
-
+int \hyperlink{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}{m\+\_\+c\+Make} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}
 \item 
-\hypertarget{class_c_v_i_engine_base_aa909c6b38f749c7b4d848f8b2de331bc}{int {\bfseries m\+\_\+b\+Lock}}\label{class_c_v_i_engine_base_aa909c6b38f749c7b4d848f8b2de331bc}
-
+float $\ast$ \hyperlink{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931be}{m\+\_\+img\+Src\+F}
 \item 
-\hypertarget{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}{int {\bfseries m\+\_\+n\+Make}}\label{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}
-
+\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ B\+Y\+T\+E $>$ \hyperlink{class_c_v_i_engine_base_aa935595a167539c89a4d06a57178d776}{m\+\_\+img\+Src8}
+\begin{DoxyCompactList}\small\item\em Двумерный массив монохромного изображения \mbox{[}0;255\mbox{]} \end{DoxyCompactList}\item 
+\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ R\+G\+B\+T\+R\+I\+P\+L\+E $>$ \hyperlink{class_c_v_i_engine_base_a252e6e1285e6063718c7d7a874298363}{m\+\_\+img\+Src24}
+\begin{DoxyCompactList}\small\item\em Двумерный массив цветного изображения (R\+G\+B). The R\+G\+B\+T\+R\+I\+P\+L\+E structure describes a color consisting of relative intensities of red, green, and blue. The bmci\+Colors member of the B\+I\+T\+M\+A\+P\+C\+O\+R\+E\+I\+N\+F\+O structure consists of an array of R\+G\+B\+T\+R\+I\+P\+L\+E structures. \href{http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/windows/desktop/dd162939(v=vs.\+85).\+aspx} \end{DoxyCompactList}\item 
+\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ B\+Y\+T\+E $>$ \hyperlink{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}{m\+\_\+img\+Src\+Mask}
+\begin{DoxyCompactList}\small\item\em Двумерный массив чисел \mbox{[}0;255\mbox{]} монохромного изображения-\/маски, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей \end{DoxyCompactList}\item 
+\hyperlink{classl_f_r_a_m_e___i_m_g}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} \hyperlink{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}{m\+\_\+arr\+Src}
+\begin{DoxyCompactList}\small\item\em Массив (очередь) указателей на инстансы типа \hyperlink{class_f_r_a_m_e___i_m_g}{F\+R\+A\+M\+E\+\_\+\+I\+M\+G} (способ хранения очереди исходных изображений) \end{DoxyCompactList}\item 
+\hyperlink{classl_f_r_a_m_e___i_m_g}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} \hyperlink{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}{m\+\_\+arr\+Delta}
+\begin{DoxyCompactList}\small\item\em Массив (очередь) указателей на инстансы типа \hyperlink{class_f_r_a_m_e___i_m_g}{F\+R\+A\+M\+E\+\_\+\+I\+M\+G} (способ хранения очереди расчитанных дельт-\/изображений) \end{DoxyCompactList}\item 
+\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ \hyperlink{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}{m\+\_\+src\+Mask}
+\begin{DoxyCompactList}\small\item\em Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей \end{DoxyCompactList}\item 
+std\+::vector$<$ \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G} $>$ \hyperlink{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{m\+\_\+summ}
 \item 
-\hypertarget{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}{int {\bfseries m\+\_\+c\+Make} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}\label{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}
-
+std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ \hyperlink{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}{m\+\_\+stat}
 \item 
-\hypertarget{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931be}{float $\ast$ {\bfseries m\+\_\+img\+Src\+F}}\label{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931be}
-
+std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ \hyperlink{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{m\+\_\+stat\+Release}
 \item 
-\hypertarget{class_c_v_i_engine_base_aa935595a167539c89a4d06a57178d776}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ B\+Y\+T\+E $>$ {\bfseries m\+\_\+img\+Src8}}\label{class_c_v_i_engine_base_aa935595a167539c89a4d06a57178d776}
-
+C\+V\+I\+Engine\+Proc2x \hyperlink{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}{m\+\_\+stat2}
 \item 
-\hypertarget{class_c_v_i_engine_base_a252e6e1285e6063718c7d7a874298363}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ R\+G\+B\+T\+R\+I\+P\+L\+E $>$ {\bfseries m\+\_\+img\+Src24}}\label{class_c_v_i_engine_base_a252e6e1285e6063718c7d7a874298363}
-
+std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ \hyperlink{class_c_v_i_engine_base_aa4b9c935b9223f0efcc05282e871254d}{m\+\_\+aura6\+A}
 \item 
-\hypertarget{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ B\+Y\+T\+E $>$ {\bfseries m\+\_\+img\+Src\+Mask}}\label{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}
-
+std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ \hyperlink{class_c_v_i_engine_base_a4415e8a105218982c6358907ae6f380e}{m\+\_\+aura6\+B}
 \item 
-\hypertarget{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}{\hyperlink{classl_f_r_a_m_e___i_m_g}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} {\bfseries m\+\_\+arr\+Src}}\label{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}
-
+C\+V\+I\+Engine\+V\+Pos \hyperlink{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}{m\+\_\+v\+Pos}
 \item 
-\hypertarget{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}{\hyperlink{classl_f_r_a_m_e___i_m_g}{l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} {\bfseries m\+\_\+arr\+Delta}}\label{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}
-
+C\+Stat\+A\+V\+G\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}{m\+\_\+stat\+A\+V\+G}
 \item 
-\hypertarget{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}{\hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ {\bfseries m\+\_\+src\+Mask}}\label{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}
-
+C\+Stat\+F\+F\+T\+W\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}{m\+\_\+stat\+F\+F\+T}
 \item 
-\hypertarget{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{std\+::vector$<$ \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G} $>$ {\bfseries m\+\_\+summ}}\label{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}
-
+C\+Stat\+L\+D\+F\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}{m\+\_\+stat\+L\+D\+F}
 \item 
-\hypertarget{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}{std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ {\bfseries m\+\_\+stat}}\label{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}
-
+C\+Stat\+F\+N\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}{m\+\_\+stat\+Fn}
 \item 
-\hypertarget{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ {\bfseries m\+\_\+stat\+Release}}\label{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}
-
+std\+::list$<$ int $>$ \hyperlink{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}{m\+\_\+div\+Maker}
 \item 
-\hypertarget{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}{C\+V\+I\+Engine\+Proc2x {\bfseries m\+\_\+stat2}}\label{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}
-
+std\+::map$<$ int, D\+W\+O\+R\+D $\ast$ $>$ \hyperlink{class_c_v_i_engine_base_a34c8596778c068f60030853df3589147}{m\+\_\+result\+Ptr}
 \item 
-\hypertarget{class_c_v_i_engine_base_aa4b9c935b9223f0efcc05282e871254d}{std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ {\bfseries m\+\_\+aura6\+A}}\label{class_c_v_i_engine_base_aa4b9c935b9223f0efcc05282e871254d}
-
+S\+I\+Z\+E \hyperlink{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}{m\+\_\+result\+Size}
 \item 
-\hypertarget{class_c_v_i_engine_base_a4415e8a105218982c6358907ae6f380e}{std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ {\bfseries m\+\_\+aura6\+B}}\label{class_c_v_i_engine_base_a4415e8a105218982c6358907ae6f380e}
-
+D\+W\+O\+R\+D \hyperlink{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}{m\+\_\+result\+Ver}
 \item 
-\hypertarget{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}{C\+V\+I\+Engine\+V\+Pos {\bfseries m\+\_\+v\+Pos}}\label{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}
-
+C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}{m\+\_\+fps\+In}
 \item 
-\hypertarget{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}{C\+Stat\+A\+V\+G\+\_\+\+Pack {\bfseries m\+\_\+stat\+A\+V\+G}}\label{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}
-
+C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}{m\+\_\+fps\+Out\+F}
 \item 
-\hypertarget{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}{C\+Stat\+F\+F\+T\+W\+\_\+\+Pack {\bfseries m\+\_\+stat\+F\+F\+T}}\label{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}
-
+C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}{m\+\_\+fps\+Drop\+F}
 \item 
-\hypertarget{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}{C\+Stat\+L\+D\+F\+\_\+\+Pack {\bfseries m\+\_\+stat\+L\+D\+F}}\label{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}
-
+C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}{m\+\_\+fps\+Out\+R}
 \item 
-\hypertarget{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}{C\+Stat\+F\+N\+\_\+\+Pack {\bfseries m\+\_\+stat\+Fn}}\label{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}
-
+C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}{m\+\_\+fps\+Drop\+R}
 \item 
-\hypertarget{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}{std\+::list$<$ int $>$ {\bfseries m\+\_\+div\+Maker}}\label{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}
-
+C\+V\+I\+Engine\+Crop \hyperlink{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}{m\+\_\+crop}
 \item 
-\hypertarget{class_c_v_i_engine_base_a40a1749d972d33216c2ded69498cc0b1}{std\+::map$<$ int, D\+W\+O\+R\+D $\ast$ $>$ {\bfseries m\+\_\+result\+Ptr}}\label{class_c_v_i_engine_base_a40a1749d972d33216c2ded69498cc0b1}
-
+C\+V\+I\+Engine\+Distortion \hyperlink{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}{m\+\_\+\+Distortion}
 \item 
-\hypertarget{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}{S\+I\+Z\+E {\bfseries m\+\_\+result\+Size}}\label{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}
-
+C\+V\+I\+Engine\+Proc\+D\+T \hyperlink{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}{m\+\_\+proc\+F6}
 \item 
-\hypertarget{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}{D\+W\+O\+R\+D {\bfseries m\+\_\+result\+Ver}}\label{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}{C\+Stat\+F\+P\+S {\bfseries m\+\_\+fps\+In}}\label{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}{C\+Stat\+F\+P\+S {\bfseries m\+\_\+fps\+Out\+F}}\label{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}{C\+Stat\+F\+P\+S {\bfseries m\+\_\+fps\+Drop\+F}}\label{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}{C\+Stat\+F\+P\+S {\bfseries m\+\_\+fps\+Out\+R}}\label{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}{C\+Stat\+F\+P\+S {\bfseries m\+\_\+fps\+Drop\+R}}\label{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}{C\+V\+I\+Engine\+Crop {\bfseries m\+\_\+crop}}\label{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}{C\+V\+I\+Engine\+Distortion {\bfseries m\+\_\+\+Distortion}}\label{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}{C\+V\+I\+Engine\+Proc\+D\+T {\bfseries m\+\_\+proc\+F6}}\label{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}{C\+V\+I\+Engine\+Face $\ast$ {\bfseries m\+\_\+p\+Face}}\label{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}
-
+C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}{m\+\_\+p\+Face}
 \item 
 \hypertarget{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}{H\+A\+N\+D\+L\+E {\bfseries m\+\_\+h\+Thread\+Add\+Image}}\label{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}
 
@@ -396,6 +340,17 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 
 
 \subsection{Member Function Documentation}
+\hypertarget{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!\+\_\+\+\_\+declspec@{\+\_\+\+\_\+declspec}}
+\index{\+\_\+\+\_\+declspec@{\+\_\+\+\_\+declspec}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{\+\_\+\+\_\+declspec}]{\setlength{\rightskip}{0pt plus 5cm}R\+G\+B\+Q\+U\+A\+D C\+V\+I\+Engine\+Base\+::\+\_\+\+\_\+declspec (
+\begin{DoxyParamCaption}
+\item[{align(16)}]{}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}
+
+
+
+
 \hypertarget{class_c_v_i_engine_base_ac886baeaf14b16970d089edaf6767a79}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Add\+Image@{Add\+Image}}
 \index{Add\+Image@{Add\+Image}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Add\+Image}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Add\+Image (
@@ -1443,7 +1398,7 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_c_v_i_engine_base_af12866653055639e69a61224615af7fe}
 
 
-
+Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-\/записать данные во все из-\/в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1482,6 +1437,394 @@ static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46
 
 
 Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений. 
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_c_v_i_engine_base_a4f0ddf3af6a98c243d97cbcc9be38e18}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Callback\+On\+Img8@{Callback\+On\+Img8}}
+\index{Callback\+On\+Img8@{Callback\+On\+Img8}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{Callback\+On\+Img8}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ C\+V\+I\+Engine\+Base\+::\+Callback\+On\+Img8)(void $\ast$p\+User\+Data, B\+Y\+T\+E $\ast$i8, int w, int h, double t)}}\label{class_c_v_i_engine_base_a4f0ddf3af6a98c243d97cbcc9be38e18}
+
+
+Указатель на функцию. Видимо относится к механизму захвата изображений с устройств. То есть получение видеоизображений не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. В доступном коде вызов функции по указателю выполняется в методе Add\+Image данного класса. 
+
+\hypertarget{class_c_v_i_engine_base_abfaf1ec8dec9a82c896a90c708dfd756}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Callback\+On\+Img8\+Data@{Callback\+On\+Img8\+Data}}
+\index{Callback\+On\+Img8\+Data@{Callback\+On\+Img8\+Data}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{Callback\+On\+Img8\+Data}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ C\+V\+I\+Engine\+Base\+::\+Callback\+On\+Img8\+Data}}\label{class_c_v_i_engine_base_abfaf1ec8dec9a82c896a90c708dfd756}
+
+
+Указатель на данные, передаваемые и возвращаемы в-\/из функцию вызовом её через указатель Callback\+On\+Img8 
+
+\hypertarget{class_c_v_i_engine_base_ab3883b66e78478803c693b4ad2f5b0e7}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Callback\+On\+New\+Var@{Callback\+On\+New\+Var}}
+\index{Callback\+On\+New\+Var@{Callback\+On\+New\+Var}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{Callback\+On\+New\+Var}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ C\+V\+I\+Engine\+Base\+::\+Callback\+On\+New\+Var)(void $\ast$p\+User\+Data, int id, int sub\+I\+D)}}\label{class_c_v_i_engine_base_ab3883b66e78478803c693b4ad2f5b0e7}
+
+
+Указатель на функцию. Видимо относится к механизму хранения настроечных параметров. То есть управление хранением настроечных параметров не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. 
+
+\hypertarget{class_c_v_i_engine_base_aa0d4e70811444be165a4b9c2a4aa7aae}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Callback\+On\+New\+Var\+Data@{Callback\+On\+New\+Var\+Data}}
+\index{Callback\+On\+New\+Var\+Data@{Callback\+On\+New\+Var\+Data}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{Callback\+On\+New\+Var\+Data}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ C\+V\+I\+Engine\+Base\+::\+Callback\+On\+New\+Var\+Data}}\label{class_c_v_i_engine_base_aa0d4e70811444be165a4b9c2a4aa7aae}
+
+
+Указатель на данные, передаваемые и возвращаемы в-\/из функцию вызовом её через указатель Callback\+On\+New\+Var 
+
+\hypertarget{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+arr\+Delta@{m\+\_\+arr\+Delta}}
+\index{m\+\_\+arr\+Delta@{m\+\_\+arr\+Delta}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+arr\+Delta}]{\setlength{\rightskip}{0pt plus 5cm}{\bf l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} C\+V\+I\+Engine\+Base\+::m\+\_\+arr\+Delta}}\label{class_c_v_i_engine_base_abd1077e6704b0f6bbc788c4d3e7f150e}
+
+
+Массив (очередь) указателей на инстансы типа \hyperlink{class_f_r_a_m_e___i_m_g}{F\+R\+A\+M\+E\+\_\+\+I\+M\+G} (способ хранения очереди расчитанных дельт-\/изображений) 
+
+\hypertarget{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+arr\+Src@{m\+\_\+arr\+Src}}
+\index{m\+\_\+arr\+Src@{m\+\_\+arr\+Src}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+arr\+Src}]{\setlength{\rightskip}{0pt plus 5cm}{\bf l\+F\+R\+A\+M\+E\+\_\+\+I\+M\+G} C\+V\+I\+Engine\+Base\+::m\+\_\+arr\+Src}}\label{class_c_v_i_engine_base_a9b14da4c2f0ccba53a81ab89b89b2a03}
+
+
+Массив (очередь) указателей на инстансы типа \hyperlink{class_f_r_a_m_e___i_m_g}{F\+R\+A\+M\+E\+\_\+\+I\+M\+G} (способ хранения очереди исходных изображений) 
+
+\hypertarget{class_c_v_i_engine_base_af996670eec8597e3529bfd0a2ec2585e}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+audio@{m\+\_\+audio}}
+\index{m\+\_\+audio@{m\+\_\+audio}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+audio}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Engine\+Audio2} C\+V\+I\+Engine\+Base\+::m\+\_\+audio}}\label{class_c_v_i_engine_base_af996670eec8597e3529bfd0a2ec2585e}
+
+
+Видимо реализация A\+P\+I для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось. 
+
+\hypertarget{class_c_v_i_engine_base_aa4b9c935b9223f0efcc05282e871254d}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+aura6\+A@{m\+\_\+aura6\+A}}
+\index{m\+\_\+aura6\+A@{m\+\_\+aura6\+A}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+aura6\+A}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$C\+V\+I\+Engine\+Aura6$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+aura6\+A}}\label{class_c_v_i_engine_base_aa4b9c935b9223f0efcc05282e871254d}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a4415e8a105218982c6358907ae6f380e}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+aura6\+B@{m\+\_\+aura6\+B}}
+\index{m\+\_\+aura6\+B@{m\+\_\+aura6\+B}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+aura6\+B}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$C\+V\+I\+Engine\+Aura6$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+aura6\+B}}\label{class_c_v_i_engine_base_a4415e8a105218982c6358907ae6f380e}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_aa780c31b49f591af32d9a40e21978201}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+b\+Done@{m\+\_\+b\+Done}}
+\index{m\+\_\+b\+Done@{m\+\_\+b\+Done}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+b\+Done}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+b\+Done}}\label{class_c_v_i_engine_base_aa780c31b49f591af32d9a40e21978201}
+
+
+Флаг режима завершения работы программы 
+
+\hypertarget{class_c_v_i_engine_base_a775fea6c14d39ec6989306017f4f1c9e}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+b\+Init@{m\+\_\+b\+Init}}
+\index{m\+\_\+b\+Init@{m\+\_\+b\+Init}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+b\+Init}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::m\+\_\+b\+Init}}\label{class_c_v_i_engine_base_a775fea6c14d39ec6989306017f4f1c9e}
+
+
+Флаг режима инициализации программы 
+
+\hypertarget{class_c_v_i_engine_base_aa909c6b38f749c7b4d848f8b2de331bc}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+b\+Lock@{m\+\_\+b\+Lock}}
+\index{m\+\_\+b\+Lock@{m\+\_\+b\+Lock}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+b\+Lock}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+b\+Lock}}\label{class_c_v_i_engine_base_aa909c6b38f749c7b4d848f8b2de331bc}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a13cd33209e328eed98e79086439748b2}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+b\+Stop@{m\+\_\+b\+Stop}}
+\index{m\+\_\+b\+Stop@{m\+\_\+b\+Stop}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+b\+Stop}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+b\+Stop}}\label{class_c_v_i_engine_base_a13cd33209e328eed98e79086439748b2}
+
+
+Флаг режима остановки вычислений 
+
+\hypertarget{class_c_v_i_engine_base_a867f7342010985b0b21beb4feaf354b8}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+cfg@{m\+\_\+cfg}}
+\index{m\+\_\+cfg@{m\+\_\+cfg}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+cfg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Engine\+Config} C\+V\+I\+Engine\+Base\+::m\+\_\+cfg}}\label{class_c_v_i_engine_base_a867f7342010985b0b21beb4feaf354b8}
+
+
+Интерфейс для управление значениями настроечных параметров алгоритмов программы (чтение-\/запись) 
+
+\hypertarget{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+c\+Make@{m\+\_\+c\+Make}}
+\index{m\+\_\+c\+Make@{m\+\_\+c\+Make}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+c\+Make}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+c\+Make\mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+crop@{m\+\_\+crop}}
+\index{m\+\_\+crop@{m\+\_\+crop}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+crop}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Crop C\+V\+I\+Engine\+Base\+::m\+\_\+crop}}\label{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+\+Distortion@{m\+\_\+\+Distortion}}
+\index{m\+\_\+\+Distortion@{m\+\_\+\+Distortion}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+\+Distortion}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Distortion C\+V\+I\+Engine\+Base\+::m\+\_\+\+Distortion}}\label{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+div\+Maker@{m\+\_\+div\+Maker}}
+\index{m\+\_\+div\+Maker@{m\+\_\+div\+Maker}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+div\+Maker}]{\setlength{\rightskip}{0pt plus 5cm}std\+::list$<$int$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+div\+Maker}}\label{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+events@{m\+\_\+events}}
+\index{m\+\_\+events@{m\+\_\+events}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+events}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Engine\+Event} C\+V\+I\+Engine\+Base\+::m\+\_\+events\mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Drop\+F@{m\+\_\+fps\+Drop\+F}}
+\index{m\+\_\+fps\+Drop\+F@{m\+\_\+fps\+Drop\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+fps\+Drop\+F}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Drop\+F}}\label{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Drop\+R@{m\+\_\+fps\+Drop\+R}}
+\index{m\+\_\+fps\+Drop\+R@{m\+\_\+fps\+Drop\+R}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+fps\+Drop\+R}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Drop\+R}}\label{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+In@{m\+\_\+fps\+In}}
+\index{m\+\_\+fps\+In@{m\+\_\+fps\+In}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+fps\+In}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+In}}\label{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Out\+F@{m\+\_\+fps\+Out\+F}}
+\index{m\+\_\+fps\+Out\+F@{m\+\_\+fps\+Out\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+fps\+Out\+F}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Out\+F}}\label{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Out\+R@{m\+\_\+fps\+Out\+R}}
+\index{m\+\_\+fps\+Out\+R@{m\+\_\+fps\+Out\+R}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+fps\+Out\+R}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Out\+R}}\label{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a252e6e1285e6063718c7d7a874298363}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+img\+Src24@{m\+\_\+img\+Src24}}
+\index{m\+\_\+img\+Src24@{m\+\_\+img\+Src24}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+img\+Src24}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mmx\+\_\+array2}$<$R\+G\+B\+T\+R\+I\+P\+L\+E$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+img\+Src24}}\label{class_c_v_i_engine_base_a252e6e1285e6063718c7d7a874298363}
+
+
+Двумерный массив цветного изображения (R\+G\+B). The R\+G\+B\+T\+R\+I\+P\+L\+E structure describes a color consisting of relative intensities of red, green, and blue. The bmci\+Colors member of the B\+I\+T\+M\+A\+P\+C\+O\+R\+E\+I\+N\+F\+O structure consists of an array of R\+G\+B\+T\+R\+I\+P\+L\+E structures. \href{http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/windows/desktop/dd162939(v=vs.\+85).\+aspx} 
+
+\hypertarget{class_c_v_i_engine_base_aa935595a167539c89a4d06a57178d776}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+img\+Src8@{m\+\_\+img\+Src8}}
+\index{m\+\_\+img\+Src8@{m\+\_\+img\+Src8}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+img\+Src8}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mmx\+\_\+array2}$<$B\+Y\+T\+E$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+img\+Src8}}\label{class_c_v_i_engine_base_aa935595a167539c89a4d06a57178d776}
+
+
+Двумерный массив монохромного изображения \mbox{[}0;255\mbox{]} 
+
+\hypertarget{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931be}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+img\+Src\+F@{m\+\_\+img\+Src\+F}}
+\index{m\+\_\+img\+Src\+F@{m\+\_\+img\+Src\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+img\+Src\+F}]{\setlength{\rightskip}{0pt plus 5cm}float$\ast$ C\+V\+I\+Engine\+Base\+::m\+\_\+img\+Src\+F}}\label{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931be}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+img\+Src\+Mask@{m\+\_\+img\+Src\+Mask}}
+\index{m\+\_\+img\+Src\+Mask@{m\+\_\+img\+Src\+Mask}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+img\+Src\+Mask}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mmx\+\_\+array2}$<$B\+Y\+T\+E$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+img\+Src\+Mask}}\label{class_c_v_i_engine_base_a879bfc4065da678c4ca67ed828b05a05}
+
+
+Двумерный массив чисел \mbox{[}0;255\mbox{]} монохромного изображения-\/маски, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей 
+
+\hypertarget{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+locks@{m\+\_\+locks}}
+\index{m\+\_\+locks@{m\+\_\+locks}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+locks}]{\setlength{\rightskip}{0pt plus 5cm}C\+M\+T\+Critical\+Section C\+V\+I\+Engine\+Base\+::m\+\_\+locks\mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+n\+Make@{m\+\_\+n\+Make}}
+\index{m\+\_\+n\+Make@{m\+\_\+n\+Make}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+n\+Make}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+n\+Make}}\label{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+n\+Threads@{m\+\_\+n\+Threads}}
+\index{m\+\_\+n\+Threads@{m\+\_\+n\+Threads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+n\+Threads}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+n\+Threads}}\label{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+n\+Threads\+Rqst@{m\+\_\+n\+Threads\+Rqst}}
+\index{m\+\_\+n\+Threads\+Rqst@{m\+\_\+n\+Threads\+Rqst}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+n\+Threads\+Rqst}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+n\+Threads\+Rqst}}\label{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+p\+Face@{m\+\_\+p\+Face}}
+\index{m\+\_\+p\+Face@{m\+\_\+p\+Face}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+p\+Face}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Face$\ast$ C\+V\+I\+Engine\+Base\+::m\+\_\+p\+Face}}\label{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+proc\+F6@{m\+\_\+proc\+F6}}
+\index{m\+\_\+proc\+F6@{m\+\_\+proc\+F6}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+proc\+F6}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Proc\+D\+T C\+V\+I\+Engine\+Base\+::m\+\_\+proc\+F6}}\label{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a34c8596778c068f60030853df3589147}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+result\+Ptr@{m\+\_\+result\+Ptr}}
+\index{m\+\_\+result\+Ptr@{m\+\_\+result\+Ptr}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+result\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$int, D\+W\+O\+R\+D$\ast$$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+result\+Ptr}}\label{class_c_v_i_engine_base_a34c8596778c068f60030853df3589147}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+result\+Size@{m\+\_\+result\+Size}}
+\index{m\+\_\+result\+Size@{m\+\_\+result\+Size}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+result\+Size}]{\setlength{\rightskip}{0pt plus 5cm}S\+I\+Z\+E C\+V\+I\+Engine\+Base\+::m\+\_\+result\+Size}}\label{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+result\+Ver@{m\+\_\+result\+Ver}}
+\index{m\+\_\+result\+Ver@{m\+\_\+result\+Ver}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+result\+Ver}]{\setlength{\rightskip}{0pt plus 5cm}D\+W\+O\+R\+D C\+V\+I\+Engine\+Base\+::m\+\_\+result\+Ver}}\label{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a67a15f389d32a0201997a71dc4695803}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+src\+F@{m\+\_\+src\+F}}
+\index{m\+\_\+src\+F@{m\+\_\+src\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+src\+F}]{\setlength{\rightskip}{0pt plus 5cm}std\+::list$<$ S\+R\+C\+\_\+\+I\+M\+G $>$ C\+V\+I\+Engine\+Base\+::m\+\_\+src\+F}}\label{class_c_v_i_engine_base_a67a15f389d32a0201997a71dc4695803}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+src\+Mask@{m\+\_\+src\+Mask}}
+\index{m\+\_\+src\+Mask@{m\+\_\+src\+Mask}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+src\+Mask}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mmx\+\_\+array2}$<$float$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+src\+Mask}}\label{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}
+
+
+Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей 
+
+\hypertarget{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat@{m\+\_\+stat}}
+\index{m\+\_\+stat@{m\+\_\+stat}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf S\+U\+M\+M\+\_\+\+S\+T\+A\+T}$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+stat}}\label{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat2@{m\+\_\+stat2}}
+\index{m\+\_\+stat2@{m\+\_\+stat2}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat2}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Proc2x C\+V\+I\+Engine\+Base\+::m\+\_\+stat2}}\label{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+A\+V\+G@{m\+\_\+stat\+A\+V\+G}}
+\index{m\+\_\+stat\+A\+V\+G@{m\+\_\+stat\+A\+V\+G}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat\+A\+V\+G}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+A\+V\+G\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+A\+V\+G}}\label{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+F\+F\+T@{m\+\_\+stat\+F\+F\+T}}
+\index{m\+\_\+stat\+F\+F\+T@{m\+\_\+stat\+F\+F\+T}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat\+F\+F\+T}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+F\+T\+W\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+F\+F\+T}}\label{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+Fn@{m\+\_\+stat\+Fn}}
+\index{m\+\_\+stat\+Fn@{m\+\_\+stat\+Fn}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat\+Fn}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+N\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+Fn}}\label{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+L\+D\+F@{m\+\_\+stat\+L\+D\+F}}
+\index{m\+\_\+stat\+L\+D\+F@{m\+\_\+stat\+L\+D\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat\+L\+D\+F}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+L\+D\+F\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+L\+D\+F}}\label{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+Release@{m\+\_\+stat\+Release}}
+\index{m\+\_\+stat\+Release@{m\+\_\+stat\+Release}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+stat\+Release}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf S\+U\+M\+M\+\_\+\+S\+T\+A\+T}$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+Release}}\label{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+summ@{m\+\_\+summ}}
+\index{m\+\_\+summ@{m\+\_\+summ}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+summ}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf S\+U\+M\+\_\+\+I\+M\+G}$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+summ}}\label{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+therads@{m\+\_\+therads}}
+\index{m\+\_\+therads@{m\+\_\+therads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+therads}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Engine\+Thread}$\ast$ C\+V\+I\+Engine\+Base\+::m\+\_\+therads\mbox{[}8\mbox{]}}}\label{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a928c4511d2e46b9cd4b7c9b3b7322855}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+timer@{m\+\_\+timer}}
+\index{m\+\_\+timer@{m\+\_\+timer}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+timer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Timer} C\+V\+I\+Engine\+Base\+::m\+\_\+timer}}\label{class_c_v_i_engine_base_a928c4511d2e46b9cd4b7c9b3b7322855}
+
+
+Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. 
+
+\hypertarget{class_c_v_i_engine_base_a8709ba629c654585cc38d13ccf3a23b8}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+timer\+Sync@{m\+\_\+timer\+Sync}}
+\index{m\+\_\+timer\+Sync@{m\+\_\+timer\+Sync}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+timer\+Sync}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Timer\+Sync} C\+V\+I\+Engine\+Base\+::m\+\_\+timer\+Sync}}\label{class_c_v_i_engine_base_a8709ba629c654585cc38d13ccf3a23b8}
+
+
+Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. 
+
+\hypertarget{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+t\+Make\+Image@{m\+\_\+t\+Make\+Image}}
+\index{m\+\_\+t\+Make\+Image@{m\+\_\+t\+Make\+Image}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+t\+Make\+Image}]{\setlength{\rightskip}{0pt plus 5cm}double C\+V\+I\+Engine\+Base\+::m\+\_\+t\+Make\+Image}}\label{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+t\+Video@{m\+\_\+t\+Video}}
+\index{m\+\_\+t\+Video@{m\+\_\+t\+Video}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+t\+Video}]{\setlength{\rightskip}{0pt plus 5cm}double C\+V\+I\+Engine\+Base\+::m\+\_\+t\+Video}}\label{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}
+
+
+Отметка времени и длительность при обработке изображения кадра 
+
+\hypertarget{class_c_v_i_engine_base_a0bbf6f3d2d6b80fec8d223ffb44a6791}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+t\+Video\+D\+T@{m\+\_\+t\+Video\+D\+T}}
+\index{m\+\_\+t\+Video\+D\+T@{m\+\_\+t\+Video\+D\+T}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+t\+Video\+D\+T}]{\setlength{\rightskip}{0pt plus 5cm}double C\+V\+I\+Engine\+Base\+::m\+\_\+t\+Video\+D\+T}}\label{class_c_v_i_engine_base_a0bbf6f3d2d6b80fec8d223ffb44a6791}
+
+
+
+
+\hypertarget{class_c_v_i_engine_base_a45286d497ebc137775cda4999ff9fed6}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+t\+Video\+Prev@{m\+\_\+t\+Video\+Prev}}
+\index{m\+\_\+t\+Video\+Prev@{m\+\_\+t\+Video\+Prev}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+t\+Video\+Prev}]{\setlength{\rightskip}{0pt plus 5cm}double C\+V\+I\+Engine\+Base\+::m\+\_\+t\+Video\+Prev}}\label{class_c_v_i_engine_base_a45286d497ebc137775cda4999ff9fed6}
+
+
+Отметка времени и длительность при обработке изображения предыдущего кадра 
+
+\hypertarget{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+v\+Pos@{m\+\_\+v\+Pos}}
+\index{m\+\_\+v\+Pos@{m\+\_\+v\+Pos}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+v\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+V\+Pos C\+V\+I\+Engine\+Base\+::m\+\_\+v\+Pos}}\label{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}
+
+
+
 
 
 

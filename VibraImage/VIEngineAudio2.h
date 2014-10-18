@@ -9,12 +9,21 @@
 class CVIEngineAudio2
 {
 protected:
-	CVIEngineBase *m_pBase; // Указатель на инстанс класса CVIEngineBase. Этот инстанс единственный в работающей программе.
+	/// <summary> 
+	/// Указатель на инстанс класса CVIEngineBase. Этот инстанс такого класса единственный в работающей программе.
+	/// </summary>
+	CVIEngineBase *m_pBase;
 public:
 	CVIEngineAudio2(CVIEngineBase *pBase);
 	~CVIEngineAudio2();
-	bool m_bDone; // Флаг завершения работы процесса
-	HANDLE m_hThread; // Дескриптор нити Windows отвечающей за чтения данных с устройства
+	/// <summary>
+	/// Флаг завершения работы процесса
+	/// </summary>
+	bool m_bDone; 
+	/// <summary>
+	/// Дескриптор нити Windows отвечающей за чтения данных с устройства
+	/// </summary>
+	HANDLE m_hThread; 
 	void NewSource();
 	void OnVideo();
 };

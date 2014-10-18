@@ -1,19 +1,16 @@
 var searchData=
 [
-  ['canmakehist',['CanMakeHist',['../class_c_v_i_engine_base.html#a33937f3f067ec0fa9829c7a40b54be50',1,'CVIEngineBase']]],
-  ['checkfpsdiv',['CheckFPSDIV',['../class_c_v_i_engine_base.html#a4764b56d4269ed5cd101dddf545e039d',1,'CVIEngineBase']]],
-  ['checknrqst',['CheckNRqst',['../class_c_v_i_engine_base.html#a65b898d96c06c5c9bf9f388b4a70f740',1,'CVIEngineBase']]],
-  ['clearstat',['ClearStat',['../class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b',1,'CVIEngineBase::ClearStat(void)'],['../class_c_v_i_engine_base.html#adb910c0d7f06cf1f3ea7b2347aed1751',1,'CVIEngineBase::ClearStat(SUMM_STAT &amp;S)'],['../class_c_v_i_engine_thread.html#a608a3c62caea2e713736b5b8efd2f6ea',1,'CVIEngineThread::ClearStat()']]],
-  ['closethreads',['CloseThreads',['../class_c_v_i_engine_base.html#a0905eba46bb64f25a2d91f8b39a3f994',1,'CVIEngineBase']]],
-  ['cmtsinglelock',['CMTSingleLock',['../class_c_m_t_single_lock.html',1,'CMTSingleLock'],['../class_c_m_t_single_lock.html#accef84bf825a836b952f32223ec757bc',1,'CMTSingleLock::CMTSingleLock()']]],
-  ['cpointsse',['CPointSSE',['../class_c_point_s_s_e.html',1,'CPointSSE'],['../class_c_point_s_s_e.html#ade2da0d5d55a42f93b516b351da78bcc',1,'CPointSSE::CPointSSE()'],['../class_c_point_s_s_e.html#abd611f212d90b86e7d64e35ed0028b23',1,'CPointSSE::CPointSSE(float value)']]],
-  ['createthreads',['CreateThreads',['../class_c_v_i_engine_base.html#a053908c9c2c18583a13e6f6f79c8eeab',1,'CVIEngineBase']]],
-  ['cviengineaudio2',['CVIEngineAudio2',['../class_c_v_i_engine_audio2.html',1,'CVIEngineAudio2'],['../class_c_v_i_engine_audio2.html#a4db9b77fbe4864a556fe9dc1238a80d8',1,'CVIEngineAudio2::CVIEngineAudio2()']]],
-  ['cvienginebase',['CVIEngineBase',['../class_c_v_i_engine_base.html',1,'CVIEngineBase'],['../class_c_v_i_engine_base.html#a1349de29adc90869f463b17fb03904c1',1,'CVIEngineBase::CVIEngineBase()']]],
-  ['cviengineconfig',['CVIEngineConfig',['../class_c_v_i_engine_config.html',1,'']]],
-  ['cviengineevent',['CVIEngineEvent',['../class_c_v_i_engine_event.html',1,'']]],
-  ['cvienginesimple',['CVIEngineSimple',['../class_c_v_i_engine_simple.html',1,'']]],
-  ['cvienginethread',['CVIEngineThread',['../class_c_v_i_engine_thread.html',1,'CVIEngineThread'],['../class_c_v_i_engine_thread.html#ae988fa69cb7743794ab221309f581d62',1,'CVIEngineThread::CVIEngineThread()']]],
-  ['cvitimer',['CVITimer',['../class_c_v_i_timer.html',1,'']]],
-  ['cvitimersync',['CVITimerSync',['../class_c_v_i_timer_sync.html',1,'']]]
+  ['acolorl',['aColorL',['../class_a_u_r_a___s_t_a_t___l_i_n_e.html#abec39aa811f1c49d36f0c1595e5b7f70',1,'AURA_STAT_LINE']]],
+  ['add',['Add',['../class_c_v_i_timer_sync.html#a01c73c79ab01183645d5d84e9b5952ec',1,'CVITimerSync']]],
+  ['addimage',['AddImage',['../class_c_v_i_engine_base.html#ac886baeaf14b16970d089edaf6767a79',1,'CVIEngineBase']]],
+  ['addimage8',['AddImage8',['../class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5',1,'CVIEngineBase']]],
+  ['addimagethread',['AddImageThread',['../class_c_v_i_engine_base.html#ad9c65ff1caec8b5042fd55628c515373',1,'CVIEngineBase']]],
+  ['addimagethread8',['AddImageThread8',['../class_c_v_i_engine_base.html#acb273d8d1df0ad615bec58b0a9c5f1cc',1,'CVIEngineBase']]],
+  ['addimagethreadlocal',['AddImageThreadLocal',['../class_c_v_i_engine_base.html#a6ca94a8d39e8a76e5be4698cc2eff06b',1,'CVIEngineBase']]],
+  ['addimagethreadlocal8',['AddImageThreadLocal8',['../class_c_v_i_engine_base.html#a180f4a67ef6b4137c8b8565310aa7834',1,'CVIEngineBase']]],
+  ['addimagethreadproc',['AddImageThreadProc',['../class_c_v_i_engine_base.html#ac9fbe14762f4d2bf7d0bffe451a329ee',1,'CVIEngineBase']]],
+  ['aura_5fstat',['AURA_STAT',['../class_a_u_r_a___s_t_a_t.html',1,'']]],
+  ['aura_5fstat_5fline',['AURA_STAT_LINE',['../class_a_u_r_a___s_t_a_t___l_i_n_e.html',1,'']]],
+  ['auraa',['auraA',['../class_s_u_m_m___s_t_a_t.html#a404b5e8880976ff65e8db9825063248b',1,'SUMM_STAT']]],
+  ['aurab',['auraB',['../class_s_u_m_m___s_t_a_t.html#aa4bd77e99f011e0c72809be3644521d5',1,'SUMM_STAT']]]
 ];

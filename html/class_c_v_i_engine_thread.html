@@ -189,7 +189,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:abf2a40038d465ccb943072431774c6ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование изображения в 4-х байтном целочисленном представлении по указанному адресу с заменой цветов на 4-х байтные цвета из палитры. Исходные данные: Для режима A исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase-&gt;m_summ[n].si[0] Для режима B исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase-&gt;m_summ[n].si[h] Палитра берётся по адресу m_pBase-&gt;m_palI. Размер палитры 256 цветов. Бэк формируется белым, если значение настроечного параметра VI_MODE_WBG битово пересекается с rMode. Размер изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#abf2a40038d465ccb943072431774c6ae">More...</a><br /></td></tr>
 <tr class="separator:abf2a40038d465ccb943072431774c6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e69080c6da14f8bb61c0615180bd088"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6e69080c6da14f8bb61c0615180bd088">MakeSumStat</a> (int nSum, <a class="el" href="struct_c_v_i_engine_thread_1_1tag_s_u_m_m___p_t_r.html">SUMM_PTR</a> &amp;S)</td></tr>
-<tr class="memdesc:a6e69080c6da14f8bb61c0615180bd088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если кратко, то это реализация следующей процедуры с использованием технологии SSE m_stat[nSum].sumAi = CУММА S.RetA ; m_stat[nSum].cntAi = 1[ СУММА S.RetA ]; m_stat[nSum].sumBi = CУММА S.RetB ; m_stat[nSum].cntAi = 1[ СУММА S.RetB ]; Описка программиста или так задумано? где 1[] - замена ненулевых значений на 1.0 Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a6e69080c6da14f8bb61c0615180bd088">More...</a><br /></td></tr>
+<tr class="memdesc:a6e69080c6da14f8bb61c0615180bd088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если кратко, то это реализация следующей процедуры с использованием технологии SSE m_stat[nSum].sumAi = CУММА S.RetA ; m_stat[nSum].cntAi = 1[ СУММА S.RetA ]; m_stat[nSum].sumBi = CУММА S.RetB ; m_stat[nSum].cntAi = 1[ СУММА S.RetB ]; Описка программиста или так задумано? где 1[] - замена ненулевых значений на 1.0 Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a6e69080c6da14f8bb61c0615180bd088">More...</a><br /></td></tr>
 <tr class="separator:a6e69080c6da14f8bb61c0615180bd088"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5a7ba8ea2d72478af174b471d73fd5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac5a7ba8ea2d72478af174b471d73fd5c">MakeAuraStatHist</a> (<a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;stat)</td></tr>
 <tr class="memdesc:ac5a7ba8ea2d72478af174b471d73fd5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод не имеет никакого программного кода  <a href="#ac5a7ba8ea2d72478af174b471d73fd5c">More...</a><br /></td></tr>
@@ -199,7 +199,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c5e1e4c1a32d38b39af4547ed4b5827"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a5c5e1e4c1a32d38b39af4547ed4b5827">MakeAuraColorA</a> (int nSum, int x, int y)</td></tr>
 <tr class="separator:a5c5e1e4c1a32d38b39af4547ed4b5827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77e3066544a8804d4cc5250ac9f4c54b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a77e3066544a8804d4cc5250ac9f4c54b">MakeIntResult</a> (float *pf, short *pi, <a class="el" href="classmmx__array.html">mmx_array</a>&lt; float &gt; &amp;hX, <a class="el" href="classmmx__array.html">mmx_array</a>&lt; float &gt; &amp;hY, int w, int h)</td></tr>
-<tr class="memdesc:a77e3066544a8804d4cc5250ac9f4c54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a77e3066544a8804d4cc5250ac9f4c54b">More...</a><br /></td></tr>
+<tr class="memdesc:a77e3066544a8804d4cc5250ac9f4c54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#a77e3066544a8804d4cc5250ac9f4c54b">More...</a><br /></td></tr>
 <tr class="separator:a77e3066544a8804d4cc5250ac9f4c54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -216,41 +216,37 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a771ad7767cb35813f6671f497b075496"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a771ad7767cb35813f6671f497b075496"></a>
-<a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_pBase</b></td></tr>
+<tr class="memitem:a771ad7767cb35813f6671f497b075496"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a771ad7767cb35813f6671f497b075496">m_pBase</a></td></tr>
+<tr class="memdesc:a771ad7767cb35813f6671f497b075496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ссылка на общий родительский инстанс класса реализованных алгоритмов программы  <a href="#a771ad7767cb35813f6671f497b075496">More...</a><br /></td></tr>
 <tr class="separator:a771ad7767cb35813f6671f497b075496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac297ce260db221d74422e3c7e8e03e27"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac297ce260db221d74422e3c7e8e03e27"></a>
-<a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_pCfg</b></td></tr>
+<tr class="memitem:ac297ce260db221d74422e3c7e8e03e27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac297ce260db221d74422e3c7e8e03e27">m_pCfg</a></td></tr>
+<tr class="memdesc:ac297ce260db221d74422e3c7e8e03e27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ссылка на общий инстанс класса настроечных параметров (является членом класса <a class="el" href="class_c_v_i_engine_base.html" title="Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной сре...">CVIEngineBase</a>)  <a href="#ac297ce260db221d74422e3c7e8e03e27">More...</a><br /></td></tr>
 <tr class="separator:ac297ce260db221d74422e3c7e8e03e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ac54d72e0fe75fff96d82b115df962c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1ac54d72e0fe75fff96d82b115df962c"></a>
-HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThread</b></td></tr>
+<tr class="memitem:a1ac54d72e0fe75fff96d82b115df962c"><td class="memItemLeft" align="right" valign="top">HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a1ac54d72e0fe75fff96d82b115df962c">m_hThread</a></td></tr>
+<tr class="memdesc:a1ac54d72e0fe75fff96d82b115df962c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Дескриптор потока (указатель на поток), в соответствии со способом идентмфикации параллельных потоков Windows  <a href="#a1ac54d72e0fe75fff96d82b115df962c">More...</a><br /></td></tr>
 <tr class="separator:a1ac54d72e0fe75fff96d82b115df962c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cc3627d5a28cc22d6e33cdb052a7f4d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9cc3627d5a28cc22d6e33cdb052a7f4d"></a>
-DWORD&#160;</td><td class="memItemRight" valign="bottom"><b>m_nId</b></td></tr>
+<tr class="memitem:a9cc3627d5a28cc22d6e33cdb052a7f4d"><td class="memItemLeft" align="right" valign="top">DWORD&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a9cc3627d5a28cc22d6e33cdb052a7f4d">m_nId</a></td></tr>
+<tr class="memdesc:a9cc3627d5a28cc22d6e33cdb052a7f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Номер параллельного потока  <a href="#a9cc3627d5a28cc22d6e33cdb052a7f4d">More...</a><br /></td></tr>
 <tr class="separator:a9cc3627d5a28cc22d6e33cdb052a7f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b580461aa6df1676e9e31b2a46bcc7e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8b580461aa6df1676e9e31b2a46bcc7e"></a>
-std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_nSum</b></td></tr>
+<tr class="memitem:a8b580461aa6df1676e9e31b2a46bcc7e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a8b580461aa6df1676e9e31b2a46bcc7e">m_nSum</a></td></tr>
 <tr class="separator:a8b580461aa6df1676e9e31b2a46bcc7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c0ce9aab9b56cdd97087404af92fbb0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6c0ce9aab9b56cdd97087404af92fbb0"></a>
-<a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_events</b> [EVI_CNT]</td></tr>
+<tr class="memitem:a6c0ce9aab9b56cdd97087404af92fbb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6c0ce9aab9b56cdd97087404af92fbb0">m_events</a> [EVI_CNT]</td></tr>
 <tr class="separator:a6c0ce9aab9b56cdd97087404af92fbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af84f80046cb905dda7623ef8a2ea956b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af84f80046cb905dda7623ef8a2ea956b"></a>
-<a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_evReady</b></td></tr>
+<tr class="memitem:af84f80046cb905dda7623ef8a2ea956b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#af84f80046cb905dda7623ef8a2ea956b">m_evReady</a></td></tr>
 <tr class="separator:af84f80046cb905dda7623ef8a2ea956b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19834ce7dacd0ff5d1cc4615c040830c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a19834ce7dacd0ff5d1cc4615c040830c"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>m_yS</b></td></tr>
+<tr class="memitem:a19834ce7dacd0ff5d1cc4615c040830c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a19834ce7dacd0ff5d1cc4615c040830c">m_yS</a></td></tr>
+<tr class="memdesc:a19834ce7dacd0ff5d1cc4615c040830c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Для определения диапазона обрабатываемых строк изображения инстансом данного класса  <a href="#a19834ce7dacd0ff5d1cc4615c040830c">More...</a><br /></td></tr>
 <tr class="separator:a19834ce7dacd0ff5d1cc4615c040830c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9849fe1f1cba016b9df4e33fd9c2092"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9849fe1f1cba016b9df4e33fd9c2092"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>m_yE</b></td></tr>
 <tr class="separator:ae9849fe1f1cba016b9df4e33fd9c2092"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa356e0ebc6490ee932679fb7ca5021b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa356e0ebc6490ee932679fb7ca5021b5"></a>
-std::vector&lt; <a class="el" href="class_c_v_i_engine_thread.html#a963dcd94cfc9dd191a6c4dc50458797f">TMP_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_stat</b></td></tr>
+<tr class="memitem:aa356e0ebc6490ee932679fb7ca5021b5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_c_v_i_engine_thread.html#a963dcd94cfc9dd191a6c4dc50458797f">TMP_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#aa356e0ebc6490ee932679fb7ca5021b5">m_stat</a></td></tr>
+<tr class="memdesc:aa356e0ebc6490ee932679fb7ca5021b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Статистики по вычисленному дельта-изображению (имеется ввиду только статистики того фрагмента изображения который обрабатывал инстанс данного класса)  <a href="#aa356e0ebc6490ee932679fb7ca5021b5">More...</a><br /></td></tr>
 <tr class="separator:aa356e0ebc6490ee932679fb7ca5021b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af213b9d425f314412e3de05774960c3f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af213b9d425f314412e3de05774960c3f"></a>
-<a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_tmp</b></td></tr>
+<tr class="memitem:af213b9d425f314412e3de05774960c3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#af213b9d425f314412e3de05774960c3f">m_tmp</a></td></tr>
+<tr class="memdesc:af213b9d425f314412e3de05774960c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Временный двумерный массив размещаемый в видео памяти  <a href="#af213b9d425f314412e3de05774960c3f">More...</a><br /></td></tr>
 <tr class="separator:af213b9d425f314412e3de05774960c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ffad2b9d46d3d237d194b7d07720f6b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ffad2b9d46d3d237d194b7d07720f6b"></a>
-<a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t.html">TMP_AURA_STAT</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_tmp_aura</b></td></tr>
+<tr class="memitem:a6ffad2b9d46d3d237d194b7d07720f6b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t.html">TMP_AURA_STAT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a6ffad2b9d46d3d237d194b7d07720f6b">m_tmp_aura</a></td></tr>
 <tr class="separator:a6ffad2b9d46d3d237d194b7d07720f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
@@ -262,13 +258,13 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:aa9882f7bd24457ef387daf9b878d9e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование изображения (имеется вводу только обрабатываемый данным инстансом фрагмент изображения) из начиная с первого элемента первой строки члена m_arrSrc единственного инстанса родительского класса m_pBase в начиная с первого элемента первой строки члена m_imgSrcF инстанса данного класса в количестве ширина*высота. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). То есть просто передача данных для дальнейших расчётов в параллельный поток обработки. Хотя для Windows это абсолютно не нужно - можно работать с общей памятью и не дублировать данные для отдельных процессов. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.  <a href="#aa9882f7bd24457ef387daf9b878d9e36">More...</a><br /></td></tr>
 <tr class="separator:aa9882f7bd24457ef387daf9b878d9e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ac41086d9d426c39ce9a5ab78bdff6f8d">OnEventSumm</a> (void)</td></tr>
-<tr class="memdesc:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если кратко, то это реализация следующей процедуры с использованием технологии SSE int nSumm = m_pBase-&gt;m_summ.size(); SUMM_PTR* pSumm = new SUMM_PTR[nSumm]; для каждого элемента массива pSumm: MakeSummPtr(k, pSumm + k); if(!disableA) CRetA = lo[(CSummA + DeltaA - CDeltaA) * divA, fth] if(!disableB) CRetB = lo[(CSummB + 1[DeltaA] - 1[CDeltaA]) * divB, fth] delete pSumm; где указанные переменные являются массивами на которые указывают члены структуры SUMM_PTR, divA и divB - числа указанные в структуре SUMM_PTR, lo[] - применение фильтра подавления слабых сигналов с пороговым значением fth, 1[] - замена ненулевых значений на 1.0 и fth = значение настроечного настроечного параметра VI_VAR_TH disableA = значение настроечного настроечного параметра VI_FILTER_DISABLE_A disableB = значение настроечного настроечного параметра VI_FILTER_DISABLE_B Первая формула похожа на расчёт яркости заливки рисунка Вторая формула похожа на расчёт яркости контура рисунка Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#ac41086d9d426c39ce9a5ab78bdff6f8d">More...</a><br /></td></tr>
+<tr class="memdesc:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Если кратко, то это реализация следующей процедуры с использованием технологии SSE int nSumm = m_pBase-&gt;m_summ.size(); SUMM_PTR* pSumm = new SUMM_PTR[nSumm]; для каждого элемента массива pSumm: MakeSummPtr(k, pSumm + k); if(!disableA) CRetA = lo[(CSummA + DeltaA - CDeltaA) * divA, fth] if(!disableB) CRetB = lo[(CSummB + 1[DeltaA] - 1[CDeltaA]) * divB, fth] delete pSumm; где указанные переменные являются массивами на которые указывают члены структуры SUMM_PTR, divA и divB - числа указанные в структуре SUMM_PTR, lo[] - применение фильтра подавления слабых сигналов с пороговым значением fth, 1[] - замена ненулевых значений на 1.0 и fth = значение настроечного настроечного параметра VI_VAR_TH disableA = значение настроечного настроечного параметра VI_FILTER_DISABLE_A disableB = значение настроечного настроечного параметра VI_FILTER_DISABLE_B Первая формула похожа на расчёт яркости заливки рисунка Вторая формула похожа на расчёт яркости контура рисунка Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#ac41086d9d426c39ce9a5ab78bdff6f8d">More...</a><br /></td></tr>
 <tr class="separator:ac41086d9d426c39ce9a5ab78bdff6f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59da3179cc28387c9ebe468cdb33bcb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a59da3179cc28387c9ebe468cdb33bcb1">OnEventResult</a> (void)</td></tr>
 <tr class="memdesc:a59da3179cc28387c9ebe468cdb33bcb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Последовательное выполнение различных процедур в соответствии со взведёнными двоичными флагами у значения настроечного параметра VI_MODE_RESULT Список обрабатываемых флагов (согласно очерёдности обработки): VI_RESULT_SRC_0, VI_RESULT_SRC_A, VI_RESULT_SRC_B, VI_RESULT_VI0_A, VI_RESULT_VI0_B, VI_RESULT_VI1_A, VI_RESULT_VI1_B, VI_RESULT_VI2_A, VI_RESULT_VI2_B, VI_RESULT_DELTA_A, VI_RESULT_DELTA_A,  <a href="#a59da3179cc28387c9ebe468cdb33bcb1">More...</a><br /></td></tr>
 <tr class="separator:a59da3179cc28387c9ebe468cdb33bcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5c43326cf2db88c2233f60412113e14"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#ae5c43326cf2db88c2233f60412113e14">OnEventDelta</a> (void)</td></tr>
-<tr class="memdesc:ae5c43326cf2db88c2233f60412113e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются. Если установлен настроечный параметр VI_FILTER_DELTA_STRETCH, то дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO); иначе дельта-сигнал уровня яркости меньше filterDeltaLO считается шумом и подавляется (считается минимальной яркостью) и если указано ненулевое значение настроечного параметра VI_FILTER_CT, то применяется неизвестный фильтр подавления шума <a class="el" href="class_c_v_i_engine_simple.html#a2b0441394c18c07d7d90fb13998c0355" title="Один из каких-то алгоритмов, включая алгоритмы подавления шумов с использованием возможностей техноло...">CVIEngineSimple::FilterCT</a> где filterDeltaLO - значение настроечного параметра VI_FILTER_DELTA_LO Оба указанных из способов являются одними из множества способов подавления шумов. Рассчитывается dsumAsum = сумма значений яркости всех пикселей в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Рассчитывается dsumBsum = количество пикселей с ненулевыми значениями яркости в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Значения dsumAsum и dsumВsum записываются во все элементы массива статистики m_stat. Я же говорил, что лишние теоретические изыски при расчёте дельта-сигнала особо не нужны. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#ae5c43326cf2db88c2233f60412113e14">More...</a><br /></td></tr>
+<tr class="memdesc:ae5c43326cf2db88c2233f60412113e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются. Если установлен настроечный параметр VI_FILTER_DELTA_STRETCH, то дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO); иначе дельта-сигнал уровня яркости меньше filterDeltaLO считается шумом и подавляется (считается минимальной яркостью) и если указано ненулевое значение настроечного параметра VI_FILTER_CT, то применяется неизвестный фильтр подавления шума <a class="el" href="class_c_v_i_engine_simple.html#a2b0441394c18c07d7d90fb13998c0355" title="Один из каких-то алгоритмов, включая алгоритмы подавления шумов с использованием возможностей техноло...">CVIEngineSimple::FilterCT</a> где filterDeltaLO - значение настроечного параметра VI_FILTER_DELTA_LO Оба указанных из способов являются одними из множества способов подавления шумов. Рассчитывается dsumAsum = сумма значений яркости всех пикселей в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Рассчитывается dsumBsum = количество пикселей с ненулевыми значениями яркости в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Значения dsumAsum и dsumВsum записываются во все элементы массива статистики m_stat. Я же говорил, что лишние теоретические изыски при расчёте дельта-сигнала особо не нужны. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.  <a href="#ae5c43326cf2db88c2233f60412113e14">More...</a><br /></td></tr>
 <tr class="separator:ae5c43326cf2db88c2233f60412113e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5631fcb6ffa27a49f369ae01473862a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_thread.html#a5631fcb6ffa27a49f369ae01473862a2">OnEventAura</a> (void)</td></tr>
 <tr class="memdesc:a5631fcb6ffa27a49f369ae01473862a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Просто цикл по вызову метода MakeAuraV6 для всех значений массива m_nSum Используются настроечные параметры VI_FILTER_DISABLE_A и VI_FILTER_DISABLE_B, а так же настроечные параметры вида VI_FILTER_DISABLE_VI0+k для определения необходимости запускать метод MakeAuraV6 и запускать ли его в режимах A и B Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a5631fcb6ffa27a49f369ae01473862a2">More...</a><br /></td></tr>
@@ -793,7 +789,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<p>Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pf</td><td>Указатель на массив чисел с плавающей точкой. Вход.</td></tr>
@@ -1099,7 +1095,7 @@ Static Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Если кратко, то это реализация следующей процедуры с использованием технологии SSE m_stat[nSum].sumAi = CУММА S.RetA ; m_stat[nSum].cntAi = 1[ СУММА S.RetA ]; m_stat[nSum].sumBi = CУММА S.RetB ; m_stat[nSum].cntAi = 1[ СУММА S.RetB ]; Описка программиста или так задумано? где 1[] - замена ненулевых значений на 1.0 Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<p>Если кратко, то это реализация следующей процедуры с использованием технологии SSE m_stat[nSum].sumAi = CУММА S.RetA ; m_stat[nSum].cntAi = 1[ СУММА S.RetA ]; m_stat[nSum].sumBi = CУММА S.RetB ; m_stat[nSum].cntAi = 1[ СУММА S.RetB ]; Описка программиста или так задумано? где 1[] - замена ненулевых значений на 1.0 Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nSum</td><td></td></tr>
@@ -1184,7 +1180,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются. Если установлен настроечный параметр VI_FILTER_DELTA_STRETCH, то дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO); иначе дельта-сигнал уровня яркости меньше filterDeltaLO считается шумом и подавляется (считается минимальной яркостью) и если указано ненулевое значение настроечного параметра VI_FILTER_CT, то применяется неизвестный фильтр подавления шума <a class="el" href="class_c_v_i_engine_simple.html#a2b0441394c18c07d7d90fb13998c0355" title="Один из каких-то алгоритмов, включая алгоритмы подавления шумов с использованием возможностей техноло...">CVIEngineSimple::FilterCT</a> где filterDeltaLO - значение настроечного параметра VI_FILTER_DELTA_LO Оба указанных из способов являются одними из множества способов подавления шумов. Рассчитывается dsumAsum = сумма значений яркости всех пикселей в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Рассчитывается dsumBsum = количество пикселей с ненулевыми значениями яркости в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Значения dsumAsum и dsumВsum записываются во все элементы массива статистики m_stat. Я же говорил, что лишние теоретические изыски при расчёте дельта-сигнала особо не нужны. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<p>Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений). Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются. Если установлен настроечный параметр VI_FILTER_DELTA_STRETCH, то дельта-сигнал преобразуется по формуле f(x) = (x - filterDeltaLO) * 255.0f/(255.0f - filterDeltaLO); иначе дельта-сигнал уровня яркости меньше filterDeltaLO считается шумом и подавляется (считается минимальной яркостью) и если указано ненулевое значение настроечного параметра VI_FILTER_CT, то применяется неизвестный фильтр подавления шума <a class="el" href="class_c_v_i_engine_simple.html#a2b0441394c18c07d7d90fb13998c0355" title="Один из каких-то алгоритмов, включая алгоритмы подавления шумов с использованием возможностей техноло...">CVIEngineSimple::FilterCT</a> где filterDeltaLO - значение настроечного параметра VI_FILTER_DELTA_LO Оба указанных из способов являются одними из множества способов подавления шумов. Рассчитывается dsumAsum = сумма значений яркости всех пикселей в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Рассчитывается dsumBsum = количество пикселей с ненулевыми значениями яркости в дельта-изображении (имеется вводу только обрабатываемый фрагмент изображения) после применения вышеуказанных фильтров подавления шумов. Значения dsumAsum и dsumВsum записываются во все элементы массива статистики m_stat. Я же говорил, что лишние теоретические изыски при расчёте дельта-сигнала особо не нужны. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 
 </div>
 </div>
@@ -1262,7 +1258,7 @@ Static Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Если кратко, то это реализация следующей процедуры с использованием технологии SSE int nSumm = m_pBase-&gt;m_summ.size(); SUMM_PTR* pSumm = new SUMM_PTR[nSumm]; для каждого элемента массива pSumm: MakeSummPtr(k, pSumm + k); if(!disableA) CRetA = lo[(CSummA + DeltaA - CDeltaA) * divA, fth] if(!disableB) CRetB = lo[(CSummB + 1[DeltaA] - 1[CDeltaA]) * divB, fth] delete pSumm; где указанные переменные являются массивами на которые указывают члены структуры SUMM_PTR, divA и divB - числа указанные в структуре SUMM_PTR, lo[] - применение фильтра подавления слабых сигналов с пороговым значением fth, 1[] - замена ненулевых значений на 1.0 и fth = значение настроечного настроечного параметра VI_VAR_TH disableA = значение настроечного настроечного параметра VI_FILTER_DISABLE_A disableB = значение настроечного настроечного параметра VI_FILTER_DISABLE_B Первая формула похожа на расчёт яркости заливки рисунка Вторая формула похожа на расчёт яркости контура рисунка Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друкг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
+<p>Если кратко, то это реализация следующей процедуры с использованием технологии SSE int nSumm = m_pBase-&gt;m_summ.size(); SUMM_PTR* pSumm = new SUMM_PTR[nSumm]; для каждого элемента массива pSumm: MakeSummPtr(k, pSumm + k); if(!disableA) CRetA = lo[(CSummA + DeltaA - CDeltaA) * divA, fth] if(!disableB) CRetB = lo[(CSummB + 1[DeltaA] - 1[CDeltaA]) * divB, fth] delete pSumm; где указанные переменные являются массивами на которые указывают члены структуры SUMM_PTR, divA и divB - числа указанные в структуре SUMM_PTR, lo[] - применение фильтра подавления слабых сигналов с пороговым значением fth, 1[] - замена ненулевых значений на 1.0 и fth = значение настроечного настроечного параметра VI_VAR_TH disableA = значение настроечного настроечного параметра VI_FILTER_DISABLE_A disableB = значение настроечного настроечного параметра VI_FILTER_DISABLE_B Первая формула похожа на расчёт яркости заливки рисунка Вторая формула похожа на расчёт яркости контура рисунка Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE. Количество элементов в строке исходного массива должно быть кратно 4-м. Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE Каждый пискель в видеопамяти состоит из 4-х регистров RGBA, которые могут записыватся и считыватся одновременно и как целые числа и как числа с плавающей точкой. Благодаря этой возможности видеопамяти становится возможно аппаратное ускорение вычислений при преобразовании типов данных из float в int и обратно. То есть достаточно записать в регистры видеопамяти 4 числа с плавающей точкой, а потом считать эти же 4 числа но как целые. Технология SSE уже является устаревшей. Современные видеокарты NVIDIA поддерживают технологию CUDA, позволяющей создавать полноценные программы для параллельных вычислений на видеокартах. Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга. Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает. </p>
 <p>SUMM A</p>
 <p>SUMM B</p>
 
@@ -1442,6 +1438,161 @@ Static Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a6c0ce9aab9b56cdd97087404af92fbb0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a> CVIEngineThread::m_events[EVI_CNT]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="af84f80046cb905dda7623ef8a2ea956b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a> CVIEngineThread::m_evReady</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a1ac54d72e0fe75fff96d82b115df962c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANDLE CVIEngineThread::m_hThread</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Дескриптор потока (указатель на поток), в соответствии со способом идентмфикации параллельных потоков Windows </p>
+
+</div>
+</div>
+<a class="anchor" id="a9cc3627d5a28cc22d6e33cdb052a7f4d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">DWORD CVIEngineThread::m_nId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Номер параллельного потока </p>
+
+</div>
+</div>
+<a class="anchor" id="a8b580461aa6df1676e9e31b2a46bcc7e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt; CVIEngineThread::m_nSum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a771ad7767cb35813f6671f497b075496"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_base.html">CVIEngineBase</a>* CVIEngineThread::m_pBase</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ссылка на общий родительский инстанс класса реализованных алгоритмов программы </p>
+
+</div>
+</div>
+<a class="anchor" id="ac297ce260db221d74422e3c7e8e03e27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_config.html">CVIEngineConfig</a>* CVIEngineThread::m_pCfg</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ссылка на общий инстанс класса настроечных параметров (является членом класса <a class="el" href="class_c_v_i_engine_base.html" title="Базовый класс для описания алгоритмов программы. Поддерживает выполнение расчётов в многопоточной сре...">CVIEngineBase</a>) </p>
+
+</div>
+</div>
+<a class="anchor" id="aa356e0ebc6490ee932679fb7ca5021b5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_c_v_i_engine_thread.html#a963dcd94cfc9dd191a6c4dc50458797f">TMP_STAT</a>&gt; CVIEngineThread::m_stat</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Статистики по вычисленному дельта-изображению (имеется ввиду только статистики того фрагмента изображения который обрабатывал инстанс данного класса) </p>
+
+</div>
+</div>
+<a class="anchor" id="af213b9d425f314412e3de05774960c3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt;float&gt; CVIEngineThread::m_tmp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Временный двумерный массив размещаемый в видео памяти </p>
+
+</div>
+</div>
+<a class="anchor" id="a6ffad2b9d46d3d237d194b7d07720f6b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_c_v_i_engine_thread_1_1tag_t_m_p___a_u_r_a___s_t_a_t.html">TMP_AURA_STAT</a> CVIEngineThread::m_tmp_aura</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a class="anchor" id="a19834ce7dacd0ff5d1cc4615c040830c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CVIEngineThread::m_yS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Для определения диапазона обрабатываемых строк изображения инстансом данного класса </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>code/<a class="el" href="vi_engine_thread_8h_source.html">viEngineThread.h</a></li>
 <li>code/viEngineThread.cpp</li>
@@ -1449,7 +1600,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 22:48:47 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 18 2014 23:52:38 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

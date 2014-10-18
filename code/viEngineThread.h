@@ -22,23 +22,47 @@ class CVIEngineThread
 public:
     typedef struct tagSUMM_PTR
     {
-        int n, nLast;
+		/// <summary>
+		/// </summary>
+		int n, nLast;
 
-        SUMM_STAT * pStat;
+		/// <summary>
+		/// </summary>
+		SUMM_STAT * pStat;
 
-        float *pSummA, *pSummB;
-        float *pCSummA,*pCSummB;
-        float *pDeltaA;
-        float *pCDeltaA;
+		/// <summary>
+		/// </summary>
+		float *pSummA, *pSummB;
+		/// <summary>
+		/// </summary>
+		float *pCSummA, *pCSummB;
+		/// <summary>
+		/// </summary>
+		float *pDeltaA;
+		/// <summary>
+		/// </summary>
+		float *pCDeltaA;
 
-        float *pRetA, *pRetB;
-        float *pCRetA,*pCRetB;
+		/// <summary>
+		/// </summary>
+		float *pRetA, *pRetB;
+		/// <summary>
+		/// </summary>
+		float *pCRetA, *pCRetB;
 
-        short *pRetIA,*pRetIB;
-        short *pCRetIA,*pCRetIB;
+		/// <summary>
+		/// </summary>
+		short *pRetIA, *pRetIB;
+		/// <summary>
+		/// </summary>
+		short *pCRetIA, *pCRetIB;
 
 
+		/// <summary>
+		/// </summary>
 		float   divA;
+		/// <summary>
+		/// </summary>
 		float   divB;
     } SUMM_PTR;
 
@@ -47,47 +71,113 @@ public:
 	/// </summary>
 	typedef struct tagTMP_STAT
     {
-        mmx_array2<float>   sumN8A;
-        mmx_array2<float>   sumN8B;
-        mmx_array<float>    sumN8XA;
-        mmx_array<float>    sumN8XB;
-        mmx_array<float>    sumN8YA;
-        mmx_array<float>    sumN8YB;
+		/// <summary>
+		/// </summary>
+		mmx_array2<float>   sumN8A;
+		/// <summary>
+		/// </summary>
+		mmx_array2<float>   sumN8B;
+		/// <summary>
+		/// </summary>
+		mmx_array<float>    sumN8XA;
+		/// <summary>
+		/// </summary>
+		mmx_array<float>    sumN8XB;
+		/// <summary>
+		/// </summary>
+		mmx_array<float>    sumN8YA;
+		/// <summary>
+		/// </summary>
+		mmx_array<float>    sumN8YB;
 
-		float               dsumA; // Cумма значений яркости всех пикселей в дельта-изображении после применения фильтров подавления шумов.
-		float               dsumB; // Количество пикселей с ненулевыми значениями яркости в дельта-изображении после применения фильтров подавления шумов.
-        float               sumAi,sumBi;
+		/// <summary>
+		/// Cумма значений яркости всех пикселей в дельта-изображении после применения фильтров подавления шумов.
+		/// </summary>
+		float               dsumA; 
+		/// <summary>
+		/// Количество пикселей с ненулевыми значениями яркости в дельта-изображении после применения фильтров подавления шумов.
+		/// </summary>
+		float               dsumB; 
+		/// <summary>
+		/// </summary>
+		float               sumAi, sumBi;
 
-        float               cntAi,cntBi;
+		/// <summary>
+		/// </summary>
+		float               cntAi, cntBi;
 
     } TMP_STAT;
 
 
     typedef struct tagTMP_AURA_STAT
     {
-        mmx_array<int>  statHist/*(256)*/;  // гистограмма цветов
-        mmx_array<int>  statHistA/*(256)*/; // гистограмма цветов по кадру
-        mmx_array<int>  statHistW/*(256)*/; // гистограмма цветов*ширину
-        mmx_array<int>  statHistC/*(256)*/; // гистограмма цветов в контуре
-        mmx_array<short> iLine/*(w)*/;      // округленный цвет
+		/// <summary>
+		/// гистограмма цветов
+		/// </summary>
+		mmx_array<int>  statHist/*(256)*/;  
+		/// <summary>
+		// гистограмма цветов по кадру
+		/// </summary>
+		mmx_array<int>  statHistA/*(256)*/; 
+		/// <summary>
+		/// гистограмма цветов*ширину
+		/// </summary>
+		mmx_array<int>  statHistW/*(256)*/; 
+		/// <summary>
+		// гистограмма цветов в контуре
+		/// </summary>
+		mmx_array<int>  statHistC/*(256)*/; 
+		/// <summary>
+		// округленный цвет
+		/// </summary>
+		mmx_array<short> iLine/*(w)*/;      
 
     }TMP_AURA_STAT;
 public:
-    CVIEngineBase *     m_pBase; // Ссылка на общий родительский инстанс класса реализованных алгоритмов программы
-    CVIEngineConfig*    m_pCfg; // Ссылка на общий инстанс класса настроечных параметров (является членом класса CVIEngineBase)
+	/// <summary>
+	/// Ссылка на общий родительский инстанс класса реализованных алгоритмов программы
+	/// </summary>
+	CVIEngineBase *     m_pBase; 
+	/// <summary>
+	/// Ссылка на общий инстанс класса настроечных параметров (является членом класса CVIEngineBase)
+	/// </summary>
+	CVIEngineConfig*    m_pCfg; 
 
-    HANDLE              m_hThread; // Дескриптор потока (указатель на поток), в соответствии со способом идентмфикации параллельных потоков Windows
-    DWORD               m_nId; // Номер параллельного потока
-    std::vector<int>    m_nSum;
+	/// <summary>
+	/// Дескриптор потока (указатель на поток), в соответствии со способом идентмфикации параллельных потоков Windows
+	/// </summary>
+	HANDLE              m_hThread; 
+	/// <summary>
+	/// Номер параллельного потока
+	/// </summary>
+	DWORD               m_nId; 
+	/// <summary>
+	/// </summary>
+	std::vector<int>    m_nSum;
 public:
-    CVIEngineEvent  m_events[EVI_CNT];
-    CVIEngineEvent  m_evReady;
+	/// <summary>
+	/// </summary>
+	CVIEngineEvent  m_events[EVI_CNT];
+	/// <summary>
+	/// </summary>
+	CVIEngineEvent  m_evReady;
 public:
-    int             m_yS,m_yE; // Для определения диапазона обрабатываемых строк изображения инстансом данного класса
+	/// <summary>
+	/// Для определения диапазона обрабатываемых строк изображения инстансом данного класса
+	/// </summary>
+	int             m_yS, m_yE; 
 public:
-    std::vector<TMP_STAT>   m_stat; // Статистики по вычисленному дельта-изображению (имеется ввиду только статистики того фрагмента изображения который обрабатывал инстанс данного класса)
-    mmx_array2<float>       m_tmp; // Временный двумерный массив размещаемый в видео памяти
-    TMP_AURA_STAT           m_tmp_aura;
+	/// <summary>
+	/// Статистики по вычисленному дельта-изображению (имеется ввиду только статистики того фрагмента изображения который обрабатывал инстанс данного класса)
+	/// </summary>
+	std::vector<TMP_STAT>   m_stat; 
+	/// <summary>
+	/// Временный двумерный массив размещаемый в видео памяти
+	/// </summary>
+	mmx_array2<float>       m_tmp;
+	/// <summary>
+	/// </summary>
+	TMP_AURA_STAT           m_tmp_aura;
 public:
     CVIEngineThread(CVIEngineBase *pBase);
     ~CVIEngineThread(void);

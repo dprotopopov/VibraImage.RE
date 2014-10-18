@@ -24,8 +24,8 @@
 
 /// <summary>
 /// Процедура, применяемая в медианном фильтре при обработке изображения
-/// https://github.com/dprotopopov/MedianFilter
-/// https://ru.wikipedia.org/wiki/Медианный_фильтр
+/// Аналогичный проекит https://github.com/dprotopopov/MedianFilter
+/// Описание алгоритма https://ru.wikipedia.org/wiki/Медианный_фильтр
 /// Медиа́нный фи́льтр — один из видов цифровых фильтров, широко используемый в цифровой обработке сигналов
 /// и изображений для уменьшения уровня шума. Медианный фильтр является нелинейным КИХ-фильтром.
 /// Значения отсчётов внутри окна фильтра сортируются в порядке возрастания(убывания);
@@ -77,96 +77,229 @@ class CVIEngineBase
 	CVIEngineBase(int nThread);
 	~CVIEngineBase(void);
 	public:
-	void (*CallbackOnNewVar)(void *pUserData,int id,int subID); // Указатель на функцию. Видимо относится к механизму хранения настроечных параметров. То есть управление хранением настроечных параметров не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё.
-	void *CallbackOnNewVarData; // Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnNewVar
-	void (*CallbackOnImg8)(void *pUserData,BYTE* i8,int w,int h,double t); // Указатель на функцию. Видимо относится к механизму захвата изображений с устройств. То есть получение аидеоизображений не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. В доступном коде вызов функции по указателю выполняется в методе AddImage данного класса.
-	void *CallbackOnImg8Data; // Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnImg8
+		/// <summary>
+		/// Указатель на функцию. Видимо относится к механизму хранения настроечных параметров. То есть управление хранением настроечных параметров не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё.
+		/// </summary>
+		void(*CallbackOnNewVar)(void *pUserData, int id, int subID); 
+		/// <summary>
+		/// Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnNewVar
+		/// </summary>
+		void *CallbackOnNewVarData; 
+		/// <summary>
+		/// Указатель на функцию. Видимо относится к механизму захвата изображений с устройств. То есть получение видеоизображений не жёстко зашито в программу а позволяет использовать различные подключаемые модули к которым надо просто дописать одну фунцию и заполнить переменную указателем на неё. В доступном коде вызов функции по указателю выполняется в методе AddImage данного класса.
+		/// </summary>
+		void(*CallbackOnImg8)(void *pUserData, BYTE* i8, int w, int h, double t); 
+		/// <summary>
+		/// Указатель на данные, передаваемые и возвращаемы в-из функцию вызовом её через указатель CallbackOnImg8
+		/// </summary>
+		void *CallbackOnImg8Data; 
 	public:
-	CVIEngineConfig m_cfg; // Интерфейс для управление значениями настроечных параметров алгоритмов программы (чтение-запись)
+		/// <summary>
+		/// Интерфейс для управление значениями настроечных параметров алгоритмов программы (чтение-запись)
+		/// </summary>
+		CVIEngineConfig m_cfg; 
 
-	CVIEngineAudio2 m_audio; // Видимо реализация API для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось.
+		/// <summary>
+		/// Видимо реализация API для управления камерой и микрофоном. Вполне возможно что автор сперва сделал полиграф для голоса, а для видео потом расписал. А название осталось.
+		/// </summary>
+		CVIEngineAudio2 m_audio; 
 
 	public:
-	int m_nThreadsRqst;
-	int m_nThreads; // Текущее количество паралельных потоков вычислений, т.е. текущее количество инстансов классов CVIEngineThread для управления потоками вычислений
-	CVIEngineThread* m_therads[8]; // Массив(стек) ссылок на инстансы классов для управления потоками вычислений
-	CMTCriticalSection m_locks[LVI_CNT];
-	CVIEngineEvent m_events[EVI_CNT]; // Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m_events[id] - это инстанс триггера для события с идентификатором id.
+		/// <summary>
+		/// </summary>
+		int m_nThreadsRqst;
+		/// <summary>
+		/// </summary>
+		int m_nThreads; // Текущее количество паралельных потоков вычислений, т.е. текущее количество инстансов классов CVIEngineThread для управления потоками вычислений
+		/// <summary>
+		/// </summary>
+		CVIEngineThread* m_therads[8]; // Массив(стек) ссылок на инстансы классов для управления потоками вычислений
+		/// <summary>
+		/// </summary>
+		CMTCriticalSection m_locks[LVI_CNT];
+		/// <summary>
+		/// </summary>
+		CVIEngineEvent m_events[EVI_CNT]; // Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m_events[id] - это инстанс триггера для события с идентификатором id.
 
 
-	CVITimer m_timer; // Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.
-	CVITimerSync m_timerSync;
+		/// <summary>
+		/// Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.
+		/// </summary>
+		CVITimer m_timer; 
+		/// <summary>
+		/// Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.
+		/// </summary>
+		CVITimerSync m_timerSync;
 	public:
-	double m_tMakeImage;
-	double m_tVideo,m_tVideoT; // Отметка времени и длительность при обработке изображения кадра
-	double m_tVideoPrev,m_tVideoTPrev; // Отметка времени и длительность при обработке изображения предыдущего кадра
-	double m_tVideoDT;
+		/// <summary>
+		/// </summary>
+		double m_tMakeImage;
+		/// <summary>
+		/// Отметка времени и длительность при обработке изображения кадра
+		/// </summary>
+		double m_tVideo, m_tVideoT; 
+		/// <summary>
+		/// Отметка времени и длительность при обработке изображения предыдущего кадра
+		/// </summary>
+		double m_tVideoPrev, m_tVideoTPrev; 
+		/// <summary>
+		/// </summary>
+		double m_tVideoDT;
 	public:
-	std::list< SRC_IMG > m_srcF;
+		/// <summary>
+		/// </summary>
+		std::list< SRC_IMG > m_srcF;
 	public:
-	bool m_bInit;
-	int m_bStop;
-	int m_bDone;
-	int m_bLock;
+		/// <summary>
+		/// Флаг режима инициализации программы
+		/// </summary>
+		bool m_bInit;
+		/// <summary>
+		/// Флаг режима остановки вычислений
+		/// </summary>
+		int m_bStop;
+		/// <summary>
+		/// Флаг режима завершения работы программы
+		/// </summary>
+		int m_bDone;
+		/// <summary>
+		/// </summary>
+		int m_bLock;
 
-	int m_nMake;
-	int m_cMake[EVI_CNT];
+		/// <summary>
+		/// </summary>
+		int m_nMake;
+		/// <summary>
+		/// </summary>
+		int m_cMake[EVI_CNT];
 	public:
-	float* m_imgSrcF;
-	mmx_array2<BYTE> m_imgSrc8; // Двумерный массив монохромного изображения [0;255]
-	mmx_array2<RGBTRIPLE> m_imgSrc24; // Двумерный массив цветного изображения (RGB). The RGBTRIPLE structure describes a color consisting of relative intensities of red, green, and blue. The bmciColors member of the BITMAPCOREINFO structure consists of an array of RGBTRIPLE structures. http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx
+		/// <summary>
+		/// </summary>
+		float* m_imgSrcF;
+		/// <summary>
+		/// Двумерный массив монохромного изображения [0;255]
+		/// </summary>
+		mmx_array2<BYTE> m_imgSrc8; 
+		/// <summary>
+		/// Двумерный массив цветного изображения (RGB). 
+		/// The RGBTRIPLE structure describes a color consisting of relative intensities of red, green, and blue. The bmciColors member of the BITMAPCOREINFO structure consists of an array of RGBTRIPLE structures.
+		/// http://msdn.microsoft.com/en-us/library/windows/desktop/dd162939(v=vs.85).aspx
+		/// </summary>
+		mmx_array2<RGBTRIPLE> m_imgSrc24; 
 
-	mmx_array2<BYTE> m_imgSrcMask; // Двумерный массив чисел [0;255] монохромного изображения-маски, хранящий накладываемую на обрабарываемые исходные данные маску яркости пикселей
+		/// <summary>
+		/// Двумерный массив чисел [0;255] монохромного изображения-маски, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей
+		/// </summary>
+		mmx_array2<BYTE> m_imgSrcMask; 
 
-	lFRAME_IMG m_arrSrc; // Массив (очередь) указателей на инстансы типа FRAME_IMG (способ хранения очереди исходных изображений)
-	lFRAME_IMG m_arrDelta; // Массив (очередь) указателей на инстансы типа FRAME_IMG (способ хранения очереди расчитанных дельт-изображений)
+		/// <summary>
+		/// Массив (очередь) указателей на инстансы типа FRAME_IMG (способ хранения очереди исходных изображений)
+		/// </summary>
+		lFRAME_IMG m_arrSrc; 
+		/// <summary>
+		/// Массив (очередь) указателей на инстансы типа FRAME_IMG (способ хранения очереди расчитанных дельт-изображений)
+		/// </summary>
+		lFRAME_IMG m_arrDelta; 
 
-	mmx_array2<float> m_srcMask; // Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабарываемые исходные данные маску яркости пикселей
+		/// <summary>
+		/// Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей
+		/// </summary>
+		mmx_array2<float> m_srcMask; 
 
-	std::vector<SUM_IMG> m_summ;
-	std::vector<SUMM_STAT> m_stat;
-	std::vector<SUMM_STAT> m_statRelease;
-	CVIEngineProc2x m_stat2;
+		/// <summary>
+		/// </summary>
+		std::vector<SUM_IMG> m_summ;
+		/// <summary>
+		/// </summary>
+		std::vector<SUMM_STAT> m_stat;
+		/// <summary>
+		/// </summary>
+		std::vector<SUMM_STAT> m_statRelease;
+		/// <summary>
+		/// </summary>
+		CVIEngineProc2x m_stat2;
 
-	std::vector<CVIEngineAura6> m_aura6A;
-	std::vector<CVIEngineAura6> m_aura6B;
+		/// <summary>
+		/// </summary>
+		std::vector<CVIEngineAura6> m_aura6A;
+		/// <summary>
+		/// </summary>
+		std::vector<CVIEngineAura6> m_aura6B;
 
-	CVIEngineVPos m_vPos;
+		/// <summary>
+		/// </summary>
+		CVIEngineVPos m_vPos;
 
-	CStatAVG_Pack m_statAVG;
-	CStatFFTW_Pack m_statFFT;
+		/// <summary>
+		/// </summary>
+		CStatAVG_Pack m_statAVG;
+		/// <summary>
+		/// </summary>
+		CStatFFTW_Pack m_statFFT;
 
 #ifndef  SEQ_DISABLE_LD
-	CStatLDF_Pack m_statLDF;
+		/// <summary>
+		/// </summary>
+		CStatLDF_Pack m_statLDF;
 #endif
 
 #ifndef  SEQ_DISABLE_FN
-	CStatFN_Pack m_statFn;
+		/// <summary>
+		/// </summary>
+		CStatFN_Pack m_statFn;
 #endif
 
-	RGBQUAD __declspec(align(16)) m_palI[256];
+		/// <summary>
+		/// </summary>
+		RGBQUAD __declspec(align(16)) m_palI[256];
 
-	std::list<int> m_divMaker;
+		/// <summary>
+		/// </summary>
+		std::list<int> m_divMaker;
 	public:
-	std::map<int,DWORD*> m_resultPtr;
-	SIZE m_resultSize;
-	DWORD m_resultVer;
+		/// <summary>
+		/// </summary>
+		std::map<int, DWORD*> m_resultPtr;
+		/// <summary>
+		/// </summary>
+		SIZE m_resultSize;
+		/// <summary>
+		/// </summary>
+		DWORD m_resultVer;
 	public:
-	CStatFPS m_fpsIn;
-	CStatFPS m_fpsOutF;
-	CStatFPS m_fpsDropF;
-	CStatFPS m_fpsOutR;
-	CStatFPS m_fpsDropR;
+		/// <summary>
+		/// </summary>
+		CStatFPS m_fpsIn;
+		/// <summary>
+		/// </summary>
+		CStatFPS m_fpsOutF;
+		/// <summary>
+		/// </summary>
+		CStatFPS m_fpsDropF;
+		/// <summary>
+		/// </summary>
+		CStatFPS m_fpsOutR;
+		/// <summary>
+		/// </summary>
+		CStatFPS m_fpsDropR;
 
-	CVIEngineCrop m_crop;
+		/// <summary>
+		/// </summary>
+		CVIEngineCrop m_crop;
 #ifndef  SEQ_DISABLE_DISTORTION
-	CVIEngineDistortion m_Distortion;
+		/// <summary>
+		/// </summary>
+		CVIEngineDistortion m_Distortion;
 #endif  // #ifndef SEQ_DISABLE_DISTORTION
 
 	public:
-	CVIEngineProcDT m_procF6;
+		/// <summary>
+		/// </summary>
+		CVIEngineProcDT m_procF6;
 #ifndef  SEQ_LITE
-	CVIEngineFace * m_pFace;
+		/// <summary>
+		/// </summary>
+		CVIEngineFace * m_pFace;
 #endif
 
 	public:
@@ -279,6 +412,9 @@ class CVIEngineBase
 
 
 /// <summary>
+/// Блокирование ресурсов с ожидание их освобождения другими процессами.
+/// То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них.
+/// Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows.
 /// </summary>
 /// <param name="res"></param>
 inline void CVIEngineBase::Sync(void)
