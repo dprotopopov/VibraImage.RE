@@ -77,9 +77,11 @@
     <ClCompile Include="mmx_array2.cpp" />
     <ClCompile Include="MTSingleLock.cpp" />
     <ClCompile Include="PointSSE.cpp" />
+    <ClCompile Include="StatFPS.cpp" />
     <ClCompile Include="VIEngineAudio2.cpp" />
     <ClCompile Include="VIEngineConfig.cpp" />
     <ClCompile Include="VIEngineEvent.cpp" />
+    <ClCompile Include="VIEngineFace.cpp" />
     <ClCompile Include="VIEngineSimple.cpp" />
     <ClCompile Include="VITimer.cpp" />
   </ItemGroup>
@@ -92,9 +94,11 @@
     <ClInclude Include="MTSingleLock.h" />
     <ClInclude Include="PointSSE.h" />
     <ClInclude Include="STAT.h" />
+    <ClInclude Include="StatFPS.h" />
     <ClInclude Include="VIEngineAudio2.h" />
     <ClInclude Include="VIEngineConfig.h" />
     <ClInclude Include="VIEngineEvent.h" />
+    <ClInclude Include="VIEngineFace.h" />
     <ClInclude Include="VIEngineSimple.h" />
     <ClInclude Include="VITimer.h" />
     <ClInclude Include="VI_RESULT.h" />

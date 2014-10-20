@@ -116,7 +116,7 @@ public:
 		/// </summary>
 		mmx_array<int>  statHist/*(256)*/;  
 		/// <summary>
-		// гистограмма цветов по кадру
+		/// гистограмма цветов по кадру
 		/// </summary>
 		mmx_array<int>  statHistA/*(256)*/; 
 		/// <summary>
@@ -124,11 +124,11 @@ public:
 		/// </summary>
 		mmx_array<int>  statHistW/*(256)*/; 
 		/// <summary>
-		// гистограмма цветов в контуре
+		/// гистограмма цветов в контуре
 		/// </summary>
 		mmx_array<int>  statHistC/*(256)*/; 
 		/// <summary>
-		// округленный цвет
+		/// округленный цвет
 		/// </summary>
 		mmx_array<short> iLine/*(w)*/;      
 
@@ -172,10 +172,11 @@ public:
 	/// </summary>
 	std::vector<TMP_STAT>   m_stat; 
 	/// <summary>
-	/// Временный двумерный массив размещаемый в видео памяти
+	/// Временные данные. Временный двумерный массив размещаемый в видео памяти
 	/// </summary>
 	mmx_array2<float>       m_tmp;
 	/// <summary>
+	/// Временные данные.
 	/// </summary>
 	TMP_AURA_STAT           m_tmp_aura;
 public:
@@ -201,9 +202,9 @@ protected:
 public:
     int round(float v);
 public:
-    static int res2n(int res);
-    static bool IsModeA(int res);
-    static bool IsModeB(int res);
+    static int res2n(int res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной
+	static bool IsModeA(int res); // Вычисление признака работы в режиме A согласно списку допустимых значений переменной
+    static bool IsModeB(int res); // Вычисление признака работы в режиме B согласно списку допустимых значений переменной
 public:
 
     void Init(void);
@@ -241,10 +242,10 @@ inline int CVIEngineThread::round(float v)
     return (int)(v>=0? v+0.5f : v-0.5f);
 }
 /// <summary>
-/// Признак режима B
+/// Вычисление признака работы в режиме B согласно списку допустимых значений переменной res
 /// Расчитывается как отрицание признака режима A
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 inline bool CVIEngineThread::IsModeB(int res)
 {
     return !IsModeA(res);

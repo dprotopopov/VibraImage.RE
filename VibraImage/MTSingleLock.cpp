@@ -4,9 +4,9 @@
 /// <summary>
 /// Конструктор класса
 /// </summary>
-/// <param name="nLocks">Количество создаваемых семафоров</param>
+/// <param name="nLocks">Адресное пространство где находится семафор</param>
 /// <param name="bLock">Признак блокировать все семафоры при создании инстанса данного класса</param>
-CMTSingleLock::CMTSingleLock(int nLocks, bool bLock)
+CMTSingleLock::CMTSingleLock(CMTCriticalSection nLocks, bool bLock)
 {
 }
 

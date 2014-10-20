@@ -14,11 +14,13 @@
 \begin{DoxyCompactItemize}
 \item 
 int \hyperlink{class_c_v_i_engine_config_a41be84d81a153f85554171555094f20d}{Get\+I1} (int key)
-\begin{DoxyCompactList}\small\item\em Получение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ целое \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Чтение первого значения настроечного параметра по идентификатору ключа Возвращаемый тип -\/ целое \end{DoxyCompactList}\item 
+int \hyperlink{class_c_v_i_engine_config_a249203b70b96db461c500b429fe047c5}{Get\+I2} (int key)
+\begin{DoxyCompactList}\small\item\em Чтение второго значения настроечного параметра по идентификатору ключа Возвращаемый тип -\/ целое \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_config_a1f474cfcfadee9f76567fc84a10c5ad9}{Get\+F1} (int key)
-\begin{DoxyCompactList}\small\item\em Получение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ число с плавающей точкой \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Чтение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ число с плавающей точкой \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_config_a7721cb9715f79730d622f7e9c930a333}{Get\+I} (int key, int \&value1, int \&value2)
-\begin{DoxyCompactList}\small\item\em Получение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру Возвращает true если настроечный параметр задан, fase в противном случае. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Чтение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру Возвращает true если настроечный параметр задан, fase в противном случае. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_config_a5a4a7b7c7a9c1152998eabddf2ed020d}{Put\+I1} (int key, int value)
 \begin{DoxyCompactList}\small\item\em Сохранение настроечного параметра по идентификатору ключа Сохраняемый тип -\/ целое \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_config_a6ac9297ee130cbf9b4d44bf812b3dd89}{Put\+F1} (int key, float value)
@@ -45,7 +47,7 @@ void \hyperlink{class_c_v_i_engine_config_ad063dddb079aa1951199b446253ccbf3}{Reg
 )}}\label{class_c_v_i_engine_config_a1f474cfcfadee9f76567fc84a10c5ad9}
 
 
-Получение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ число с плавающей точкой 
+Чтение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ число с плавающей точкой 
 
 
 \begin{DoxyParams}{Parameters}
@@ -63,7 +65,7 @@ void \hyperlink{class_c_v_i_engine_config_ad063dddb079aa1951199b446253ccbf3}{Reg
 )}}\label{class_c_v_i_engine_config_a7721cb9715f79730d622f7e9c930a333}
 
 
-Получение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру Возвращает true если настроечный параметр задан, fase в противном случае. 
+Чтение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ пара значений целых, возвращаемая в переменные переданные по ссылкам в процедуру Возвращает true если настроечный параметр задан, fase в противном случае. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -83,7 +85,23 @@ void \hyperlink{class_c_v_i_engine_config_ad063dddb079aa1951199b446253ccbf3}{Reg
 )}}\label{class_c_v_i_engine_config_a41be84d81a153f85554171555094f20d}
 
 
-Получение настроечного параметра по идентификатору ключа Возвращаемый тип -\/ целое 
+Чтение первого значения настроечного параметра по идентификатору ключа Возвращаемый тип -\/ целое 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & Идентификатор ключа\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_c_v_i_engine_config_a249203b70b96db461c500b429fe047c5}{\index{C\+V\+I\+Engine\+Config@{C\+V\+I\+Engine\+Config}!Get\+I2@{Get\+I2}}
+\index{Get\+I2@{Get\+I2}!C\+V\+I\+Engine\+Config@{C\+V\+I\+Engine\+Config}}
+\subsubsection[{Get\+I2}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Config\+::\+Get\+I2 (
+\begin{DoxyParamCaption}
+\item[{int}]{key}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_config_a249203b70b96db461c500b429fe047c5}
+
+
+Чтение второго значения настроечного параметра по идентификатору ключа Возвращаемый тип -\/ целое 
 
 
 \begin{DoxyParams}{Parameters}

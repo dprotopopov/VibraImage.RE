@@ -109,17 +109,23 @@ class CVIEngineBase
 		/// </summary>
 		int m_nThreadsRqst;
 		/// <summary>
+		/// Текущее количество паралельных потоков вычислений, т.е. текущее количество дочерних инстансов классов CVIEngineThread для управления потоками вычислений
 		/// </summary>
-		int m_nThreads; // Текущее количество паралельных потоков вычислений, т.е. текущее количество инстансов классов CVIEngineThread для управления потоками вычислений
+		int m_nThreads; 
 		/// <summary>
 		/// </summary>
 		CVIEngineThread* m_therads[8]; // Массив(стек) ссылок на инстансы классов для управления потоками вычислений
 		/// <summary>
+		/// Адресное пространство где находятся семафоры.
+		/// Для семафора требуется участок памяти доступный из всех параллельных нитей.
+		/// Управление семафором осуществляктся через класс CMTSingleLock.
+		/// Статьи по теме http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx
 		/// </summary>
 		CMTCriticalSection m_locks[LVI_CNT];
 		/// <summary>
+		/// Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m_events[id] - это инстанс триггера для события с идентификатором id.
 		/// </summary>
-		CVIEngineEvent m_events[EVI_CNT]; // Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m_events[id] - это инстанс триггера для события с идентификатором id.
+		CVIEngineEvent m_events[EVI_CNT]; 
 
 
 		/// <summary>
@@ -132,6 +138,7 @@ class CVIEngineBase
 		CVITimerSync m_timerSync;
 	public:
 		/// <summary>
+		/// Отметка времени при обработке изображения кадра
 		/// </summary>
 		double m_tMakeImage;
 		/// <summary>
@@ -167,9 +174,15 @@ class CVIEngineBase
 		int m_bLock;
 
 		/// <summary>
+		/// Элемент для устранения конфликтов в многопроцессорной среде.
+		/// Используется в функции MakeImage().
+		/// Способ применения: m_nMake ++; ... КОД ЗДЕСЬ ... ; m_nMake --;
 		/// </summary>
 		int m_nMake;
 		/// <summary>
+		/// Элемент для устранения конфликтов в многопроцессорной среде.
+		/// Используется в функции Make().
+		/// Способ применения: m_cMake[command] ++; ... КОД ЗДЕСЬ ... ; m_cMake[command] --;
 		/// </summary>
 		int m_cMake[EVI_CNT];
 	public:
@@ -207,12 +220,17 @@ class CVIEngineBase
 		mmx_array2<float> m_srcMask; 
 
 		/// <summary>
+		/// Массив вычисленных различных изображений от различных обработчиков. По своей сути является картоы,
+		/// поскольку структура SUM_IMG содержит аттрибут id == идентификатору обработчика.
 		/// </summary>
 		std::vector<SUM_IMG> m_summ;
 		/// <summary>
+		/// Массив вычисленных различных статистик от различных обработчиков.
+		/// Данные в элементах массива формируются сведением данных от параллельных обработчиков фрагментов изображений.
 		/// </summary>
 		std::vector<SUMM_STAT> m_stat;
 		/// <summary>
+		/// Массив вычисленных различных статистик от различных обработчиков, предназначенный для отобоажения
 		/// </summary>
 		std::vector<SUMM_STAT> m_statRelease;
 		/// <summary>
@@ -227,40 +245,53 @@ class CVIEngineBase
 		std::vector<CVIEngineAura6> m_aura6B;
 
 		/// <summary>
+		/// Видимо относится к позиции вывода изображения на дисплей.
 		/// </summary>
 		CVIEngineVPos m_vPos;
 
 		/// <summary>
+		/// Видимо дополнительный алгоритм по расчёту параметров.
+		/// Название напоминает  усреднение чего-то.
 		/// </summary>
 		CStatAVG_Pack m_statAVG;
 		/// <summary>
+		/// Видимо дополнительный алгоритм по расчёту параметров.
+		/// Название напоминает Быстрое преобразование Фурье https://ru.wikipedia.org/wiki/Быстрое_преобразование_Фурье.
+		/// Одно из подобного класса быстрых преобразований - преобразования Адамара https://github.com/dprotopopov/fwht 
 		/// </summary>
 		CStatFFTW_Pack m_statFFT;
 
 #ifndef  SEQ_DISABLE_LD
 		/// <summary>
+		/// Видимо хук при добавлении параметра в настроечные параметры
 		/// </summary>
 		CStatLDF_Pack m_statLDF;
 #endif
 
 #ifndef  SEQ_DISABLE_FN
 		/// <summary>
+		/// Видимо хук при добавлении параметра в настроечные параметры
 		/// </summary>
 		CStatFN_Pack m_statFn;
 #endif
 
 		/// <summary>
+		/// Используемая палитра цветов
 		/// </summary>
 		RGBQUAD __declspec(align(16)) m_palI[256];
 
 		/// <summary>
+		/// Буфер данных для применения медианного фильтра
 		/// </summary>
 		std::list<int> m_divMaker;
 	public:
 		/// <summary>
+		/// Карта вычисленных изображений.
+		/// Каждому виду отображаемого результата соответствут свой ключ.
 		/// </summary>
 		std::map<int, DWORD*> m_resultPtr;
 		/// <summary>
+		/// Видимо текущее значение размеров формируемого изображения для визуализации
 		/// </summary>
 		SIZE m_resultSize;
 		/// <summary>
@@ -268,26 +299,33 @@ class CVIEngineBase
 		DWORD m_resultVer;
 	public:
 		/// <summary>
+		/// Аттрибут для определения частоты обработки кадров
 		/// </summary>
 		CStatFPS m_fpsIn;
 		/// <summary>
+		/// Аттрибут для определения частоты обработки кадров
 		/// </summary>
 		CStatFPS m_fpsOutF;
 		/// <summary>
+		/// Аттрибут для определения частоты обработки кадров
 		/// </summary>
 		CStatFPS m_fpsDropF;
 		/// <summary>
+		/// Аттрибут для определения частоты обработки кадров
 		/// </summary>
 		CStatFPS m_fpsOutR;
 		/// <summary>
+		/// Аттрибут для определения частоты обработки кадров
 		/// </summary>
 		CStatFPS m_fpsDropR;
 
 		/// <summary>
+		/// Инстанс на API манипулирования изображением
 		/// </summary>
 		CVIEngineCrop m_crop;
 #ifndef  SEQ_DISABLE_DISTORTION
 		/// <summary>
+		/// Вероятнее всего инстанс класса библиотеки видеоэффектов.
 		/// </summary>
 		CVIEngineDistortion m_Distortion;
 #endif  // #ifndef SEQ_DISABLE_DISTORTION
@@ -298,6 +336,7 @@ class CVIEngineBase
 		CVIEngineProcDT m_procF6;
 #ifndef  SEQ_LITE
 		/// <summary>
+		/// Указатель на инстанс API вывода на дисплей
 		/// </summary>
 		CVIEngineFace * m_pFace;
 #endif
@@ -306,14 +345,20 @@ class CVIEngineBase
 	static DWORD WINAPI AddImageThread( LPVOID lpParameter );
 	void AddImageThreadLocal();
 	int AddImageThreadProc();
-	HANDLE m_hThreadAddImage; // Дескриптор параллельной нити с обработчиком AddImageThreadLocal
+	/// <summary>
+	/// Дескриптор параллельной нити с обработчиком AddImageThreadLocal
+	/// </summary>
+	HANDLE m_hThreadAddImage; 
 	static DWORD WINAPI AddImageThread8( LPVOID lpParameter );
 	void AddImageThreadLocal8();
-	HANDLE m_hThreadAddImage8; // Дескриптор параллельной нити с обработчиком AddImageThreadLocal8
+	/// <summary>
+	/// Дескриптор параллельной нити с обработчиком AddImageThreadLocal8
+	/// </summary>
+	HANDLE m_hThreadAddImage8; 
 	public:
-	static int res2n(int res);
-	static bool IsModeA(int res);
-	static bool IsModeB(int res);
+	static int res2n(int res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной
+	static bool IsModeA(int res); // Вычисление признака работы в режиме A согласно списку допустимых значений переменной
+	static bool IsModeB(int res); // Вычисление признака работы в режиме B согласно списку допустимых значений переменной
 	public:
 
 	void CreateThreads(bool bLock=true);
@@ -343,7 +388,14 @@ class CVIEngineBase
 	void MakeStatSum(void);
 	void ClearStat(void);
 	void ClearStat(SUMM_STAT& S);
+	/// <summary>
+	/// Получение палитры цветов.
+	/// В предоставненом коде описание отсутствует, вызовов есть только в кострукторе класса.
+	/// </summary>
 	void MakeDefPal(RGBQUAD* pal);
+	/// <summary>
+	/// В предоставненом коде описание отсутствует, вызовов метода нет.
+	/// </summary>
 	void SetMode(int tag, int id);
 
 
@@ -370,8 +422,8 @@ class CVIEngineBase
 	int GetStatHistF(int res, int* pHist256,float *pFPS);
 	int GetStatHistFT(int res, int* pHist256,float *pDT);
 
-	void MakeAnger(void);
-	void MakeStress(void);
+	void MakeAnger(void); // Вызов одноимённого метода с параметрами для режима B и для режима A.
+	void MakeStress(void); // Вызов одноимённого метода с параметрами для режима B и для режима A.
 	void MakeAnger(bool bModeB);
 	void MakeStress(bool bModeB);
 	void MakeSin(void);
@@ -386,7 +438,7 @@ class CVIEngineBase
 	float MakeStateMacro(void);
 	float MakeState(float Ag, float St, float Tn);
 
-	void MakeFaceDraw();
+	void MakeFaceDraw(); // Вывод картинки на экран через API в классе CVIEngineFace.
 
 	float MakeCharming(int* pHist256, int len);
 	float MakeEntropyX(int* pHist256, int len);
@@ -412,7 +464,7 @@ class CVIEngineBase
 
 
 /// <summary>
-/// Блокирование ресурсов с ожидание их освобождения другими процессами.
+/// Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
 /// То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них.
 /// Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows.
 /// </summary>
@@ -423,6 +475,7 @@ inline void CVIEngineBase::Sync(void)
 }
 
 /// <summary>
+/// Видимо хук при добавлении параметра в настроечные параметры
 /// </summary>
 /// <param name="id"></param>
 /// <param name="subID"></param>
@@ -437,7 +490,7 @@ inline void CVIEngineBase::OnNewVar(int id, int subID)
 #endif
 
 	if(id > VI_FILTER_DISABLE_START && id < VI_FILTER_DISABLE_END)
-	OnNewVarDidable(id);
+	OnNewVarDidable(id); // Проверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.
 
 	if( CallbackOnNewVar )
 	CallbackOnNewVar(CallbackOnNewVarData,id,subID);
@@ -446,33 +499,43 @@ inline void CVIEngineBase::OnNewVar(int id, int subID)
 }
 
 /// <summary>
+/// Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
+/// Просто вызов одноимённой глобальной функции класса CVIEngineThread.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 inline int CVIEngineBase::res2n(int res)
 {
 	return CVIEngineThread::res2n(res);
 }
 
 /// <summary>
+/// Вычисление признака работы в режиме A согласно списку допустимых значений переменной res
+/// Просто вызов одноимённой глобальной функции класса CVIEngineThread.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 inline bool CVIEngineBase::IsModeA(int res)
 {
 	return CVIEngineThread::IsModeA(res);
 }
 /// <summary>
+/// Вычисление признака работы в режиме B согласно списку допустимых значений переменной res
+/// Просто вызов одноимённой глобальной функции класса CVIEngineThread.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 inline bool CVIEngineBase::IsModeB(int res)
 {
-	return CVIEngineThread::IsModeB(res);
+	return CVIEngineThread::IsModeB(res); // Вычисление признака работы в режиме B согласно списку допустимых значений переменной
 }
 
 /// <summary>
+/// Признак того чтобы пропустить обработку кадра.
+/// Причины пропусков:
+/// Программа работает по факту движения, то есть заданны настройки для сенсора движения;
+/// Либо фильтры работают по большему количеству кадров чем сейчас считано. 
 /// </summary>
 inline bool CVIEngineBase::IsSkip(void)
 {
-	if(IsMotion())
+	if(IsMotion()) // Чтение настройки для процедуры сенсора определения факта движения на основе ранее расчитанных статистических данных
 	return true;
 	if(m_cfg.GetI1(VI_VAR_NFRAME) < m_cfg.GetI1(VI_FILTER_NSKIP))
 	return true;

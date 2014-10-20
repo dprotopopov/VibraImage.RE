@@ -95,9 +95,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:accef84bf825a836b952f32223ec757bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_m_t_single_lock.html#accef84bf825a836b952f32223ec757bc">CMTSingleLock</a> (int nLocks, bool bLock)</td></tr>
-<tr class="memdesc:accef84bf825a836b952f32223ec757bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор класса  <a href="#accef84bf825a836b952f32223ec757bc">More...</a><br /></td></tr>
-<tr class="separator:accef84bf825a836b952f32223ec757bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71526b0b0a7d2ff6c8b32717f50e4424"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_m_t_single_lock.html#a71526b0b0a7d2ff6c8b32717f50e4424">CMTSingleLock</a> (<a class="el" href="class_c_m_t_critical_section.html">CMTCriticalSection</a> nLocks, bool bLock)</td></tr>
+<tr class="memdesc:a71526b0b0a7d2ff6c8b32717f50e4424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Конструктор класса  <a href="#a71526b0b0a7d2ff6c8b32717f50e4424">More...</a><br /></td></tr>
+<tr class="separator:a71526b0b0a7d2ff6c8b32717f50e4424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7586857614ac3719accc53d56e97573c"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_m_t_single_lock.html#a7586857614ac3719accc53d56e97573c">Lock</a> ()</td></tr>
 <tr class="memdesc:a7586857614ac3719accc53d56e97573c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Блокирование одного семафора  <a href="#a7586857614ac3719accc53d56e97573c">More...</a><br /></td></tr>
 <tr class="separator:a7586857614ac3719accc53d56e97573c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,14 +108,14 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Данный класс является классом для управления доступом к ресурсам в многопоточных приложениях Represents the access-control mechanism used in controlling access to a resource in a multithreaded program. <a href="http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx">http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx</a> </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="accef84bf825a836b952f32223ec757bc"></a>
+<a class="anchor" id="a71526b0b0a7d2ff6c8b32717f50e4424"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">CMTSingleLock::CMTSingleLock </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="class_c_m_t_critical_section.html">CMTCriticalSection</a>&#160;</td>
           <td class="paramname"><em>nLocks</em>, </td>
         </tr>
         <tr>
@@ -135,7 +135,7 @@ Public Member Functions</h2></td></tr>
 <p>Конструктор класса </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nLocks</td><td>Количество создаваемых семафоров</td></tr>
+    <tr><td class="paramname">nLocks</td><td>Адресное пространство где находится семафор</td></tr>
     <tr><td class="paramname">bLock</td><td>Признак блокировать все семафоры при создании инстанса данного класса</td></tr>
   </table>
   </dd>
@@ -185,7 +185,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 23:52:37 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 20 2014 05:37:54 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

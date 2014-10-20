@@ -1,0 +1,22 @@
+\hypertarget{class_c_m_t_critical_section}{\section{C\+M\+T\+Critical\+Section Class Reference}
+\label{class_c_m_t_critical_section}\index{C\+M\+T\+Critical\+Section@{C\+M\+T\+Critical\+Section}}
+}
+
+
+Данный класс является классом для работы со специальной памятью на которой реализуются семафоры. Реализация семафоров в многопроцессорных системах является не тривиальной задачей и эти механизмы выносятся как правило в ядро ОС, а иногда и в архитектуру процессора. Система Windows тоже содержит A\+P\+I для работы с Critical\+Section и с семафорами. Проблема заключается в том что операции работы с памятью в Critical\+Section должны быть атомарными -\/ то есть не могут быть выполнены одновременно двумя параллельными нитями. Represents the access-\/control mechanism used in controlling access to a resource in a multithreaded program. \href{http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/bwk62eb7.\+aspx}  
+
+
+
+
+{\ttfamily \#include $<$M\+T\+Single\+Lock.\+h$>$}
+
+
+
+\subsection{Detailed Description}
+Данный класс является классом для работы со специальной памятью на которой реализуются семафоры. Реализация семафоров в многопроцессорных системах является не тривиальной задачей и эти механизмы выносятся как правило в ядро ОС, а иногда и в архитектуру процессора. Система Windows тоже содержит A\+P\+I для работы с Critical\+Section и с семафорами. Проблема заключается в том что операции работы с памятью в Critical\+Section должны быть атомарными -\/ то есть не могут быть выполнены одновременно двумя параллельными нитями. Represents the access-\/control mechanism used in controlling access to a resource in a multithreaded program. \href{http://msdn.microsoft.com/en-us/library/bwk62eb7.aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/bwk62eb7.\+aspx} 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Vibra\+Image/M\+T\+Single\+Lock.\+h\end{DoxyCompactItemize}

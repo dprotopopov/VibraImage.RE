@@ -82,23 +82,22 @@ m_cfg(this)
 
     m_vPos.m_pBase = this;
 
-    SEQ_XOR_INIT(this);
+    SEQ_XOR_INIT(this); // Вероятно относится к защите от деассемблирования программы
 
-    m_nThreads = GetOptimalThreadCount();
+    m_nThreads = GetOptimalThreadCount(); // Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программа.
     ZeroMemory(m_therads,sizeof(m_therads));
     MakeDefPal(m_palI);
 
-    SEQ_GUARDANT_INIT(this);
+	SEQ_GUARDANT_INIT(this); // Вероятно относится к защите от деассемблирования программы
 
-    m_tMakeImage = m_timer.Get();
+    m_tMakeImage = m_timer.Get();  // Нормализованное в секунды значение часов
 
-    SEQ_INET_STEP01A(this);
+	SEQ_INET_STEP01A(this); // Вероятно относится к защите от деассемблирования программы
     m_bInit = true;
 }
 
 /// <summary>
 /// </summary>
-/// <param name=""></param>
 CVIEngineBase::~CVIEngineBase(void)
 {
     Stop();
@@ -107,11 +106,12 @@ CVIEngineBase::~CVIEngineBase(void)
 /// <summary>
 /// Запуск параллельных нитей Windows для параллельных вычислений.
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
-/// <param name="bLock"></param>
+/// <param name="bLock">Признак блокирования семафора LVI_ALL с ожиданием его освобождения другими процессами</param>
 void CVIEngineBase::CreateThreads(bool bLock)
 {
-    CMTSingleLock   lock(m_locks + LVI_ALL, bLock);
+    CMTSingleLock   lock(m_locks + LVI_ALL, bLock); // Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
     m_bDone = 0;
 
     int w,h,k;
@@ -151,17 +151,19 @@ void CVIEngineBase::CreateThreads(bool bLock)
 
 /// <summary>
 /// Останов ранее запущенных параллельных потоков для вычислений.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 /// <param name=""></param>
+/// <param name="bLock">Признак блокирования семафора LVI_ALL с ожиданием его освобождения другими процессами</param>
 void CVIEngineBase::CloseThreads(bool bLock)
 {
-    m_cfg.PutI1(VI_FILTER_PAUSE,1);
+	m_cfg.PutI1(VI_FILTER_PAUSE, 1); // Запись первого значения настроечного параметра по идентификатору ключа
 
     m_events[EVI_DONE].Set();
     if(m_therads[0] && m_therads[0]->m_hThread)
         Sleep(1000);
 
-    CMTSingleLock   slock(m_locks + LVI_SRC, true);
+    CMTSingleLock   slock(m_locks + LVI_SRC, true); // Блокирование семафора LVI_SRC с ожиданием его освобождения другими процессами.
     m_srcF.clear();
     slock.Unlock();
 
@@ -182,7 +184,7 @@ void CVIEngineBase::CloseThreads(bool bLock)
         }
     }
 
-    CMTSingleLock   lock(m_locks + LVI_ALL, bLock);
+	CMTSingleLock   lock(m_locks + LVI_ALL, bLock); // Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
 
     Make(EVI_DONE);
 
@@ -206,14 +208,19 @@ void CVIEngineBase::CloseThreads(bool bLock)
 
     lock.Unlock();
     m_bDone = 0;
-    m_cfg.PutI1(VI_FILTER_PAUSE,0);
+	m_cfg.PutI1(VI_FILTER_PAUSE, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Чтение очередного кадра изображения в аттрибут m_imgSrc8.
+/// Конвертация в массив чисел с плавающей точкой.
+/// Вызов когда требуется AddImageThreadProc().
+/// Процедура содержит задержку для соблюдения требуемой часоты чтения кадров.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 bool CVIEngineBase::AddImage8()
 {
-    if(!m_cfg.GetI1(VI_VAR_NFRAME_IN))
+    if(!m_cfg.GetI1(VI_VAR_NFRAME_IN)) // Чтение первого значения настроечного параметра по идентификатору ключа
         return false;
 
 	// GetTickCount function - Retrieves the number of milliseconds that have elapsed since the system was started, up to 49.7 days.
@@ -227,19 +234,19 @@ bool CVIEngineBase::AddImage8()
     if( m_bStop )
         return false;
 
-    float fpsMax = m_cfg.GetF1(VI_VAR_FPSMAXF);
-    BOOL bFpsDiv = (m_cfg.GetI1(VI_FILTER_FPSDIV));
+    float fpsMax = m_cfg.GetF1(VI_VAR_FPSMAXF); // Чтение первого значения настроечного параметра по идентификатору ключа
+    BOOL bFpsDiv = (m_cfg.GetI1(VI_FILTER_FPSDIV)); // Чтение первого значения настроечного параметра по идентификатору ключа
     ///////////////////////////////////////////////////////
     // делитель чк
     ///////////////////////////////////////////////////////
     if(bFpsDiv)
     {
 
-        float fpsIn = m_cfg.GetF1(VI_VAR_FPSIN);
+        float fpsIn = m_cfg.GetF1(VI_VAR_FPSIN); // Чтение первого значения настроечного параметра по идентификатору ключа
         int div = fpsMax > 0 ? round(fpsIn/fpsMax) : 1;
         if(div > 1  || m_cfg.GetI1(VI_VAR_NFRAME_IN) < 3)
         {
-            int N = m_cfg.GetI1(VI_VAR_NFRAME_IN);
+            int N = m_cfg.GetI1(VI_VAR_NFRAME_IN); // Чтение первого значения настроечного параметра по идентификатору ключа
             if(N%div != 0)
             {
                 return false;
@@ -248,8 +255,8 @@ bool CVIEngineBase::AddImage8()
     }
     ///////////////////////////////////////////////////////
 
-    m_cfg.PutI1(VI_VAR_FPS_BUFFER_SIZE, m_srcF.size());
-    CMTSingleLock   slock(m_locks + LVI_SRC, true);
+	m_cfg.PutI1(VI_VAR_FPS_BUFFER_SIZE, m_srcF.size()); // Запись первого значения настроечного параметра по идентификатору ключа
+    CMTSingleLock   slock(m_locks + LVI_SRC, true);  // Блокирование семафора LVI_SRC с ожиданием его освобождения другими процессами.
     if( !m_srcF.size() )
     {
         m_srcF.push_back( SRC_IMG() );
@@ -267,7 +274,7 @@ bool CVIEngineBase::AddImage8()
     if( NeedSrcImageProc() )
         img.ib = m_imgSrc8;
 
-    CMTSingleLock   lock(m_locks + LVI_SRC8, true);
+	CMTSingleLock   lock(m_locks + LVI_SRC8, true);  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
 
     CVIEngineSimple::cvt_8i_to_32f(p,img.i.p,size,this);
 
@@ -276,10 +283,10 @@ bool CVIEngineBase::AddImage8()
     m_stat2.Add(img.i.p,img.i.w,img.i.h);
 
     float fpsOutF = m_fpsOutF.Put();
-    m_cfg.PutF1(VI_VAR_FPSOUTF, min(fpsOutF,m_cfg.GetF1(VI_VAR_FPSIN)) );
+    m_cfg.PutF1(VI_VAR_FPSOUTF, min(fpsOutF,m_cfg.GetF1(VI_VAR_FPSIN)) );  // Запись первого значения настроечного параметра по идентификатору ключа
 
-    int nFrame = m_cfg.GetI1(VI_VAR_NFRAME_OUTF);
-    m_cfg.PutI1(VI_VAR_NFRAME_OUTF, nFrame + 1);
+    int nFrame = m_cfg.GetI1(VI_VAR_NFRAME_OUTF); // Чтение первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutI1(VI_VAR_NFRAME_OUTF, nFrame + 1); // Запись первого значения настроечного параметра по идентификатору ключа
 
     slock.Unlock();
 
@@ -290,7 +297,7 @@ bool CVIEngineBase::AddImage8()
 
     if(!bFpsDiv)
     {
-        float fpsCur = m_cfg.GetF1(VI_VAR_FPSOUTF);
+        float fpsCur = m_cfg.GetF1(VI_VAR_FPSOUTF); // Чтение первого значения настроечного параметра по идентификатору ключа
 
 		// GetTickCount function - Retrieves the number of milliseconds that have elapsed since the system was started, up to 49.7 days.
 		tE = GetTickCount();
@@ -313,16 +320,17 @@ bool CVIEngineBase::AddImage8()
 /// Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST.
 /// В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST,
 /// производится очистка массива m_srcF.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 bool CVIEngineBase::CheckFPSDIV()
 {
     if(m_cfg.GetI1(VI_FILTER_FPSDIV) == m_cfg.GetI1(VI_FILTER_FPSDIV_RQST))
         return false;
-    CMTSingleLock lock(m_locks + LVI_SRC, true);
+	CMTSingleLock lock(m_locks + LVI_SRC, true);  // Блокирование семафора LVI_SRC с ожиданием его освобождения другими процессами.
 
     m_srcF.clear();
 
-    m_cfg.PutI1(VI_FILTER_FPSDIV,m_cfg.GetI1(VI_FILTER_FPSDIV_RQST));
+	m_cfg.PutI1(VI_FILTER_FPSDIV, m_cfg.GetI1(VI_FILTER_FPSDIV_RQST)); // Запись первого значения настроечного параметра по идентификатору ключа
     return true;
 }
 
@@ -335,6 +343,7 @@ bool CVIEngineBase::CheckFPSDIV()
 /// Подготовка масок для обрабатываемых изображений.
 /// Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек.
 /// Поднятие флагов готовности данных для дальнейшей обработки.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 /// <param name="p"></param>
 /// <param name="w">Ширина изображения</param>
@@ -348,7 +357,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
     {
         double dt = t - m_tVideo;
         if(m_tVideoDT > 0 && fabs( (m_tVideoDT-dt)*2/(m_tVideoDT+dt) ) > 0.5)
-            m_cfg.PutI1(VI_VAR_NDROP,m_cfg.GetI1(VI_VAR_NDROP)+1);
+			m_cfg.PutI1(VI_VAR_NDROP, m_cfg.GetI1(VI_VAR_NDROP) + 1); // Запись первого значения настроечного параметра по идентификатору ключа
 
         m_tVideoDT = dt;
     } else
@@ -358,7 +367,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
         m_tVideoPrev = m_tVideo;
     m_tVideoTPrev = m_tVideoT;
     m_tVideo = t;
-    m_tVideoT = m_timer.Get();
+    m_tVideoT = m_timer.Get();  // Нормализованное в секунды значение часов
 
     if(p && w && h )
     {
@@ -374,13 +383,13 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
         return false;
     }
 
-    switch( m_cfg.GetI1(VI_VAR_CFG_INIT)  )
+    switch( m_cfg.GetI1(VI_VAR_CFG_INIT)  ) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         default:
         case 0:
             return false;
         case 1:
-            m_cfg.PutI1(VI_VAR_CFG_INIT,2);
+			m_cfg.PutI1(VI_VAR_CFG_INIT, 2); // Запись первого значения настроечного параметра по идентификатору ключа
         case 2:
             break;
     }
@@ -411,7 +420,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
 
         if( nw != w || nh != h )
         {
-            xlock.Lock();
+			xlock.Lock();  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
 
             if( m_crop.Crop(p,w,h,bpp,nw,nh) )
             {
@@ -425,24 +434,24 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
     {
         if(m_bDone || m_bStop)
             return false;
-        if( m_cfg.GetI1( VI_FILTER_PAUSE ) )
+        if( m_cfg.GetI1( VI_FILTER_PAUSE ) ) // Чтение первого значения настроечного параметра по идентификатору ключа
             return false;
 
-        int nFrame = m_cfg.GetI1(VI_VAR_NFRAME_IN);
-        m_cfg.PutI1(VI_VAR_NFRAME_IN, nFrame + 1);
+        int nFrame = m_cfg.GetI1(VI_VAR_NFRAME_IN); // Чтение первого значения настроечного параметра по идентификатору ключа
+		m_cfg.PutI1(VI_VAR_NFRAME_IN, nFrame + 1); // Запись первого значения настроечного параметра по идентификатору ключа
 
-        if(!m_cfg.GetI1(VI_FILTER_FPSDIV))
+        if(!m_cfg.GetI1(VI_FILTER_FPSDIV)) // Чтение первого значения настроечного параметра по идентификатору ключа
         {
-            int dfr = m_cfg.GetI1(VI_FILTER_FPS2IN);
+            int dfr = m_cfg.GetI1(VI_FILTER_FPS2IN); // Чтение первого значения настроечного параметра по идентификатору ключа
 
             if(!dfr && m_cfg.GetI1(VI_FILTER_AUTODOWNRATE) && m_tVideo > 5)
             {
-                float fpsMax = max( m_cfg.GetF1(VI_VAR_FPSMAXR),
-                                    m_cfg.GetF1(VI_VAR_FPSMAXF) );
+                float fpsMax = max( m_cfg.GetF1(VI_VAR_FPSMAXR), // Чтение первого значения настроечного параметра по идентификатору ключа
+                                    m_cfg.GetF1(VI_VAR_FPSMAXF) ); // Чтение первого значения настроечного параметра по идентификатору ключа
                 float fpsCur = m_fpsIn.Get();
 
                 if(fpsMax > 0)
-                    m_cfg.PutI1(VI_FILTER_FPS2IN,ceil(fpsCur/fpsMax));
+					m_cfg.PutI1(VI_FILTER_FPS2IN, ceil(fpsCur / fpsMax)); // Запись первого значения настроечного параметра по идентификатору ключа
             }
 
             if( dfr > 1 && (nFrame%dfr) != 0 )
@@ -460,7 +469,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
 
 
 
-    xlock.Lock();
+	xlock.Lock();  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
 
     if( m_imgSrcMask.size() == m_imgSrc8.size() )
     {
@@ -481,15 +490,15 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
                                              m_imgSrc8.begin(),m_imgSrc8.size());
             else
                 if( bpp == 8 )
-                    SSEmemcpy(m_imgSrc8.begin(),p,m_imgSrc8.size());
+                    SSEmemcpy(m_imgSrc8.begin(),p,m_imgSrc8.size()); // Копирование содержимого памяти
     }
 
     if(!m_bLock)
     {
-        if(!m_cfg.GetI1(VI_FILTER_FPSDIV))
-            m_cfg.PutF1(VI_VAR_FPSIN,   m_fpsIn.Put() );
+        if(!m_cfg.GetI1(VI_FILTER_FPSDIV)) // Чтение первого значения настроечного параметра по идентификатору ключа
+			m_cfg.PutF1(VI_VAR_FPSIN, m_fpsIn.Put()); // Запись первого значения настроечного параметра по идентификатору ключа
         else
-            m_cfg.PutF1(VI_VAR_FPSIN,   m_fpsIn.PutT(round(t*1000)) );
+			m_cfg.PutF1(VI_VAR_FPSIN, m_fpsIn.PutT(round(t * 1000))); // Запись первого значения настроечного параметра по идентификатору ключа
     }
 
     if(CallbackOnImg8)
@@ -499,13 +508,13 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
     if(m_cfg.GetI1(VI_FILTER_FPSDIV) && m_cfg.GetI1(VI_VAR_NFRAME_IN) < 3)
         return false;
 
-    CMTSingleLock   xlock24(m_locks + LVI_SRC24, true);
-    if( m_cfg.GetI1(VI_MODE_COLOR) )
+	CMTSingleLock   xlock24(m_locks + LVI_SRC24, true);  // Блокирование семафора LVI_SRC24 с ожиданием его освобождения другими процессами.
+    if( m_cfg.GetI1(VI_MODE_COLOR) ) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         m_imgSrc24.resize(w,h,false);
         int wh = w*h;
         if( bpp == 24 )
-            SSEmemcpy(m_imgSrc24.p,p,wh*3);
+            SSEmemcpy(m_imgSrc24.p,p,wh*3);  // Копирование содержимого памяти
         else
             CVIEngineSimple::cvt_gs8_to_gs24(p,m_imgSrc24.begin(),wh);
     } else
@@ -519,7 +528,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
 
         m_events[EVI_ADD8].Set();
 
-        if(m_cfg.GetI1(VI_FILTER_FPSDIV))
+        if(m_cfg.GetI1(VI_FILTER_FPSDIV)) // Чтение первого значения настроечного параметра по идентификатору ключа
             m_events[EVI_ADD8_READY].Wait(INFINITE,
                                           m_events[EVI_DONE].m_hEvent);
 
@@ -528,7 +537,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
     int rmode = m_cfg.GetI1(VI_MODE_RESULT);
     if( (rmode & VI_RESULT_SRC_MASK) || m_bLock)
     {
-        CMTSingleLock   rlock(m_locks + LVI_RESULT, true);
+		CMTSingleLock   rlock(m_locks + LVI_RESULT, true);  // Блокирование семафора LVI_RESULT с ожиданием его освобождения другими процессами.
         MakeResultSrc();
     }
 
@@ -560,6 +569,7 @@ bool CVIEngineBase::AddImage(void* p, int w, int h, int bpp, double t, int nRef)
 ///		m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1);
 /// Конец процедуры;
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 /// <param name="pFI">Указатель на массив пикселей в формате чисел с плавющей точной. Видимо зарезервировано для дайнейшего использования.</param>
 /// <param name="pBI">Указатель на массив пикселей в формате целых чисел. Использование зависит от флагов при компилировании программы в исполняемый код.</param>
@@ -576,7 +586,7 @@ bool CVIEngineBase::MakeImage(float* pFI, BYTE *pBI, int w, int h)
         return false;
 
     ++m_nMake;
-    CMTSingleLock   lock(m_locks + LVI_ALL, true);
+	CMTSingleLock   lock(m_locks + LVI_ALL, true);  // Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
 
     if( m_cfg.GetI1(VI_VAR_RESET) )
         Reset(true);
@@ -590,7 +600,7 @@ bool CVIEngineBase::MakeImage(float* pFI, BYTE *pBI, int w, int h)
         NextSrc(); // Сдвиг очереди кадров
 
     if(!m_bStop) // 080227
-        ClearStat();
+        ClearStat(); // Сброс, очистка и обнуление ранее вычисленных статистических значений.
 
     #ifndef SEQ_DISABLE_FACE
     CVIEngineFace::AddImage(this,pBI,w,h); // Получение очередного изображения
@@ -640,7 +650,7 @@ bool CVIEngineBase::MakeImage(float* pFI, BYTE *pBI, int w, int h)
     MakeAnger();
     MakeStress();
 
-    MakeState();
+    MakeState(); // Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров.
 
     #ifndef SEQ_DISABLE_FACE
     if(m_pFace)
@@ -648,27 +658,27 @@ bool CVIEngineBase::MakeImage(float* pFI, BYTE *pBI, int w, int h)
     #endif
     if(m_resultSize.cx == w && m_resultSize.cy == h && !m_bStop)
     {
-        int rmode = m_cfg.GetI1(VI_MODE_RESULT);
+        int rmode = m_cfg.GetI1(VI_MODE_RESULT); // Чтение первого значения настроечного параметра по идентификатору ключа
         if( rmode )
         {
-            CMTSingleLock   rlock(m_locks + LVI_RESULT, true);
+			CMTSingleLock   rlock(m_locks + LVI_RESULT, true);  // Блокирование семафора LVI_RESULT с ожиданием его освобождения другими процессами.
             Make(EVI_RESULT);
-            MakeFaceDraw();
+            MakeFaceDraw(); // Вывод картинки на экран через API в классе CVIEngineFace.
             ++m_resultVer;
         }
     }
 
     if(!m_bStop)
     {
-        m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put() );
-        m_cfg.PutI1(VI_VAR_NFRAME,  m_cfg.GetI1(VI_VAR_NFRAME)+1);
+		m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); // Запись первого значения настроечного параметра по идентификатору ключа
+		m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); // Запись первого значения настроечного параметра по идентификатору ключа
     }
 
     lock.Unlock();
 
     --m_nMake;
 
-    m_tMakeImage = m_timer.Get();
+    m_tMakeImage = m_timer.Get();  // Нормализованное в секунды значение часов
     //////////////////////
 
     return true;
@@ -722,7 +732,7 @@ bool CVIEngineBase::SetSize(int w, int h, int cnt)
 
 
 
-    ClearStat();
+    ClearStat(); // Сброс, очистка и обнуление ранее вычисленных статистических значений.
 
     CreateThreads();
 
@@ -733,15 +743,16 @@ bool CVIEngineBase::SetSize(int w, int h, int cnt)
 /// Сброс настроечного параметра VI_VAR_NFRAME.
 /// Изменение размера массивов m_arrSrc и m_arrDelta до размера  cnt + 1 и изменение размеров аллокированной под кадры памяти.
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 /// <param name="cnt">Новое количество обрабатываемых кадров</param>
 void CVIEngineBase::SetCount(int cnt, bool bLock)
 {
     Reset();
 
-    CMTSingleLock   lock(m_locks + LVI_ALL, bLock);
+	CMTSingleLock   lock(m_locks + LVI_ALL, bLock);  // Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
 
-    m_cfg.PutI1(VI_VAR_NFRAME,0);
+	m_cfg.PutI1(VI_VAR_NFRAME, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     m_arrSrc.resize(cnt + 1);
 
@@ -754,7 +765,7 @@ void CVIEngineBase::SetCount(int cnt, bool bLock)
     SIZE size;
     m_cfg.GetI(VI_VAR_SIZE,size.cx,size.cy);
 
-    int nFrame = m_cfg.GetI1(VI_VAR_NFRAME);
+    int nFrame = m_cfg.GetI1(VI_VAR_NFRAME); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     for(i = m_arrSrc.begin(), pos = 0; i != m_arrSrc.end(); ++i, ++pos)
     {
@@ -771,7 +782,7 @@ void CVIEngineBase::SetCount(int cnt, bool bLock)
 
 
 /// <summary>
-/// Сдвиг очереди кадров
+/// Сдвиг очереди кадров в памяти
 /// </summary>
 mmx_array2<float>& CVIEngineBase::NextSrc(void)
 {
@@ -781,13 +792,13 @@ mmx_array2<float>& CVIEngineBase::NextSrc(void)
     m_arrSrc.splice(m_arrSrc.begin(),m_arrSrc,i);
 
     FRAME_IMG& img = m_arrSrc.front();
-    img.n = m_cfg.GetI1(VI_VAR_NFRAME);
+    img.n = m_cfg.GetI1(VI_VAR_NFRAME); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     i = m_arrDelta.end();   --i;
     m_arrDelta.splice(m_arrDelta.begin(),m_arrDelta,i);
 
     FRAME_IMG& delta = m_arrDelta.front();
-    delta.n = m_cfg.GetI1(VI_VAR_NFRAME);
+    delta.n = m_cfg.GetI1(VI_VAR_NFRAME); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     return img.i;
 }
@@ -814,11 +825,18 @@ void CVIEngineBase::WaitThreads(void)
 
 
 /// <summary>
+/// Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера.
+/// Присвоение m_summ[i].id = pN[i] 
+/// и очистка памяти выделеной для хранения строк изображений m_summ[i].i.clear();m_summ[i].si.clear();
+/// Инициализация структур ClearStat(m_stat[i]) если азмер массивов был изменён.
+/// Для подробностей надо смотреть описание структуры SUM_IMG;
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
-/// <param name=""></param>
+/// <param name="cnt">Новый размер массивов</param>
+/// <param name="pN">Список значений аттрибута m_summ[i].id</param>
 void CVIEngineBase::SetSummCount(int cnt, int *pN)
 {
-    CMTSingleLock   lock(m_locks + LVI_ALL, true);
+	CMTSingleLock   lock(m_locks + LVI_ALL, true);  // Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
     bool bClear = false;
 
     int i;
@@ -847,33 +865,47 @@ void CVIEngineBase::SetSummCount(int cnt, int *pN)
 }
 
 /// <summary>
+/// Заполнение массива по указателю значениями pN[i] = m_cfg.GetI1(m_summ[i].id);
+/// Возвращает размер массива m_summ;
+/// Для подробностей надо смотреть описание структуры SUM_IMG;
 /// </summary>
-/// <param name=""></param>
+/// <param name="pN">Указатель на заполняемый массив значениями pN[i] = m_cfg.GetI1(m_summ[i].id);</param>
 int CVIEngineBase::GetSummCount(int *pN)
 {
     UINT cnt = m_summ.size();
     if(pN)
     {
         for(UINT i = 0; i  < cnt; ++i)
-            pN[i] = m_cfg.GetI1(m_summ[i].id);
+            pN[i] = m_cfg.GetI1(m_summ[i].id); // Чтение первого значения настроечного параметра по идентификатору ключа
     }
     return cnt;
 }
 
 /// <summary>
+/// Получение значения настроесного параметра return m_cfg.GetI1(m_summ[pos].id);
+/// Для подробностей надо смотреть описание структуры SUM_IMG;
 /// </summary>
-/// <param name=""></param>
+/// <param name="pos">Индекс элемента в массиве m_summ</param>
 int CVIEngineBase::GetSummCount(int pos)
 {
     int cnt = m_summ.size();
     if(pos < 0 || pos >= cnt)
         return -1;
-    return m_cfg.GetI1(m_summ[pos].id);
+    return m_cfg.GetI1(m_summ[pos].id); // Чтение первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Проверяет наличие записи в карте m_resultPtr по ключу id и значению ptr и совпадение размера в m_resultSize с переданными значениями.
+/// Если что-то не совпадает или не хватет, то 
+/// добавляет в карту m_resultPtr по ключу id значению ptr;
+/// задаёт значение размера m_resultSize равным переданным параметрам;
+/// Возвращает false если размер изображения не совпадает с хранящимся в настроечном параметре VI_VAR_SIZE;
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
-/// <param name=""></param>
+/// <param name="id">Ключ карты m_resultPtr</param>
+/// <param name="ptr"></param>
+/// <param name="w">Ширина изображения</param>
+/// <param name="h">Высота изображения</param>
 bool CVIEngineBase::SetResultPtr(int id, void* ptr, int w, int h)
 {
     if( w == m_resultSize.cx && h == m_resultSize.cy )
@@ -882,7 +914,7 @@ bool CVIEngineBase::SetResultPtr(int id, void* ptr, int w, int h)
         if(i != m_resultPtr.end() && i->second == ptr)
             return true;
     }
-    CMTSingleLock   lock(m_locks + LVI_RESULT, true);
+	CMTSingleLock   lock(m_locks + LVI_RESULT, true);  // Блокирование семафора LVI_RESULT с ожиданием его освобождения другими процессами.
     m_resultPtr[id] = (DWORD*)ptr;
     if(ptr)
         m_resultSize.cx = w, m_resultSize.cy = h;
@@ -898,8 +930,14 @@ bool CVIEngineBase::SetResultPtr(int id, void* ptr, int w, int h)
 
 /// <summary>
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
+/// Если он не задан, то берутся значения размеров из m_resultSize.
+/// Возвращает через параметры значение из карты m_resultPtr по ключу id и размеры изображения.
+/// Возвращает true, если размеры в VI_VAR_SIZE совпадают со значениями в m_resultSize и существует запись для ключа id в карте m_resultPtr.
 /// </summary>
-/// <param name=""></param>
+/// <param name="id">Ключ карты m_resultPtr</param>
+/// <param name="ptr">Указатель на возвращаемое значение указателя</param>
+/// <param name="pw">Указатель на возвращаемое значение ширины</param>
+/// <param name="ph">Указатель на возвращаемое значение высоты</param>
 bool CVIEngineBase::GetResultPtr(int id, void ** ptr, int* pw, int* ph)
 {
     int w,h;
@@ -945,7 +983,7 @@ void CVIEngineBase::Make(int command)
 }
 
 /// <summary>
-/// Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв.
+/// Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программа.
 /// Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) 
 /// То есть простенько - без вяких лишних околонаучных движений.
 /// SYSTEM_INFO info; GetSystemInfo(&info); nProc = info.dwNumberOfProcessors;
@@ -981,7 +1019,6 @@ int CVIEngineBase::GetOptimalThreadCount(void)
 /// Перед выполнении данной процедуры надо убедится в завершении расчётов в каждом отдельном параллельном потоке, поскольку в данном методе вызовов синхронизации нет - здесь полагается что все потоки вычислений уже закончили свои вычисления по текущему кадру.
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::MakeStatSum(void)
 {
     int t;
@@ -998,14 +1035,14 @@ void CVIEngineBase::MakeStatSum(void)
 
     for(int i = 0 ; i < cnt; ++i)
     {
-        BOOL disableSum = m_cfg.GetI1(VI_FILTER_DISABLE_VI0+i);
+        BOOL disableSum = m_cfg.GetI1(VI_FILTER_DISABLE_VI0+i); // Чтение первого значения настроечного параметра по идентификатору ключа
 
         SUMM_STAT& S = m_stat[i];
 
         if(disableSum)
         {
             if(!S.bClear)
-                ClearStat(S);
+                ClearStat(S); // Сброс, очистка и обнуление ранее вычисленных статистических значений.
             continue;
         }
 
@@ -1104,7 +1141,6 @@ void CVIEngineBase::ClearStat(SUMM_STAT& S)
 /// То есть подготовка массива m_stat структуры SUMM_STAT к очередному циклу обработки.
 /// Процедура вызывает одноимённый метод для каждого элемента массива m_stat.
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::ClearStat(void)
 {
     int cnt = m_stat.size();
@@ -1112,22 +1148,28 @@ void CVIEngineBase::ClearStat(void)
     for(int i = 0 ; i < cnt; ++i)
     {
         SUMM_STAT& S = m_stat[i];
-        ClearStat(S);
+        ClearStat(S); // Сброс, очистка и обнуление ранее вычисленных статистических значений.
     }
 }
 
 /// <summary>
-/// Задание идентификатора ключа в реестре Windows для хранения настроечных параметров
+/// Задание идентификатора ключа в реестре Windows для хранения группы настроечных параметров
 /// </summary>
-/// <param name="group">Идентификатор ключа в реестре Windows</param>
+/// <param name="group">Идентификатор группы ключей в реестре Windows</param>
 void CVIEngineBase::SetRegistry(LPCTSTR group)
 {
     m_cfg.SetRegistry(group);
 }
 
 /// <summary>
+/// Копирование из m_imgSrc8 значений x-ого столца и y-ой строки по указанным значениям указателей.
+/// m_imgSrc8 - двумерный массив монохромного изображения [0;255];
+/// То есть будет выполнятся преобразования из BYTE в float.
 /// </summary>
-/// <param name=""></param>
+/// <param name="x">Номер столбца</param>
+/// <param name="y">Номер строки</param>
+/// <param name="px">Указатель на массив возвращаемых значений столбца</param>
+/// <param name="py">Указатель на массив возвращаемых значений строки</param>
 bool CVIEngineBase::GetSrcLine8(int x, int y, float* px, float* py)
 {
     if( x < 0 || x >= m_imgSrc8.w || y < 0 || y >= m_imgSrc8.h )
@@ -1173,14 +1215,14 @@ bool CVIEngineBase::GetSumHist(int id, float* px, float* py)
     if((id & VI_RESULT_SRC_MASK) || (id & VI_RESULT_DELTA_MASK))
         return false;
 
-    UINT n = res2n(id);
+    UINT n = res2n(id); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
     if(n >= m_stat.size())
         return false;
 
     SUMM_STAT &S = m_stat[n];
     CVIEngineXHist *phx = 0,*phy = 0;
 
-    if( IsModeA(id) )
+    if( IsModeA(id) )  // Вычисление признака работы в режиме A согласно списку допустимых значений переменной
         phx = & S.xhistAX, phy = & S.xhistAY;
     else
         phx = & S.xhistBX, phy = & S.xhistBY;
@@ -1197,13 +1239,28 @@ bool CVIEngineBase::GetSumHist(int id, float* px, float* py)
 }
 
 /// <summary>
+/// Копирование значений x-ого столца и y-ой строки по указанным значениям указателей.
+/// Исходный массив для копирования определяется на основе настроечного параметра VI_MODE_RESULT.
+/// VI_RESULT_SRC_0 m_arrSrc.begin()->i.begin();
+/// VI_RESULT_SRC_A m_arrSrc.begin()->i.begin();
+/// VI_RESULT_SRC_B m_arrSrc.begin()->i.begin();
+/// VI_RESULT_VI0_A m_summ[0]->i[h*2];
+/// VI_RESULT_VI0_B m_summ[0]->i[h*3];
+/// VI_RESULT_VI1_A m_summ[1]->i[h*2];
+/// VI_RESULT_VI1_B m_summ[1]->i[h*3];
+/// VI_RESULT_VI2_A m_summ[2]->i[h*2];
+/// VI_RESULT_VI2_B m_summ[2]->i[h*3];
+/// VI_RESULT_DELTA_A m_arrDelta.begin()->i[0];
+/// VI_RESULT_DELTA_B m_arrDelta.begin()->i[0];
+/// Если m_cfg.GetI1(VI_MODE_RESULT) = VI_RESULT_DELTA_B, то производится умножение на 255.0;
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
+/// Применяется технология SSE для ускорения копирования и преобразования типов.
 /// </summary>
 /// <param name=""></param>
 bool CVIEngineBase::GetSrcLine(int x, int y, float* px, float* py)
 {
     if(m_bLock)
-        return GetSrcLine8(x,y,px,py);
+        return GetSrcLine8(x,y,px,py);// Копирование из m_imgSrc8 значений x-ого столца и y-ой строки по указанным значениям указателей.
 
     if(m_arrSrc.empty())
         return false;
@@ -1217,8 +1274,8 @@ bool CVIEngineBase::GetSrcLine(int x, int y, float* px, float* py)
 
     float *pImg = iSrc->i.begin();
 
-    int mode = m_cfg.GetI1(VI_MODE_RESULT);
-    bool bMul255 = false;
+    int mode = m_cfg.GetI1(VI_MODE_RESULT); // Чтение первого значения настроечного параметра по идентификатору ключа
+    bool bMul255 = false; // Равен true если m_cfg.GetI1(VI_MODE_RESULT) == VI_RESULT_DELTA_B
 
     SUM_IMG *pSum = 0;
     FRAME_IMG *pDelta = 0;
@@ -1366,33 +1423,32 @@ bool CVIEngineBase::GetSrcLine(int x, int y, float* px, float* py)
 /// VI_VAR_STAT_RES_P17 = MakeComS(m_stat[0].auraA);
 /// VI_VAR_STAT_RES_P18 = (VI_VAR_STAT_RES_P16 + VI_VAR_STAT_RES_P17) / 2;
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::StatUpdate(void)
 {
     SUMM_STAT *ps = 0;
 
     ps = &m_stat[0];
-    m_cfg.PutF1( VI_VAR_STAT_INTEGR0A, ps->sumAin );
-    m_cfg.PutF1( VI_VAR_STAT_INTEGR0B, ps->sumBin );
+	m_cfg.PutF1(VI_VAR_STAT_INTEGR0A, ps->sumAin); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STAT_INTEGR0B, ps->sumBin); // Запись первого значения настроечного параметра по идентификатору ключа
 
     ps = &m_stat[1];
-    m_cfg.PutF1( VI_VAR_STAT_INTEGR1A, ps->sumAin );
-    m_cfg.PutF1( VI_VAR_STAT_INTEGR1B, ps->sumBin );
+	m_cfg.PutF1(VI_VAR_STAT_INTEGR1A, ps->sumAin); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STAT_INTEGR1B, ps->sumBin); // Запись первого значения настроечного параметра по идентификатору ключа
 
     ps = &m_stat[2];
-    m_cfg.PutF1( VI_VAR_STAT_INTEGR2A, ps->sumAin );
-    m_cfg.PutF1( VI_VAR_STAT_INTEGR2B, ps->sumBin );
+	m_cfg.PutF1(VI_VAR_STAT_INTEGR2A, ps->sumAin); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STAT_INTEGR2B, ps->sumBin); // Запись первого значения настроечного параметра по идентификатору ключа
 
     ps = &m_stat[0];
 
-    BOOL disabled2X =m_cfg.GetI1(VI_FILTER_DISABLE_2X);
+    BOOL disabled2X =m_cfg.GetI1(VI_FILTER_DISABLE_2X); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     ///////////////////////////////
     // A1
     ///////////////////////////////
-    m_cfg.PutF1( VI_VAR_STAT_RES_A1, ps->dsumAin );
+    m_cfg.PutF1( VI_VAR_STAT_RES_A1, ps->dsumAin );  // Запись первого значения настроечного параметра по идентификатору ключа
     if(disabled2X)
-        m_cfg.PutF1( VI_VAR_STAT_RES_A1X, ps->dsumAin );
+        m_cfg.PutF1( VI_VAR_STAT_RES_A1X, ps->dsumAin );  // Запись первого значения настроечного параметра по идентификатору ключа
 
     ///////////////////////////////
     // A2
@@ -1409,7 +1465,7 @@ void CVIEngineBase::StatUpdate(void)
         if( cr )
             sum += sr/cr;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_A2,sum/2.0f );
+        m_cfg.PutF1( VI_VAR_STAT_RES_A2,sum/2.0f ); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1428,26 +1484,26 @@ void CVIEngineBase::StatUpdate(void)
         if( cr )
             sum += sr/cr;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_A3,sum/2.0f );
+		m_cfg.PutF1(VI_VAR_STAT_RES_A3, sum / 2.0f); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
     ///////////////////////////////
     // A4
     ///////////////////////////////
-    m_cfg.PutF1( VI_VAR_STAT_RES_A4, m_statAVG.Get(VI_VAR_STAT_RES_A1) );
+	m_cfg.PutF1(VI_VAR_STAT_RES_A4, m_statAVG.Get(VI_VAR_STAT_RES_A1)); // Запись первого значения настроечного параметра по идентификатору ключа
     if(disabled2X)
-        m_cfg.PutF1(VI_VAR_STAT_RES_A4X, m_statAVG.Get(VI_VAR_STAT_RES_A1X) );
+		m_cfg.PutF1(VI_VAR_STAT_RES_A4X, m_statAVG.Get(VI_VAR_STAT_RES_A1X)); // Запись первого значения настроечного параметра по идентификатору ключа
 
     ///////////////////////////////
     // F1
     ///////////////////////////////
-    m_cfg.PutF1( VI_VAR_STAT_RES_F1, ps->dsumBin );
+	m_cfg.PutF1(VI_VAR_STAT_RES_F1, ps->dsumBin); // Запись первого значения настроечного параметра по идентификатору ключа
     if(disabled2X)
     {
-        m_cfg.PutF1( VI_VAR_STAT_RES_F1X, ps->dsumBin );
+		m_cfg.PutF1(VI_VAR_STAT_RES_F1X, ps->dsumBin); // Запись первого значения настроечного параметра по идентификатору ключа
         // F6
-        m_procF6.add( m_cfg.GetF1(VI_VAR_STAT_RES_F1X) ) ;
+        m_procF6.add( m_cfg.GetF1(VI_VAR_STAT_RES_F1X) ) ; 
     }
     ///////////////////////////////
     // F2
@@ -1464,7 +1520,7 @@ void CVIEngineBase::StatUpdate(void)
         if( cr )
             sum += sr/cr;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_F2,sum/2.0f );
+		m_cfg.PutF1(VI_VAR_STAT_RES_F2, sum / 2.0f); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1483,7 +1539,7 @@ void CVIEngineBase::StatUpdate(void)
         if( cr )
             sum += sr/cr;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_F3,sum/2.0f );
+		m_cfg.PutF1(VI_VAR_STAT_RES_F3, sum / 2.0f); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1499,18 +1555,18 @@ void CVIEngineBase::StatUpdate(void)
     ///////////////////////////////
     // F5
     ///////////////////////////////
-    if(!IsSkip())
+    if(!IsSkip()) // Признак того чтобы пропустить обработку кадра
     {
-        m_cfg.PutF1( VI_VAR_STAT_RES_F5, m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1) );
+		m_cfg.PutF1(VI_VAR_STAT_RES_F5, m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1)); // Запись первого значения настроечного параметра по идентификатору ключа
 
         if(disabled2X)
-            m_cfg.PutF1(VI_VAR_STAT_RES_F5X, m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1X) );
+			m_cfg.PutF1(VI_VAR_STAT_RES_F5X, m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1X)); // Запись первого значения настроечного параметра по идентификатору ключа
     } else
     {
-        m_cfg.PutF1( VI_VAR_STAT_RES_F5, 0 );
+		m_cfg.PutF1(VI_VAR_STAT_RES_F5, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
         if(disabled2X)
-            m_cfg.PutF1(VI_VAR_STAT_RES_F5X, 0 );
+			m_cfg.PutF1(VI_VAR_STAT_RES_F5X, 0); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1528,7 +1584,7 @@ void CVIEngineBase::StatUpdate(void)
         if(crl)
             sum = (sl-sr)/crl;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_S1,sum );
+		m_cfg.PutF1(VI_VAR_STAT_RES_S1, sum); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1546,7 +1602,7 @@ void CVIEngineBase::StatUpdate(void)
         if(crl)
             sum = (sl-sr)/crl;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_S2,sum );
+		m_cfg.PutF1(VI_VAR_STAT_RES_S2, sum); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1564,7 +1620,7 @@ void CVIEngineBase::StatUpdate(void)
         if(crl)
             sum = (sl-sr)/crl;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_S3,sum );
+		m_cfg.PutF1(VI_VAR_STAT_RES_S3, sum); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1580,7 +1636,7 @@ void CVIEngineBase::StatUpdate(void)
         if(crl)
             sum = (float)(cl-cr)/(float)crl;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_S4,sum );
+		m_cfg.PutF1(VI_VAR_STAT_RES_S4, sum); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1596,7 +1652,7 @@ void CVIEngineBase::StatUpdate(void)
         if(crl)
             sum = (float)(cl-cr)/(float)crl;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_S5,sum );
+		m_cfg.PutF1(VI_VAR_STAT_RES_S5, sum); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1612,7 +1668,7 @@ void CVIEngineBase::StatUpdate(void)
         if(crl)
             sum = (float)(cl-cr)/(float)crl;
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_S6,sum );
+		m_cfg.PutF1(VI_VAR_STAT_RES_S6, sum); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1630,7 +1686,7 @@ void CVIEngineBase::StatUpdate(void)
     ///////////////////////////////
     {
         ps = &m_stat[1];
-        m_cfg.PutF1( VI_VAR_STAT_RES_P1, ps->auraB.statCS );
+		m_cfg.PutF1(VI_VAR_STAT_RES_P1, ps->auraB.statCS); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1648,7 +1704,7 @@ void CVIEngineBase::StatUpdate(void)
     ///////////////////////////////
     {
         ps = &m_stat[1];
-        m_cfg.PutF1( VI_VAR_STAT_RES_P3, ps->auraB.statSim );
+		m_cfg.PutF1(VI_VAR_STAT_RES_P3, ps->auraB.statSim); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1657,7 +1713,7 @@ void CVIEngineBase::StatUpdate(void)
     ///////////////////////////////
     {
         ps = &m_stat[0];
-        m_cfg.PutF1( VI_VAR_STAT_RES_P4, ps->auraB.statSim );
+		m_cfg.PutF1(VI_VAR_STAT_RES_P4, ps->auraB.statSim); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1668,7 +1724,7 @@ void CVIEngineBase::StatUpdate(void)
     {
         ps = &m_stat[0];
         mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraA.statHistW : ps->auraA.statHist;
-        m_cfg.PutF1( VI_VAR_STAT_RES_P8A, MakeCharming(hist.p,hist.s));
+		m_cfg.PutF1(VI_VAR_STAT_RES_P8A, MakeCharming(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
@@ -1678,12 +1734,12 @@ void CVIEngineBase::StatUpdate(void)
     {
         ps = &m_stat[0];
         mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraB.statHistW : ps->auraB.statHist;
-        m_cfg.PutF1( VI_VAR_STAT_RES_P8F, MakeCharming(hist.p,hist.s));
+		m_cfg.PutF1(VI_VAR_STAT_RES_P8F, MakeCharming(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 
 
-    if(! m_cfg.GetI1(VI_FILTER_DISABLE_ENTR) )
+    if(! m_cfg.GetI1(VI_FILTER_DISABLE_ENTR) ) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         ///////////////////////////////
         // P9A
@@ -1691,7 +1747,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraA.statHistW : ps->auraA.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P9A, MakeEntropyH(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P9A, MakeEntropyH(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1701,7 +1757,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraB.statHistW : ps->auraB.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P9F, MakeEntropyH(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P9F, MakeEntropyH(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1711,7 +1767,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraA.statHistW : ps->auraA.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P10A, MakeEntropyD(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P10A, MakeEntropyD(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1721,7 +1777,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraB.statHistW : ps->auraB.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P10F, MakeEntropyD(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P10F, MakeEntropyD(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1731,7 +1787,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraA.statHistW : ps->auraA.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P11A, MakeEntropyX(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P11A, MakeEntropyX(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1741,7 +1797,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraB.statHistW : ps->auraB.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P11F, MakeEntropyX(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P11F, MakeEntropyX(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1751,7 +1807,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraA.statHistW : ps->auraA.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P12A, MakeEntropyS(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P12A, MakeEntropyS(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
 
@@ -1761,7 +1817,7 @@ void CVIEngineBase::StatUpdate(void)
         {
             ps = &m_stat[0];
             mmx_array<int>& hist = m_cfg.GetI1(VI_FILTER_HISTNW)? ps->auraB.statHistW : ps->auraB.statHist;
-            m_cfg.PutF1( VI_VAR_STAT_RES_P12F, MakeEntropyS(hist.p,hist.s));
+			m_cfg.PutF1(VI_VAR_STAT_RES_P12F, MakeEntropyS(hist.p, hist.s)); // Запись первого значения настроечного параметра по идентификатору ключа
         }
         ///////////////////////////////
     }
@@ -1776,9 +1832,9 @@ void CVIEngineBase::StatUpdate(void)
         float CN = MakeComN(hist.p,hist.s);
         float CS = MakeComS(m_stat[0].auraA);
 
-        m_cfg.PutF1( VI_VAR_STAT_RES_P16, CN);
-        m_cfg.PutF1( VI_VAR_STAT_RES_P17, CS);
-        m_cfg.PutF1( VI_VAR_STAT_RES_P18, (CN+CS)*0.5f );
+		m_cfg.PutF1(VI_VAR_STAT_RES_P16, CN); // Запись первого значения настроечного параметра по идентификатору ключа
+		m_cfg.PutF1(VI_VAR_STAT_RES_P17, CS); // Запись первого значения настроечного параметра по идентификатору ключа
+		m_cfg.PutF1(VI_VAR_STAT_RES_P18, (CN + CS)*0.5f); // Запись первого значения настроечного параметра по идентификатору ключа
     }
     ///////////////////////////////
 }
@@ -1813,8 +1869,13 @@ DWORD CVIEngineBase::AddImageThread(LPVOID lpParameter)
 }
 
 /// <summary>
+/// Назначение процедуры - чтение кадров с требуемой частотой и запуск обработки, заданной VI_VAR_FPSMAXR.
+/// Телодвижения в коде несовсем понятны, но в результате всё сводится к запуску MakeImage - процедуры обработки очередной порции кадров изображения.
+/// Хотя по-ходу успевают к чему-то применить медианный фильтр - это фильтр подавления шумов на изображении.
+/// Возвращает требуемую задержку в тиках ( 1000 тиков = 1 сек ) перед следующим запуском этой процедуры, рассчитанную на основе настроечного параметра VI_VAR_FPSMAXR, то есть чтобы обработка шла с заданным количеством кадров/сек.
+/// Данный метод вызывается в цикле в методе AddImageThreadLocal, который вызывается в свою очередь из метода "рабочего" процесса Windows, запускаемого единственной параллельной нитью - то есть просто цикл в бэкграунде.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
-/// <param name=""></param>
 int CVIEngineBase::AddImageThreadProc()
 {
     CMTSingleLock lock(m_locks + LVI_SRC, false);
@@ -1828,14 +1889,14 @@ int CVIEngineBase::AddImageThreadProc()
 	// GetTickCount function - Retrieves the number of milliseconds that have elapsed since the system was started, up to 49.7 days.
 	tS = GetTickCount();
 
-    if( m_cfg.GetI1(VI_FILTER_PAUSE) )
+    if( m_cfg.GetI1(VI_FILTER_PAUSE) ) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         return 10;
     }
 
-    lock.Lock();
+	lock.Lock();  // Блокирование семафора LVI_SRC с ожиданием его освобождения другими процессами.
 
-    BOOL bFpsDiv = (m_cfg.GetI1(VI_FILTER_FPSDIV));
+    BOOL bFpsDiv = (m_cfg.GetI1(VI_FILTER_FPSDIV)); // Чтение первого значения настроечного параметра по идентификатору ключа
     if( m_srcF.empty() )
         return 1;
 
@@ -1850,15 +1911,15 @@ int CVIEngineBase::AddImageThreadProc()
             m_srcF.clear();
 
         int div = 1;
-        if(m_cfg.GetI1(VI_FILTER_FPS2IN))
+        if(m_cfg.GetI1(VI_FILTER_FPS2IN)) // Чтение первого значения настроечного параметра по идентификатору ключа
         {
             m_divMaker.clear();
-            div = m_cfg.GetI1(VI_FILTER_FPS2IN);
+            div = m_cfg.GetI1(VI_FILTER_FPS2IN); // Чтение первого значения настроечного параметра по идентификатору ключа
         }
         else
-            if(fpsMax > 0 && m_cfg.GetI1(VI_VAR_NFRAME_IN) > 2)
+            if(fpsMax > 0 && m_cfg.GetI1(VI_VAR_NFRAME_IN) > 2) // Чтение первого значения настроечного параметра по идентификатору ключа
             {
-                float fpsIn = m_cfg.GetF1(VI_VAR_FPSIN);
+                float fpsIn = m_cfg.GetF1(VI_VAR_FPSIN); // Чтение первого значения настроечного параметра по идентификатору ключа
                 div = round(fpsIn/fpsMax);
                 if(div)
                     m_divMaker.push_back(div);
@@ -1867,12 +1928,12 @@ int CVIEngineBase::AddImageThreadProc()
 
             bool bSkip = false;
 
-        if(m_cfg.GetI1(VI_VAR_NFRAME_IN) < 5)
+        if(m_cfg.GetI1(VI_VAR_NFRAME_IN) < 5) // Чтение первого значения настроечного параметра по идентификатору ключа
             bSkip = true;
         else
             if(div > 1)
             {
-                int N = m_cfg.GetI1(VI_VAR_NFRAME_IN);
+                int N = m_cfg.GetI1(VI_VAR_NFRAME_IN); // Чтение первого значения настроечного параметра по идентификатору ключа
                 if(N%div != 0 || N < 5)
                     bSkip = true;
             }
@@ -1882,15 +1943,15 @@ int CVIEngineBase::AddImageThreadProc()
     }
     ///////////////////////////////////////////////////////
 
-    m_cfg.PutI1(VI_VAR_FPS_BUFFER_SIZE, m_srcF.size());
-    lock.Unlock();
+	m_cfg.PutI1(VI_VAR_FPS_BUFFER_SIZE, m_srcF.size()); // Запись первого значения настроечного параметра по идентификатору ключа
+	lock.Unlock();  // Освобождение ранее заблокированного семафора LVI_SRC
 
     bool bMake = true;
 
     if(bMake && !m_bDone)
     {
         SRC_IMG& img = cur.front();
-        MakeImage(img.i.begin(),img.ib.begin(),img.i.w,img.i.h);
+        MakeImage(img.i.begin(),img.ib.begin(),img.i.w,img.i.h); // Процедура обработки очередной порции кадров изображения.
     }
     cur.clear();
 
@@ -1924,7 +1985,7 @@ void CVIEngineBase::AddImageThreadLocal()
 {
     while(!m_bDone && !m_bStop)
     {
-        if(!m_cfg.GetI1(VI_FILTER_FPSDIV))
+        if(!m_cfg.GetI1(VI_FILTER_FPSDIV)) // Чтение первого значения настроечного параметра по идентификатору ключа
         {
             UINT dt = AddImageThreadProc();
             if(dt) Sleep(min(dt,2000));
@@ -1937,9 +1998,9 @@ void CVIEngineBase::AddImageThreadLocal()
     Sleep(250);
 
     CMTSingleLock lock(m_locks + LVI_SRC, false);
-    lock.Lock();
+    lock.Lock();  // Блокирование семафора LVI_SRC с ожиданием его освобождения другими процессами.
     m_srcF.clear();
-    lock.Unlock();
+	lock.Unlock();  // Освобождение ранее заблокированного семафора LVI_SRC
 }
 
 /// <summary>
@@ -1979,7 +2040,6 @@ void CVIEngineBase::AddImageThreadLocal8()
 /// Останов захвата изображения или звука
 /// Останов дочерних потоков вычислений
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::Stop(void)
 {
     m_bStop = 1;
@@ -2008,7 +2068,7 @@ void CVIEngineBase::Stop(void)
 /// <param name="bSet">Признак паузы или продолжения</param>
 void CVIEngineBase::Pause(bool bSet)
 {
-    m_cfg.PutI1(VI_FILTER_PAUSE,bSet?1:0);
+	m_cfg.PutI1(VI_FILTER_PAUSE, bSet ? 1 : 0); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 
@@ -2029,15 +2089,15 @@ void CVIEngineBase::Pause(bool bSet)
 /// <param name="bReset"></param>
 void CVIEngineBase::Reset(bool bReset)
 {
-    if(!bReset && m_cfg.GetI1(VI_VAR_SIZE))
+    if(!bReset && m_cfg.GetI1(VI_VAR_SIZE)) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
-        m_cfg.PutI1(VI_VAR_RESET,1);
+		m_cfg.PutI1(VI_VAR_RESET, 1); // Запись первого значения настроечного параметра по идентификатору ключа
         return;
     }
 
     Pause(true);
 
-    ClearStat();
+    ClearStat(); // Сброс, очистка и обнуление ранее вычисленных статистических значений.
     int nSum = m_summ.size(),k;
 
     #ifndef SEQ_DISABLE_LD
@@ -2068,20 +2128,20 @@ void CVIEngineBase::Reset(bool bReset)
         i->i.set0();
 
     for( k = VI_STAT_START; k < VI_STAT_END; ++k )
-        m_cfg.PutF1(k,0);
+		m_cfg.PutF1(k, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     for( k = VI_STAT_EXT_START; k < VI_STAT_EXT_END; ++k )
-        m_cfg.PutF1(k,0);
+		m_cfg.PutF1(k, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     m_statFFT.Reset();
     m_statAVG.Reset();
     m_procF6.Reset();
 
-    m_cfg.PutI1(VI_VAR_NDROP,0);
+	m_cfg.PutI1(VI_VAR_NDROP, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     Pause(false);
 
-    m_cfg.PutI1(VI_VAR_RESET,0);
+	m_cfg.PutI1(VI_VAR_RESET, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
@@ -2095,23 +2155,30 @@ void CVIEngineBase::MakeStatFS2(float* src, int sw, int sh)
 }
 
 /// <summary>
+/// Сохранение текущих значений FPS - аттрибуты типа CStatFPS - в настроечные параметры.
+///		VI_VAR_FPSIN;
+///		VI_VAR_FPSOUTF;
+///		VI_VAR_FPSOUTR;
+///		VI_VAR_FPSDROPF;
+///		VI_VAR_FPSDROPR;
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::FlushFPS(void)
 {
     float fpsIn = m_fpsIn.Get();
     float fpsOutF = m_fpsOutF.Get();
     float fpsOutR = m_fpsOutR.Get();
-    m_cfg.PutF1(VI_VAR_FPSIN,   fpsIn );
-    m_cfg.PutF1(VI_VAR_FPSOUTF, min(fpsIn,fpsOutF) );
-    m_cfg.PutF1(VI_VAR_FPSOUTR, min(fpsIn,fpsOutR) );
-    m_cfg.PutF1(VI_VAR_FPSDROPF,    m_fpsDropF.Get() );
-    m_cfg.PutF1(VI_VAR_FPSDROPR,    m_fpsDropR.Get() );
+	m_cfg.PutF1(VI_VAR_FPSIN, fpsIn); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_FPSOUTF, min(fpsIn, fpsOutF)); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_FPSOUTR, min(fpsIn, fpsOutR)); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_FPSDROPF, m_fpsDropF.Get()); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_FPSDROPR, m_fpsDropR.Get()); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Начальная инициализация инстанса класса
+/// Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера == 3. 
+/// Присвоение m_summ[i].id =  { VI_VAR_N0, VI_VAR_N1, VI_VAR_N2 }[i] 
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::Start(void)
 {
     m_cfg.Init();
@@ -2120,7 +2187,7 @@ void CVIEngineBase::Start(void)
     #endif
 
     int id[3] = { VI_VAR_N0, VI_VAR_N1, VI_VAR_N2 };
-    SetSummCount(3,id);
+    SetSummCount(3,id); // Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера. Присвоение m_summ[i].id = pN[i] 
 }
 
 /// <summary>
@@ -2140,13 +2207,13 @@ bool CVIEngineBase::CheckNRqst(int w, int h)
     int n1c,n1r;
     int n2c,n2r;
 
-    n0c = m_cfg.GetI1(VI_VAR_N0);
-    n1c = m_cfg.GetI1(VI_VAR_N1);
-    n2c = m_cfg.GetI1(VI_VAR_N2);
+    n0c = m_cfg.GetI1(VI_VAR_N0); // Чтение первого значения настроечного параметра по идентификатору ключа
+    n1c = m_cfg.GetI1(VI_VAR_N1); // Чтение первого значения настроечного параметра по идентификатору ключа
+    n2c = m_cfg.GetI1(VI_VAR_N2); // Чтение первого значения настроечного параметра по идентификатору ключа
 
-    n0r = m_cfg.GetI1(VI_VAR_N0_RQST);
-    n1r = m_cfg.GetI1(VI_VAR_N1_RQST);
-    n2r = m_cfg.GetI1(VI_VAR_N2_RQST);
+    n0r = m_cfg.GetI1(VI_VAR_N0_RQST); // Чтение первого значения настроечного параметра по идентификатору ключа
+    n1r = m_cfg.GetI1(VI_VAR_N1_RQST); // Чтение первого значения настроечного параметра по идентификатору ключа
+    n2r = m_cfg.GetI1(VI_VAR_N2_RQST); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     if( n0c != n0r ) bNew = true;
     if( n1c != n1r ) bNew = true;
@@ -2158,9 +2225,9 @@ bool CVIEngineBase::CheckNRqst(int w, int h)
 
     Reset(true);
 
-    m_cfg.PutI1(VI_VAR_N0,n0r);
-    m_cfg.PutI1(VI_VAR_N1,n1r);
-    m_cfg.PutI1(VI_VAR_N2,n2r);
+	m_cfg.PutI1(VI_VAR_N0, n0r); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutI1(VI_VAR_N1, n1r); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutI1(VI_VAR_N2, n2r); // Запись первого значения настроечного параметра по идентификатору ключа
 
     int mCnt = max( n0r, max(n1r,n2r) );
     if(mCnt < 2)
@@ -2172,6 +2239,7 @@ bool CVIEngineBase::CheckNRqst(int w, int h)
 
 
 /// <summary>
+/// Вывод результата на дисплей.
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 /// <param name=""></param>
@@ -2200,17 +2268,25 @@ void CVIEngineBase::MakeResultSrc()
         proc.MakeResultSrc(VI_RESULT_SRC_B);
     }
 
-    MakeFaceDraw();
+    MakeFaceDraw(); // Вывод картинки на экран через API в классе CVIEngineFace.
 
     ++m_resultVer;
 }
 
 /// <summary>
+/// Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант N).
+/// Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR.
+/// В предоставленном коде вызовов метода нет.
 /// </summary>
-/// <param name=""></param>
+/// <param name="res">Набор двоичных флагов</param>
+/// <param name="pHist256">
+/// Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость.
+/// При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255
+/// </param>
+/// <param name="pFPS">Указатель на проверяемое-возвращаемое значение частоты кадров/сек</param>
 int CVIEngineBase::GetStatHistN(int res, int* pHist256, float *pFPS)
 {
-    int nSum = res2n(res);
+    int nSum = res2n(res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
 
     if(m_statRelease.empty())
         return false;
@@ -2222,16 +2298,24 @@ int CVIEngineBase::GetStatHistN(int res, int* pHist256, float *pFPS)
         return 0;
     if(pHist256)
         hist.exportto(pHist256);
-    if(pFPS) *pFPS = m_cfg.GetF1( VI_VAR_FPSOUTR );
-    return m_cfg.GetI1(VI_VAR_NFRAME);
+    if(pFPS) *pFPS = m_cfg.GetF1( VI_VAR_FPSOUTR ); // Чтение первого значения настроечного параметра по идентификатору ключа
+    return m_cfg.GetI1(VI_VAR_NFRAME); // Чтение первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант C).
+/// Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR.
+/// В предоставленном коде вызовов метода нет.
 /// </summary>
-/// <param name=""></param>
+/// <param name="res">Набор двоичных флагов</param>
+/// <param name="pHist256">
+/// Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость.
+/// При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255
+/// </param>
+/// <param name="pFPS">Указатель на проверяемое-возвращаемое значение частоты кадров/сек</param>
 int CVIEngineBase::GetStatHistC(int res, int* pHist256, float *pFPS)
 {
-    int nSum = res2n(res);
+    int nSum = res2n(res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
 
     if(m_statRelease.empty())
         return false;
@@ -2241,16 +2325,24 @@ int CVIEngineBase::GetStatHistC(int res, int* pHist256, float *pFPS)
         return 0;
     if(pHist256)
         hist.exportto(pHist256);
-    if(pFPS) *pFPS = m_cfg.GetF1( VI_VAR_FPSOUTR );
-    return m_cfg.GetI1(VI_VAR_NFRAME);
+    if(pFPS) *pFPS = m_cfg.GetF1( VI_VAR_FPSOUTR ); // Чтение первого значения настроечного параметра по идентификатору ключа
+    return m_cfg.GetI1(VI_VAR_NFRAME); // Чтение первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F).
+/// Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR.
+/// В предоставленном коде вызовов метода нет.
 /// </summary>
-/// <param name=""></param>
+/// <param name="res">Набор двоичных флагов</param>
+/// <param name="pHist256">
+/// Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость.
+/// При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255
+/// </param>
+/// <param name="pFPS">Указатель на проверяемое-возвращаемое значение частоты кадров/сек</param>
 int CVIEngineBase::GetStatHistF(int res, int* pHist256, float *pFPS)
 {
-    int nSum = res2n(res);
+    int nSum = res2n(res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
     if(m_statRelease.empty())
         return false;
     AURA_STAT & stat = IsModeA(res) ? m_statRelease[nSum].auraA : m_statRelease[nSum].auraB;
@@ -2259,16 +2351,23 @@ int CVIEngineBase::GetStatHistF(int res, int* pHist256, float *pFPS)
         return 0;
     if(pHist256)
         hist.exportto(pHist256);
-    if(pFPS) *pFPS = m_cfg.GetF1( VI_VAR_FPSOUTR );
-    return m_cfg.GetI1(VI_VAR_NFRAME);
+    if(pFPS) *pFPS = m_cfg.GetF1( VI_VAR_FPSOUTR ); // Чтение первого значения настроечного параметра по идентификатору ключа
+    return m_cfg.GetI1(VI_VAR_NFRAME); // Чтение первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант FT).
+/// В предоставленном коде вызовов метода нет.
 /// </summary>
-/// <param name=""></param>
+/// <param name="res">Набор двоичных флагов</param>
+/// <param name="pHist256">
+/// Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость.
+/// При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255
+/// </param>
+/// <param name="pDT"></param>
 int CVIEngineBase::GetStatHistFT(int res, int* pHist256, float *pDT)
 {
-    if(pDT) *pDT = m_cfg.GetF1( 1.0f/VI_VAR_FPSOUTF );
+    if(pDT) *pDT = m_cfg.GetF1( 1.0f/VI_VAR_FPSOUTF ); // Чтение первого значения настроечного параметра по идентификатору ключа
     if(res == VI_VAR_HIST_F6)
         return m_procF6.GetHist(pHist256,pDT,m_procF6.m_bufRes);
     if(res == VI_VAR_HIST_F8)
@@ -2277,8 +2376,10 @@ int CVIEngineBase::GetStatHistFT(int res, int* pHist256, float *pDT)
 }
 
 /// <summary>
+/// Вызов одноимённого метода с параметрами для режима B и для режима A.
+///		MakeAnger(true);
+///		MakeAnger(false);
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::MakeAnger(void)
 {
     MakeAnger(true);
@@ -2287,7 +2388,7 @@ void CVIEngineBase::MakeAnger(void)
 
 /// <summary>
 /// </summary>
-/// <param name=""></param>
+/// <param name="bModeB">Признак формирования результата для режима B</param>
 void CVIEngineBase::MakeAnger(bool bModeB)
 {
     mmx_array<int>& hist = bModeB ? m_stat[0].auraB.statHistW : m_stat[0].auraA.statHistW;
@@ -2330,18 +2431,20 @@ void CVIEngineBase::MakeAnger(bool bModeB)
     float S = sqrtf( D );
 
     float anger = 0;
-    if(!IsSkip())
+    if(!IsSkip()) // Признак того чтобы пропустить обработку кадра
         anger = (Fm + 4.0f*S)/512.0f;
 
     if(bModeB)
-        m_cfg.PutF1(VI_VAR_STAT_RES_P7F,anger);
+		m_cfg.PutF1(VI_VAR_STAT_RES_P7F, anger); // Запись первого значения настроечного параметра по идентификатору ключа
     else
-        m_cfg.PutF1(VI_VAR_STAT_RES_P7A,anger);
+		m_cfg.PutF1(VI_VAR_STAT_RES_P7A, anger); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
+/// Вызов одноимённого метода с параметрами для режима B и для режима A.
+///		MakeStress(true);
+///		MakeStress(false);
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::MakeStress(void)
 {
     MakeStress(true);
@@ -2351,7 +2454,7 @@ void CVIEngineBase::MakeStress(void)
 /// <summary>
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name=""></param>
+/// <param name="bModeB">Признак формирования результата для режима B</param>
 void CVIEngineBase::MakeStress(bool bModeB)
 {
     int w,h,y;
@@ -2390,9 +2493,9 @@ void CVIEngineBase::MakeStress(bool bModeB)
     }
 
     if(bModeB)
-        m_cfg.PutF1(VI_VAR_STAT_RES_P6F,stress);
+		m_cfg.PutF1(VI_VAR_STAT_RES_P6F, stress); // Запись первого значения настроечного параметра по идентификатору ключа
     else
-        m_cfg.PutF1(VI_VAR_STAT_RES_P6A,stress);
+		m_cfg.PutF1(VI_VAR_STAT_RES_P6A, stress); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 /// <summary>
@@ -2408,10 +2511,10 @@ void CVIEngineBase::MakeStress(bool bModeB)
 /// </summary>
 void CVIEngineBase::MakeSin(void)
 {
-    double t = m_timer.Get();
-    double n = m_cfg.GetF1(VI_VAR_STAT_CFG_SIN);
+    double t = m_timer.Get();  // Нормализованное в секунды значение часов
+    double n = m_cfg.GetF1(VI_VAR_STAT_CFG_SIN); // Чтение первого значения настроечного параметра по идентификатору ключа
     double v = sin( t*2*M_PI*n );
-    m_cfg.PutF1(VI_VAR_STAT_RES_SIN,(float)v);
+	m_cfg.PutF1(VI_VAR_STAT_RES_SIN, (float)v); // Запись первого значения настроечного параметра по идентификатору ключа
 }
 
 
@@ -2442,11 +2545,11 @@ void CVIEngineBase::tmp_aura_draw(void)
 
 /// <summary>
 /// </summary>
-/// <param name=""></param>
+/// <param name="res">Набор двоичных флагов</param>
 void CVIEngineBase::tmp_aura_draw(int res)
 {
-    int n = res2n(res);
-    bool bModeA = IsModeA(res);
+    int n = res2n(res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
+    bool bModeA = IsModeA(res);  // Вычисление признака работы в режиме A согласно списку допустимых значений переменной
     CVIEngineAura6 &aura6 = bModeA ? m_aura6A[n] : m_aura6B[n];
 
     int w,h;
@@ -2457,14 +2560,13 @@ void CVIEngineBase::tmp_aura_draw(int res)
     aura6.MakeExportSum((DWORD*)pi,(COLORREF*)m_palI,w,h,0,0);
 }
 
-
 /// <summary>
-/// Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.
+/// Проверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.
 /// </summary>
 /// <param name="id">Идентификатор настроечного параметра</param>
 void CVIEngineBase::OnNewVarDidable(int id)
 {
-    int v = m_cfg.GetI1(id);
+    int v = m_cfg.GetI1(id); // Чтение первого значения настроечного параметра по идентификатору ключа
     if(!v)
         return;
 
@@ -2482,41 +2584,41 @@ int CVIEngineBase::IsMotion(bool bSet)
 {
     if(!bSet)
     {
-        if(m_cfg.GetI1(VI_FILTER_DISABLE_VI1))
-            m_cfg.PutI1(VI_FILTER_MOTION_SET,0);
-        return m_cfg.GetI1(VI_FILTER_MOTION_SET);
+        if(m_cfg.GetI1(VI_FILTER_DISABLE_VI1)) // Чтение первого значения настроечного параметра по идентификатору ключа
+			m_cfg.PutI1(VI_FILTER_MOTION_SET, 0); // Запись первого значения настроечного параметра по идентификатору ключа
+        return m_cfg.GetI1(VI_FILTER_MOTION_SET); // Чтение первого значения настроечного параметра по идентификатору ключа
     }
 
-    if(!m_cfg.GetI1(VI_FILTER_MOTION))
+    if(!m_cfg.GetI1(VI_FILTER_MOTION)) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
-        m_cfg.PutI1(VI_FILTER_MOTION_SET,0);
+		m_cfg.PutI1(VI_FILTER_MOTION_SET, 0); // Запись первого значения настроечного параметра по идентификатору ключа
         return 0;
     }
 
-    float lev = m_cfg.GetF1(VI_FILTER_MOTION_LEVEL);
+    float lev = m_cfg.GetF1(VI_FILTER_MOTION_LEVEL); // Чтение первого значения настроечного параметра по идентификатору ключа
     float v = m_cfg.GetI1(VI_FILTER_MOTION_10X) ? m_cfg.GetF1(VI_VAR_STAT_INTEGR1A):m_cfg.GetF1(VI_VAR_STAT_INTEGR0A);
     if(v <= lev)
     {
-        int set = m_cfg.GetI1(VI_FILTER_MOTION_SET);
+        int set = m_cfg.GetI1(VI_FILTER_MOTION_SET); // Чтение первого значения настроечного параметра по идентификатору ключа
         int n = (set > 0) ? set+1 : 1;
-        m_cfg.PutI1(VI_FILTER_MOTION_SET,n);
+		m_cfg.PutI1(VI_FILTER_MOTION_SET, n); // Запись первого значения настроечного параметра по идентификатору ключа
         return n;
     } else
     {
-        float lev2 = m_cfg.GetF1(VI_FILTER_MOTION_LEVEL2);
-        float fi10 = m_cfg.GetF1(VI_VAR_STAT_INTEGR1A);
-        float fiN = m_cfg.GetF1(VI_VAR_STAT_INTEGR0A);
+        float lev2 = m_cfg.GetF1(VI_FILTER_MOTION_LEVEL2); // Чтение первого значения настроечного параметра по идентификатору ключа
+        float fi10 = m_cfg.GetF1(VI_VAR_STAT_INTEGR1A); // Чтение первого значения настроечного параметра по идентификатору ключа
+        float fiN = m_cfg.GetF1(VI_VAR_STAT_INTEGR0A); // Чтение первого значения настроечного параметра по идентификатору ключа
 
         if( fi10 > lev2 || (fi10 > lev2/2.0f && fi10 > fiN * 5.0f) )
         {
-            int set = m_cfg.GetI1(VI_FILTER_MOTION_SET);
+            int set = m_cfg.GetI1(VI_FILTER_MOTION_SET); // Чтение первого значения настроечного параметра по идентификатору ключа
             int n = (set < 0) ? set-1 : -1;
-            m_cfg.PutI1(VI_FILTER_MOTION_SET,n);
+			m_cfg.PutI1(VI_FILTER_MOTION_SET, n); // Запись первого значения настроечного параметра по идентификатору ключа
             return n;
         }
     }
 
-    m_cfg.PutI1(VI_FILTER_MOTION_SET,0);
+	m_cfg.PutI1(VI_FILTER_MOTION_SET, 0); // Запись первого значения настроечного параметра по идентификатору ключа
     return 0;
 }
 
@@ -2526,12 +2628,11 @@ int CVIEngineBase::IsMotion(bool bSet)
 /// Проверка необходимости вызова процедуры Reset - т.е. проверка условия noise == 3 || noise == -2 || m_statRelease[1].cntAin > 0.7f;
 /// Вызов  Reset() если условие выполняется
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::MakeMotion(void)
 {
     int noise = IsMotion(true); /// Получение текущего параметра для процедуры сенсора движения
     bool bReset = false;
-    if(m_cfg.GetI1(VI_FILTER_MOTION_AUTO_RESET))
+    if(m_cfg.GetI1(VI_FILTER_MOTION_AUTO_RESET)) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         if(m_statRelease.size() >= 2 && m_statRelease[1].cntAin > 0.7f)
             bReset = true;
@@ -2552,9 +2653,9 @@ float CVIEngineBase::MakeStateMacro(void)
 {
     #ifndef SEQ_DISABLE_MACRO_MODE_PLUS
     #ifndef SEQ_DISABLE_FACE
-    if( m_cfg.GetI1(VI_MACRO_FACE) )
+    if( m_cfg.GetI1(VI_MACRO_FACE) ) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
-        if( m_cfg.GetI1(VI_FACE_ENABLE)&& m_pFace)
+        if( m_cfg.GetI1(VI_FACE_ENABLE)&& m_pFace) // Чтение первого значения настроечного параметра по идентификатору ключа
             return m_pFace->MakeStatRelease();
         return 0;
     }
@@ -2572,8 +2673,8 @@ float CVIEngineBase::MakeStateMacro(void)
 
     m_cfg.GetI(VI_VAR_SIZE,w,h);
     wh = w*h;
-    lL = m_cfg.GetI1(VI_MACRO_LEVEL_L);
-    lS = m_cfg.GetF1(VI_MACRO_LEVEL_S)/100.0;
+    lL = m_cfg.GetI1(VI_MACRO_LEVEL_L); // Чтение первого значения настроечного параметра по идентификатору ключа
+    lS = m_cfg.GetF1(VI_MACRO_LEVEL_S)/100.0; // Чтение первого значения настроечного параметра по идентификатору ключа
 
     UINT Nn = (int)(lS*wh + 0.5f),N = 0;
     UINT Fs = 0;
@@ -2595,9 +2696,9 @@ float CVIEngineBase::MakeStateMacro(void)
     double fNr = (N > Nn && N) ? (N-Nn)/(double)N : 0;
     double fNs = 100.0 * N / (double)wh;
 
-    m_cfg.PutF1(VI_VAR_STAT_RES_P13,(float)fF);
-    m_cfg.PutF1(VI_VAR_STAT_RES_P14,(float)fNr);
-    m_cfg.PutF1(VI_VAR_STAT_RES_P15,(float)fNs);
+	m_cfg.PutF1(VI_VAR_STAT_RES_P13, (float)fF); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STAT_RES_P14, (float)fNr); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STAT_RES_P15, (float)fNs); // Запись первого значения настроечного параметра по идентификатору ключа
 
     if(N < Nn || !N || lL >= 255) // малая площадь
         return 0;
@@ -2606,15 +2707,22 @@ float CVIEngineBase::MakeStateMacro(void)
 }
 
 /// <summary>
+/// Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров.
+/// if(state >= lev)
+///	{
+///		m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 1);
+///		m_cfg.PutI1(VI_VAR_STATE_FLAG_P, 1);
+///	}
+///	 else
+///		 m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 0);
 /// </summary>
-/// <param name=""></param>
 float CVIEngineBase::MakeState(void)
 {
     float state0 = 0;
 
     CMTSingleLock *pFaceLock = 0;
 
-    if(m_cfg.GetI1(VI_MACRO_ENABLE))
+    if(m_cfg.GetI1(VI_MACRO_ENABLE)) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         state0 =  MakeStateMacro();
     }
@@ -2623,48 +2731,76 @@ float CVIEngineBase::MakeState(void)
 
         float Ag = 0;
         float St = 0;
-        float Tn = m_cfg.GetF1(VI_VAR_STAT_RES_F5X);
+        float Tn = m_cfg.GetF1(VI_VAR_STAT_RES_F5X); // Чтение первого значения настроечного параметра по идентификатору ключа
 
         #ifndef SEQ_LITE
-        Ag = m_cfg.GetF1(VI_VAR_STAT_RES_P7);
-        St = m_cfg.GetF1(VI_VAR_STAT_RES_P6);
+        Ag = m_cfg.GetF1(VI_VAR_STAT_RES_P7); // Чтение первого значения настроечного параметра по идентификатору ключа
+        St = m_cfg.GetF1(VI_VAR_STAT_RES_P6); // Чтение первого значения настроечного параметра по идентификатору ключа
         #else
 
-        Ag = m_cfg.GetF1(VI_VAR_STAT_RES_P7A);
-        St = m_cfg.GetF1(VI_VAR_STAT_RES_P6A);
+        Ag = m_cfg.GetF1(VI_VAR_STAT_RES_P7A); // Чтение первого значения настроечного параметра по идентификатору ключа
+        St = m_cfg.GetF1(VI_VAR_STAT_RES_P6A); // Чтение первого значения настроечного параметра по идентификатору ключа
         #endif
-        state0 = MakeState(Ag,St,Tn);
+        state0 = MakeState(Ag,St,Tn); // Выбор коэффициента либо среднее параметров, либо 0.8, либо 1.0
         MakeStateMacro();
     }
 
     if(state0 < 0)
         state0 = 0;
 
-    m_cfg.PutF1(VI_VAR_STATE_VAR_SRC,state0);
+	m_cfg.PutF1(VI_VAR_STATE_VAR_SRC, state0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     float state = m_statAVG.Get(VI_VAR_STATE_VAR_SRC);
     if(state < 0)
         state = 0;
 
-    float lev = m_cfg.GetF1(VI_VAR_STATE_CRITICAL);
+    float lev = m_cfg.GetF1(VI_VAR_STATE_CRITICAL); // Чтение первого значения настроечного параметра по идентификатору ключа
 
-    m_cfg.PutF1(VI_VAR_STATE_CRITICAL,lev);
-    m_cfg.PutF1(VI_VAR_STATE_VAR,state);
-    m_cfg.PutF1(VI_VAR_STAT_RES_P19,state);
+	m_cfg.PutF1(VI_VAR_STATE_CRITICAL, lev); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STATE_VAR, state); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutF1(VI_VAR_STAT_RES_P19, state); // Запись первого значения настроечного параметра по идентификатору ключа
 
     if(state >= lev)
     {
-        m_cfg.PutI1(VI_VAR_STATE_FLAG_A,1);
-        m_cfg.PutI1(VI_VAR_STATE_FLAG_P,1);
+		m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 1); // Запись первого значения настроечного параметра по идентификатору ключа
+		m_cfg.PutI1(VI_VAR_STATE_FLAG_P, 1); // Запись первого значения настроечного параметра по идентификатору ключа
     } else
-        m_cfg.PutI1(VI_VAR_STATE_FLAG_A,0);
+		m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     return state;
 }
 
 /// <summary>
+/// Выбор коэффициента либо среднее параметров, либо 0.8, либо 1.0
+/// Код. Просто код. Лучше чем этот код не объяснишь.
+/// const float dAg = 0.75f;
+/// const float dSt = 0.80f;
+/// const float dTn = 0.60f;
+/// int ret = 0;
+/// if (Ag > dAg) ret |= 1;
+/// if (St > dSt) ret |= 2;
+/// if (Tn > dTn) ret |= 4;
+/// switch (ret)
+/// {
+/// case 0:
+/// 	return (Ag + St + Tn) / 3.0f;
+/// case 1:
+/// case 2:
+/// case 4:
+/// 	return 0.8f;
+/// case 3:
+/// case 5:
+/// case 6:
+/// case 7:
+/// 	return 1.00f;
+/// default:
+/// 	break;
+/// }
+/// return 0;
 /// </summary>
-/// <param name=""></param>
+/// <param name="Ag"></param>
+/// <param name="St"></param>
+/// <param name="Tn"></param>
 float CVIEngineBase::MakeState(float Ag, float St, float Tn)
 {
     const float dAg = 0.75f;
@@ -2696,15 +2832,33 @@ float CVIEngineBase::MakeState(float Ag, float St, float Tn)
 }
 
 /// <summary>
+/// Формула по гистограмме
+/// Формула:
+/// sV = СУММА pHist256(i), 
+/// sVX = СУММА i * pHist256(i), 
+/// M = sVX / sV;
+/// d(i) = i*fps/len-M;
+/// sDV = d(i)*d(i)*pHist256(i);
+/// D = sDV / sV;
+/// S = sqrt(D);
+/// return (M-S)/fps;
+/// Используется только в CVIEngineBase::StatUpdate(void)
 /// </summary>
-/// <param name=""></param>
+/// <param name="pHist256">
+/// Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость.
+/// При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1
+/// </param>
+/// <param name="len">
+/// Размер массива.
+/// Фактически является верхней границей яркости исходного монохромного изображения+1
+/// </param>
 float CVIEngineBase::MakeCharming(int* pHist256, int len)
 {
     int i;
     double flen = (double)len;
     double M,S,D,CH;
 
-    double fps = m_cfg.GetF1(VI_VAR_FPSOUTR);
+    double fps = m_cfg.GetF1(VI_VAR_FPSOUTR); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     double sV = 0,sVX = 0,sDV = 0;
     for( i = 1 ; i < len; ++i)
@@ -2961,7 +3115,7 @@ float CVIEngineBase::MakeEntropyS(int* pHist256, int len)
 
     int m = 0,i,Pi,Pm=0;
     double Xi,Xm=0,sum = 0,flen = len;
-    double fps = m_cfg.GetF1(VI_VAR_FPSOUTR);
+    double fps = m_cfg.GetF1(VI_VAR_FPSOUTR); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     for( i = 1; i < len; ++i)
     {
@@ -3000,6 +3154,7 @@ float CVIEngineBase::MakeEntropyS(int* pHist256, int len)
 /// В m_imgSrcMask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение COLORREF (чёрный цвет)
 /// и записывается значение 0xFF во всех остальных случаяж
 /// The COLORREF value is used to specify an RGB color.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 /// <param name="file">Имя файла</param>
 bool CVIEngineBase::SrcMaskLoad(LPCWSTR file)
@@ -3010,7 +3165,7 @@ bool CVIEngineBase::SrcMaskLoad(LPCWSTR file)
     int w = img.GetWidth();
     int h = img.GetHeight();
 
-    CMTSingleLock   xlock(m_locks + LVI_SRC8, true);
+	CMTSingleLock   xlock(m_locks + LVI_SRC8, true);  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
     m_imgSrcMask.resize(w,h,false);
 
     CImageDC idc(img);
@@ -3033,11 +3188,12 @@ bool CVIEngineBase::SrcMaskLoad(LPCWSTR file)
 /// В память записывается значение 0x00000000 если соответствующий пиксель в m_imgSrcMask имеет нулевое значение (чёрный цвет)
 /// и записывается значение 0x00FFFFFF во всех остальных случаяж
 /// Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
 /// <param name="file">Имя файла</param>
 bool CVIEngineBase::SrcMaskSave(LPCWSTR file)
 {
-    CMTSingleLock   xlock(m_locks + LVI_SRC8, true);
+	CMTSingleLock   xlock(m_locks + LVI_SRC8, true);  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
     if(m_imgSrcMask.empty())
         return false;
     int w = m_imgSrcMask.w;
@@ -3067,7 +3223,7 @@ bool CVIEngineBase::SrcMaskSave(LPCWSTR file)
 /// </summary>
 bool CVIEngineBase::SrcMaskReset()
 {
-    CMTSingleLock   xlock(m_locks + LVI_SRC8, true);
+	CMTSingleLock   xlock(m_locks + LVI_SRC8, true);  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
     m_imgSrcMask.clear();
     return true;
 }
@@ -3081,7 +3237,7 @@ bool CVIEngineBase::SrcMaskReset()
 /// <param name="y">y координата элемента</param>
 bool CVIEngineBase::SrcMaskErase(int x, int y)
 {
-    CMTSingleLock   xlock(m_locks + LVI_SRC8, true);
+	CMTSingleLock   xlock(m_locks + LVI_SRC8, true);  // Блокирование семафора LVI_SRC8 с ожиданием его освобождения другими процессами.
 
     int w = m_imgSrc8.w;
     int h = m_imgSrc8.h;
@@ -3225,8 +3381,14 @@ float CVIEngineBase::MakeComN(int* pHist256, int len)
 }
 
 /// <summary>
+/// Вычисление средней величины по значениям ранее рассчитанных строк в структуре AURA_STAT.
+/// Теоретический смысл формулы непонятен.
+/// nl = aura.line.size();
+/// sW = СУММА abs(aura.line[y].cwl-aura.line[y].cwr)/max(aura.line[y].cwl,aura.line[y].cwr);
+/// sC = СУММА abs(aura.line[y].aColorL - aura.line[y].aColorR)/255.0f;
+/// return 1.0f - (sC+sW)/(2*nl);
 /// </summary>
-/// <param name="aura"></param>
+/// <param name="aura">Ссылка на инстанс структуры AURA_STAT</param>
 float CVIEngineBase::MakeComS(AURA_STAT& aura)
 {
     int cnt = aura.line.size();
@@ -3263,8 +3425,17 @@ float CVIEngineBase::MakeComS(AURA_STAT& aura)
 }
 
 /// <summary>
+/// Заполнение массивов pCWL и pCWR ранее вычисленными значениями статистики ауры (длинами линий);
+/// Заполнение массивов pCR и pCL ранее вычисленными значениями цветами ауры;
+/// Данные структуры AURA_STAT берутся AURA_STAT &aura = bB ? m_statRelease[nProc].auraB : m_statRelease[nProc].auraA;
+/// Количество обрабатываемых элементов int cnt = aura.line.size();
 /// </summary>
-/// <param name=""></param>
+/// <param name="pCWL">Указатель на массив длин линий для левой части</param>
+/// <param name="pCWR">Указатель на массив длин линий для правой части</param>
+/// <param name="pCR">Указатель на массив цветов для левой части</param>
+/// <param name="pCL">Указатель на массив цветов для правой части</param>
+/// <param name="nProc">Индекс элемента в массиве m_statRelease</param>
+/// <param name="bB">Признак вывода результата режима B</param>
 bool CVIEngineBase::GetAura(int * pCWL, int * pCWR, int * pCR, int * pCL, int nProc, bool bB)
 {
     if(nProc >= (int)m_statRelease.size())
@@ -3287,7 +3458,7 @@ bool CVIEngineBase::GetAura(int * pCWL, int * pCWR, int * pCR, int * pCL, int nP
 }
 
 /// <summary>
-/// Проверка возможности потроения гистограммы указаного типа.
+/// Проверка возможности построения гистограммы указаного типа.
 /// Всегда возвращает true.
 /// В известном коде программы не используется.
 /// </summary>
@@ -3298,6 +3469,11 @@ bool CVIEngineBase::CanMakeHist(int id)
 }
 
 /// <summary>
+/// Вывод картинки на экран через API в классе CVIEngineFace.
+/// Берётся одна из картинок (какая есть в наличии)
+///		m_resultPtr[VI_RESULT_SRC_0];
+///		m_resultPtr[VI_RESULT_SRC_A];
+///		m_resultPtr[VI_RESULT_SRC_B];
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 void CVIEngineBase::MakeFaceDraw(void)
@@ -3312,34 +3488,35 @@ void CVIEngineBase::MakeFaceDraw(void)
 
     imgRes = (RGBQUAD*)(m_resultPtr[VI_RESULT_SRC_0]);
     if(imgRes)
-        m_pFace->MakeDraw(imgRes,w,h);
+        m_pFace->MakeDraw(imgRes,w,h); // Вывод картинки на экран.
 
     imgRes = (RGBQUAD*)(m_resultPtr[VI_RESULT_SRC_A]);
     if(imgRes)
-        m_pFace->MakeDraw(imgRes,w,h);
+        m_pFace->MakeDraw(imgRes,w,h); // Вывод картинки на экран.
 
     imgRes = (RGBQUAD*)(m_resultPtr[VI_RESULT_SRC_B]);
     if(imgRes)
-        m_pFace->MakeDraw(imgRes,w,h);
+        m_pFace->MakeDraw(imgRes,w,h); // Вывод картинки на экран.
     #endif
 }
 
 /// <summary>
 /// Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
+/// По сути является вызовом одноимённого метода класса CVIEngineAudio2 для аттрибута m_audio + обнуление некоторых настроечных параметров.
+/// Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.
 /// </summary>
-/// <param name=""></param>
 void CVIEngineBase::NewSource()
 {
 	m_audio.NewSource(); // Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.
 
-    CMTSingleLock   lock(m_locks + LVI_ALL, true);
+	CMTSingleLock   lock(m_locks + LVI_ALL, true);  // Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами.
     Reset(true);
 
-    m_cfg.PutI1(VI_VAR_NFRAME,0);
-    m_cfg.PutI1(VI_VAR_NFRAME_IN,0);
-    m_cfg.PutI1(VI_VAR_NFRAME_OUTF,0);
+	m_cfg.PutI1(VI_VAR_NFRAME, 0); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutI1(VI_VAR_NFRAME_IN, 0); // Запись первого значения настроечного параметра по идентификатору ключа
+	m_cfg.PutI1(VI_VAR_NFRAME_OUTF, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
     m_tVideoDT = 0;
-    m_cfg.PutI1(VI_VAR_NDROP,0);
+	m_cfg.PutI1(VI_VAR_NDROP, 0); // Запись первого значения настроечного параметра по идентификатору ключа
 
 }

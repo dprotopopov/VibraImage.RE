@@ -7,7 +7,7 @@ class CVITimer
 public:
 	CVITimer();
 	~CVITimer();
-	double Get(); // нормализованное в секунды значение системных часов
+	double Get(); // Нормализованное в секунды значение часов
 };
 
 /// <summary>

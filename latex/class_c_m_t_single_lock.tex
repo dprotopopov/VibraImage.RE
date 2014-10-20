@@ -13,7 +13,7 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_c_m_t_single_lock_accef84bf825a836b952f32223ec757bc}{C\+M\+T\+Single\+Lock} (int n\+Locks, bool b\+Lock)
+\hyperlink{class_c_m_t_single_lock_a71526b0b0a7d2ff6c8b32717f50e4424}{C\+M\+T\+Single\+Lock} (\hyperlink{class_c_m_t_critical_section}{C\+M\+T\+Critical\+Section} n\+Locks, bool b\+Lock)
 \begin{DoxyCompactList}\small\item\em Конструктор класса \end{DoxyCompactList}\item 
 B\+O\+O\+L \hyperlink{class_c_m_t_single_lock_a7586857614ac3719accc53d56e97573c}{Lock} ()
 \begin{DoxyCompactList}\small\item\em Блокирование одного семафора \end{DoxyCompactList}\item 
@@ -27,21 +27,21 @@ B\+O\+O\+L \hyperlink{class_c_m_t_single_lock_a16f80923c0768c3814be13c4061d4c53}
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{class_c_m_t_single_lock_accef84bf825a836b952f32223ec757bc}{\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
+\hypertarget{class_c_m_t_single_lock_a71526b0b0a7d2ff6c8b32717f50e4424}{\index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
 \index{C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}!C\+M\+T\+Single\+Lock@{C\+M\+T\+Single\+Lock}}
 \subsubsection[{C\+M\+T\+Single\+Lock}]{\setlength{\rightskip}{0pt plus 5cm}C\+M\+T\+Single\+Lock\+::\+C\+M\+T\+Single\+Lock (
 \begin{DoxyParamCaption}
-\item[{int}]{n\+Locks, }
+\item[{{\bf C\+M\+T\+Critical\+Section}}]{n\+Locks, }
 \item[{bool}]{b\+Lock}
 \end{DoxyParamCaption}
-)}}\label{class_c_m_t_single_lock_accef84bf825a836b952f32223ec757bc}
+)}}\label{class_c_m_t_single_lock_a71526b0b0a7d2ff6c8b32717f50e4424}
 
 
 Конструктор класса 
 
 
 \begin{DoxyParams}{Parameters}
-{\em n\+Locks} & Количество создаваемых семафоров\\
+{\em n\+Locks} & Адресное пространство где находится семафор\\
 \hline
 {\em b\+Lock} & Признак блокировать все семафоры при создании инстанса данного класса\\
 \hline

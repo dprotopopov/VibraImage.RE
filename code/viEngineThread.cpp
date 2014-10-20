@@ -25,7 +25,6 @@ m_pBase(pBase)
 
 /// <summary>
 /// </summary>
-/// <param name=""></param>
 CVIEngineThread::~CVIEngineThread(void)
 {
     Stop();
@@ -74,22 +73,22 @@ void CVIEngineThread::Main()
                 bDone = true;
                 break;
             case EVI_ADDF:
-                OnEventAddF();
+                OnEventAddF(); // Копирование изображения (имеется вводу только обрабатываемый данным инстансом фрагмент изображения) m_imgSrcF из m_pBase->m_arrSrc[0]
                 break;
             case EVI_DELTA:
-                OnEventDelta();
+                OnEventDelta(); // Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Результат в m_stat.
                 break;
             case EVI_SUM:
-                OnEventSumm();
+                OnEventSumm(); // Обработка данных в массиве m_pBase->m_summ.
                 break;
             case EVI_SUM_FILTER:
-                OnEventSumFilter();
+                OnEventSumFilter(); // Исходными данными являются m_pBase->m_stat, m_nSum. Результат в m_pBase->m_stat.
                 break;
             case EVI_SUM_STAT:
-                OnEventSumStat();
+                OnEventSumStat(); // Расчёт массива m_stat. Исходными данными являются m_pBase->m_stat.
                 break;
             case EVI_AURA:
-                OnEventAura();
+                OnEventAura(); // Подготовка данных работы методики. Исходными данными являются m_pBase->m_stat. Результат в m_pBase->m_stat.
                 break;
             case EVI_RESULT:
                 SEQ_THREAD(m_pBase);
@@ -124,7 +123,7 @@ void CVIEngineThread::Stop(void)
 }
 
 /// <summary>
-/// Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений.
+/// Расчёт дельта-изображения на основе первых двух кадров в очереди исходных изображений. Результат в m_stat.
 /// Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений).
 /// Если значение настроечного параметра VI_VAR_NFRAME равно нулю, то дельта-изображение заполняется нулями и процедура завергается
 /// Дельта рассчитывается как абсолютное значение разности между уровнями яркости двух кадров, верхнее и нижнее поля в 2 пикселя полного изображения не расчитываются.
@@ -182,14 +181,14 @@ void CVIEngineThread::OnEventDelta(void)
 
     ///////////////////////////////////////////////////////////////
 
-    float filterCTf = m_pBase->m_cfg.GetF1(VI_FILTER_CT);
+    float filterCTf = m_pBase->m_cfg.GetF1(VI_FILTER_CT); // Чтение первого значения настроечного параметра по идентификатору ключа
     bool filterCT = (CFloatSSE(filterCTf) > CFloatSSE(0.0f))?true:false;
 
     bool filterDeltaStretch = m_pCfg->GetI1(VI_FILTER_DELTA_STRETCH)?true:false;
 
 
     CPointSSE   pntCur,pntPrev,delta,dsumA,dsumB;
-    CPointSSE   filterDeltaLO(m_pCfg->GetF1(VI_FILTER_DELTA_LO));
+    CPointSSE   filterDeltaLO(m_pCfg->GetF1(VI_FILTER_DELTA_LO)); // Чтение первого значения настроечного параметра по идентификатору ключа
     CPointSSE   v1(1.0f);
     CPointSSE   v0(0.0f);
     CPointSSE   fStretch = CPointSSE(255.0f)/(CPointSSE(255.0f)-filterDeltaLO);
@@ -197,7 +196,7 @@ void CVIEngineThread::OnEventDelta(void)
     dsumA.set0();
     dsumB.set0();
 
-    if(m_pCfg->GetI1(VI_VAR_NFRAME) )
+    if(m_pCfg->GetI1(VI_VAR_NFRAME) ) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         while( pSrcF != pSrcFE )
         {
@@ -263,7 +262,7 @@ void CVIEngineThread::OnEventDelta(void)
 
 
 /// <summary>
-/// Копирование изображения (имеется вводу только обрабатываемый данным инстансом фрагмент изображения) 
+/// Копирование изображения (имеется вводу только обрабатываемый данным инстансом фрагмент изображения) m_imgSrcF из m_pBase->m_arrSrc[0]
 /// из начиная с первого элемента первой строки члена m_arrSrc единственного инстанса родительского класса m_pBase 
 /// в начиная с первого элемента первой строки члена m_imgSrcF инстанса данного класса в количестве ширина*высота.
 /// Расчёт производится одновременно несколькими инстасами данного класса (потоками вычислений).
@@ -303,6 +302,7 @@ void CVIEngineThread::OnEventAddF(void)
 
 
 /// <summary>
+/// Обработка данных в массиве m_pBase->m_summ.
 /// Если кратко, то это реализация следующей процедуры с использованием технологии SSE
 /// int nSumm = m_pBase->m_summ.size();
 /// SUMM_PTR* pSumm = new SUMM_PTR[nSumm];
@@ -334,8 +334,8 @@ void CVIEngineThread::OnEventAddF(void)
 /// </summary>
 void CVIEngineThread::OnEventSumm(void)
 {
-    BOOL disableA = m_pCfg->GetI1(VI_FILTER_DISABLE_A);
-    BOOL disableB = m_pCfg->GetI1(VI_FILTER_DISABLE_B);
+    BOOL disableA = m_pCfg->GetI1(VI_FILTER_DISABLE_A); // Чтение первого значения настроечного параметра по идентификатору ключа
+    BOOL disableB = m_pCfg->GetI1(VI_FILTER_DISABLE_B); // Чтение первого значения настроечного параметра по идентификатору ключа
     if(disableA && disableB)
         return;
 
@@ -350,7 +350,7 @@ void CVIEngineThread::OnEventSumm(void)
     {
         pSumm = new SUMM_PTR[nSumm];
         for( k = 0; k < nSumm; ++k )
-            MakeSummPtr(k,pSumm+k);
+            MakeSummPtr(k,pSumm+k); // Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями. Исходными данными являются m_pBase->m_stat[n].
     }
 
     ilFRAME_IMG iDelta = m_pBase->m_arrDelta.begin();
@@ -358,7 +358,7 @@ void CVIEngineThread::OnEventSumm(void)
     FRAME_IMG&  imgPrvDeltaF = *(++iDelta);
 
 
-    float fthv = m_pCfg->GetF1(VI_VAR_TH);
+    float fthv = m_pCfg->GetF1(VI_VAR_TH); // Чтение первого значения настроечного параметра по идентификатору ключа
     bool fthb = ((*(DWORD*)&fthv) != 0);
 
     CPointSSE delta,ldelta,summ;
@@ -368,7 +368,7 @@ void CVIEngineThread::OnEventSumm(void)
 
     for( k = 0; k < nSumm; ++k )
     {
-        BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k);
+        BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k); // Чтение первого значения настроечного параметра по идентификатору ключа
         if(disableSum)
             continue;
 
@@ -472,39 +472,39 @@ void CVIEngineThread::OnEventSumm(void)
 /// </summary>
 void CVIEngineThread::OnEventResult(void)
 {
-	int res = m_pCfg->GetI1(VI_MODE_RESULT);
+	int res = m_pCfg->GetI1(VI_MODE_RESULT); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     if( (res & VI_RESULT_SRC_0) != 0)
-        MakeResultSrc(VI_RESULT_SRC_0);
+        MakeResultSrc(VI_RESULT_SRC_0); // Вывод результата на дисплей.
     if( (res & VI_RESULT_SRC_A) != 0)
-        MakeResultSrc(VI_RESULT_SRC_A);
+        MakeResultSrc(VI_RESULT_SRC_A); // Вывод результата на дисплей.
     if( (res & VI_RESULT_SRC_B) != 0)
-        MakeResultSrc(VI_RESULT_SRC_B);
+        MakeResultSrc(VI_RESULT_SRC_B); // Вывод результата на дисплей.
 
     if( (res & VI_RESULT_VI0_A) != 0)
-        MakeResultVI(VI_RESULT_VI0_A);
+        MakeResultVI(VI_RESULT_VI0_A); // Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
     if( (res & VI_RESULT_VI0_B) != 0)
-        MakeResultVI(VI_RESULT_VI0_B);
+        MakeResultVI(VI_RESULT_VI0_B); // Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
 
     if( (res & VI_RESULT_VI1_A) != 0)
-        MakeResultVI(VI_RESULT_VI1_A);
+		MakeResultVI(VI_RESULT_VI1_A); // Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
     if( (res & VI_RESULT_VI1_B) != 0)
-        MakeResultVI(VI_RESULT_VI1_B);
+		MakeResultVI(VI_RESULT_VI1_B); // Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
 
     if( (res & VI_RESULT_VI2_A) != 0)
-        MakeResultVI(VI_RESULT_VI2_A);
+		MakeResultVI(VI_RESULT_VI2_A); // Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
     if( (res & VI_RESULT_VI2_B) != 0)
-        MakeResultVI(VI_RESULT_VI2_B);
+		MakeResultVI(VI_RESULT_VI2_B); // Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
 
     if( (res & VI_RESULT_DELTA_A) != 0)
-        MakeResultDelta(VI_RESULT_DELTA_A);
+        MakeResultDelta(VI_RESULT_DELTA_A); // Рисование ауры поверх дельта-изображения. Исходные данные из m_pBase->m_resultPtr. Результат в  m_pBase->m_resultPtr.
     if( (res & VI_RESULT_DELTA_B) != 0)
-        MakeResultDelta(VI_RESULT_DELTA_B);
+        MakeResultDelta(VI_RESULT_DELTA_B); // Рисование ауры поверх дельта-изображения. Исходные данные из m_pBase->m_resultPtr. Результат в  m_pBase->m_resultPtr.
 
 }
 
 /// <summary>
-/// Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями
+/// Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями. Исходными данными являются m_pBase->m_stat[n].
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.
 /// </summary>
@@ -520,7 +520,7 @@ void CVIEngineThread::MakeSummPtr(int n, CVIEngineThread::SUMM_PTR* pSumm)
     n0 = m_pBase->m_arrDelta.front().n;
 
     int nL = 0;
-    pSumm->n = m_pBase->m_cfg.GetI1(m_pBase->m_summ[n].id);
+    pSumm->n = m_pBase->m_cfg.GetI1(m_pBase->m_summ[n].id); // Чтение первого значения настроечного параметра по идентификатору ключа
     pSumm->nLast = n0 - pSumm->n+1;
     pSumm->pDeltaA = 0;
     pSumm->pCDeltaA = 0;
@@ -542,7 +542,7 @@ void CVIEngineThread::MakeSummPtr(int n, CVIEngineThread::SUMM_PTR* pSumm)
             }
     } else
     {
-        nDiv = m_pBase->m_cfg.GetI1(VI_VAR_NFRAME)+1;
+        nDiv = m_pBase->m_cfg.GetI1(VI_VAR_NFRAME)+1; // Чтение первого значения настроечного параметра по идентификатору ключа
     }
 
     pSumm->pStat = & (m_pBase->m_stat[n]);
@@ -572,7 +572,7 @@ void CVIEngineThread::MakeSummPtr(int n, CVIEngineThread::SUMM_PTR* pSumm)
 
     float fnDiv = (float)nDiv;
 
-    float aDiv = m_pBase->m_cfg.GetF1(VI_FILTER_AM);
+    float aDiv = m_pBase->m_cfg.GetF1(VI_FILTER_AM); // Чтение первого значения настроечного параметра по идентификатору ключа
     if(aDiv > 0)
         pSumm->divA = aDiv / fnDiv;
     else
@@ -610,27 +610,27 @@ void CVIEngineThread::ClearStat(void)
 }
 
 /// <summary>
-/// Формирование изображения для отображения.
+/// Формирование изображения для отображения. Исходные данные из m_pBase->m_resultPtr.
 /// Тип формируемого изображения - цветного или монохромного - определяется настроечным параметром VI_MODE_COLOR и наличием исходного цветного изображения.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 void CVIEngineThread::MakeResultSrc(int res)
 {
     if(m_pCfg->GetI1(VI_MODE_COLOR) && !m_pBase->m_imgSrc24.empty())
-        MakeResultSrc24(res);
+        MakeResultSrc24(res); // Формирование цветного изображения для отображения.
     else
-        MakeResultSrc8(res);
+        MakeResultSrc8(res); // Формирование монохромного изображения для отображения.
 }
 
 
 /// <summary>
-/// Формирование цветного изображения для отображения.
+/// Формирование цветного изображения для отображения. Исходные данные из m_pBase->m_resultPtr.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 void CVIEngineThread::MakeResultSrc24(int res)
 {
     int w,h;
@@ -662,7 +662,7 @@ void CVIEngineThread::MakeResultSrc24(int res)
                 return;
 
             #ifndef SEQ_DISABLE_DISTORTION
-            imgRes = m_pBase->m_Distortion.PreparePtr(imgRes);
+			imgRes = m_pBase->m_Distortion.PreparePtr(imgRes); // Настройка видеоэффекта
             #endif // #ifndef SEQ_DISABLE_DISTORTION
 
             RGBQUAD *   pRes    = imgRes + m_yS*w, *pResE = imgRes + m_yE*w;
@@ -682,24 +682,24 @@ void CVIEngineThread::MakeResultSrc24(int res)
 
             if(bAura && !m_pBase->m_bLock)
             {
-                if( ! m_pCfg->GetI1(VI_MACRO_AURA) )
-                    MakeResultVIDraw(0,(DWORD*)imgRes,res);
+                if( ! m_pCfg->GetI1(VI_MACRO_AURA) ) // Чтение первого значения настроечного параметра по идентификатору ключа
+                    MakeResultVIDraw(0,(DWORD*)imgRes,res); // Копирование изображения по указанному адресу с заменой цветов. Исходные данные из m_pBase->m_summ.
                 else
                     if( !m_pBase->m_statRelease.empty())
-                        MakeResultAuraDrawMix(0,(DWORD*)imgRes,res);
+						MakeResultAuraDrawMix(0, (DWORD*)imgRes, res); // Рисование ауры поверх изображения
             }
 
             #ifndef SEQ_DISABLE_DISTORTION
-            m_pBase->m_Distortion.Make(m_yS,m_yE);
+			m_pBase->m_Distortion.Make(m_yS, m_yE); // Применение видеоэффекта
             #endif // #ifndef SEQ_DISABLE_DISTORTION
 }
 
 /// <summary>
-/// Формирование монохромного изображения для отображения.
+/// Формирование монохромного изображения для отображения. Исходные данные из m_pBase->m_resultPtr.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 void CVIEngineThread::MakeResultSrc8(int res)
 {
     int w,h;
@@ -731,7 +731,7 @@ void CVIEngineThread::MakeResultSrc8(int res)
                 return;
 
             #ifndef SEQ_DISABLE_DISTORTION
-            imgRes = m_pBase->m_Distortion.PreparePtr(imgRes);
+			imgRes = m_pBase->m_Distortion.PreparePtr(imgRes); // Настройка видеоэффекта
             #endif // #ifndef SEQ_DISABLE_DISTORTION
 
             RGBQUAD *   pRes    = imgRes + m_yS*w, *pResE = imgRes + m_yE*w;
@@ -750,23 +750,24 @@ void CVIEngineThread::MakeResultSrc8(int res)
 
             if(bAura && !m_pBase->m_bLock)
             {
-                if( ! m_pCfg->GetI1(VI_MACRO_AURA) )
-                    MakeResultVIDraw(0,(DWORD*)imgRes,res);
+                if( ! m_pCfg->GetI1(VI_MACRO_AURA) ) // Чтение первого значения настроечного параметра по идентификатору ключа
+                    MakeResultVIDraw(0,(DWORD*)imgRes,res); // Копирование изображения по указанному адресу с заменой цветов. Исходные данные из m_pBase->m_summ.
                 else
                     if( !m_pBase->m_statRelease.empty())
-                        MakeResultAuraDrawMix(0,(DWORD*)imgRes,res);
+						MakeResultAuraDrawMix(0, (DWORD*)imgRes, res); // Рисование ауры поверх изображения
             }
 
             #ifndef SEQ_DISABLE_DISTORTION
-            m_pBase->m_Distortion.Make(m_yS,m_yE);
+            m_pBase->m_Distortion.Make(m_yS,m_yE); // Применение видеоэффекта
             #endif // #ifndef SEQ_DISABLE_DISTORTION
 }
 
 /// <summary>
+/// Рисование ауры поверх изображения. Исходные данные из m_pBase->m_resultPtr,m_pBase->m_statRelease. Результат в m_pBase->m_resultPtr.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 void CVIEngineThread::MakeResultVI(int res)
 {
     int w,h;
@@ -774,7 +775,7 @@ void CVIEngineThread::MakeResultVI(int res)
     int cnt = (m_yE-m_yS)*w;
 
     int id_vi = res;
-    int n = res2n(res);
+    int n = res2n(res); // Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res.
 
     DWORD*  imgRes  = (DWORD*)(m_pBase->m_resultPtr[id_vi]);
 
@@ -782,21 +783,21 @@ void CVIEngineThread::MakeResultVI(int res)
     if(!imgRes)
         return;
     #ifndef SEQ_DISABLE_DISTORTION
-    imgRes = m_pBase->m_Distortion.PreparePtr(imgRes);
+	imgRes = m_pBase->m_Distortion.PreparePtr(imgRes); // Настройка видеоэффекта
     #endif // #ifndef SEQ_DISABLE_DISTORTION
 
     DWORD * pRes    = imgRes + m_yS*w, *pResE = imgRes + m_yE*w;
     int nSum = m_pBase->m_summ.size();
     if( nSum <= n || n < 0)
     {
-        SSEmemset(pRes,0,cnt*sizeof(RGBQUAD));
+        SSEmemset(pRes,0,cnt*sizeof(RGBQUAD)); // Заполнение памяти указанным байтом
         return;
     }
 
     SUM_IMG &sum = m_pBase->m_summ[n];
     short * imgSum;
 
-    if(IsModeA(res))
+    if(IsModeA(res))  // Вычисление признака работы в режиме A согласно списку допустимых значений переменной
         imgSum = sum.si[0];
     else
         imgSum = sum.si[h];
@@ -807,7 +808,7 @@ void CVIEngineThread::MakeResultVI(int res)
 
     DWORD pal[256];
     CopyMemory(pal,(DWORD*)m_pBase->m_palI,sizeof(pal));
-    pal[0] = (m_pBase->m_cfg.GetI1(VI_MODE_WBG)&id_vi)?0xFFFFFF:0;
+    pal[0] = (m_pBase->m_cfg.GetI1(VI_MODE_WBG)&id_vi)?0xFFFFFF:0; // Чтение первого значения настроечного параметра по идентификатору ключа
 
     while(pRes != pResE)
     {
@@ -817,19 +818,20 @@ void CVIEngineThread::MakeResultVI(int res)
         ++pRes;
     }
 
-    MakeResultAuraDraw(n,imgRes,id_vi);
+    MakeResultAuraDraw(n,imgRes,id_vi); // Рисование ауры поверх изображения по указанному адресу с заменой цветов на цвета из палитры. Исходные данные из m_pBase->m_statRelease.
 
     #ifndef SEQ_DISABLE_DISTORTION
-    m_pBase->m_Distortion.Make(m_yS,m_yE);
+    m_pBase->m_Distortion.Make(m_yS,m_yE); // Применение видеоэффекта
     #endif // #ifndef SEQ_DISABLE_DISTORTION
 }
 
 
 /// <summary>
+/// Рисование ауры поверх дельта-изображения. Исходные данные из m_pBase->m_resultPtr. Результат в  m_pBase->m_resultPtr.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// Диапазон обрабатываемых строк инстансом данного класса задаётся членами класса m_yS,m_yE.
 /// </summary>
-/// <param name=""></param>
+/// <param name="res">Набор двоичных флагов</param>
 void CVIEngineThread::MakeResultDelta(int res)
 {
     int w,h;
@@ -860,7 +862,7 @@ void CVIEngineThread::MakeResultDelta(int res)
 
     DWORD pal[256];
     CopyMemory(pal,(DWORD*)m_pBase->m_palI,sizeof(pal));
-    pal[0] = (m_pBase->m_cfg.GetI1(VI_MODE_WBG)&res)?0xFFFFFF:0;
+    pal[0] = (m_pBase->m_cfg.GetI1(VI_MODE_WBG)&res)?0xFFFFFF:0; // Чтение первого значения настроечного параметра по идентификатору ключа
 
     bool bModeB = IsModeB(res);
 
@@ -885,10 +887,11 @@ void CVIEngineThread::MakeResultDelta(int res)
 
     _mm_empty();
 
-    MakeResultAuraDraw(0,(DWORD*)imgRes,res);
+    MakeResultAuraDraw(0,(DWORD*)imgRes,res); // Рисование ауры поверх изображения по указанному адресу с заменой цветов на цвета из палитры. Исходные данные из m_pBase->m_statRelease.
 }
 
 /// <summary>
+/// Исходными данными являются m_pBase->m_stat, m_nSum. Результат в m_pBase->m_stat.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
 void CVIEngineThread::OnEventSumFilter(void)
@@ -907,26 +910,26 @@ void CVIEngineThread::OnEventSumFilter(void)
         {
             int k = m_nSum[i];
 
-            BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k);
+            BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k); // Чтение первого значения настроечного параметра по идентификатору ключа
             if(disableSum)
                 continue;
-            MakeSummPtr(k,pSumm+k);
+			MakeSummPtr(k, pSumm + k); // Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями. Исходными данными являются m_pBase->m_stat[n].
         }
     } else
         return;
 
-    if(m_pCfg->GetI1(VI_FILTER_SP))
+    if(m_pCfg->GetI1(VI_FILTER_SP)) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         for( i = 0; i < m_nSum.size(); ++i )
         {
             int k = m_nSum[i];
-            BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k);
+            BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k); // Чтение первого значения настроечного параметра по идентификатору ключа
             if(disableSum)
                 continue;
 
             SUMM_PTR& S = pSumm[k];
-            FilterSP(S.pRetA);
-            FilterSP(S.pRetB);
+            FilterSP(S.pRetA); // Фильтр устранения шумов изображения (вариант SP)
+            FilterSP(S.pRetB); // Фильтр устранения шумов изображения (вариант SP)
         }
     }
 
@@ -937,14 +940,14 @@ void CVIEngineThread::OnEventSumFilter(void)
         int k = m_nSum[i];
         bool okX,okY;
 
-        BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k);
+        BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k); // Чтение первого значения настроечного параметра по идентификатору ключа
         if(disableSum)
             continue;
 
         SUMM_STAT& SS = m_pBase->m_stat[k];
         SUMM_PTR& S = pSumm[k];
 
-        MakeIntResult(S.pRetA,S.pRetIA,SS.xhistAX.m_hist,SS.xhistAY.m_hist,w,h);
+        MakeIntResult(S.pRetA,S.pRetIA,SS.xhistAX.m_hist,SS.xhistAY.m_hist,w,h); // Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива.
         okX = SS.xhistAX.Make();
         okY = SS.xhistAY.Make();
 
@@ -957,7 +960,7 @@ void CVIEngineThread::OnEventSumFilter(void)
             m_pCfg->PutVar(VI_VAR_HIST_CX_AVG_A0+k,v);
         }
 
-        MakeIntResult(S.pRetB,S.pRetIB,SS.xhistBX.m_hist,SS.xhistBY.m_hist,w,h);
+        MakeIntResult(S.pRetB,S.pRetIB,SS.xhistBX.m_hist,SS.xhistBY.m_hist,w,h); // Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива.
         okX = SS.xhistBX.Make();
         okY = SS.xhistBY.Make();
 
@@ -1033,7 +1036,7 @@ void CVIEngineThread::FilterSP(float *p)
 /// Результат возвращается в том же массиве где были исходны данные.
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name="p"></param>
+/// <param name="p">Указатель на список значений яркостей монохромного изображения</param>
 void CVIEngineThread::FilterSPsse(float *p)
 {
     int w,h;
@@ -1043,7 +1046,7 @@ void CVIEngineThread::FilterSPsse(float *p)
     if(m_tmp.w != w || m_tmp.h != h)
         m_tmp.resize(w,h,false);
 
-    SSEmemcpy( m_tmp.p,p,w*h*sizeof(float) );
+    SSEmemcpy( m_tmp.p,p,w*h*sizeof(float) );  // Копируем исходные данные во временный массив класса
 
 
     CPointSSE vZ(1.0f),vt;
@@ -1121,6 +1124,7 @@ void CVIEngineThread::FilterSPsse(float *p)
 
 
 /// <summary>
+/// Подготовка данных работы методики. Исходными данными являются m_pBase->m_stat. Результат в m_pBase->m_stat.
 /// Просто цикл по вызову метода MakeAuraV6 для всех значений массива m_nSum
 /// Используются настроечные параметры VI_FILTER_DISABLE_A и VI_FILTER_DISABLE_B,
 /// а так же настроечные параметры вида VI_FILTER_DISABLE_VI0+k
@@ -1131,28 +1135,29 @@ void CVIEngineThread::OnEventAura(void)
 {
     int cnt = m_nSum.size();
 
-    bool bProcA = (!m_pCfg->GetI1(VI_FILTER_DISABLE_A));
-    bool bProcB = (!m_pCfg->GetI1(VI_FILTER_DISABLE_B));
+    bool bProcA = (!m_pCfg->GetI1(VI_FILTER_DISABLE_A)); // Чтение первого значения настроечного параметра по идентификатору ключа
+    bool bProcB = (!m_pCfg->GetI1(VI_FILTER_DISABLE_B)); // Чтение первого значения настроечного параметра по идентификатору ключа
 
     for( int n = 0; n < cnt; ++n )
     {
         int k = m_nSum[n];
-        BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k);
+        BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k); // Чтение первого значения настроечного параметра по идентификатору ключа
         if(disableSum)
             continue;
 
         if(bProcA)
-            MakeAuraV6( k,false );
+            MakeAuraV6( k,false ); // Подготовка данных работы методики. Исходными данными являются m_pBase->m_stat. Результат в m_pBase->m_stat.
         if(bProcB)
-            MakeAuraV6( k,true );
+            MakeAuraV6( k,true ); // Подготовка данных работы методики. Исходными данными являются m_pBase->m_stat. Результат в m_pBase->m_stat.
     }
 }
 
 
 /// <summary>
+/// Подготовка данных работы методики. Исходными данными являются m_pBase->m_stat. Результат в m_pBase->m_stat.
 /// Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name=""></param>
+/// <param name="nSum">Индекс элемента в массиве m_pBase->m_stat</param>
 /// <param name="bModeB">Признак формирования результата для режима B</param>
 void CVIEngineThread::MakeAuraV6(int nSum, bool bModeB)
 {
@@ -1162,7 +1167,7 @@ void CVIEngineThread::MakeAuraV6(int nSum, bool bModeB)
         return;
 
     SUMM_PTR    S;
-    MakeSummPtr(nSum,&S);
+	MakeSummPtr(nSum, &S); // Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями. Исходными данными являются m_pBase->m_stat[n].
 
     if(!bModeB)
     {
@@ -1185,7 +1190,7 @@ void CVIEngineThread::MakeAuraV6(int nSum, bool bModeB)
         }
     }
 
-    MakeAuraStat(nSum,bModeB);
+    MakeAuraStat(nSum,bModeB); // Подготовка данных для визуализации работы методики.
 }
 
 
@@ -1259,7 +1264,7 @@ void CVIEngineThread::MakeAuraStat(int nSum, bool bModeB)
 
         #ifndef SEQ_DISABLE_FACE
         if(!nSum && bModeB && m_pBase->m_pFace)
-            m_pBase->m_pFace->MakeStatLine(y,iLine.p,w);
+            m_pBase->m_pFace->MakeStatLine(y,iLine.p,w); // Визуализация результатов вычислений на экране.
         #endif
 
         AURA_STAT_LINE& line = stat.line[y];
@@ -1312,7 +1317,7 @@ void CVIEngineThread::MakeAuraStat(int nSum, bool bModeB)
                 line.aColorL = line.maxLi;
             else
             {
-                line.aColorL = MakeAuraColorA(nSum,line.maxLx,y);
+                line.aColorL = MakeAuraColorA(nSum,line.maxLx,y); // Расчёт цвета линии для n-го элемента рассчитаной статистики. Исходные данные из m_pBase->m_summ[nSum] и массив дельта-изображений m_pBase->m_arrDelta
             }
             if(line.aColorL > stat.sline.aColorL)
                 stat.sline.aColorL = line.aColorL;
@@ -1360,7 +1365,7 @@ void CVIEngineThread::MakeAuraStat(int nSum, bool bModeB)
             if(bModeB)
                 line.aColorR = line.maxRi;
             else
-                line.aColorR = MakeAuraColorA(nSum,line.maxRx,y);
+                line.aColorR = MakeAuraColorA(nSum,line.maxRx,y); // Расчёт цвета линии для n-го элемента рассчитаной статистики. Исходные данные из m_pBase->m_summ[nSum] и массив дельта-изображений m_pBase->m_arrDelta
 
             if(line.aColorR > stat.sline.aColorR)
                 stat.sline.aColorR = line.aColorR;
@@ -1405,7 +1410,7 @@ void CVIEngineThread::MakeAuraStat(int nSum, bool bModeB)
         stat.statCS = sqrtf(stat.statCD);
     }
 
-    if(m_pCfg->GetI1(VI_VAR_STAT_CFG_HISTFN))
+    if(m_pCfg->GetI1(VI_VAR_STAT_CFG_HISTFN)) // Чтение первого значения настроечного параметра по идентификатору ключа
     {
         CVIEngineSimple::MakeHistFn(statHist,m_pCfg->GetI1(VI_VAR_STAT_CFG_HISTFN),bModeB);
         statHistW = statHistA = statHistC = statHist;
@@ -1417,8 +1422,8 @@ void CVIEngineThread::MakeAuraStat(int nSum, bool bModeB)
     stat.statHistW = statHistW;
     stat.statHistC = statHistC;
 
-    MakeAuraStatHist(stat);
-    MakeAuraStatTransform(stat);
+    MakeAuraStatHist(stat); // Метод не имеет никакого программного кода
+    MakeAuraStatTransform(stat); /// Расчёт аттрибута transform структуры AURA_STAT на основе других аттрибутов
 }
 
 /// <summary>
@@ -1427,7 +1432,7 @@ void CVIEngineThread::MakeAuraStat(int nSum, bool bModeB)
 /// Для режима B return m_pBase->m_summ[nSum].i[h*3];
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name="nSum"></param>
+/// <param name="nSum">Индекс элемента в массиве m_pBase->m_stat</param>
 /// <param name="bModeB">Признак формирования результата для режима B</param>
 float* CVIEngineThread::GetSumPtr(int nSum, bool bModeB)
 {
@@ -1444,7 +1449,7 @@ float* CVIEngineThread::GetSumPtr(int nSum, bool bModeB)
 /// Для режима B return m_pBase->m_summ[nSum].si[h];
 /// Размер изображения берётся из настроечного параметра VI_VAR_SIZE.
 /// </summary>
-/// <param name="nSum"></param>
+/// <param name="nSum">Индекс элемента в массиве m_pBase->m_stat</param>
 /// <param name="bModeB">Признак формирования результата для режима B</param>
 short* CVIEngineThread::GetSumPtrI(int nSum, bool bModeB)
 {
@@ -1456,6 +1461,7 @@ short* CVIEngineThread::GetSumPtrI(int nSum, bool bModeB)
 }
 
 /// <summary>
+/// Копирование изображения по указанному адресу с заменой цветов. Исходные данные из m_pBase->m_summ.
 /// Копирование изображения в 4-х байтном целочисленном представлении по указанному адресу с заменой цветов на 4-х байтные цвета из палитры.
 /// Исходные данные:
 /// Для режима A исходное 4-х байтное целочисленное представление изображения берётся по адресу m_pBase->m_summ[n].si[0]
@@ -1488,7 +1494,7 @@ void CVIEngineThread::MakeResultVIDraw(int n, DWORD*    imgRes, int rMode)
     SUM_IMG &sum = m_pBase->m_summ[n];
     short * imgSum;
 
-    if(IsModeA(res))
+    if(IsModeA(res))  // Вычисление признака работы в режиме A согласно списку допустимых значений переменной
         imgSum = sum.si[0];
     else
         imgSum = sum.si[h];
@@ -1497,7 +1503,7 @@ void CVIEngineThread::MakeResultVIDraw(int n, DWORD*    imgRes, int rMode)
 
     DWORD pal[256]; // Палитра цветов
     CopyMemory(pal,(DWORD*)m_pBase->m_palI,sizeof(pal));
-    pal[0] = (m_pBase->m_cfg.GetI1(VI_MODE_WBG)&id_vi)?0xFFFFFF:0;
+    pal[0] = (m_pBase->m_cfg.GetI1(VI_MODE_WBG)&id_vi)?0xFFFFFF:0; // Чтение первого значения настроечного параметра по идентификатору ключа
 
     while(pRes != pResE)
     {
@@ -1510,6 +1516,7 @@ void CVIEngineThread::MakeResultVIDraw(int n, DWORD*    imgRes, int rMode)
 }
 
 /// <summary>
+/// Рисование ауры поверх изображения по указанному адресу с заменой цветов на цвета из палитры. Исходные данные из m_pBase->m_statRelease.
 /// Рисование ауры поверх изображения по указанному адресу с заменой цветов ауры на 4-х байтные цвета из палитры.
 /// Исходные данные:
 /// Для режима A исходные списки левых и правых линий для рисования берутся из структуры AURA_STAT по адресу m_pBase->m_statRelease[n].auraA
@@ -1522,9 +1529,9 @@ void CVIEngineThread::MakeResultVIDraw(int n, DWORD*    imgRes, int rMode)
 /// <param name=""></param>
 void CVIEngineThread::MakeResultAuraDraw(int n, DWORD*  imgRes, int rMode)
 {
-    if( (m_pCfg->GetI1(VI_MODE_AURA) & rMode) == 0 )
+    if( (m_pCfg->GetI1(VI_MODE_AURA) & rMode) == 0 ) // Чтение первого значения настроечного параметра по идентификатору ключа
         return;
-    bool bModeB = IsModeB( rMode );
+    bool bModeB = IsModeB( rMode ); // Вычисление признака работы в режиме B согласно списку допустимых значений переменной
     AURA_STAT & stat = bModeB ? m_pBase->m_statRelease[n].auraB
     : m_pBase->m_statRelease[n].auraA;
 
@@ -1590,6 +1597,7 @@ void CVIEngineThread::MakeResultAuraDraw(int n, DWORD*  imgRes, int rMode)
 }
 
 /// <summary>
+/// Рисование ауры поверх изображения по указанному адресу с заменой цветов на цвета из палитры. Исходные данные из m_pBase->m_statRelease.
 /// Рисование ауры поверх изображения по указанному адресу со смешиванием цветов RGB ауры с исходным RGB изображением.
 /// Цвета ауры заменяются на 4-х байтные цвета из палитры в формате RGBQUAD.
 /// Исходные данные:
@@ -1603,9 +1611,9 @@ void CVIEngineThread::MakeResultAuraDraw(int n, DWORD*  imgRes, int rMode)
 /// <param name=""></param>
 void CVIEngineThread::MakeResultAuraDrawMix(int n, DWORD*   imgRes, int rMode)
 {
-    if( (m_pCfg->GetI1(VI_MODE_AURA) & rMode) == 0 )
+    if( (m_pCfg->GetI1(VI_MODE_AURA) & rMode) == 0 ) // Чтение первого значения настроечного параметра по идентификатору ключа
         return;
-    bool bModeB = IsModeB(rMode);
+    bool bModeB = IsModeB(rMode); // Вычисление признака работы в режиме B согласно списку допустимых значений переменной
     AURA_STAT & stat = bModeB ? m_pBase->m_statRelease[n].auraB
     : m_pBase->m_statRelease[n].auraA;
 
@@ -1700,8 +1708,8 @@ void CVIEngineThread::MakeResultAuraDrawMix(int n, DWORD*   imgRes, int rMode)
 }
 
 /// <summary>
+/// Расчёт массива m_stat. Исходными данными являются m_pBase->m_stat.
 /// </summary>
-/// <param name=""></param>
 void CVIEngineThread::OnEventSumStat(void)
 {
     int nSumm = m_pBase->m_summ.size();
@@ -1713,11 +1721,11 @@ void CVIEngineThread::OnEventSumStat(void)
         pSumm = new SUMM_PTR[nSumm];
         for( k = 0; k < nSumm; ++k )
         {
-            BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k);
+            BOOL disableSum = m_pCfg->GetI1(VI_FILTER_DISABLE_VI0+k); // Чтение первого значения настроечного параметра по идентификатору ключа
             if(disableSum)
                 continue;
 
-            MakeSummPtr(k,pSumm+k);
+			MakeSummPtr(k, pSumm + k); // Инициализация n-того элемента массива структуры SUMM_PTR начальными значениями. Исходными данными являются m_pBase->m_stat[n].
         }
     }
 
@@ -1728,7 +1736,7 @@ void CVIEngineThread::OnEventSumStat(void)
             continue;
 
         SUMM_PTR& S = pSumm[k];
-        MakeSumStat(k,S);
+        MakeSumStat(k,S); // Расчёт значений n-го элемента массива m_stat. Исходными данными является структура SUMM_PTR.
     }
 
     _mm_empty();
@@ -1737,6 +1745,7 @@ void CVIEngineThread::OnEventSumStat(void)
 }
 
 /// <summary>
+/// Расчёт значений n-го элемента массива m_stat. Исходными данными является структура SUMM_PTR.
 /// Если кратко, то это реализация следующей процедуры с использованием технологии SSE
 /// m_stat[nSum].sumAi = CУММА S.RetA ;
 /// m_stat[nSum].cntAi = 1[ СУММА S.RetA ];
@@ -1755,8 +1764,8 @@ void CVIEngineThread::OnEventSumStat(void)
 /// Однако стоимость вычислений и возможность параллельных вычислений не всегда находятся в прямой зависимости друг от друга.
 /// Дорогой процессор будет всегда делать вычисления быстрее дешёвой видеокарты, сколько бы там шредеров не было - чудес не бывает.
 /// </summary>
-/// <param name="nSum"></param>
-/// <param name="S"></param>
+/// <param name="nSum">Индекс элемента в массиве m_pBase->m_stat</param>
+/// <param name="S">Ссылка на инстанс структуры SUMM_PTR</param>
 void CVIEngineThread::MakeSumStat(int nSum, SUMM_PTR& S)
 {
     TMP_STAT& T = m_stat[nSum];
@@ -1809,14 +1818,15 @@ void CVIEngineThread::MakeSumStat(int nSum, SUMM_PTR& S)
 /// <summary>
 /// Метод не имеет никакого программного кода
 /// </summary>
-/// <param name="stat"></param>
+/// <param name="stat">Ссылка на инстанс структуры AURA_STAT</param>
 void CVIEngineThread::MakeAuraStatHist(AURA_STAT &stat)
 {
 }
 
 /// <summary>
+/// Расчёт аттрибута transform структуры AURA_STAT на основе других аттрибутов
 /// </summary>
-/// <param name="stat"></param>
+/// <param name="stat">Ссылка на инстанс структуры AURA_STAT</param>
 void CVIEngineThread::MakeAuraStatTransform(AURA_STAT &stat)
 {
     if( !stat.sline.lcntL || !stat.sline.lcntR )
@@ -1835,12 +1845,15 @@ void CVIEngineThread::MakeAuraStatTransform(AURA_STAT &stat)
 }
 
 /// <summary>
+/// Расчёт цвета линии для n-го элемента рассчитаной статистики. Исходные данные из m_pBase->m_summ[nSum] и массив дельта-изображений m_pBase->m_arrDelta
 /// </summary>
-/// <param name=""></param>
+/// <param name="nSum">Индекс в массиве m_pBase->m_summ</param>
+/// <param name="x">Максимальная длина линии (не может быть больше ширины изображения)</param>
+/// <param name="y">Номер строки в изображении</param>
 int CVIEngineThread::MakeAuraColorA(int nSum, int x, int y)
 {
     int n0 = m_pBase->m_arrDelta.front().n;
-    int n = m_pBase->m_cfg.GetI1(m_pBase->m_summ[nSum].id);
+    int n = m_pBase->m_cfg.GetI1(m_pBase->m_summ[nSum].id); // Чтение первого значения настроечного параметра по идентификатору ключа
     int nLast = n0 - n+1;
     ilFRAME_IMG iDelta;
 
@@ -1874,7 +1887,7 @@ int CVIEngineThread::MakeAuraColorA(int nSum, int x, int y)
 /// <summary>
 /// Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 int CVIEngineThread::res2n(int res)
 {
     switch(res)
@@ -1899,7 +1912,7 @@ int CVIEngineThread::res2n(int res)
 /// <summary>
 /// Вычисление признака работы в режиме A согласно списку допустимых значений переменной res
 /// </summary>
-/// <param name="res"></param>
+/// <param name="res">Набор двоичных флагов</param>
 bool CVIEngineThread::IsModeA(int res)
 {
     switch(res)
@@ -1925,9 +1938,7 @@ bool CVIEngineThread::IsModeA(int res)
 }
 
 /// <summary>
-/// Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой
-/// в двухмерный массив целых 4-х байтных чисел [0;255] с округлением,
-/// и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива.
+/// Массовая операция конвертации элементов друхмерного массива 4-х байтных чисел с плавающей точкой в двухмерный массив целых 4-х байтных чисел [0;255] с округлением, и одновременным подсчётом сумм элементов по строкам и сумм элементов по столбцам исходного массива.
 /// Количество элементов в строке исходного массива должно быть кратно 4-м.
 /// Используются возможности аппаратного ускорения вычислений с применением видеокарты поддерживающей SSE
 /// Каждый пискель в видеопамяти состоит из 4-х регистров RGBA,

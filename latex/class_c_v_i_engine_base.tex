@@ -18,71 +18,69 @@
 \hyperlink{class_c_v_i_engine_base_a28dba2a06eda33294836c5241f497112}{$\sim$\+C\+V\+I\+Engine\+Base} (void)
 \item 
 R\+G\+B\+Q\+U\+A\+D \hyperlink{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}{\+\_\+\+\_\+declspec} (align(16)) m\+\_\+pal\+I\mbox{[}256\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em Используемая палитра цветов \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a6ca94a8d39e8a76e5be4698cc2eff06b}{Add\+Image\+Thread\+Local} ()
 \begin{DoxyCompactList}\small\item\em Запуск метода Add\+Image\+Thread\+Proc в цикле пока не скажут -\/ Хватит! -\/ while(!m\+\_\+b\+Done \&\& !m\+\_\+b\+Stop) Если задан настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды. Иначе вычисления приостанавливаются на 1/4 секунды. Метод вызывается из \char`\"{}рабочей\char`\"{} нити Windows -\/ то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_ac9fbe14762f4d2bf7d0bffe451a329ee}{Add\+Image\+Thread\+Proc} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Назначение процедуры -\/ чтение кадров с требуемой частотой и запуск обработки, заданной V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+M\+A\+X\+R. Телодвижения в коде несовсем понятны, но в результате всё сводится к запуску Make\+Image -\/ процедуры обработки очередной порции кадров изображения. Хотя по-\/ходу успевают к чему-\/то применить медианный фильтр -\/ это фильтр подавления шумов на изображении. Возвращает требуемую задержку в тиках ( 1000 тиков = 1 сек ) перед следующим запуском этой процедуры, рассчитанную на основе настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+M\+A\+X\+R, то есть чтобы обработка шла с заданным количеством кадров/сек. Данный метод вызывается в цикле в методе Add\+Image\+Thread\+Local, который вызывается в свою очередь из метода \char`\"{}рабочего\char`\"{} процесса Windows, запускаемого единственной параллельной нитью -\/ то есть просто цикл в бэкграунде. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a180f4a67ef6b4137c8b8565310aa7834}{Add\+Image\+Thread\+Local8} ()
 \begin{DoxyCompactList}\small\item\em Обработка взведённых флагов сигналов в цикле пока не скажут -\/ Хватит! -\/ while(!m\+\_\+b\+Done \&\& !m\+\_\+b\+Stop) То есть используется сигнально-\/событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m\+\_\+ev\+Ready. По проверяются и обрабатываются только флаги E\+V\+I\+\_\+\+A\+D\+D8 и E\+V\+I\+\_\+\+D\+O\+N\+E. В цикле производится ожидание до появление флага E\+V\+I\+\_\+\+D\+O\+N\+E. Eсли не был поднят флаг E\+V\+I\+\_\+\+A\+D\+D8, то вызывается метод \hyperlink{class_c_v_i_engine_base_a3fe6ae4f9ac6b9422c22d99878f424f5}{Add\+Image8()}; Всегда поднимается флаг готовности кадра m\+\_\+events\mbox{[}E\+V\+I\+\_\+\+A\+D\+D8\+\_\+\+R\+E\+A\+D\+Y\mbox{]}.Set(); Метод вызывается из \char`\"{}рабочей\char`\"{} нити Windows -\/ то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a053908c9c2c18583a13e6f6f79c8eeab}{Create\+Threads} (bool b\+Lock=true)
-\begin{DoxyCompactList}\small\item\em Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a0905eba46bb64f25a2d91f8b39a3f994}{Close\+Threads} (bool b\+Lock=true)
-\begin{DoxyCompactList}\small\item\em Останов ранее запущенных параллельных потоков для вычислений. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Останов ранее запущенных параллельных потоков для вычислений. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_ac886baeaf14b16970d089edaf6767a79}{Add\+Image} (void $\ast$p, int w, int h, int bpp, double t, int n\+Ref=0)
-\begin{DoxyCompactList}\small\item\em Процедура получения очередной порции данных для обработки. Список шагов\+: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m\+\_\+img\+Src8 или m\+\_\+img\+Src24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Процедура получения очередной порции данных для обработки. Список шагов\+: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m\+\_\+img\+Src8 или m\+\_\+img\+Src24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a3fe6ae4f9ac6b9422c22d99878f424f5}{Add\+Image8} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Чтение очередного кадра изображения в аттрибут m\+\_\+img\+Src8. Конвертация в массив чисел с плавающей точкой. Вызов когда требуется \hyperlink{class_c_v_i_engine_base_ac9fbe14762f4d2bf7d0bffe451a329ee}{Add\+Image\+Thread\+Proc()}. Процедура содержит задержку для соблюдения требуемой часоты чтения кадров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a3426944a03bac2f5a8c135c217f9cf8c}{Make\+Image} (float $\ast$p\+F\+I, B\+Y\+T\+E $\ast$p\+B\+I, int w, int h)
-\begin{DoxyCompactList}\small\item\em Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения -\/ то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги\+: Сброс если надо -\/ Reset(true); Сдвиг очереди кадров -\/ \hyperlink{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{Next\+Src()}; Сброс ранее рассчитанных данных -\/ \hyperlink{class_c_v_i_engine_base_a10d6138a2c8f4c4c946bf930c268be6b}{Clear\+Stat()}; Получение очередного изображения C\+V\+I\+Engine\+Face\+::\+Add\+Image; Последовательное применение различных обработок кадра -\/ фильтрация шумов, расчёт статистики, расчёт изображения ауры -\/ если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-\/то психологического\+: \hyperlink{class_c_v_i_engine_base_adf949a2b1abf18f519937d3f787c5abf}{Make\+Anger()}; \hyperlink{class_c_v_i_engine_base_a746c67a403f60418bf26e1e686db0c0c}{Make\+Stress()}; \hyperlink{class_c_v_i_engine_base_aa77b261660041465a8d3e68a7088dd0d}{Make\+State()}; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов -\/ \hyperlink{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}{Make\+Face\+Draw()}; Расчёт затраченного времени на обработку и производительности (F\+P\+S), формирование номера сдедующего кадра\+: m\+\_\+cfg.\+Put\+F1(V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R, m\+\_\+fps\+Out\+R.\+Put()); m\+\_\+cfg.\+Put\+I1(V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E, m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения -\/ то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги\+: Сброс если надо -\/ Reset(true); Сдвиг очереди кадров -\/ \hyperlink{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{Next\+Src()}; Сброс ранее рассчитанных данных -\/ \hyperlink{class_c_v_i_engine_base_a10d6138a2c8f4c4c946bf930c268be6b}{Clear\+Stat()}; Получение очередного изображения C\+V\+I\+Engine\+Face\+::\+Add\+Image; Последовательное применение различных обработок кадра -\/ фильтрация шумов, расчёт статистики, расчёт изображения ауры -\/ если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-\/то психологического\+: \hyperlink{class_c_v_i_engine_base_adf949a2b1abf18f519937d3f787c5abf}{Make\+Anger()}; \hyperlink{class_c_v_i_engine_base_a746c67a403f60418bf26e1e686db0c0c}{Make\+Stress()}; \hyperlink{class_c_v_i_engine_base_aa77b261660041465a8d3e68a7088dd0d}{Make\+State()}; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов -\/ \hyperlink{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}{Make\+Face\+Draw()}; Расчёт затраченного времени на обработку и производительности (F\+P\+S), формирование номера сдедующего кадра\+: m\+\_\+cfg.\+Put\+F1(V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R, m\+\_\+fps\+Out\+R.\+Put()); m\+\_\+cfg.\+Put\+I1(V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E, m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a930661f73cc7c449c166071631be595d}{Set\+Size} (int w, int h, int cnt)
 \begin{DoxyCompactList}\small\item\em Сохранение новых размеров изображения в настроечных параметрах V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a042d710f3a5be21538478ad157680828}{Set\+Count} (int cnt, bool b\+Lock=true)
-\begin{DoxyCompactList}\small\item\em Сброс настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E. Изменение размера массивов m\+\_\+arr\+Src и m\+\_\+arr\+Delta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Сброс настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E. Изменение размера массивов m\+\_\+arr\+Src и m\+\_\+arr\+Delta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a4764b56d4269ed5cd101dddf545e039d}{Check\+F\+P\+S\+D\+I\+V} ()
-\begin{DoxyCompactList}\small\item\em Восстановление значения настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V значением настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T. В случае если настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V отличался от настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T, производится очистка массива m\+\_\+src\+F. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Восстановление значения настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V значением настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T. В случае если настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V отличался от настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T, производится очистка массива m\+\_\+src\+F. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 \hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ \& \hyperlink{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{Next\+Src} (void)
-\begin{DoxyCompactList}\small\item\em Сдвиг очереди кадров \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Сдвиг очереди кадров в памяти \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a305c1b2285ddfcdbb021597f0b3dbd39}{Wait\+Threads} (void)
 \begin{DoxyCompactList}\small\item\em Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_af12866653055639e69a61224615af7fe}{Sync} (void)
-\begin{DoxyCompactList}\small\item\em Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-\/записать данные во все из-\/в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Блокирование семафора L\+V\+I\+\_\+\+A\+L\+L с ожиданием его освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-\/записать данные во все из-\/в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a4b6c77fcb50dcb01f299d7e0f4b05ea6}{Set\+Summ\+Count} (int cnt, int $\ast$p\+N)
-\item 
+\begin{DoxyCompactList}\small\item\em Изменение размеров массивов m\+\_\+stat, m\+\_\+summ, m\+\_\+aura6\+A, m\+\_\+aura6\+B до нового размера. Присвоение m\+\_\+summ\mbox{[}i\mbox{]}.id = p\+N\mbox{[}i\mbox{]} и очистка памяти выделеной для хранения строк изображений m\+\_\+summ\mbox{[}i\mbox{]}.i.\+clear();m\+\_\+summ\mbox{[}i\mbox{]}.si.\+clear(); Инициализация структур Clear\+Stat(m\+\_\+stat\mbox{[}i\mbox{]}) если азмер массивов был изменён. Для подробностей надо смотреть описание структуры \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G}; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_adb6193dca9e4f6c71ad6e77df88bc9f7}{Get\+Summ\+Count} (int $\ast$p\+N)
-\item 
+\begin{DoxyCompactList}\small\item\em Заполнение массива по указателю значениями p\+N\mbox{[}i\mbox{]} = m\+\_\+cfg.\+Get\+I1(m\+\_\+summ\mbox{[}i\mbox{]}.id); Возвращает размер массива m\+\_\+summ; Для подробностей надо смотреть описание структуры \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G}; \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_a354f23eda839e4aff3b578fc5ad50363}{Get\+Summ\+Count} (int pos)
-\item 
+\begin{DoxyCompactList}\small\item\em Получение значения настроесного параметра return m\+\_\+cfg.\+Get\+I1(m\+\_\+summ\mbox{[}pos\mbox{]}.id); Для подробностей надо смотреть описание структуры \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G}; \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a38d38d266d48fad44435eec46a1086a6}{Set\+Result\+Ptr} (int id, void $\ast$ptr, int w, int h)
-\item 
+\begin{DoxyCompactList}\small\item\em Проверяет наличие записи в карте m\+\_\+result\+Ptr по ключу id и значению ptr и совпадение размера в m\+\_\+result\+Size с переданными значениями. Если что-\/то не совпадает или не хватет, то добавляет в карту m\+\_\+result\+Ptr по ключу id значению ptr; задаёт значение размера m\+\_\+result\+Size равным переданным параметрам; Возвращает false если размер изображения не совпадает с хранящимся в настроечном параметре V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a99f7df701bfe9d53121e5cd00167e591}{Get\+Result\+Ptr} (int id, void $\ast$$\ast$ptr, int $\ast$pw, int $\ast$ph)
-\begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Если он не задан, то берутся значения размеров из m\+\_\+result\+Size. Возвращает через параметры значение из карты m\+\_\+result\+Ptr по ключу id и размеры изображения. Возвращает true, если размеры в V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E совпадают со значениями в m\+\_\+result\+Size и существует запись для ключа id в карте m\+\_\+result\+Ptr. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_aa59b55fc315394f4c19cb7d95c399913}{Make} (int command)
 \begin{DoxyCompactList}\small\item\em Поднятие флага сигнала command у всех параллельных процессов. m\+\_\+therads\mbox{[}k\mbox{]}-\/$>$m\+\_\+events\mbox{[}command\mbox{]}.Set(); Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_a1e0174d46d3d28931a648e0437f0686d}{Get\+Optimal\+Thread\+Count} (void)
-\begin{DoxyCompactList}\small\item\em Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-\/ми и не менее 1-\/го ;) То есть простенько -\/ без вяких лишних околонаучных движений. S\+Y\+S\+T\+E\+M\+\_\+\+I\+N\+F\+O info; Get\+System\+Info(\&info); n\+Proc = info.\+dw\+Number\+Of\+Processors; \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программа. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-\/ми и не менее 1-\/го ;) То есть простенько -\/ без вяких лишних околонаучных движений. S\+Y\+S\+T\+E\+M\+\_\+\+I\+N\+F\+O info; Get\+System\+Info(\&info); n\+Proc = info.\+dw\+Number\+Of\+Processors; \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a2b86bf7f377f62e7a701fb3466708d04}{Make\+Stat\+Sum} (void)
 \begin{DoxyCompactList}\small\item\em Объединение результатов, рассчитанных в отдельный параллельный процессах для отдельных фрагментов изображений в единый результат в одном месте, то есть для инстанса данного класса и расчёт средних значений по всему изображению. Паралельные процессы сохраняют посчитанные результаты в своих инстансах \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread} в массивах структур m\+\_\+stat. Данная процедура объединяет все эти результаты в массиве m\+\_\+stat и что-\/то делит на количество пикселей в изображении (суммарную яркость, количество ненулевых пикселей и т.\+д.) -\/ то есть рассчитывает усреднёные значения. Перед выполнении данной процедуры надо убедится в завершении расчётов в каждом отдельном параллельном потоке, поскольку в данном методе вызовов синхронизации нет -\/ здесь полагается что все потоки вычислений уже закончили свои вычисления по текущему кадру. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a10d6138a2c8f4c4c946bf930c268be6b}{Clear\+Stat} (void)
 \begin{DoxyCompactList}\small\item\em Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m\+\_\+stat структуры \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} к очередному циклу обработки. Процедура вызывает одноимённый метод для каждого элемента массива m\+\_\+stat. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_adb910c0d7f06cf1f3ea7b2347aed1751}{Clear\+Stat} (\hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} \&S)
 \begin{DoxyCompactList}\small\item\em Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка данных структуры \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} к очередному циклу обработки. \end{DoxyCompactList}\item 
-\hypertarget{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}{void {\bfseries Make\+Def\+Pal} (R\+G\+B\+Q\+U\+A\+D $\ast$pal)}\label{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a22ba2d068df7651b957bb7cb00a324be}{void {\bfseries Set\+Mode} (int tag, int id)}\label{class_c_v_i_engine_base_a22ba2d068df7651b957bb7cb00a324be}
-
-\item 
+void \hyperlink{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}{Make\+Def\+Pal} (R\+G\+B\+Q\+U\+A\+D $\ast$pal)
+\begin{DoxyCompactList}\small\item\em Получение палитры цветов. В предоставненом коде описание отсутствует, вызовов есть только в кострукторе класса. \end{DoxyCompactList}\item 
+void \hyperlink{class_c_v_i_engine_base_a22ba2d068df7651b957bb7cb00a324be}{Set\+Mode} (int tag, int id)
+\begin{DoxyCompactList}\small\item\em В предоставненом коде описание отсутствует, вызовов метода нет. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a4507f1ddf8b2931693f85e97dafe7cda}{Set\+Registry} (L\+P\+C\+T\+S\+T\+R group)
-\begin{DoxyCompactList}\small\item\em Задание идентификатора ключа в реестре Windows для хранения настроечных параметров \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Задание идентификатора ключа в реестре Windows для хранения группы настроечных параметров \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_abcb53c55dac3fb076b4e8f5b88e48e6a}{Get\+Src\+Line} (int x, int y, float $\ast$px=0, float $\ast$py=0)
-\begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Копирование значений x-\/ого столца и y-\/ой строки по указанным значениям указателей. Исходный массив для копирования определяется на основе настроечного параметра V\+I\+\_\+\+M\+O\+D\+E\+\_\+\+R\+E\+S\+U\+L\+T. V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+0 m\+\_\+arr\+Src.\+begin()-\/$>$i.\+begin(); V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+A m\+\_\+arr\+Src.\+begin()-\/$>$i.\+begin(); V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+B m\+\_\+arr\+Src.\+begin()-\/$>$i.\+begin(); V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+A m\+\_\+summ\mbox{[}0\mbox{]}-\/$>$i\mbox{[}h$\ast$2\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+B m\+\_\+summ\mbox{[}0\mbox{]}-\/$>$i\mbox{[}h$\ast$3\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+A m\+\_\+summ\mbox{[}1\mbox{]}-\/$>$i\mbox{[}h$\ast$2\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+B m\+\_\+summ\mbox{[}1\mbox{]}-\/$>$i\mbox{[}h$\ast$3\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+A m\+\_\+summ\mbox{[}2\mbox{]}-\/$>$i\mbox{[}h$\ast$2\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+B m\+\_\+summ\mbox{[}2\mbox{]}-\/$>$i\mbox{[}h$\ast$3\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+A m\+\_\+arr\+Delta.\+begin()-\/$>$i\mbox{[}0\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+B m\+\_\+arr\+Delta.\+begin()-\/$>$i\mbox{[}0\mbox{]}; Если m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+M\+O\+D\+E\+\_\+\+R\+E\+S\+U\+L\+T) = V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+B, то производится умножение на 255.\+0; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Применяется технология S\+S\+E для ускорения копирования и преобразования типов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_aaf9d381d837873e8c66babffa6f6bfd1}{Get\+Src\+Line8} (int x, int y, float $\ast$px=0, float $\ast$py=0)
-\item 
+\begin{DoxyCompactList}\small\item\em Копирование из m\+\_\+img\+Src8 значений x-\/ого столца и y-\/ой строки по указанным значениям указателей. m\+\_\+img\+Src8 -\/ двумерный массив монохромного изображения \mbox{[}0;255\mbox{]}; То есть будет выполнятся преобразования из B\+Y\+T\+E в float. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a1e295decbf2fabf485467c2dee1bb51f}{Get\+Sum\+Hist} (int id, float $\ast$px=0, float $\ast$py=0)
 \begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_ad6e23a29501fa69951a0cc9405bae96a}{On\+New\+Var} (int id, int sub\+I\+D=0)
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо хук при добавлении параметра в настроечные параметры \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a1fcb2c48c5d0f103dd1e001f8a4ec35f}{Stat\+Update} (void)
 \begin{DoxyCompactList}\small\item\em Расчёт величин определённых в методике и записи их в настроечные параметры B\+O\+O\+L disabled2\+X =m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+2\+X); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+I\+N\+T\+E\+G\+R0\+A = m\+\_\+stat\mbox{[}0\mbox{]}.sum\+Ain; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+I\+N\+T\+E\+G\+R0\+A = m\+\_\+stat\mbox{[}0\mbox{]}.sum\+Bin; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+I\+N\+T\+E\+G\+R1\+A = m\+\_\+stat\mbox{[}1\mbox{]}.sum\+Ain; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+I\+N\+T\+E\+G\+R1\+A = m\+\_\+stat\mbox{[}1\mbox{]}.sum\+Bin; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+I\+N\+T\+E\+G\+R2\+A = m\+\_\+stat\mbox{[}2\mbox{]}.sum\+Ain; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+I\+N\+T\+E\+G\+R2\+A = m\+\_\+stat\mbox{[}2\mbox{]}.sum\+Bin; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A1 = m\+\_\+stat\mbox{[}0\mbox{]}.dsum\+Ain; if(disabled2\+X) V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A1\+X = m\+\_\+stat\mbox{[}0\mbox{]}.dsum\+Ain; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A2 = ( (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+sum\+L / m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cl) + (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+sum\+R / m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cr) ) / 2; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A3 = ( (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+sum\+L / m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cl) + (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+sum\+R / m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cr) ) / 2; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A4 = m\+\_\+stat\+A\+V\+G.\+Get(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A1); if(disabled2\+X) V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A4\+X = m\+\_\+stat\+A\+V\+G.\+Get(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+A1\+X) ; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F1 = m\+\_\+stat\mbox{[}0\mbox{]}.dsum\+Bin; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F2 = ( (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+B.\+sline.\+sum\+L / m\+\_\+stat\mbox{[}1\mbox{]}.aura\+B.\+sline.\+cl) + (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+B.\+sline.\+sum\+R / m\+\_\+stat\mbox{[}1\mbox{]}.aura\+B.\+sline.\+cr) ) / 2; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F3 = ( (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+sline.\+sum\+L / m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+sline.\+cl) + (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+sline.\+sum\+R / m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+sline.\+cr) ) / 2; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F4 = max(m\+\_\+stat\mbox{[}0\mbox{]}aura\+A.\+sline.\+max\+L, m\+\_\+stat\mbox{[}0\mbox{]}$>$aura\+A.\+sline.\+max\+R); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F5 = m\+\_\+stat\+F\+F\+T.\+Get\+Hf\+Lf(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F1); if(disabled2\+X) V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F5\+X = m\+\_\+stat\+F\+F\+T.\+Get\+Hf\+Lf(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+F1\+X); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S1 = (m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+sum\+L -\/ m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+sum\+R) / (m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+cl + m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+cr); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S2 = (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+sum\+L -\/ m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+sum\+R) / (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cl + m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cr); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S2 = (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+sum\+L -\/ m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+sum\+R) / (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cl + m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cr); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S4 = (m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+cl -\/ m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+cr) / (m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+cl + m\+\_\+stat\mbox{[}2\mbox{]}.aura\+A.\+sline.\+cr); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S5 = (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cl -\/ m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cr) / (m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cl + m\+\_\+stat\mbox{[}1\mbox{]}.aura\+A.\+sline.\+cr); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S6 = (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cl -\/ m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cr) / (m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cl + m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+cr); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+S7 = m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+max\+L -\/ m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+sline.\+max\+R; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P1 = m\+\_\+stat\mbox{[}1\mbox{]}.aura\+B.\+stat\+C\+S; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P2 = m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+stat\+C\+S; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P3 = m\+\_\+stat\mbox{[}1\mbox{]}.aura\+B.\+stat\+Sim; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P4 = m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+stat\+Sim; hist = m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+H\+I\+S\+T\+N\+W)? m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+stat\+Hist\+W \+:m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A.\+stat\+Hist; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P8\+A = Make\+Charming(hist.\+p, hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P9\+A = Make\+Entropy\+H(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P10\+A = Make\+Entropy\+D(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P11\+A = Make\+Entropy\+X(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P12\+A = Make\+Entropy\+S(hist.\+p,hist.\+s); hist = m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+H\+I\+S\+T\+N\+W)? m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+stat\+Hist\+W \+:m\+\_\+stat\mbox{[}0\mbox{]}.aura\+B.\+stat\+Hist; V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P8\+F = Make\+Charming(hist.\+p, hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P9\+F = Make\+Entropy\+H(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P10\+F = Make\+Entropy\+D(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P11\+F = Make\+Entropy\+X(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P12\+F = Make\+Entropy\+S(hist.\+p,hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P16 = Make\+Com\+N(hist.\+p, hist.\+s); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P17 = Make\+Com\+S(m\+\_\+stat\mbox{[}0\mbox{]}.aura\+A); V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P18 = (V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P16 + V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+\_\+\+R\+E\+S\+\_\+\+P17) / 2; \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_ae3a9bb0a97a8ed3ac6e16980dc22a424}{Stop} (void)
@@ -94,25 +92,25 @@ void \hyperlink{class_c_v_i_engine_base_a27a3545d7253a59150ea9c16e7b4f0ac}{Reset
 void \hyperlink{class_c_v_i_engine_base_a4a2bee3b656476fdc3cb488a7019d7ae}{Make\+Stat\+F\+S2} (float $\ast$src, int sw, int sh)
 \begin{DoxyCompactList}\small\item\em Реализация метода не содержит программного кода. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a7d2e5915b3c1c9f6172291305a99bfe5}{Flush\+F\+P\+S} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Сохранение текущих значений F\+P\+S -\/ аттрибуты типа \hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} -\/ в настроечные параметры. V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+I\+N; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+F; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+D\+R\+O\+P\+F; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+D\+R\+O\+P\+R; \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_ab2c697a4748558b48789feca6a105042}{Start} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Начальная инициализация инстанса класса Изменение размеров массивов m\+\_\+stat, m\+\_\+summ, m\+\_\+aura6\+A, m\+\_\+aura6\+B до нового размера == 3. Присвоение m\+\_\+summ\mbox{[}i\mbox{]}.id = \{ V\+I\+\_\+\+V\+A\+R\+\_\+\+N0, V\+I\+\_\+\+V\+A\+R\+\_\+\+N1, V\+I\+\_\+\+V\+A\+R\+\_\+\+N2 \}\mbox{[}i\mbox{]} \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a65b898d96c06c5c9bf9f388b4a70f740}{Check\+N\+Rqst} (int w, int h)
 \begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_ad231ab7aee4acfc00e9a55e778443ee4}{Make\+Result\+Src} ()
-\begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Вывод результата на дисплей. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_a238c46a9344e280e609dcd974ce40a02}{Get\+Stat\+Hist\+N} (int res, int $\ast$p\+Hist256, float $\ast$p\+F\+P\+S)
-\item 
+\begin{DoxyCompactList}\small\item\em Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант N). Так же проверяется что $\ast$p\+F\+P\+S не пустое, в противном случае заполняется значением из нестроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R. В предоставленном коде вызовов метода нет. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_a8abf18dfc992c03f0dc9811be62ea5d5}{Get\+Stat\+Hist\+C} (int res, int $\ast$p\+Hist256, float $\ast$p\+F\+P\+S)
-\item 
+\begin{DoxyCompactList}\small\item\em Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант C). Так же проверяется что $\ast$p\+F\+P\+S не пустое, в противном случае заполняется значением из нестроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R. В предоставленном коде вызовов метода нет. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_a18bccff2c758d80e3d720953a0d949c1}{Get\+Stat\+Hist\+F} (int res, int $\ast$p\+Hist256, float $\ast$p\+F\+P\+S)
-\item 
+\begin{DoxyCompactList}\small\item\em Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F). Так же проверяется что $\ast$p\+F\+P\+S не пустое, в противном случае заполняется значением из нестроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R. В предоставленном коде вызовов метода нет. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_ab631a7093c3f9e3e15b5a84e61358374}{Get\+Stat\+Hist\+F\+T} (int res, int $\ast$p\+Hist256, float $\ast$p\+D\+T)
-\item 
+\begin{DoxyCompactList}\small\item\em Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F\+T). В предоставленном коде вызовов метода нет. \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_adf949a2b1abf18f519937d3f787c5abf}{Make\+Anger} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Вызов одноимённого метода с параметрами для режима B и для режима A. Make\+Anger(true); Make\+Anger(false); \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a746c67a403f60418bf26e1e686db0c0c}{Make\+Stress} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Вызов одноимённого метода с параметрами для режима B и для режима A. Make\+Stress(true); Make\+Stress(false); \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a04eac6867b0a19908706aa4181fc017e}{Make\+Anger} (bool b\+Mode\+B)
 \item 
 void \hyperlink{class_c_v_i_engine_base_a35022e842e74177678858dddd0d274ee}{Make\+Stress} (bool b\+Mode\+B)
@@ -124,23 +122,23 @@ void \hyperlink{class_c_v_i_engine_base_a6b60fbe47fd49415ccbc4e55cc6e858d}{tmp\+
 void \hyperlink{class_c_v_i_engine_base_a9037ada333cb78e24b8178703c1bace4}{tmp\+\_\+aura\+\_\+draw} (int res)
 \item 
 void \hyperlink{class_c_v_i_engine_base_afb7d69a59c1067240f248d50d7172ba6}{On\+New\+Var\+Didable} (int id)
-\begin{DoxyCompactList}\small\item\em Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Проверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_ab9ac11fcc300832a72d0be60be3419e6}{Is\+Motion} (bool b\+Set=false)
 \begin{DoxyCompactList}\small\item\em Чтение настройки для процедуры сенсора определения факта движения на основе ранее расчитанных статистических данных Если b\+Set == false и V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+D\+I\+S\+A\+B\+L\+E\+\_\+\+V\+I1 ненеулевой, то V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+M\+O\+T\+I\+O\+N\+\_\+\+S\+E\+T сбрасывается и возвращается 0 Иначе если V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+M\+O\+T\+I\+O\+N не указан, то V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+M\+O\+T\+I\+O\+N\+\_\+\+S\+E\+T сбрасывается и возвращается 0 Иначе производится ряд расчётов по настроечным параметрам, результат записывается в V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+M\+O\+T\+I\+O\+N\+\_\+\+S\+E\+T и возвращается вычисленная величина \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_aa31de24bd1b50c4206e8c3a6603985b2}{Make\+Motion} (void)
 \begin{DoxyCompactList}\small\item\em Вызов метода \hyperlink{class_c_v_i_engine_base_a27a3545d7253a59150ea9c16e7b4f0ac}{Reset()} если выполняется условие от процедуры сенсора движения. Получение текущего параметра для процедуры сенсора движения noise = Is\+Motion(true); Проверка необходимости вызова процедуры Reset -\/ т.\+е. проверка условия noise == 3 $\vert$$\vert$ noise == -\/2 $\vert$$\vert$ m\+\_\+stat\+Release\mbox{[}1\mbox{]}.cnt\+Ain $>$ 0.\+7f; Вызов \hyperlink{class_c_v_i_engine_base_a27a3545d7253a59150ea9c16e7b4f0ac}{Reset()} если условие выполняется \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a1bedb5c81d496c6c5496ba88cea82eb7}{Is\+Skip} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Признак того чтобы пропустить обработку кадра. Причины пропусков\+: Программа работает по факту движения, то есть заданны настройки для сенсора движения; Либо фильтры работают по большему количеству кадров чем сейчас считано. \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_aa77b261660041465a8d3e68a7088dd0d}{Make\+State} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров. if(state $>$= lev) \{ m\+\_\+cfg.\+Put\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+A, 1); m\+\_\+cfg.\+Put\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+P, 1); \} else m\+\_\+cfg.\+Put\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+A, 0); \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_ab42744ae341c3653c24ae3fd38bc7ceb}{Make\+State\+Macro} (void)
 \begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a835724aef2b6afbc88d5db31e8a13a08}{Make\+State} (float Ag, float St, float Tn)
-\item 
+\begin{DoxyCompactList}\small\item\em Выбор коэффициента либо среднее параметров, либо 0.\+8, либо 1.\+0 Код. Просто код. Лучше чем этот код не объяснишь. const float d\+Ag = 0.\+75f; const float d\+St = 0.\+80f; const float d\+Tn = 0.\+60f; int ret = 0; if (Ag $>$ d\+Ag) ret $\vert$= 1; if (St $>$ d\+St) ret $\vert$= 2; if (Tn $>$ d\+Tn) ret $\vert$= 4; switch (ret) \{ case 0\+: return (Ag + St + Tn) / 3.\+0f; case 1\+: case 2\+: case 4\+: return 0.\+8f; case 3\+: case 5\+: case 6\+: case 7\+: return 1.\+00f; default\+: break; \} return 0; \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}{Make\+Face\+Draw} ()
-\begin{DoxyCompactList}\small\item\em Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Вывод картинки на экран через A\+P\+I в классе \hyperlink{class_c_v_i_engine_face}{C\+V\+I\+Engine\+Face}. Берётся одна из картинок (какая есть в наличии) m\+\_\+result\+Ptr\mbox{[}V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+0\mbox{]}; m\+\_\+result\+Ptr\mbox{[}V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+A\mbox{]}; m\+\_\+result\+Ptr\mbox{[}V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+B\mbox{]}; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a784d5489bb89efa567e207d3539de0da}{Make\+Charming} (int $\ast$p\+Hist256, int len)
-\item 
+\begin{DoxyCompactList}\small\item\em Формула по гистограмме Формула\+: s\+V = СУММА p\+Hist256(i), s\+V\+X = СУММА i $\ast$ p\+Hist256(i), M = s\+V\+X / s\+V; d(i) = i$\ast$fps/len-\/\+M; s\+D\+V = d(i)$\ast$d(i)$\ast$p\+Hist256(i); D = s\+D\+V / s\+V; S = sqrt(\+D); return (M-\/\+S)/fps; Используется только в \hyperlink{class_c_v_i_engine_base_a1fcb2c48c5d0f103dd1e001f8a4ec35f}{C\+V\+I\+Engine\+Base\+::\+Stat\+Update(void)} \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a2617136f50ae63442e88809037ab9ff0}{Make\+Entropy\+X} (int $\ast$p\+Hist256, int len)
 \begin{DoxyCompactList}\small\item\em Вычисление значения энтропии по гистограмме сигнала (Вариант X -\/ заимствование идеи из статистического критерия X$^\wedge$2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-\/равномерного распределения, то есть Если flen -\/ максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen -\/ M)$^\wedge$2 И вычисляется значение return ( СУММА dd(i)$\ast$p\+Hist256(i) / СУММА p\+Hist256(i) ) / sqrt( СУММА dd(i)$\ast$dd(i)$\ast$p\+Hist256(i) / СУММА p\+Hist256(i) ) \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a4893abd93ae9de7f3913f24c872b23f8}{Make\+Entropy\+H} (int $\ast$p\+Hist256, int len)
@@ -152,23 +150,23 @@ float \hyperlink{class_c_v_i_engine_base_aa13baee159190df5a7fb94bb58f55065}{Make
 float \hyperlink{class_c_v_i_engine_base_a4bde6b4202b8dfa683becb522949e09c}{Make\+Com\+N} (int $\ast$p\+Hist256, int len)
 \begin{DoxyCompactList}\small\item\em Вычисление значения статистики по гистограмме сигнала. Гистограмма -\/ это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу p\+Hist256 по соответствующему адресу i СУММА p\+Hist256(i) = количество пикселей исходного изображения = ширина$\ast$высота Формула\+: n\+P\+I = (0.\+5/\+M\+\_\+\+P\+I)$\ast$(0.\+5/\+M\+\_\+\+P\+I); M = ( СУММА i $\ast$ p\+Hist256(i) ) / ( СУММА p\+Hist256(i) ); dx(i) = p\+Hist256(i) -\/ M; t(i) = i -\/ M; z(i) = n\+P\+I$\ast$exp(-\/0.\+5$\ast$t(i)$\ast$t(i)); Sum\+Z = СУММА n\+P\+I$\ast$exp(-\/0.\+5$\ast$t(i)$\ast$t(i)); S = sqrt( ( СУММА dx(i) $\ast$ dx(i) $\ast$ p\+Hist256(i) ) / ( СУММА p\+Hist256(i) ) ); K = ( СУММА z(i) ) / ( СУММА p\+Hist256(i) ); return max( 0.\+0, min( sqrt( СУММА (p\+Hist256\mbox{[}i\mbox{]} $\ast$ K -\/ z(i))$^\wedge$2 ) / sqrt( СУММА z(i)$^\wedge$2 ) , 1.\+0 ) ); \end{DoxyCompactList}\item 
 float \hyperlink{class_c_v_i_engine_base_a6eaa6b468b27249a359a67ce1ce32c4f}{Make\+Com\+S} (\hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T} \&aura)
-\item 
+\begin{DoxyCompactList}\small\item\em Вычисление средней величины по значениям ранее рассчитанных строк в структуре \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T}. Теоретический смысл формулы непонятен. nl = aura.\+line.\+size(); s\+W = СУММА abs(aura.\+line\mbox{[}y\mbox{]}.cwl-\/aura.\+line\mbox{[}y\mbox{]}.cwr)/max(aura.\+line\mbox{[}y\mbox{]}.cwl,aura.\+line\mbox{[}y\mbox{]}.cwr); s\+C = СУММА abs(aura.\+line\mbox{[}y\mbox{]}.a\+Color\+L -\/ aura.\+line\mbox{[}y\mbox{]}.a\+Color\+R)/255.0f; return 1.\+0f -\/ (s\+C+s\+W)/(2$\ast$nl); \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a2575b5618d3f87d4b10bb1f7294a3bad}{Src\+Mask\+Load} (L\+P\+C\+W\+S\+T\+R file)
-\begin{DoxyCompactList}\small\item\em Загрузка монохромного изображения m\+\_\+img\+Src\+Mask из файла Задание размера монохромного изображения m\+\_\+img\+Src\+Mask равным ширине и высоте изображения в файле Заполнение монохромного изображения m\+\_\+img\+Src\+Mask значениями 0x00 и 0x\+F\+F на основании значений пикселей изображения в файле При этом при заполнении m\+\_\+img\+Src\+Mask значениями используется вертикально перевёрнутое изображения из файла В m\+\_\+img\+Src\+Mask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение C\+O\+L\+O\+R\+R\+E\+F (чёрный цвет) и записывается значение 0x\+F\+F во всех остальных случаяж The C\+O\+L\+O\+R\+R\+E\+F value is used to specify an R\+G\+B color. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Загрузка монохромного изображения m\+\_\+img\+Src\+Mask из файла Задание размера монохромного изображения m\+\_\+img\+Src\+Mask равным ширине и высоте изображения в файле Заполнение монохромного изображения m\+\_\+img\+Src\+Mask значениями 0x00 и 0x\+F\+F на основании значений пикселей изображения в файле При этом при заполнении m\+\_\+img\+Src\+Mask значениями используется вертикально перевёрнутое изображения из файла В m\+\_\+img\+Src\+Mask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение C\+O\+L\+O\+R\+R\+E\+F (чёрный цвет) и записывается значение 0x\+F\+F во всех остальных случаяж The C\+O\+L\+O\+R\+R\+E\+F value is used to specify an R\+G\+B color. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a1d96cf239567fda73e26950353c69159}{Src\+Mask\+Save} (L\+P\+C\+W\+S\+T\+R file)
-\begin{DoxyCompactList}\small\item\em Сохранение монохромного изображения m\+\_\+img\+Src\+Mask в файле Сперва каждому пикселю в m\+\_\+img\+Src\+Mask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0x\+F\+F\+F\+F\+F\+F на основании значений пикселей в m\+\_\+img\+Src\+Mask В память записывается значение 0x00000000 если соответствующий пиксель в m\+\_\+img\+Src\+Mask имеет нулевое значение (чёрный цвет) и записывается значение 0x00\+F\+F\+F\+F\+F\+F во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Сохранение монохромного изображения m\+\_\+img\+Src\+Mask в файле Сперва каждому пикселю в m\+\_\+img\+Src\+Mask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0x\+F\+F\+F\+F\+F\+F на основании значений пикселей в m\+\_\+img\+Src\+Mask В память записывается значение 0x00000000 если соответствующий пиксель в m\+\_\+img\+Src\+Mask имеет нулевое значение (чёрный цвет) и записывается значение 0x00\+F\+F\+F\+F\+F\+F во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_ac394163149bb674cf127f16392f41047}{Src\+Mask\+Reset} ()
 \begin{DoxyCompactList}\small\item\em Очистка двумерного массива m\+\_\+img\+Src\+Mask Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_aa12afe22df5c306e03eb855d4fed4fce}{Src\+Mask\+Erase} (int x, int y)
 \begin{DoxyCompactList}\small\item\em Присвоение нулевого значения элементу двумерного массива m\+\_\+img\+Src\+Mask по указанным координатам. Если массив m\+\_\+img\+Src\+Mask пустой то он создаётся с размерами взятыми у m\+\_\+img\+Src8 и заполняется байтами 0x\+F\+F. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_aaa7d51c8145d1094997fc485508dd402}{Get\+Aura} (int $\ast$p\+C\+W\+L, int $\ast$p\+C\+W\+R, int $\ast$p\+C\+R, int $\ast$p\+C\+L, int n\+Proc, bool b\+B)
-\item 
+\begin{DoxyCompactList}\small\item\em Заполнение массивов p\+C\+W\+L и p\+C\+W\+R ранее вычисленными значениями статистики ауры (длинами линий); Заполнение массивов p\+C\+R и p\+C\+L ранее вычисленными значениями цветами ауры; Данные структуры \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T} берутся \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T} \&aura = b\+B ? m\+\_\+stat\+Release\mbox{[}n\+Proc\mbox{]}.aura\+B \+: m\+\_\+stat\+Release\mbox{[}n\+Proc\mbox{]}.aura\+A; Количество обрабатываемых элементов int cnt = aura.\+line.\+size(); \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a33937f3f067ec0fa9829c7a40b54be50}{Can\+Make\+Hist} (int id)
-\begin{DoxyCompactList}\small\item\em Проверка возможности потроения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Проверка возможности построения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. \end{DoxyCompactList}\item 
 bool \hyperlink{class_c_v_i_engine_base_a1d144bb4fec300b83067404ffdc9ae6f}{Need\+Src\+Image\+Proc} ()
 \begin{DoxyCompactList}\small\item\em Проверка значения настроечного параметра V\+I\+\_\+\+F\+A\+C\+E\+\_\+\+E\+N\+A\+B\+L\+E Возвращает true если параметр V\+I\+\_\+\+F\+A\+C\+E\+\_\+\+E\+N\+A\+B\+L\+E установлен в ненулевое значение \end{DoxyCompactList}\item 
 void \hyperlink{class_c_v_i_engine_base_afcadee160287c12571501a09c222bea3}{New\+Source} ()
-\begin{DoxyCompactList}\small\item\em Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. По сути является вызовом одноимённого метода класса \hyperlink{class_c_v_i_engine_audio2}{C\+V\+I\+Engine\+Audio2} для аттрибута m\+\_\+audio + обнуление некоторых настроечных параметров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -177,11 +175,11 @@ static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_base_ad9c65f
 static D\+W\+O\+R\+D W\+I\+N\+A\+P\+I \hyperlink{class_c_v_i_engine_base_acb273d8d1df0ad615bec58b0a9c5f1cc}{Add\+Image\+Thread8} (L\+P\+V\+O\+I\+D lp\+Parameter)
 \begin{DoxyCompactList}\small\item\em Метод для создания из \char`\"{}рабочей\char`\"{} нити Windows -\/ то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры В качестве параметра передаётся указатель на инстанс данного класса. Эта процедура рабочей нити выполняет только одно действие -\/ вызывает метод Add\+Image\+Thread\+Local8 инстанса данного класса. \end{DoxyCompactList}\item 
 static int \hyperlink{class_c_v_i_engine_base_a96058275b74d792351596a389ee29bbd}{res2n} (int res)
-\item 
+\begin{DoxyCompactList}\small\item\em Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res. Просто вызов одноимённой глобальной функции класса \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread}. \end{DoxyCompactList}\item 
 static bool \hyperlink{class_c_v_i_engine_base_a2f8fba45abd4bb564101fb090de26a48}{Is\+Mode\+A} (int res)
-\item 
+\begin{DoxyCompactList}\small\item\em Вычисление признака работы в режиме A согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread}. \end{DoxyCompactList}\item 
 static bool \hyperlink{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46}{Is\+Mode\+B} (int res)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Вычисление признака работы в режиме B согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -200,19 +198,19 @@ void $\ast$ \hyperlink{class_c_v_i_engine_base_abfaf1ec8dec9a82c896a90c708dfd756
 int \hyperlink{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}{m\+\_\+n\+Threads\+Rqst}
 \item 
 int \hyperlink{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}{m\+\_\+n\+Threads}
-\item 
+\begin{DoxyCompactList}\small\item\em Текущее количество паралельных потоков вычислений, т.\+е. текущее количество дочерних инстансов классов \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread} для управления потоками вычислений \end{DoxyCompactList}\item 
 \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread} $\ast$ \hyperlink{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}{m\+\_\+therads} \mbox{[}8\mbox{]}
 \item 
-C\+M\+T\+Critical\+Section \hyperlink{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}{m\+\_\+locks} \mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}
-\item 
+\hyperlink{class_c_m_t_critical_section}{C\+M\+T\+Critical\+Section} \hyperlink{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}{m\+\_\+locks} \mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}
+\begin{DoxyCompactList}\small\item\em Адресное пространство где находятся семафоры. Для семафора требуется участок памяти доступный из всех параллельных нитей. Управление семафором осуществляктся через класс \hyperlink{class_c_m_t_single_lock}{C\+M\+T\+Single\+Lock}. Статьи по теме \href{http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/windows/desktop/ms682530(v=vs.\+85).\+aspx} \end{DoxyCompactList}\item 
 \hyperlink{class_c_v_i_engine_event}{C\+V\+I\+Engine\+Event} \hyperlink{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}{m\+\_\+events} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m\+\_\+events\mbox{[}id\mbox{]} -\/ это инстанс триггера для события с идентификатором id. \end{DoxyCompactList}\item 
 \hyperlink{class_c_v_i_timer}{C\+V\+I\+Timer} \hyperlink{class_c_v_i_engine_base_a928c4511d2e46b9cd4b7c9b3b7322855}{m\+\_\+timer}
 \begin{DoxyCompactList}\small\item\em Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. \end{DoxyCompactList}\item 
 \hyperlink{class_c_v_i_timer_sync}{C\+V\+I\+Timer\+Sync} \hyperlink{class_c_v_i_engine_base_a8709ba629c654585cc38d13ccf3a23b8}{m\+\_\+timer\+Sync}
 \begin{DoxyCompactList}\small\item\em Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере. \end{DoxyCompactList}\item 
 double \hyperlink{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}{m\+\_\+t\+Make\+Image}
-\item 
+\begin{DoxyCompactList}\small\item\em Отметка времени при обработке изображения кадра \end{DoxyCompactList}\item 
 double \hyperlink{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}{m\+\_\+t\+Video}
 \begin{DoxyCompactList}\small\item\em Отметка времени и длительность при обработке изображения кадра \end{DoxyCompactList}\item 
 \hypertarget{class_c_v_i_engine_base_a98df2a6b3724ab56deee0ed61e3773f8}{double {\bfseries m\+\_\+t\+Video\+T}}\label{class_c_v_i_engine_base_a98df2a6b3724ab56deee0ed61e3773f8}
@@ -236,9 +234,9 @@ int \hyperlink{class_c_v_i_engine_base_aa780c31b49f591af32d9a40e21978201}{m\+\_\
 int \hyperlink{class_c_v_i_engine_base_aa909c6b38f749c7b4d848f8b2de331bc}{m\+\_\+b\+Lock}
 \item 
 int \hyperlink{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}{m\+\_\+n\+Make}
-\item 
+\begin{DoxyCompactList}\small\item\em Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции \hyperlink{class_c_v_i_engine_base_a3426944a03bac2f5a8c135c217f9cf8c}{Make\+Image()}. Способ применения\+: m\+\_\+n\+Make ++; ... КОД ЗДЕСЬ ... ; m\+\_\+n\+Make --; \end{DoxyCompactList}\item 
 int \hyperlink{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}{m\+\_\+c\+Make} \mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}
-\item 
+\begin{DoxyCompactList}\small\item\em Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции \hyperlink{class_c_v_i_engine_base_aa59b55fc315394f4c19cb7d95c399913}{Make()}. Способ применения\+: m\+\_\+c\+Make\mbox{[}command\mbox{]} ++; ... КОД ЗДЕСЬ ... ; m\+\_\+c\+Make\mbox{[}command\mbox{]} --; \end{DoxyCompactList}\item 
 float $\ast$ \hyperlink{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931be}{m\+\_\+img\+Src\+F}
 \item 
 \hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ B\+Y\+T\+E $>$ \hyperlink{class_c_v_i_engine_base_aa935595a167539c89a4d06a57178d776}{m\+\_\+img\+Src8}
@@ -254,11 +252,11 @@ float $\ast$ \hyperlink{class_c_v_i_engine_base_a359f07597366b8c81727c32c9ff931b
 \hyperlink{classmmx__array2}{mmx\+\_\+array2}$<$ float $>$ \hyperlink{class_c_v_i_engine_base_a0b3b91816e3f19ec5e531c5ad903be98}{m\+\_\+src\+Mask}
 \begin{DoxyCompactList}\small\item\em Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей \end{DoxyCompactList}\item 
 std\+::vector$<$ \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G} $>$ \hyperlink{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{m\+\_\+summ}
-\item 
+\begin{DoxyCompactList}\small\item\em Массив вычисленных различных изображений от различных обработчиков. По своей сути является картоы, поскольку структура \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G} содержит аттрибут id == идентификатору обработчика. \end{DoxyCompactList}\item 
 std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ \hyperlink{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}{m\+\_\+stat}
-\item 
+\begin{DoxyCompactList}\small\item\em Массив вычисленных различных статистик от различных обработчиков. Данные в элементах массива формируются сведением данных от параллельных обработчиков фрагментов изображений. \end{DoxyCompactList}\item 
 std\+::vector$<$ \hyperlink{class_s_u_m_m___s_t_a_t}{S\+U\+M\+M\+\_\+\+S\+T\+A\+T} $>$ \hyperlink{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{m\+\_\+stat\+Release}
-\item 
+\begin{DoxyCompactList}\small\item\em Массив вычисленных различных статистик от различных обработчиков, предназначенный для отобоажения \end{DoxyCompactList}\item 
 C\+V\+I\+Engine\+Proc2x \hyperlink{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}{m\+\_\+stat2}
 \item 
 std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ \hyperlink{class_c_v_i_engine_base_aa4b9c935b9223f0efcc05282e871254d}{m\+\_\+aura6\+A}
@@ -266,47 +264,45 @@ std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ \hyperlink{class_c_v_i_engine_base_a
 std\+::vector$<$ C\+V\+I\+Engine\+Aura6 $>$ \hyperlink{class_c_v_i_engine_base_a4415e8a105218982c6358907ae6f380e}{m\+\_\+aura6\+B}
 \item 
 C\+V\+I\+Engine\+V\+Pos \hyperlink{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}{m\+\_\+v\+Pos}
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо относится к позиции вывода изображения на дисплей. \end{DoxyCompactList}\item 
 C\+Stat\+A\+V\+G\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}{m\+\_\+stat\+A\+V\+G}
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо дополнительный алгоритм по расчёту параметров. Название напоминает усреднение чего-\/то. \end{DoxyCompactList}\item 
 C\+Stat\+F\+F\+T\+W\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}{m\+\_\+stat\+F\+F\+T}
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо дополнительный алгоритм по расчёту параметров. Название напоминает Быстрое преобразование Фурье \href{https://ru.wikipedia.org/wiki/}{\tt https\+://ru.\+wikipedia.\+org/wiki/}Быстрое\+\_\+преобразование\+\_\+Фурье. Одно из подобного класса быстрых преобразований -\/ преобразования Адамара \href{https://github.com/dprotopopov/fwht}{\tt https\+://github.\+com/dprotopopov/fwht} \end{DoxyCompactList}\item 
 C\+Stat\+L\+D\+F\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}{m\+\_\+stat\+L\+D\+F}
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо хук при добавлении параметра в настроечные параметры \end{DoxyCompactList}\item 
 C\+Stat\+F\+N\+\_\+\+Pack \hyperlink{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}{m\+\_\+stat\+Fn}
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо хук при добавлении параметра в настроечные параметры \end{DoxyCompactList}\item 
 std\+::list$<$ int $>$ \hyperlink{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}{m\+\_\+div\+Maker}
-\item 
+\begin{DoxyCompactList}\small\item\em Буфер данных для применения медианного фильтра \end{DoxyCompactList}\item 
 std\+::map$<$ int, D\+W\+O\+R\+D $\ast$ $>$ \hyperlink{class_c_v_i_engine_base_a34c8596778c068f60030853df3589147}{m\+\_\+result\+Ptr}
-\item 
+\begin{DoxyCompactList}\small\item\em Карта вычисленных изображений. Каждому виду отображаемого результата соответствут свой ключ. \end{DoxyCompactList}\item 
 S\+I\+Z\+E \hyperlink{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}{m\+\_\+result\+Size}
-\item 
+\begin{DoxyCompactList}\small\item\em Видимо текущее значение размеров формируемого изображения для визуализации \end{DoxyCompactList}\item 
 D\+W\+O\+R\+D \hyperlink{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}{m\+\_\+result\+Ver}
 \item 
-C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}{m\+\_\+fps\+In}
-\item 
-C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}{m\+\_\+fps\+Out\+F}
-\item 
-C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}{m\+\_\+fps\+Drop\+F}
-\item 
-C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}{m\+\_\+fps\+Out\+R}
-\item 
-C\+Stat\+F\+P\+S \hyperlink{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}{m\+\_\+fps\+Drop\+R}
-\item 
+\hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} \hyperlink{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}{m\+\_\+fps\+In}
+\begin{DoxyCompactList}\small\item\em Аттрибут для определения частоты обработки кадров \end{DoxyCompactList}\item 
+\hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} \hyperlink{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}{m\+\_\+fps\+Out\+F}
+\begin{DoxyCompactList}\small\item\em Аттрибут для определения частоты обработки кадров \end{DoxyCompactList}\item 
+\hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} \hyperlink{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}{m\+\_\+fps\+Drop\+F}
+\begin{DoxyCompactList}\small\item\em Аттрибут для определения частоты обработки кадров \end{DoxyCompactList}\item 
+\hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} \hyperlink{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}{m\+\_\+fps\+Out\+R}
+\begin{DoxyCompactList}\small\item\em Аттрибут для определения частоты обработки кадров \end{DoxyCompactList}\item 
+\hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} \hyperlink{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}{m\+\_\+fps\+Drop\+R}
+\begin{DoxyCompactList}\small\item\em Аттрибут для определения частоты обработки кадров \end{DoxyCompactList}\item 
 C\+V\+I\+Engine\+Crop \hyperlink{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}{m\+\_\+crop}
-\item 
+\begin{DoxyCompactList}\small\item\em Инстанс на A\+P\+I манипулирования изображением \end{DoxyCompactList}\item 
 C\+V\+I\+Engine\+Distortion \hyperlink{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}{m\+\_\+\+Distortion}
-\item 
+\begin{DoxyCompactList}\small\item\em Вероятнее всего инстанс класса библиотеки видеоэффектов. \end{DoxyCompactList}\item 
 C\+V\+I\+Engine\+Proc\+D\+T \hyperlink{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}{m\+\_\+proc\+F6}
 \item 
-C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}{m\+\_\+p\+Face}
-\item 
-\hypertarget{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}{H\+A\+N\+D\+L\+E {\bfseries m\+\_\+h\+Thread\+Add\+Image}}\label{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}
-
-\item 
-\hypertarget{class_c_v_i_engine_base_a81b0c7b485feb8404fa06b2e91300d14}{H\+A\+N\+D\+L\+E {\bfseries m\+\_\+h\+Thread\+Add\+Image8}}\label{class_c_v_i_engine_base_a81b0c7b485feb8404fa06b2e91300d14}
-
-\end{DoxyCompactItemize}
+\hyperlink{class_c_v_i_engine_face}{C\+V\+I\+Engine\+Face} $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}{m\+\_\+p\+Face}
+\begin{DoxyCompactList}\small\item\em Указатель на инстанс A\+P\+I вывода на дисплей \end{DoxyCompactList}\item 
+H\+A\+N\+D\+L\+E \hyperlink{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}{m\+\_\+h\+Thread\+Add\+Image}
+\begin{DoxyCompactList}\small\item\em Дескриптор параллельной нити с обработчиком Add\+Image\+Thread\+Local \end{DoxyCompactList}\item 
+H\+A\+N\+D\+L\+E \hyperlink{class_c_v_i_engine_base_a81b0c7b485feb8404fa06b2e91300d14}{m\+\_\+h\+Thread\+Add\+Image8}
+\begin{DoxyCompactList}\small\item\em Дескриптор параллельной нити с обработчиком Add\+Image\+Thread\+Local8 \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -349,7 +345,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_acd0542a6476a6eed4568c900ab5af5d9}
 
 
-
+Используемая палитра цветов 
 
 \hypertarget{class_c_v_i_engine_base_ac886baeaf14b16970d089edaf6767a79}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Add\+Image@{Add\+Image}}
 \index{Add\+Image@{Add\+Image}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -365,7 +361,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_ac886baeaf14b16970d089edaf6767a79}
 
 
-Процедура получения очередной порции данных для обработки. Список шагов\+: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m\+\_\+img\+Src8 или m\+\_\+img\+Src24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. 
+Процедура получения очередной порции данных для обработки. Список шагов\+: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m\+\_\+img\+Src8 или m\+\_\+img\+Src24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -391,7 +387,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a3fe6ae4f9ac6b9422c22d99878f424f5}
 
 
-
+Чтение очередного кадра изображения в аттрибут m\+\_\+img\+Src8. Конвертация в массив чисел с плавающей точкой. Вызов когда требуется \hyperlink{class_c_v_i_engine_base_ac9fbe14762f4d2bf7d0bffe451a329ee}{Add\+Image\+Thread\+Proc()}. Процедура содержит задержку для соблюдения требуемой часоты чтения кадров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 \hypertarget{class_c_v_i_engine_base_ad9c65ff1caec8b5042fd55628c515373}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Add\+Image\+Thread@{Add\+Image\+Thread}}
 \index{Add\+Image\+Thread@{Add\+Image\+Thread}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -456,7 +452,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_ac9fbe14762f4d2bf7d0bffe451a329ee}
 
 
-
+Назначение процедуры -\/ чтение кадров с требуемой частотой и запуск обработки, заданной V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+M\+A\+X\+R. Телодвижения в коде несовсем понятны, но в результате всё сводится к запуску Make\+Image -\/ процедуры обработки очередной порции кадров изображения. Хотя по-\/ходу успевают к чему-\/то применить медианный фильтр -\/ это фильтр подавления шумов на изображении. Возвращает требуемую задержку в тиках ( 1000 тиков = 1 сек ) перед следующим запуском этой процедуры, рассчитанную на основе настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+M\+A\+X\+R, то есть чтобы обработка шла с заданным количеством кадров/сек. Данный метод вызывается в цикле в методе Add\+Image\+Thread\+Local, который вызывается в свою очередь из метода \char`\"{}рабочего\char`\"{} процесса Windows, запускаемого единственной параллельной нитью -\/ то есть просто цикл в бэкграунде. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 \hypertarget{class_c_v_i_engine_base_a33937f3f067ec0fa9829c7a40b54be50}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Can\+Make\+Hist@{Can\+Make\+Hist}}
 \index{Can\+Make\+Hist@{Can\+Make\+Hist}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -467,7 +463,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a33937f3f067ec0fa9829c7a40b54be50}
 
 
-Проверка возможности потроения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. 
+Проверка возможности построения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -483,7 +479,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a4764b56d4269ed5cd101dddf545e039d}
 
 
-Восстановление значения настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V значением настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T. В случае если настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V отличался от настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T, производится очистка массива m\+\_\+src\+F. 
+Восстановление значения настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V значением настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T. В случае если настроечный параметр V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V отличался от настроечного параметра V\+I\+\_\+\+F\+I\+L\+T\+E\+R\+\_\+\+F\+P\+S\+D\+I\+V\+\_\+\+R\+Q\+S\+T, производится очистка массива m\+\_\+src\+F. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 \hypertarget{class_c_v_i_engine_base_a65b898d96c06c5c9bf9f388b4a70f740}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Check\+N\+Rqst@{Check\+N\+Rqst}}
 \index{Check\+N\+Rqst@{Check\+N\+Rqst}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -533,8 +529,13 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a0905eba46bb64f25a2d91f8b39a3f994}
 
 
-Останов ранее запущенных параллельных потоков для вычислений. 
+Останов ранее запущенных параллельных потоков для вычислений. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
+
+\begin{DoxyParams}{Parameters}
+{\em b\+Lock} & Признак блокирования семафора L\+V\+I\+\_\+\+A\+L\+L с ожиданием его освобождения другими процессами\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a053908c9c2c18583a13e6f6f79c8eeab}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Create\+Threads@{Create\+Threads}}
 \index{Create\+Threads@{Create\+Threads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Create\+Threads}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Create\+Threads (
@@ -544,11 +545,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a053908c9c2c18583a13e6f6f79c8eeab}
 
 
-Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em b\+Lock} & \\
+{\em b\+Lock} & Признак блокирования семафора L\+V\+I\+\_\+\+A\+L\+L с ожиданием его освобождения другими процессами\\
 \hline
 \end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a7d2e5915b3c1c9f6172291305a99bfe5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Flush\+F\+P\+S@{Flush\+F\+P\+S}}
@@ -560,7 +561,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a7d2e5915b3c1c9f6172291305a99bfe5}
 
 
-
+Сохранение текущих значений F\+P\+S -\/ аттрибуты типа \hyperlink{class_c_stat_f_p_s}{C\+Stat\+F\+P\+S} -\/ в настроечные параметры. V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+I\+N; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+F; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+D\+R\+O\+P\+F; V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+D\+R\+O\+P\+R; 
 
 \hypertarget{class_c_v_i_engine_base_aaa7d51c8145d1094997fc485508dd402}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Aura@{Get\+Aura}}
 \index{Get\+Aura@{Get\+Aura}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -576,8 +577,23 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_aaa7d51c8145d1094997fc485508dd402}
 
 
+Заполнение массивов p\+C\+W\+L и p\+C\+W\+R ранее вычисленными значениями статистики ауры (длинами линий); Заполнение массивов p\+C\+R и p\+C\+L ранее вычисленными значениями цветами ауры; Данные структуры \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T} берутся \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T} \&aura = b\+B ? m\+\_\+stat\+Release\mbox{[}n\+Proc\mbox{]}.aura\+B \+: m\+\_\+stat\+Release\mbox{[}n\+Proc\mbox{]}.aura\+A; Количество обрабатываемых элементов int cnt = aura.\+line.\+size(); 
 
 
+\begin{DoxyParams}{Parameters}
+{\em p\+C\+W\+L} & Указатель на массив длин линий для левой части\\
+\hline
+{\em p\+C\+W\+R} & Указатель на массив длин линий для правой части\\
+\hline
+{\em p\+C\+R} & Указатель на массив цветов для левой части\\
+\hline
+{\em p\+C\+L} & Указатель на массив цветов для правой части\\
+\hline
+{\em n\+Proc} & Индекс элемента в массиве m\+\_\+stat\+Release\\
+\hline
+{\em b\+B} & Признак вывода результата режима B\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a1e0174d46d3d28931a648e0437f0686d}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Optimal\+Thread\+Count@{Get\+Optimal\+Thread\+Count}}
 \index{Get\+Optimal\+Thread\+Count@{Get\+Optimal\+Thread\+Count}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Optimal\+Thread\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::\+Get\+Optimal\+Thread\+Count (
@@ -587,7 +603,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a1e0174d46d3d28931a648e0437f0686d}
 
 
-Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-\/ми и не менее 1-\/го ;) То есть простенько -\/ без вяких лишних околонаучных движений. S\+Y\+S\+T\+E\+M\+\_\+\+I\+N\+F\+O info; Get\+System\+Info(\&info); n\+Proc = info.\+dw\+Number\+Of\+Processors; 
+Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программа. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-\/ми и не менее 1-\/го ;) То есть простенько -\/ без вяких лишних околонаучных движений. S\+Y\+S\+T\+E\+M\+\_\+\+I\+N\+F\+O info; Get\+System\+Info(\&info); n\+Proc = info.\+dw\+Number\+Of\+Processors; 
 
 \hypertarget{class_c_v_i_engine_base_a99f7df701bfe9d53121e5cd00167e591}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Result\+Ptr@{Get\+Result\+Ptr}}
 \index{Get\+Result\+Ptr@{Get\+Result\+Ptr}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -601,8 +617,19 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a99f7df701bfe9d53121e5cd00167e591}
 
 
-Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Если он не задан, то берутся значения размеров из m\+\_\+result\+Size. Возвращает через параметры значение из карты m\+\_\+result\+Ptr по ключу id и размеры изображения. Возвращает true, если размеры в V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E совпадают со значениями в m\+\_\+result\+Size и существует запись для ключа id в карте m\+\_\+result\+Ptr. 
 
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Ключ карты m\+\_\+result\+Ptr\\
+\hline
+{\em ptr} & Указатель на возвращаемое значение указателя\\
+\hline
+{\em pw} & Указатель на возвращаемое значение ширины\\
+\hline
+{\em ph} & Указатель на возвращаемое значение высоты\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_abcb53c55dac3fb076b4e8f5b88e48e6a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Src\+Line@{Get\+Src\+Line}}
 \index{Get\+Src\+Line@{Get\+Src\+Line}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Src\+Line}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Get\+Src\+Line (
@@ -615,7 +642,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_abcb53c55dac3fb076b4e8f5b88e48e6a}
 
 
-Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Копирование значений x-\/ого столца и y-\/ой строки по указанным значениям указателей. Исходный массив для копирования определяется на основе настроечного параметра V\+I\+\_\+\+M\+O\+D\+E\+\_\+\+R\+E\+S\+U\+L\+T. V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+0 m\+\_\+arr\+Src.\+begin()-\/$>$i.\+begin(); V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+A m\+\_\+arr\+Src.\+begin()-\/$>$i.\+begin(); V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+B m\+\_\+arr\+Src.\+begin()-\/$>$i.\+begin(); V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+A m\+\_\+summ\mbox{[}0\mbox{]}-\/$>$i\mbox{[}h$\ast$2\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I0\+\_\+\+B m\+\_\+summ\mbox{[}0\mbox{]}-\/$>$i\mbox{[}h$\ast$3\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+A m\+\_\+summ\mbox{[}1\mbox{]}-\/$>$i\mbox{[}h$\ast$2\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I1\+\_\+\+B m\+\_\+summ\mbox{[}1\mbox{]}-\/$>$i\mbox{[}h$\ast$3\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+A m\+\_\+summ\mbox{[}2\mbox{]}-\/$>$i\mbox{[}h$\ast$2\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+V\+I2\+\_\+\+B m\+\_\+summ\mbox{[}2\mbox{]}-\/$>$i\mbox{[}h$\ast$3\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+A m\+\_\+arr\+Delta.\+begin()-\/$>$i\mbox{[}0\mbox{]}; V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+B m\+\_\+arr\+Delta.\+begin()-\/$>$i\mbox{[}0\mbox{]}; Если m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+M\+O\+D\+E\+\_\+\+R\+E\+S\+U\+L\+T) = V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+D\+E\+L\+T\+A\+\_\+\+B, то производится умножение на 255.\+0; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Применяется технология S\+S\+E для ускорения копирования и преобразования типов. 
 
 \hypertarget{class_c_v_i_engine_base_aaf9d381d837873e8c66babffa6f6bfd1}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Src\+Line8@{Get\+Src\+Line8}}
 \index{Get\+Src\+Line8@{Get\+Src\+Line8}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -629,8 +656,19 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_aaf9d381d837873e8c66babffa6f6bfd1}
 
 
+Копирование из m\+\_\+img\+Src8 значений x-\/ого столца и y-\/ой строки по указанным значениям указателей. m\+\_\+img\+Src8 -\/ двумерный массив монохромного изображения \mbox{[}0;255\mbox{]}; То есть будет выполнятся преобразования из B\+Y\+T\+E в float. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em x} & Номер столбца\\
+\hline
+{\em y} & Номер строки\\
+\hline
+{\em px} & Указатель на массив возвращаемых значений столбца\\
+\hline
+{\em py} & Указатель на массив возвращаемых значений строки\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a8abf18dfc992c03f0dc9811be62ea5d5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Stat\+Hist\+C@{Get\+Stat\+Hist\+C}}
 \index{Get\+Stat\+Hist\+C@{Get\+Stat\+Hist\+C}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Stat\+Hist\+C}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::\+Get\+Stat\+Hist\+C (
@@ -642,8 +680,17 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a8abf18dfc992c03f0dc9811be62ea5d5}
 
 
+Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант C). Так же проверяется что $\ast$p\+F\+P\+S не пустое, в противном случае заполняется значением из нестроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R. В предоставленном коде вызовов метода нет. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em res} & Набор двоичных флагов\\
+\hline
+{\em p\+Hist256} & Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 \\
+\hline
+{\em p\+F\+P\+S} & Указатель на проверяемое-\/возвращаемое значение частоты кадров/сек\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a18bccff2c758d80e3d720953a0d949c1}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Stat\+Hist\+F@{Get\+Stat\+Hist\+F}}
 \index{Get\+Stat\+Hist\+F@{Get\+Stat\+Hist\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Stat\+Hist\+F}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::\+Get\+Stat\+Hist\+F (
@@ -655,8 +702,17 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a18bccff2c758d80e3d720953a0d949c1}
 
 
+Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F). Так же проверяется что $\ast$p\+F\+P\+S не пустое, в противном случае заполняется значением из нестроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R. В предоставленном коде вызовов метода нет. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em res} & Набор двоичных флагов\\
+\hline
+{\em p\+Hist256} & Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 \\
+\hline
+{\em p\+F\+P\+S} & Указатель на проверяемое-\/возвращаемое значение частоты кадров/сек\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_ab631a7093c3f9e3e15b5a84e61358374}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Stat\+Hist\+F\+T@{Get\+Stat\+Hist\+F\+T}}
 \index{Get\+Stat\+Hist\+F\+T@{Get\+Stat\+Hist\+F\+T}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Stat\+Hist\+F\+T}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::\+Get\+Stat\+Hist\+F\+T (
@@ -668,8 +724,17 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_ab631a7093c3f9e3e15b5a84e61358374}
 
 
+Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F\+T). В предоставленном коде вызовов метода нет. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em res} & Набор двоичных флагов\\
+\hline
+{\em p\+Hist256} & Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 \\
+\hline
+{\em p\+D\+T} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a238c46a9344e280e609dcd974ce40a02}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Stat\+Hist\+N@{Get\+Stat\+Hist\+N}}
 \index{Get\+Stat\+Hist\+N@{Get\+Stat\+Hist\+N}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Stat\+Hist\+N}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::\+Get\+Stat\+Hist\+N (
@@ -681,8 +746,17 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a238c46a9344e280e609dcd974ce40a02}
 
 
+Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант N). Так же проверяется что $\ast$p\+F\+P\+S не пустое, в противном случае заполняется значением из нестроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R. В предоставленном коде вызовов метода нет. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em res} & Набор двоичных флагов\\
+\hline
+{\em p\+Hist256} & Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 \\
+\hline
+{\em p\+F\+P\+S} & Указатель на проверяемое-\/возвращаемое значение частоты кадров/сек\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a1e295decbf2fabf485467c2dee1bb51f}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Sum\+Hist@{Get\+Sum\+Hist}}
 \index{Get\+Sum\+Hist@{Get\+Sum\+Hist}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Sum\+Hist}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Get\+Sum\+Hist (
@@ -705,8 +779,13 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_adb6193dca9e4f6c71ad6e77df88bc9f7}
 
 
+Заполнение массива по указателю значениями p\+N\mbox{[}i\mbox{]} = m\+\_\+cfg.\+Get\+I1(m\+\_\+summ\mbox{[}i\mbox{]}.id); Возвращает размер массива m\+\_\+summ; Для подробностей надо смотреть описание структуры \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G}; 
 
 
+\begin{DoxyParams}{Parameters}
+{\em p\+N} & Указатель на заполняемый массив значениями p\+N\mbox{[}i\mbox{]} = m\+\_\+cfg.\+Get\+I1(m\+\_\+summ\mbox{[}i\mbox{]}.id);\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a354f23eda839e4aff3b578fc5ad50363}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Get\+Summ\+Count@{Get\+Summ\+Count}}
 \index{Get\+Summ\+Count@{Get\+Summ\+Count}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Get\+Summ\+Count}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::\+Get\+Summ\+Count (
@@ -716,8 +795,13 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a354f23eda839e4aff3b578fc5ad50363}
 
 
+Получение значения настроесного параметра return m\+\_\+cfg.\+Get\+I1(m\+\_\+summ\mbox{[}pos\mbox{]}.id); Для подробностей надо смотреть описание структуры \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G}; 
 
 
+\begin{DoxyParams}{Parameters}
+{\em pos} & Индекс элемента в массиве m\+\_\+summ\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a2f8fba45abd4bb564101fb090de26a48}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Is\+Mode\+A@{Is\+Mode\+A}}
 \index{Is\+Mode\+A@{Is\+Mode\+A}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Is\+Mode\+A}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Is\+Mode\+A (
@@ -727,11 +811,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{class_c_v_i_engine_base_a2f8fba45abd4bb564101fb090de26a48}
 
 
-
+Вычисление признака работы в режиме A согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread}. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em res} & \\
+{\em res} & Набор двоичных флагов\\
 \hline
 \end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Is\+Mode\+B@{Is\+Mode\+B}}
@@ -743,11 +827,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{class_c_v_i_engine_base_a7029194ddd71a7322746e962a3ed5b46}
 
 
-
+Вычисление признака работы в режиме B согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread}. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em res} & \\
+{\em res} & Набор двоичных флагов\\
 \hline
 \end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_ab9ac11fcc300832a72d0be60be3419e6}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Is\+Motion@{Is\+Motion}}
@@ -775,7 +859,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_c_v_i_engine_base_a1bedb5c81d496c6c5496ba88cea82eb7}
 
 
-
+Признак того чтобы пропустить обработку кадра. Причины пропусков\+: Программа работает по факту движения, то есть заданны настройки для сенсора движения; Либо фильтры работают по большему количеству кадров чем сейчас считано. 
 
 \hypertarget{class_c_v_i_engine_base_aa59b55fc315394f4c19cb7d95c399913}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make@{Make}}
 \index{Make@{Make}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -802,7 +886,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_adf949a2b1abf18f519937d3f787c5abf}
 
 
-
+Вызов одноимённого метода с параметрами для режима B и для режима A. Make\+Anger(true); Make\+Anger(false); 
 
 \hypertarget{class_c_v_i_engine_base_a04eac6867b0a19908706aa4181fc017e}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Anger@{Make\+Anger}}
 \index{Make\+Anger@{Make\+Anger}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -815,6 +899,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 
 
 
+
+\begin{DoxyParams}{Parameters}
+{\em b\+Mode\+B} & Признак формирования результата для режима B\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a784d5489bb89efa567e207d3539de0da}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Charming@{Make\+Charming}}
 \index{Make\+Charming@{Make\+Charming}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Charming}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Charming (
@@ -825,8 +914,15 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a784d5489bb89efa567e207d3539de0da}
 
 
+Формула по гистограмме Формула\+: s\+V = СУММА p\+Hist256(i), s\+V\+X = СУММА i $\ast$ p\+Hist256(i), M = s\+V\+X / s\+V; d(i) = i$\ast$fps/len-\/\+M; s\+D\+V = d(i)$\ast$d(i)$\ast$p\+Hist256(i); D = s\+D\+V / s\+V; S = sqrt(\+D); return (M-\/\+S)/fps; Используется только в \hyperlink{class_c_v_i_engine_base_a1fcb2c48c5d0f103dd1e001f8a4ec35f}{C\+V\+I\+Engine\+Base\+::\+Stat\+Update(void)} 
 
 
+\begin{DoxyParams}{Parameters}
+{\em p\+Hist256} & Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-\/1 \\
+\hline
+{\em len} & Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a4bde6b4202b8dfa683becb522949e09c}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Com\+N@{Make\+Com\+N}}
 \index{Make\+Com\+N@{Make\+Com\+N}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Com\+N}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Com\+N (
@@ -855,13 +951,24 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a6eaa6b468b27249a359a67ce1ce32c4f}
 
 
-
+Вычисление средней величины по значениям ранее рассчитанных строк в структуре \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T}. Теоретический смысл формулы непонятен. nl = aura.\+line.\+size(); s\+W = СУММА abs(aura.\+line\mbox{[}y\mbox{]}.cwl-\/aura.\+line\mbox{[}y\mbox{]}.cwr)/max(aura.\+line\mbox{[}y\mbox{]}.cwl,aura.\+line\mbox{[}y\mbox{]}.cwr); s\+C = СУММА abs(aura.\+line\mbox{[}y\mbox{]}.a\+Color\+L -\/ aura.\+line\mbox{[}y\mbox{]}.a\+Color\+R)/255.0f; return 1.\+0f -\/ (s\+C+s\+W)/(2$\ast$nl); 
 
 
 \begin{DoxyParams}{Parameters}
-{\em aura} & \\
+{\em aura} & Ссылка на инстанс структуры \hyperlink{class_a_u_r_a___s_t_a_t}{A\+U\+R\+A\+\_\+\+S\+T\+A\+T}\\
 \hline
 \end{DoxyParams}
+\hypertarget{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Def\+Pal@{Make\+Def\+Pal}}
+\index{Make\+Def\+Pal@{Make\+Def\+Pal}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{Make\+Def\+Pal}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Make\+Def\+Pal (
+\begin{DoxyParamCaption}
+\item[{R\+G\+B\+Q\+U\+A\+D $\ast$}]{pal}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_base_a96dd47cc32f324e133644e7f823507ad}
+
+
+Получение палитры цветов. В предоставненом коде описание отсутствует, вызовов есть только в кострукторе класса. 
+
 \hypertarget{class_c_v_i_engine_base_a4a6d774f1ebf9e8bf595c3e3e60f06a7}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Entropy\+D@{Make\+Entropy\+D}}
 \index{Make\+Entropy\+D@{Make\+Entropy\+D}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+Entropy\+D}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+Entropy\+D (
@@ -947,7 +1054,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}
 
 
-Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Вывод картинки на экран через A\+P\+I в классе \hyperlink{class_c_v_i_engine_face}{C\+V\+I\+Engine\+Face}. Берётся одна из картинок (какая есть в наличии) m\+\_\+result\+Ptr\mbox{[}V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+0\mbox{]}; m\+\_\+result\+Ptr\mbox{[}V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+A\mbox{]}; m\+\_\+result\+Ptr\mbox{[}V\+I\+\_\+\+R\+E\+S\+U\+L\+T\+\_\+\+S\+R\+C\+\_\+\+B\mbox{]}; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
 
 \hypertarget{class_c_v_i_engine_base_a3426944a03bac2f5a8c135c217f9cf8c}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Image@{Make\+Image}}
 \index{Make\+Image@{Make\+Image}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -961,7 +1068,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a3426944a03bac2f5a8c135c217f9cf8c}
 
 
-Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения -\/ то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги\+: Сброс если надо -\/ Reset(true); Сдвиг очереди кадров -\/ \hyperlink{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{Next\+Src()}; Сброс ранее рассчитанных данных -\/ \hyperlink{class_c_v_i_engine_base_a10d6138a2c8f4c4c946bf930c268be6b}{Clear\+Stat()}; Получение очередного изображения C\+V\+I\+Engine\+Face\+::\+Add\+Image; Последовательное применение различных обработок кадра -\/ фильтрация шумов, расчёт статистики, расчёт изображения ауры -\/ если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-\/то психологического\+: \hyperlink{class_c_v_i_engine_base_adf949a2b1abf18f519937d3f787c5abf}{Make\+Anger()}; \hyperlink{class_c_v_i_engine_base_a746c67a403f60418bf26e1e686db0c0c}{Make\+Stress()}; \hyperlink{class_c_v_i_engine_base_aa77b261660041465a8d3e68a7088dd0d}{Make\+State()}; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов -\/ \hyperlink{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}{Make\+Face\+Draw()}; Расчёт затраченного времени на обработку и производительности (F\+P\+S), формирование номера сдедующего кадра\+: m\+\_\+cfg.\+Put\+F1(V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R, m\+\_\+fps\+Out\+R.\+Put()); m\+\_\+cfg.\+Put\+I1(V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E, m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения -\/ то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги\+: Сброс если надо -\/ Reset(true); Сдвиг очереди кадров -\/ \hyperlink{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{Next\+Src()}; Сброс ранее рассчитанных данных -\/ \hyperlink{class_c_v_i_engine_base_a10d6138a2c8f4c4c946bf930c268be6b}{Clear\+Stat()}; Получение очередного изображения C\+V\+I\+Engine\+Face\+::\+Add\+Image; Последовательное применение различных обработок кадра -\/ фильтрация шумов, расчёт статистики, расчёт изображения ауры -\/ если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-\/то психологического\+: \hyperlink{class_c_v_i_engine_base_adf949a2b1abf18f519937d3f787c5abf}{Make\+Anger()}; \hyperlink{class_c_v_i_engine_base_a746c67a403f60418bf26e1e686db0c0c}{Make\+Stress()}; \hyperlink{class_c_v_i_engine_base_aa77b261660041465a8d3e68a7088dd0d}{Make\+State()}; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов -\/ \hyperlink{class_c_v_i_engine_base_a18c5dc58d55a37295b3dd4c451fb86fc}{Make\+Face\+Draw()}; Расчёт затраченного времени на обработку и производительности (F\+P\+S), формирование номера сдедующего кадра\+: m\+\_\+cfg.\+Put\+F1(V\+I\+\_\+\+V\+A\+R\+\_\+\+F\+P\+S\+O\+U\+T\+R, m\+\_\+fps\+Out\+R.\+Put()); m\+\_\+cfg.\+Put\+I1(V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E, m\+\_\+cfg.\+Get\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -994,7 +1101,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_ad231ab7aee4acfc00e9a55e778443ee4}
 
 
-Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Вывод результата на дисплей. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
 
 \hypertarget{class_c_v_i_engine_base_af5e0da5e3318399f27c259733db69be0}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Sin@{Make\+Sin}}
 \index{Make\+Sin@{Make\+Sin}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1016,7 +1123,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_aa77b261660041465a8d3e68a7088dd0d}
 
 
-
+Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров. if(state $>$= lev) \{ m\+\_\+cfg.\+Put\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+A, 1); m\+\_\+cfg.\+Put\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+P, 1); \} else m\+\_\+cfg.\+Put\+I1(\+V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+T\+A\+T\+E\+\_\+\+F\+L\+A\+G\+\_\+\+A, 0); 
 
 \hypertarget{class_c_v_i_engine_base_a835724aef2b6afbc88d5db31e8a13a08}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+State@{Make\+State}}
 \index{Make\+State@{Make\+State}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1029,8 +1136,17 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a835724aef2b6afbc88d5db31e8a13a08}
 
 
+Выбор коэффициента либо среднее параметров, либо 0.\+8, либо 1.\+0 Код. Просто код. Лучше чем этот код не объяснишь. const float d\+Ag = 0.\+75f; const float d\+St = 0.\+80f; const float d\+Tn = 0.\+60f; int ret = 0; if (Ag $>$ d\+Ag) ret $\vert$= 1; if (St $>$ d\+St) ret $\vert$= 2; if (Tn $>$ d\+Tn) ret $\vert$= 4; switch (ret) \{ case 0\+: return (Ag + St + Tn) / 3.\+0f; case 1\+: case 2\+: case 4\+: return 0.\+8f; case 3\+: case 5\+: case 6\+: case 7\+: return 1.\+00f; default\+: break; \} return 0; 
 
 
+\begin{DoxyParams}{Parameters}
+{\em Ag} & \\
+\hline
+{\em St} & \\
+\hline
+{\em Tn} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_ab42744ae341c3653c24ae3fd38bc7ceb}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+State\+Macro@{Make\+State\+Macro}}
 \index{Make\+State\+Macro@{Make\+State\+Macro}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Make\+State\+Macro}]{\setlength{\rightskip}{0pt plus 5cm}float C\+V\+I\+Engine\+Base\+::\+Make\+State\+Macro (
@@ -1084,7 +1200,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a746c67a403f60418bf26e1e686db0c0c}
 
 
-
+Вызов одноимённого метода с параметрами для режима B и для режима A. Make\+Stress(true); Make\+Stress(false); 
 
 \hypertarget{class_c_v_i_engine_base_a35022e842e74177678858dddd0d274ee}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Make\+Stress@{Make\+Stress}}
 \index{Make\+Stress@{Make\+Stress}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1097,6 +1213,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 
 Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
 
+
+\begin{DoxyParams}{Parameters}
+{\em b\+Mode\+B} & Признак формирования результата для режима B\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a1d144bb4fec300b83067404ffdc9ae6f}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Need\+Src\+Image\+Proc@{Need\+Src\+Image\+Proc}}
 \index{Need\+Src\+Image\+Proc@{Need\+Src\+Image\+Proc}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Need\+Src\+Image\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Need\+Src\+Image\+Proc (
@@ -1117,7 +1238,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_afcadee160287c12571501a09c222bea3}
 
 
-Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. 
+Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. По сути является вызовом одноимённого метода класса \hyperlink{class_c_v_i_engine_audio2}{C\+V\+I\+Engine\+Audio2} для аттрибута m\+\_\+audio + обнуление некоторых настроечных параметров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 \hypertarget{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Next\+Src@{Next\+Src}}
 \index{Next\+Src@{Next\+Src}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1128,7 +1249,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_aa1aa2604f40dd77bc49ca6ff8fd81535}
 
 
-Сдвиг очереди кадров 
+Сдвиг очереди кадров в памяти 
 
 \hypertarget{class_c_v_i_engine_base_ad6e23a29501fa69951a0cc9405bae96a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!On\+New\+Var@{On\+New\+Var}}
 \index{On\+New\+Var@{On\+New\+Var}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1140,7 +1261,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_c_v_i_engine_base_ad6e23a29501fa69951a0cc9405bae96a}
 
 
-
+Видимо хук при добавлении параметра в настроечные параметры 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1158,7 +1279,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_afb7d69a59c1067240f248d50d7172ba6}
 
 
-Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. 
+Проверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1190,11 +1311,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}}\label{class_c_v_i_engine_base_a96058275b74d792351596a389ee29bbd}
 
 
-
+Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res. Просто вызов одноимённой глобальной функции класса \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread}. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em res} & \\
+{\em res} & Набор двоичных флагов\\
 \hline
 \end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a27a3545d7253a59150ea9c16e7b4f0ac}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Reset@{Reset}}
@@ -1223,13 +1344,25 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a042d710f3a5be21538478ad157680828}
 
 
-Сброс настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E. Изменение размера массивов m\+\_\+arr\+Src и m\+\_\+arr\+Delta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. 
+Сброс настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+N\+F\+R\+A\+M\+E. Изменение размера массивов m\+\_\+arr\+Src и m\+\_\+arr\+Delta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
 \begin{DoxyParams}{Parameters}
 {\em cnt} & Новое количество обрабатываемых кадров\\
 \hline
 \end{DoxyParams}
+\hypertarget{class_c_v_i_engine_base_a22ba2d068df7651b957bb7cb00a324be}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Set\+Mode@{Set\+Mode}}
+\index{Set\+Mode@{Set\+Mode}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{Set\+Mode}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Set\+Mode (
+\begin{DoxyParamCaption}
+\item[{int}]{tag, }
+\item[{int}]{id}
+\end{DoxyParamCaption}
+)}}\label{class_c_v_i_engine_base_a22ba2d068df7651b957bb7cb00a324be}
+
+
+В предоставненом коде описание отсутствует, вызовов метода нет. 
+
 \hypertarget{class_c_v_i_engine_base_a4507f1ddf8b2931693f85e97dafe7cda}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Set\+Registry@{Set\+Registry}}
 \index{Set\+Registry@{Set\+Registry}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Set\+Registry}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Set\+Registry (
@@ -1239,11 +1372,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a4507f1ddf8b2931693f85e97dafe7cda}
 
 
-Задание идентификатора ключа в реестре Windows для хранения настроечных параметров 
+Задание идентификатора ключа в реестре Windows для хранения группы настроечных параметров 
 
 
 \begin{DoxyParams}{Parameters}
-{\em group} & Идентификатор ключа в реестре Windows\\
+{\em group} & Идентификатор группы ключей в реестре Windows\\
 \hline
 \end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a38d38d266d48fad44435eec46a1086a6}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Set\+Result\+Ptr@{Set\+Result\+Ptr}}
@@ -1258,8 +1391,19 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a38d38d266d48fad44435eec46a1086a6}
 
 
+Проверяет наличие записи в карте m\+\_\+result\+Ptr по ключу id и значению ptr и совпадение размера в m\+\_\+result\+Size с переданными значениями. Если что-\/то не совпадает или не хватет, то добавляет в карту m\+\_\+result\+Ptr по ключу id значению ptr; задаёт значение размера m\+\_\+result\+Size равным переданным параметрам; Возвращает false если размер изображения не совпадает с хранящимся в настроечном параметре V\+I\+\_\+\+V\+A\+R\+\_\+\+S\+I\+Z\+E; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em id} & Ключ карты m\+\_\+result\+Ptr\\
+\hline
+{\em ptr} & \\
+\hline
+{\em w} & Ширина изображения\\
+\hline
+{\em h} & Высота изображения\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a930661f73cc7c449c166071631be595d}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Set\+Size@{Set\+Size}}
 \index{Set\+Size@{Set\+Size}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Set\+Size}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Set\+Size (
@@ -1292,8 +1436,15 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a4b6c77fcb50dcb01f299d7e0f4b05ea6}
 
 
+Изменение размеров массивов m\+\_\+stat, m\+\_\+summ, m\+\_\+aura6\+A, m\+\_\+aura6\+B до нового размера. Присвоение m\+\_\+summ\mbox{[}i\mbox{]}.id = p\+N\mbox{[}i\mbox{]} и очистка памяти выделеной для хранения строк изображений m\+\_\+summ\mbox{[}i\mbox{]}.i.\+clear();m\+\_\+summ\mbox{[}i\mbox{]}.si.\+clear(); Инициализация структур Clear\+Stat(m\+\_\+stat\mbox{[}i\mbox{]}) если азмер массивов был изменён. Для подробностей надо смотреть описание структуры \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G}; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
+\begin{DoxyParams}{Parameters}
+{\em cnt} & Новый размер массивов\\
+\hline
+{\em p\+N} & Список значений аттрибута m\+\_\+summ\mbox{[}i\mbox{]}.id\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_aa12afe22df5c306e03eb855d4fed4fce}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Src\+Mask\+Erase@{Src\+Mask\+Erase}}
 \index{Src\+Mask\+Erase@{Src\+Mask\+Erase}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Src\+Mask\+Erase}]{\setlength{\rightskip}{0pt plus 5cm}bool C\+V\+I\+Engine\+Base\+::\+Src\+Mask\+Erase (
@@ -1322,7 +1473,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a2575b5618d3f87d4b10bb1f7294a3bad}
 
 
-Загрузка монохромного изображения m\+\_\+img\+Src\+Mask из файла Задание размера монохромного изображения m\+\_\+img\+Src\+Mask равным ширине и высоте изображения в файле Заполнение монохромного изображения m\+\_\+img\+Src\+Mask значениями 0x00 и 0x\+F\+F на основании значений пикселей изображения в файле При этом при заполнении m\+\_\+img\+Src\+Mask значениями используется вертикально перевёрнутое изображения из файла В m\+\_\+img\+Src\+Mask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение C\+O\+L\+O\+R\+R\+E\+F (чёрный цвет) и записывается значение 0x\+F\+F во всех остальных случаяж The C\+O\+L\+O\+R\+R\+E\+F value is used to specify an R\+G\+B color. 
+Загрузка монохромного изображения m\+\_\+img\+Src\+Mask из файла Задание размера монохромного изображения m\+\_\+img\+Src\+Mask равным ширине и высоте изображения в файле Заполнение монохромного изображения m\+\_\+img\+Src\+Mask значениями 0x00 и 0x\+F\+F на основании значений пикселей изображения в файле При этом при заполнении m\+\_\+img\+Src\+Mask значениями используется вертикально перевёрнутое изображения из файла В m\+\_\+img\+Src\+Mask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение C\+O\+L\+O\+R\+R\+E\+F (чёрный цвет) и записывается значение 0x\+F\+F во всех остальных случаяж The C\+O\+L\+O\+R\+R\+E\+F value is used to specify an R\+G\+B color. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1349,7 +1500,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_a1d96cf239567fda73e26950353c69159}
 
 
-Сохранение монохромного изображения m\+\_\+img\+Src\+Mask в файле Сперва каждому пикселю в m\+\_\+img\+Src\+Mask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0x\+F\+F\+F\+F\+F\+F на основании значений пикселей в m\+\_\+img\+Src\+Mask В память записывается значение 0x00000000 если соответствующий пиксель в m\+\_\+img\+Src\+Mask имеет нулевое значение (чёрный цвет) и записывается значение 0x00\+F\+F\+F\+F\+F\+F во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла 
+Сохранение монохромного изображения m\+\_\+img\+Src\+Mask в файле Сперва каждому пикселю в m\+\_\+img\+Src\+Mask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0x\+F\+F\+F\+F\+F\+F на основании значений пикселей в m\+\_\+img\+Src\+Mask В память записывается значение 0x00000000 если соответствующий пиксель в m\+\_\+img\+Src\+Mask имеет нулевое значение (чёрный цвет) и записывается значение 0x00\+F\+F\+F\+F\+F\+F во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1365,7 +1516,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )}}\label{class_c_v_i_engine_base_ab2c697a4748558b48789feca6a105042}
 
 
-
+Начальная инициализация инстанса класса Изменение размеров массивов m\+\_\+stat, m\+\_\+summ, m\+\_\+aura6\+A, m\+\_\+aura6\+B до нового размера == 3. Присвоение m\+\_\+summ\mbox{[}i\mbox{]}.id = \{ V\+I\+\_\+\+V\+A\+R\+\_\+\+N0, V\+I\+\_\+\+V\+A\+R\+\_\+\+N1, V\+I\+\_\+\+V\+A\+R\+\_\+\+N2 \}\mbox{[}i\mbox{]} 
 
 \hypertarget{class_c_v_i_engine_base_a1fcb2c48c5d0f103dd1e001f8a4ec35f}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Stat\+Update@{Stat\+Update}}
 \index{Stat\+Update@{Stat\+Update}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1398,7 +1549,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 )\hspace{0.3cm}{\ttfamily [inline]}}}\label{class_c_v_i_engine_base_af12866653055639e69a61224615af7fe}
 
 
-Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-\/записать данные во все из-\/в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. 
+Блокирование семафора L\+V\+I\+\_\+\+A\+L\+L с ожиданием его освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-\/записать данные во все из-\/в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -1427,6 +1578,11 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 
 
 
+
+\begin{DoxyParams}{Parameters}
+{\em res} & Набор двоичных флагов\\
+\hline
+\end{DoxyParams}
 \hypertarget{class_c_v_i_engine_base_a305c1b2285ddfcdbb021597f0b3dbd39}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!Wait\+Threads@{Wait\+Threads}}
 \index{Wait\+Threads@{Wait\+Threads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{Wait\+Threads}]{\setlength{\rightskip}{0pt plus 5cm}void C\+V\+I\+Engine\+Base\+::\+Wait\+Threads (
@@ -1544,70 +1700,84 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 \subsubsection[{m\+\_\+c\+Make}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+c\+Make\mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a2c62f336b24d613e0320d2e6f676b89b}
 
 
-
+Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции \hyperlink{class_c_v_i_engine_base_aa59b55fc315394f4c19cb7d95c399913}{Make()}. Способ применения\+: m\+\_\+c\+Make\mbox{[}command\mbox{]} ++; ... КОД ЗДЕСЬ ... ; m\+\_\+c\+Make\mbox{[}command\mbox{]} --; 
 
 \hypertarget{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+crop@{m\+\_\+crop}}
 \index{m\+\_\+crop@{m\+\_\+crop}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+crop}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Crop C\+V\+I\+Engine\+Base\+::m\+\_\+crop}}\label{class_c_v_i_engine_base_a914dcdad5bb4fa5d7c0363122aa5fa0b}
 
 
-
+Инстанс на A\+P\+I манипулирования изображением 
 
 \hypertarget{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+\+Distortion@{m\+\_\+\+Distortion}}
 \index{m\+\_\+\+Distortion@{m\+\_\+\+Distortion}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+\+Distortion}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Distortion C\+V\+I\+Engine\+Base\+::m\+\_\+\+Distortion}}\label{class_c_v_i_engine_base_a5f19c0757146848a5e16bbe1a2a8d6f9}
 
 
-
+Вероятнее всего инстанс класса библиотеки видеоэффектов. 
 
 \hypertarget{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+div\+Maker@{m\+\_\+div\+Maker}}
 \index{m\+\_\+div\+Maker@{m\+\_\+div\+Maker}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+div\+Maker}]{\setlength{\rightskip}{0pt plus 5cm}std\+::list$<$int$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+div\+Maker}}\label{class_c_v_i_engine_base_a63cd16114d368eec7c2bce4c4ac8e9c8}
 
 
-
+Буфер данных для применения медианного фильтра 
 
 \hypertarget{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+events@{m\+\_\+events}}
 \index{m\+\_\+events@{m\+\_\+events}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+events}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Engine\+Event} C\+V\+I\+Engine\+Base\+::m\+\_\+events\mbox{[}E\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a88f59347ca703a36ea9965b96b3ab552}
 
 
-
+Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m\+\_\+events\mbox{[}id\mbox{]} -\/ это инстанс триггера для события с идентификатором id. 
 
 \hypertarget{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Drop\+F@{m\+\_\+fps\+Drop\+F}}
 \index{m\+\_\+fps\+Drop\+F@{m\+\_\+fps\+Drop\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+fps\+Drop\+F}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Drop\+F}}\label{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}
+\subsubsection[{m\+\_\+fps\+Drop\+F}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+Stat\+F\+P\+S} C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Drop\+F}}\label{class_c_v_i_engine_base_afe15eeaa45219bf0b4c4ffbf08887d4a}
 
 
-
+Аттрибут для определения частоты обработки кадров 
 
 \hypertarget{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Drop\+R@{m\+\_\+fps\+Drop\+R}}
 \index{m\+\_\+fps\+Drop\+R@{m\+\_\+fps\+Drop\+R}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+fps\+Drop\+R}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Drop\+R}}\label{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}
+\subsubsection[{m\+\_\+fps\+Drop\+R}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+Stat\+F\+P\+S} C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Drop\+R}}\label{class_c_v_i_engine_base_a3bd5b977e29332c55f1eaf9a1192d03a}
 
 
-
+Аттрибут для определения частоты обработки кадров 
 
 \hypertarget{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+In@{m\+\_\+fps\+In}}
 \index{m\+\_\+fps\+In@{m\+\_\+fps\+In}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+fps\+In}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+In}}\label{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}
+\subsubsection[{m\+\_\+fps\+In}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+Stat\+F\+P\+S} C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+In}}\label{class_c_v_i_engine_base_a3f8d2ef96946316d4b11b4eef209cd35}
 
 
-
+Аттрибут для определения частоты обработки кадров 
 
 \hypertarget{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Out\+F@{m\+\_\+fps\+Out\+F}}
 \index{m\+\_\+fps\+Out\+F@{m\+\_\+fps\+Out\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+fps\+Out\+F}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Out\+F}}\label{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}
+\subsubsection[{m\+\_\+fps\+Out\+F}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+Stat\+F\+P\+S} C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Out\+F}}\label{class_c_v_i_engine_base_a68263a05d2dcb87863aac27632c6fefa}
 
 
-
+Аттрибут для определения частоты обработки кадров 
 
 \hypertarget{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+fps\+Out\+R@{m\+\_\+fps\+Out\+R}}
 \index{m\+\_\+fps\+Out\+R@{m\+\_\+fps\+Out\+R}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+fps\+Out\+R}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+P\+S C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Out\+R}}\label{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}
+\subsubsection[{m\+\_\+fps\+Out\+R}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+Stat\+F\+P\+S} C\+V\+I\+Engine\+Base\+::m\+\_\+fps\+Out\+R}}\label{class_c_v_i_engine_base_a2ad39d8c6557ef3c0dd6fb9dc376c8b5}
 
 
+Аттрибут для определения частоты обработки кадров 
 
+\hypertarget{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+h\+Thread\+Add\+Image@{m\+\_\+h\+Thread\+Add\+Image}}
+\index{m\+\_\+h\+Thread\+Add\+Image@{m\+\_\+h\+Thread\+Add\+Image}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+h\+Thread\+Add\+Image}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+L\+E C\+V\+I\+Engine\+Base\+::m\+\_\+h\+Thread\+Add\+Image}}\label{class_c_v_i_engine_base_a4d289b3028ab2b3c1a91bf08de42144e}
+
+
+Дескриптор параллельной нити с обработчиком Add\+Image\+Thread\+Local 
+
+\hypertarget{class_c_v_i_engine_base_a81b0c7b485feb8404fa06b2e91300d14}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+h\+Thread\+Add\+Image8@{m\+\_\+h\+Thread\+Add\+Image8}}
+\index{m\+\_\+h\+Thread\+Add\+Image8@{m\+\_\+h\+Thread\+Add\+Image8}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
+\subsubsection[{m\+\_\+h\+Thread\+Add\+Image8}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+L\+E C\+V\+I\+Engine\+Base\+::m\+\_\+h\+Thread\+Add\+Image8}}\label{class_c_v_i_engine_base_a81b0c7b485feb8404fa06b2e91300d14}
+
+
+Дескриптор параллельной нити с обработчиком Add\+Image\+Thread\+Local8 
 
 \hypertarget{class_c_v_i_engine_base_a252e6e1285e6063718c7d7a874298363}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+img\+Src24@{m\+\_\+img\+Src24}}
 \index{m\+\_\+img\+Src24@{m\+\_\+img\+Src24}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1639,24 +1809,24 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 
 \hypertarget{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+locks@{m\+\_\+locks}}
 \index{m\+\_\+locks@{m\+\_\+locks}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+locks}]{\setlength{\rightskip}{0pt plus 5cm}C\+M\+T\+Critical\+Section C\+V\+I\+Engine\+Base\+::m\+\_\+locks\mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}
+\subsubsection[{m\+\_\+locks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+M\+T\+Critical\+Section} C\+V\+I\+Engine\+Base\+::m\+\_\+locks\mbox{[}L\+V\+I\+\_\+\+C\+N\+T\mbox{]}}}\label{class_c_v_i_engine_base_a66562cd6aaf7fd0f9ade29c9096b9851}
 
 
-
+Адресное пространство где находятся семафоры. Для семафора требуется участок памяти доступный из всех параллельных нитей. Управление семафором осуществляктся через класс \hyperlink{class_c_m_t_single_lock}{C\+M\+T\+Single\+Lock}. Статьи по теме \href{http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx}{\tt http\+://msdn.\+microsoft.\+com/en-\/us/library/windows/desktop/ms682530(v=vs.\+85).\+aspx} 
 
 \hypertarget{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+n\+Make@{m\+\_\+n\+Make}}
 \index{m\+\_\+n\+Make@{m\+\_\+n\+Make}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+n\+Make}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+n\+Make}}\label{class_c_v_i_engine_base_a4f173a318d25c068952f2c68f4248208}
 
 
-
+Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции \hyperlink{class_c_v_i_engine_base_a3426944a03bac2f5a8c135c217f9cf8c}{Make\+Image()}. Способ применения\+: m\+\_\+n\+Make ++; ... КОД ЗДЕСЬ ... ; m\+\_\+n\+Make --; 
 
 \hypertarget{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+n\+Threads@{m\+\_\+n\+Threads}}
 \index{m\+\_\+n\+Threads@{m\+\_\+n\+Threads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+n\+Threads}]{\setlength{\rightskip}{0pt plus 5cm}int C\+V\+I\+Engine\+Base\+::m\+\_\+n\+Threads}}\label{class_c_v_i_engine_base_a0041ab05a40ba6a0bca65c78ea9d8189}
 
 
-
+Текущее количество паралельных потоков вычислений, т.\+е. текущее количество дочерних инстансов классов \hyperlink{class_c_v_i_engine_thread}{C\+V\+I\+Engine\+Thread} для управления потоками вычислений 
 
 \hypertarget{class_c_v_i_engine_base_a36e1cc3cb814a08af53e9b4076b51dae}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+n\+Threads\+Rqst@{m\+\_\+n\+Threads\+Rqst}}
 \index{m\+\_\+n\+Threads\+Rqst@{m\+\_\+n\+Threads\+Rqst}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1667,10 +1837,10 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 
 \hypertarget{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+p\+Face@{m\+\_\+p\+Face}}
 \index{m\+\_\+p\+Face@{m\+\_\+p\+Face}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
-\subsubsection[{m\+\_\+p\+Face}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+Face$\ast$ C\+V\+I\+Engine\+Base\+::m\+\_\+p\+Face}}\label{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}
+\subsubsection[{m\+\_\+p\+Face}]{\setlength{\rightskip}{0pt plus 5cm}{\bf C\+V\+I\+Engine\+Face}$\ast$ C\+V\+I\+Engine\+Base\+::m\+\_\+p\+Face}}\label{class_c_v_i_engine_base_a67ce30a4c5018bdb7d33725094454166}
 
 
-
+Указатель на инстанс A\+P\+I вывода на дисплей 
 
 \hypertarget{class_c_v_i_engine_base_af130df6a0fc2f75aeea417af333755a2}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+proc\+F6@{m\+\_\+proc\+F6}}
 \index{m\+\_\+proc\+F6@{m\+\_\+proc\+F6}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1684,14 +1854,14 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 \subsubsection[{m\+\_\+result\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$int, D\+W\+O\+R\+D$\ast$$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+result\+Ptr}}\label{class_c_v_i_engine_base_a34c8596778c068f60030853df3589147}
 
 
-
+Карта вычисленных изображений. Каждому виду отображаемого результата соответствут свой ключ. 
 
 \hypertarget{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+result\+Size@{m\+\_\+result\+Size}}
 \index{m\+\_\+result\+Size@{m\+\_\+result\+Size}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+result\+Size}]{\setlength{\rightskip}{0pt plus 5cm}S\+I\+Z\+E C\+V\+I\+Engine\+Base\+::m\+\_\+result\+Size}}\label{class_c_v_i_engine_base_aec00e6d3113182f3193b3b4345c4e433}
 
 
-
+Видимо текущее значение размеров формируемого изображения для визуализации 
 
 \hypertarget{class_c_v_i_engine_base_a756c886b931c2c905085558d219d4045}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+result\+Ver@{m\+\_\+result\+Ver}}
 \index{m\+\_\+result\+Ver@{m\+\_\+result\+Ver}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1719,7 +1889,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 \subsubsection[{m\+\_\+stat}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf S\+U\+M\+M\+\_\+\+S\+T\+A\+T}$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+stat}}\label{class_c_v_i_engine_base_a73ff2aaa9eeb589ce6ea73ef5dd62fda}
 
 
-
+Массив вычисленных различных статистик от различных обработчиков. Данные в элементах массива формируются сведением данных от параллельных обработчиков фрагментов изображений. 
 
 \hypertarget{class_c_v_i_engine_base_a91282745c78c776f8922e20c4f3198f5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat2@{m\+\_\+stat2}}
 \index{m\+\_\+stat2@{m\+\_\+stat2}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1733,42 +1903,42 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 \subsubsection[{m\+\_\+stat\+A\+V\+G}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+A\+V\+G\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+A\+V\+G}}\label{class_c_v_i_engine_base_aad8ff35fe2bc6a8d6da03b8f93ea3341}
 
 
-
+Видимо дополнительный алгоритм по расчёту параметров. Название напоминает усреднение чего-\/то. 
 
 \hypertarget{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+F\+F\+T@{m\+\_\+stat\+F\+F\+T}}
 \index{m\+\_\+stat\+F\+F\+T@{m\+\_\+stat\+F\+F\+T}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+stat\+F\+F\+T}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+F\+T\+W\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+F\+F\+T}}\label{class_c_v_i_engine_base_a475ef6e1419c21ec5d68097a4cd822ee}
 
 
-
+Видимо дополнительный алгоритм по расчёту параметров. Название напоминает Быстрое преобразование Фурье \href{https://ru.wikipedia.org/wiki/}{\tt https\+://ru.\+wikipedia.\+org/wiki/}Быстрое\+\_\+преобразование\+\_\+Фурье. Одно из подобного класса быстрых преобразований -\/ преобразования Адамара \href{https://github.com/dprotopopov/fwht}{\tt https\+://github.\+com/dprotopopov/fwht} 
 
 \hypertarget{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+Fn@{m\+\_\+stat\+Fn}}
 \index{m\+\_\+stat\+Fn@{m\+\_\+stat\+Fn}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+stat\+Fn}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+F\+N\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+Fn}}\label{class_c_v_i_engine_base_a8628211a0ca23ea36cf4059f3ab47f74}
 
 
-
+Видимо хук при добавлении параметра в настроечные параметры 
 
 \hypertarget{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+L\+D\+F@{m\+\_\+stat\+L\+D\+F}}
 \index{m\+\_\+stat\+L\+D\+F@{m\+\_\+stat\+L\+D\+F}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+stat\+L\+D\+F}]{\setlength{\rightskip}{0pt plus 5cm}C\+Stat\+L\+D\+F\+\_\+\+Pack C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+L\+D\+F}}\label{class_c_v_i_engine_base_abb0ef36905047eafd79bea2911824b7f}
 
 
-
+Видимо хук при добавлении параметра в настроечные параметры 
 
 \hypertarget{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+stat\+Release@{m\+\_\+stat\+Release}}
 \index{m\+\_\+stat\+Release@{m\+\_\+stat\+Release}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+stat\+Release}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf S\+U\+M\+M\+\_\+\+S\+T\+A\+T}$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+stat\+Release}}\label{class_c_v_i_engine_base_ab0a3c99fb49cddb42615132833b483d5}
 
 
-
+Массив вычисленных различных статистик от различных обработчиков, предназначенный для отобоажения 
 
 \hypertarget{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+summ@{m\+\_\+summ}}
 \index{m\+\_\+summ@{m\+\_\+summ}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
 \subsubsection[{m\+\_\+summ}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<${\bf S\+U\+M\+\_\+\+I\+M\+G}$>$ C\+V\+I\+Engine\+Base\+::m\+\_\+summ}}\label{class_c_v_i_engine_base_a29b792994f8c587ebdd4296031032f68}
 
 
-
+Массив вычисленных различных изображений от различных обработчиков. По своей сути является картоы, поскольку структура \hyperlink{class_s_u_m___i_m_g}{S\+U\+M\+\_\+\+I\+M\+G} содержит аттрибут id == идентификатору обработчика. 
 
 \hypertarget{class_c_v_i_engine_base_a4fdf197fd70d474cf4365abba485c461}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+therads@{m\+\_\+therads}}
 \index{m\+\_\+therads@{m\+\_\+therads}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1796,7 +1966,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 \subsubsection[{m\+\_\+t\+Make\+Image}]{\setlength{\rightskip}{0pt plus 5cm}double C\+V\+I\+Engine\+Base\+::m\+\_\+t\+Make\+Image}}\label{class_c_v_i_engine_base_a0e3c27e7d2ed527eca5445a669080838}
 
 
-
+Отметка времени при обработке изображения кадра 
 
 \hypertarget{class_c_v_i_engine_base_a0d6409bd350e84190cd6904732c4fe83}{\index{C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}!m\+\_\+t\+Video@{m\+\_\+t\+Video}}
 \index{m\+\_\+t\+Video@{m\+\_\+t\+Video}!C\+V\+I\+Engine\+Base@{C\+V\+I\+Engine\+Base}}
@@ -1824,7 +1994,7 @@ C\+V\+I\+Engine\+Face $\ast$ \hyperlink{class_c_v_i_engine_base_a67ce30a4c5018bd
 \subsubsection[{m\+\_\+v\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}C\+V\+I\+Engine\+V\+Pos C\+V\+I\+Engine\+Base\+::m\+\_\+v\+Pos}}\label{class_c_v_i_engine_base_afab397345881a9b8a44e6f8eae9805f0}
 
 
-
+Видимо относится к позиции вывода изображения на дисплей. 
 
 
 

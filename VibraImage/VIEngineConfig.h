@@ -91,11 +91,12 @@ class CVIEngineConfig
 public:
 	CVIEngineConfig();
 	~CVIEngineConfig();
-	int GetI1(int key);
-	float GetF1(int key);
+	int GetI1(int key); // Чтение первого значения настроечного параметра по идентификатору ключа
+	int GetI2(int key);
+	float GetF1(int key); // Чтение первого значения настроечного параметра по идентификатору ключа
 	bool GetI(int key, int &value1, int &value2);
 	void PutI1(int key, int value);
-	void PutF1(int key, float value);
+	void PutF1(int key, float value); // Запись первого значения настроечного параметра по идентификатору ключа
 	void RegSave(); // Сохранение текущих значений настроечных параметров
 	void SetRegistry(LPCTSTR group);
 };

@@ -2,6 +2,7 @@ var searchData=
 [
   ['set0',['set0',['../class_c_point_s_s_e.html#a8a516dcceb3bf62c514b98161fbee9e8',1,'CPointSSE']]],
   ['setcount',['SetCount',['../class_c_v_i_engine_base.html#a042d710f3a5be21538478ad157680828',1,'CVIEngineBase']]],
+  ['setmode',['SetMode',['../class_c_v_i_engine_base.html#a22ba2d068df7651b957bb7cb00a324be',1,'CVIEngineBase']]],
   ['setregistry',['SetRegistry',['../class_c_v_i_engine_base.html#a4507f1ddf8b2931693f85e97dafe7cda',1,'CVIEngineBase']]],
   ['setresultptr',['SetResultPtr',['../class_c_v_i_engine_base.html#a38d38d266d48fad44435eec46a1086a6',1,'CVIEngineBase']]],
   ['setsize',['SetSize',['../class_c_v_i_engine_base.html#a930661f73cc7c449c166071631be595d',1,'CVIEngineBase']]],

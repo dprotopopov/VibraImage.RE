@@ -103,63 +103,70 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a28dba2a06eda33294836c5241f497112"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a28dba2a06eda33294836c5241f497112">~CVIEngineBase</a> (void)</td></tr>
 <tr class="separator:a28dba2a06eda33294836c5241f497112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd0542a6476a6eed4568c900ab5af5d9"><td class="memItemLeft" align="right" valign="top">RGBQUAD&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#acd0542a6476a6eed4568c900ab5af5d9">__declspec</a> (align(16)) m_palI[256]</td></tr>
+<tr class="memdesc:acd0542a6476a6eed4568c900ab5af5d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Используемая палитра цветов  <a href="#acd0542a6476a6eed4568c900ab5af5d9">More...</a><br /></td></tr>
 <tr class="separator:acd0542a6476a6eed4568c900ab5af5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a6ca94a8d39e8a76e5be4698cc2eff06b">AddImageThreadLocal</a> ()</td></tr>
 <tr class="memdesc:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск метода AddImageThreadProc в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) Если задан настроечный параметр VI_FILTER_FPSDIV, то пасле каждого запуска нить засыпает на указанное количество милисекунд но не более чем на 2 секунды. Иначе вычисления приостанавливаются на 1/4 секунды. Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить  <a href="#a6ca94a8d39e8a76e5be4698cc2eff06b">More...</a><br /></td></tr>
 <tr class="separator:a6ca94a8d39e8a76e5be4698cc2eff06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9fbe14762f4d2bf7d0bffe451a329ee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac9fbe14762f4d2bf7d0bffe451a329ee">AddImageThreadProc</a> ()</td></tr>
+<tr class="memdesc:ac9fbe14762f4d2bf7d0bffe451a329ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Назначение процедуры - чтение кадров с требуемой частотой и запуск обработки, заданной VI_VAR_FPSMAXR. Телодвижения в коде несовсем понятны, но в результате всё сводится к запуску MakeImage - процедуры обработки очередной порции кадров изображения. Хотя по-ходу успевают к чему-то применить медианный фильтр - это фильтр подавления шумов на изображении. Возвращает требуемую задержку в тиках ( 1000 тиков = 1 сек ) перед следующим запуском этой процедуры, рассчитанную на основе настроечного параметра VI_VAR_FPSMAXR, то есть чтобы обработка шла с заданным количеством кадров/сек. Данный метод вызывается в цикле в методе AddImageThreadLocal, который вызывается в свою очередь из метода "рабочего" процесса Windows, запускаемого единственной параллельной нитью - то есть просто цикл в бэкграунде. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#ac9fbe14762f4d2bf7d0bffe451a329ee">More...</a><br /></td></tr>
 <tr class="separator:ac9fbe14762f4d2bf7d0bffe451a329ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a180f4a67ef6b4137c8b8565310aa7834"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a180f4a67ef6b4137c8b8565310aa7834">AddImageThreadLocal8</a> ()</td></tr>
-<tr class="memdesc:a180f4a67ef6b4137c8b8565310aa7834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE. В цикле производится ожидание до появление флага EVI_DONE. Eсли не был поднят флаг EVI_ADD8, то вызывается метод <a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5">AddImage8()</a>; Всегда поднимается флаг готовности кадра m_events[EVI_ADD8_READY].Set(); Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить  <a href="#a180f4a67ef6b4137c8b8565310aa7834">More...</a><br /></td></tr>
+<tr class="memdesc:a180f4a67ef6b4137c8b8565310aa7834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE. В цикле производится ожидание до появление флага EVI_DONE. Eсли не был поднят флаг EVI_ADD8, то вызывается метод <a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5" title="Чтение очередного кадра изображения в аттрибут m_imgSrc8. Конвертация в массив чисел с плавающей точк...">AddImage8()</a>; Всегда поднимается флаг готовности кадра m_events[EVI_ADD8_READY].Set(); Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить  <a href="#a180f4a67ef6b4137c8b8565310aa7834">More...</a><br /></td></tr>
 <tr class="separator:a180f4a67ef6b4137c8b8565310aa7834"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a053908c9c2c18583a13e6f6f79c8eeab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a053908c9c2c18583a13e6f6f79c8eeab">CreateThreads</a> (bool bLock=true)</td></tr>
-<tr class="memdesc:a053908c9c2c18583a13e6f6f79c8eeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a053908c9c2c18583a13e6f6f79c8eeab">More...</a><br /></td></tr>
+<tr class="memdesc:a053908c9c2c18583a13e6f6f79c8eeab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a053908c9c2c18583a13e6f6f79c8eeab">More...</a><br /></td></tr>
 <tr class="separator:a053908c9c2c18583a13e6f6f79c8eeab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0905eba46bb64f25a2d91f8b39a3f994"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0905eba46bb64f25a2d91f8b39a3f994">CloseThreads</a> (bool bLock=true)</td></tr>
-<tr class="memdesc:a0905eba46bb64f25a2d91f8b39a3f994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Останов ранее запущенных параллельных потоков для вычислений.  <a href="#a0905eba46bb64f25a2d91f8b39a3f994">More...</a><br /></td></tr>
+<tr class="memdesc:a0905eba46bb64f25a2d91f8b39a3f994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Останов ранее запущенных параллельных потоков для вычислений. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a0905eba46bb64f25a2d91f8b39a3f994">More...</a><br /></td></tr>
 <tr class="separator:a0905eba46bb64f25a2d91f8b39a3f994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac886baeaf14b16970d089edaf6767a79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac886baeaf14b16970d089edaf6767a79">AddImage</a> (void *p, int w, int h, int bpp, double t, int nRef=0)</td></tr>
-<tr class="memdesc:ac886baeaf14b16970d089edaf6767a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура получения очередной порции данных для обработки. Список шагов: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки.  <a href="#ac886baeaf14b16970d089edaf6767a79">More...</a><br /></td></tr>
+<tr class="memdesc:ac886baeaf14b16970d089edaf6767a79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура получения очередной порции данных для обработки. Список шагов: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#ac886baeaf14b16970d089edaf6767a79">More...</a><br /></td></tr>
 <tr class="separator:ac886baeaf14b16970d089edaf6767a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fe6ae4f9ac6b9422c22d99878f424f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5">AddImage8</a> ()</td></tr>
+<tr class="memdesc:a3fe6ae4f9ac6b9422c22d99878f424f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Чтение очередного кадра изображения в аттрибут m_imgSrc8. Конвертация в массив чисел с плавающей точкой. Вызов когда требуется <a class="el" href="class_c_v_i_engine_base.html#ac9fbe14762f4d2bf7d0bffe451a329ee" title="Назначение процедуры - чтение кадров с требуемой частотой и запуск обработки, заданной VI_VAR_FPSMAXR...">AddImageThreadProc()</a>. Процедура содержит задержку для соблюдения требуемой часоты чтения кадров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a3fe6ae4f9ac6b9422c22d99878f424f5">More...</a><br /></td></tr>
 <tr class="separator:a3fe6ae4f9ac6b9422c22d99878f424f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3426944a03bac2f5a8c135c217f9cf8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3426944a03bac2f5a8c135c217f9cf8c">MakeImage</a> (float *pFI, BYTE *pBI, int w, int h)</td></tr>
-<tr class="memdesc:a3426944a03bac2f5a8c135c217f9cf8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги: Сброс если надо - Reset(true); Сдвиг очереди кадров - <a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535" title="Сдвиг очереди кадров ">NextSrc()</a>; Сброс ранее рассчитанных данных - <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Получение очередного изображения CVIEngineFace::AddImage; Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического: <a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf">MakeAnger()</a>; <a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c">MakeStress()</a>; <a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d">MakeState()</a>; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов - <a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc" title="Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. ">MakeFaceDraw()</a>; Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра: m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a3426944a03bac2f5a8c135c217f9cf8c">More...</a><br /></td></tr>
+<tr class="memdesc:a3426944a03bac2f5a8c135c217f9cf8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги: Сброс если надо - Reset(true); Сдвиг очереди кадров - <a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535" title="Сдвиг очереди кадров в памяти ">NextSrc()</a>; Сброс ранее рассчитанных данных - <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Получение очередного изображения CVIEngineFace::AddImage; Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического: <a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf" title="Вызов одноимённого метода с параметрами для режима B и для режима A. MakeAnger(true); MakeAnger(false...">MakeAnger()</a>; <a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c" title="Вызов одноимённого метода с параметрами для режима B и для режима A. MakeStress(true); MakeStress(fal...">MakeStress()</a>; <a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d" title="Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров. if(state >= lev) { m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 1); m_cfg.PutI1(VI_VAR_STATE_FLAG_P, 1); } else m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 0); ">MakeState()</a>; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов - <a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc" title="Вывод картинки на экран через API в классе CVIEngineFace. Берётся одна из картинок (какая есть в нали...">MakeFaceDraw()</a>; Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра: m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a3426944a03bac2f5a8c135c217f9cf8c">More...</a><br /></td></tr>
 <tr class="separator:a3426944a03bac2f5a8c135c217f9cf8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a930661f73cc7c449c166071631be595d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a930661f73cc7c449c166071631be595d">SetSize</a> (int w, int h, int cnt)</td></tr>
 <tr class="memdesc:a930661f73cc7c449c166071631be595d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение новых размеров изображения в настроечных параметрах VI_VAR_SIZE. Изменение размеров массивов используемых для хранения и обработки изображений. Перезапуск потоков обработки изображений.  <a href="#a930661f73cc7c449c166071631be595d">More...</a><br /></td></tr>
 <tr class="separator:a930661f73cc7c449c166071631be595d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a042d710f3a5be21538478ad157680828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a042d710f3a5be21538478ad157680828">SetCount</a> (int cnt, bool bLock=true)</td></tr>
-<tr class="memdesc:a042d710f3a5be21538478ad157680828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a042d710f3a5be21538478ad157680828">More...</a><br /></td></tr>
+<tr class="memdesc:a042d710f3a5be21538478ad157680828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a042d710f3a5be21538478ad157680828">More...</a><br /></td></tr>
 <tr class="separator:a042d710f3a5be21538478ad157680828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4764b56d4269ed5cd101dddf545e039d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4764b56d4269ed5cd101dddf545e039d">CheckFPSDIV</a> ()</td></tr>
-<tr class="memdesc:a4764b56d4269ed5cd101dddf545e039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF.  <a href="#a4764b56d4269ed5cd101dddf545e039d">More...</a><br /></td></tr>
+<tr class="memdesc:a4764b56d4269ed5cd101dddf545e039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a4764b56d4269ed5cd101dddf545e039d">More...</a><br /></td></tr>
 <tr class="separator:a4764b56d4269ed5cd101dddf545e039d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmmx__array2.html">mmx_array2</a>&lt; float &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535">NextSrc</a> (void)</td></tr>
-<tr class="memdesc:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сдвиг очереди кадров  <a href="#aa1aa2604f40dd77bc49ca6ff8fd81535">More...</a><br /></td></tr>
+<tr class="memdesc:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сдвиг очереди кадров в памяти  <a href="#aa1aa2604f40dd77bc49ca6ff8fd81535">More...</a><br /></td></tr>
 <tr class="separator:aa1aa2604f40dd77bc49ca6ff8fd81535"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a305c1b2285ddfcdbb021597f0b3dbd39">WaitThreads</a> (void)</td></tr>
 <tr class="memdesc:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ожидание готовности всех параллельных потоков обработки изображения. Используется для синхронизации параллельных вычислений.  <a href="#a305c1b2285ddfcdbb021597f0b3dbd39">More...</a><br /></td></tr>
 <tr class="separator:a305c1b2285ddfcdbb021597f0b3dbd39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af12866653055639e69a61224615af7fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af12866653055639e69a61224615af7fe">Sync</a> (void)</td></tr>
-<tr class="memdesc:af12866653055639e69a61224615af7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows.  <a href="#af12866653055639e69a61224615af7fe">More...</a><br /></td></tr>
+<tr class="memdesc:af12866653055639e69a61224615af7fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows.  <a href="#af12866653055639e69a61224615af7fe">More...</a><br /></td></tr>
 <tr class="separator:af12866653055639e69a61224615af7fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b6c77fcb50dcb01f299d7e0f4b05ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4b6c77fcb50dcb01f299d7e0f4b05ea6">SetSummCount</a> (int cnt, int *pN)</td></tr>
+<tr class="memdesc:a4b6c77fcb50dcb01f299d7e0f4b05ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера. Присвоение m_summ[i].id = pN[i] и очистка памяти выделеной для хранения строк изображений m_summ[i].i.clear();m_summ[i].si.clear(); Инициализация структур ClearStat(m_stat[i]) если азмер массивов был изменён. Для подробностей надо смотреть описание структуры <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a>; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a4b6c77fcb50dcb01f299d7e0f4b05ea6">More...</a><br /></td></tr>
 <tr class="separator:a4b6c77fcb50dcb01f299d7e0f4b05ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb6193dca9e4f6c71ad6e77df88bc9f7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#adb6193dca9e4f6c71ad6e77df88bc9f7">GetSummCount</a> (int *pN)</td></tr>
+<tr class="memdesc:adb6193dca9e4f6c71ad6e77df88bc9f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Заполнение массива по указателю значениями pN[i] = m_cfg.GetI1(m_summ[i].id); Возвращает размер массива m_summ; Для подробностей надо смотреть описание структуры <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a>;  <a href="#adb6193dca9e4f6c71ad6e77df88bc9f7">More...</a><br /></td></tr>
 <tr class="separator:adb6193dca9e4f6c71ad6e77df88bc9f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a354f23eda839e4aff3b578fc5ad50363"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a354f23eda839e4aff3b578fc5ad50363">GetSummCount</a> (int pos)</td></tr>
+<tr class="memdesc:a354f23eda839e4aff3b578fc5ad50363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение значения настроесного параметра return m_cfg.GetI1(m_summ[pos].id); Для подробностей надо смотреть описание структуры <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a>;  <a href="#a354f23eda839e4aff3b578fc5ad50363">More...</a><br /></td></tr>
 <tr class="separator:a354f23eda839e4aff3b578fc5ad50363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38d38d266d48fad44435eec46a1086a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a38d38d266d48fad44435eec46a1086a6">SetResultPtr</a> (int id, void *ptr, int w, int h)</td></tr>
+<tr class="memdesc:a38d38d266d48fad44435eec46a1086a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверяет наличие записи в карте m_resultPtr по ключу id и значению ptr и совпадение размера в m_resultSize с переданными значениями. Если что-то не совпадает или не хватет, то добавляет в карту m_resultPtr по ключу id значению ptr; задаёт значение размера m_resultSize равным переданным параметрам; Возвращает false если размер изображения не совпадает с хранящимся в настроечном параметре VI_VAR_SIZE; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a38d38d266d48fad44435eec46a1086a6">More...</a><br /></td></tr>
 <tr class="separator:a38d38d266d48fad44435eec46a1086a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99f7df701bfe9d53121e5cd00167e591"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a99f7df701bfe9d53121e5cd00167e591">GetResultPtr</a> (int id, void **ptr, int *pw, int *ph)</td></tr>
-<tr class="memdesc:a99f7df701bfe9d53121e5cd00167e591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a99f7df701bfe9d53121e5cd00167e591">More...</a><br /></td></tr>
+<tr class="memdesc:a99f7df701bfe9d53121e5cd00167e591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Если он не задан, то берутся значения размеров из m_resultSize. Возвращает через параметры значение из карты m_resultPtr по ключу id и размеры изображения. Возвращает true, если размеры в VI_VAR_SIZE совпадают со значениями в m_resultSize и существует запись для ключа id в карте m_resultPtr.  <a href="#a99f7df701bfe9d53121e5cd00167e591">More...</a><br /></td></tr>
 <tr class="separator:a99f7df701bfe9d53121e5cd00167e591"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa59b55fc315394f4c19cb7d95c399913"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa59b55fc315394f4c19cb7d95c399913">Make</a> (int command)</td></tr>
 <tr class="memdesc:aa59b55fc315394f4c19cb7d95c399913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поднятие флага сигнала command у всех параллельных процессов. m_therads[k]-&gt;m_events[command].Set(); Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру.  <a href="#aa59b55fc315394f4c19cb7d95c399913">More...</a><br /></td></tr>
 <tr class="separator:aa59b55fc315394f4c19cb7d95c399913"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e0174d46d3d28931a648e0437f0686d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1e0174d46d3d28931a648e0437f0686d">GetOptimalThreadCount</a> (void)</td></tr>
-<tr class="memdesc:a1e0174d46d3d28931a648e0437f0686d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) То есть простенько - без вяких лишних околонаучных движений. SYSTEM_INFO info; GetSystemInfo(&amp;info); nProc = info.dwNumberOfProcessors;  <a href="#a1e0174d46d3d28931a648e0437f0686d">More...</a><br /></td></tr>
+<tr class="memdesc:a1e0174d46d3d28931a648e0437f0686d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программа. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) То есть простенько - без вяких лишних околонаучных движений. SYSTEM_INFO info; GetSystemInfo(&amp;info); nProc = info.dwNumberOfProcessors;  <a href="#a1e0174d46d3d28931a648e0437f0686d">More...</a><br /></td></tr>
 <tr class="separator:a1e0174d46d3d28931a648e0437f0686d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b86bf7f377f62e7a701fb3466708d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2b86bf7f377f62e7a701fb3466708d04">MakeStatSum</a> (void)</td></tr>
 <tr class="memdesc:a2b86bf7f377f62e7a701fb3466708d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Объединение результатов, рассчитанных в отдельный параллельный процессах для отдельных фрагментов изображений в единый результат в одном месте, то есть для инстанса данного класса и расчёт средних значений по всему изображению. Паралельные процессы сохраняют посчитанные результаты в своих инстансах <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> в массивах структур m_stat. Данная процедура объединяет все эти результаты в массиве m_stat и что-то делит на количество пикселей в изображении (суммарную яркость, количество ненулевых пикселей и т.д.) - то есть рассчитывает усреднёные значения. Перед выполнении данной процедуры надо убедится в завершении расчётов в каждом отдельном параллельном потоке, поскольку в данном методе вызовов синхронизации нет - здесь полагается что все потоки вычислений уже закончили свои вычисления по текущему кадру. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a2b86bf7f377f62e7a701fb3466708d04">More...</a><br /></td></tr>
@@ -170,24 +177,26 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#adb910c0d7f06cf1f3ea7b2347aed1751">ClearStat</a> (<a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &amp;S)</td></tr>
 <tr class="memdesc:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка данных структуры <a class="el" href="class_s_u_m_m___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">SUMM_STAT</a> к очередному циклу обработки.  <a href="#adb910c0d7f06cf1f3ea7b2347aed1751">More...</a><br /></td></tr>
 <tr class="separator:adb910c0d7f06cf1f3ea7b2347aed1751"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96dd47cc32f324e133644e7f823507ad"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a96dd47cc32f324e133644e7f823507ad"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>MakeDefPal</b> (RGBQUAD *pal)</td></tr>
+<tr class="memitem:a96dd47cc32f324e133644e7f823507ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a96dd47cc32f324e133644e7f823507ad">MakeDefPal</a> (RGBQUAD *pal)</td></tr>
+<tr class="memdesc:a96dd47cc32f324e133644e7f823507ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение палитры цветов. В предоставненом коде описание отсутствует, вызовов есть только в кострукторе класса.  <a href="#a96dd47cc32f324e133644e7f823507ad">More...</a><br /></td></tr>
 <tr class="separator:a96dd47cc32f324e133644e7f823507ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22ba2d068df7651b957bb7cb00a324be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22ba2d068df7651b957bb7cb00a324be"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag, int id)</td></tr>
+<tr class="memitem:a22ba2d068df7651b957bb7cb00a324be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a22ba2d068df7651b957bb7cb00a324be">SetMode</a> (int tag, int id)</td></tr>
+<tr class="memdesc:a22ba2d068df7651b957bb7cb00a324be"><td class="mdescLeft">&#160;</td><td class="mdescRight">В предоставненом коде описание отсутствует, вызовов метода нет.  <a href="#a22ba2d068df7651b957bb7cb00a324be">More...</a><br /></td></tr>
 <tr class="separator:a22ba2d068df7651b957bb7cb00a324be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4507f1ddf8b2931693f85e97dafe7cda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4507f1ddf8b2931693f85e97dafe7cda">SetRegistry</a> (LPCTSTR group)</td></tr>
-<tr class="memdesc:a4507f1ddf8b2931693f85e97dafe7cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задание идентификатора ключа в реестре Windows для хранения настроечных параметров  <a href="#a4507f1ddf8b2931693f85e97dafe7cda">More...</a><br /></td></tr>
+<tr class="memdesc:a4507f1ddf8b2931693f85e97dafe7cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Задание идентификатора ключа в реестре Windows для хранения группы настроечных параметров  <a href="#a4507f1ddf8b2931693f85e97dafe7cda">More...</a><br /></td></tr>
 <tr class="separator:a4507f1ddf8b2931693f85e97dafe7cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#abcb53c55dac3fb076b4e8f5b88e48e6a">GetSrcLine</a> (int x, int y, float *px=0, float *py=0)</td></tr>
-<tr class="memdesc:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#abcb53c55dac3fb076b4e8f5b88e48e6a">More...</a><br /></td></tr>
+<tr class="memdesc:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование значений x-ого столца и y-ой строки по указанным значениям указателей. Исходный массив для копирования определяется на основе настроечного параметра VI_MODE_RESULT. VI_RESULT_SRC_0 m_arrSrc.begin()-&gt;i.begin(); VI_RESULT_SRC_A m_arrSrc.begin()-&gt;i.begin(); VI_RESULT_SRC_B m_arrSrc.begin()-&gt;i.begin(); VI_RESULT_VI0_A m_summ[0]-&gt;i[h*2]; VI_RESULT_VI0_B m_summ[0]-&gt;i[h*3]; VI_RESULT_VI1_A m_summ[1]-&gt;i[h*2]; VI_RESULT_VI1_B m_summ[1]-&gt;i[h*3]; VI_RESULT_VI2_A m_summ[2]-&gt;i[h*2]; VI_RESULT_VI2_B m_summ[2]-&gt;i[h*3]; VI_RESULT_DELTA_A m_arrDelta.begin()-&gt;i[0]; VI_RESULT_DELTA_B m_arrDelta.begin()-&gt;i[0]; Если m_cfg.GetI1(VI_MODE_RESULT) = VI_RESULT_DELTA_B, то производится умножение на 255.0; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Применяется технология SSE для ускорения копирования и преобразования типов.  <a href="#abcb53c55dac3fb076b4e8f5b88e48e6a">More...</a><br /></td></tr>
 <tr class="separator:abcb53c55dac3fb076b4e8f5b88e48e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf9d381d837873e8c66babffa6f6bfd1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aaf9d381d837873e8c66babffa6f6bfd1">GetSrcLine8</a> (int x, int y, float *px=0, float *py=0)</td></tr>
+<tr class="memdesc:aaf9d381d837873e8c66babffa6f6bfd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Копирование из m_imgSrc8 значений x-ого столца и y-ой строки по указанным значениям указателей. m_imgSrc8 - двумерный массив монохромного изображения [0;255]; То есть будет выполнятся преобразования из BYTE в float.  <a href="#aaf9d381d837873e8c66babffa6f6bfd1">More...</a><br /></td></tr>
 <tr class="separator:aaf9d381d837873e8c66babffa6f6bfd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e295decbf2fabf485467c2dee1bb51f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1e295decbf2fabf485467c2dee1bb51f">GetSumHist</a> (int id, float *px=0, float *py=0)</td></tr>
 <tr class="memdesc:a1e295decbf2fabf485467c2dee1bb51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a1e295decbf2fabf485467c2dee1bb51f">More...</a><br /></td></tr>
 <tr class="separator:a1e295decbf2fabf485467c2dee1bb51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6e23a29501fa69951a0cc9405bae96a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ad6e23a29501fa69951a0cc9405bae96a">OnNewVar</a> (int id, int subID=0)</td></tr>
+<tr class="memdesc:ad6e23a29501fa69951a0cc9405bae96a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо хук при добавлении параметра в настроечные параметры  <a href="#ad6e23a29501fa69951a0cc9405bae96a">More...</a><br /></td></tr>
 <tr class="separator:ad6e23a29501fa69951a0cc9405bae96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fcb2c48c5d0f103dd1e001f8a4ec35f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1fcb2c48c5d0f103dd1e001f8a4ec35f">StatUpdate</a> (void)</td></tr>
 <tr class="memdesc:a1fcb2c48c5d0f103dd1e001f8a4ec35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Расчёт величин определённых в методике и записи их в настроечные параметры BOOL disabled2X =m_cfg.GetI1(VI_FILTER_DISABLE_2X); VI_VAR_STAT_INTEGR0A = m_stat[0].sumAin; VI_VAR_STAT_INTEGR0A = m_stat[0].sumBin; VI_VAR_STAT_INTEGR1A = m_stat[1].sumAin; VI_VAR_STAT_INTEGR1A = m_stat[1].sumBin; VI_VAR_STAT_INTEGR2A = m_stat[2].sumAin; VI_VAR_STAT_INTEGR2A = m_stat[2].sumBin; VI_VAR_STAT_RES_A1 = m_stat[0].dsumAin; if(disabled2X) VI_VAR_STAT_RES_A1X = m_stat[0].dsumAin; VI_VAR_STAT_RES_A2 = ( (m_stat[1].auraA.sline.sumL / m_stat[1].auraA.sline.cl) + (m_stat[1].auraA.sline.sumR / m_stat[1].auraA.sline.cr) ) / 2; VI_VAR_STAT_RES_A3 = ( (m_stat[0].auraA.sline.sumL / m_stat[0].auraA.sline.cl) + (m_stat[0].auraA.sline.sumR / m_stat[0].auraA.sline.cr) ) / 2; VI_VAR_STAT_RES_A4 = m_statAVG.Get(VI_VAR_STAT_RES_A1); if(disabled2X) VI_VAR_STAT_RES_A4X = m_statAVG.Get(VI_VAR_STAT_RES_A1X) ; VI_VAR_STAT_RES_F1 = m_stat[0].dsumBin; VI_VAR_STAT_RES_F2 = ( (m_stat[1].auraB.sline.sumL / m_stat[1].auraB.sline.cl) + (m_stat[1].auraB.sline.sumR / m_stat[1].auraB.sline.cr) ) / 2; VI_VAR_STAT_RES_F3 = ( (m_stat[0].auraB.sline.sumL / m_stat[0].auraB.sline.cl) + (m_stat[0].auraB.sline.sumR / m_stat[0].auraB.sline.cr) ) / 2; VI_VAR_STAT_RES_F4 = max(m_stat[0]auraA.sline.maxL, m_stat[0]&gt;auraA.sline.maxR); VI_VAR_STAT_RES_F5 = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1); if(disabled2X) VI_VAR_STAT_RES_F5X = m_statFFT.GetHfLf(VI_VAR_STAT_RES_F1X); VI_VAR_STAT_RES_S1 = (m_stat[2].auraA.sline.sumL - m_stat[2].auraA.sline.sumR) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr); VI_VAR_STAT_RES_S2 = (m_stat[1].auraA.sline.sumL - m_stat[1].auraA.sline.sumR) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr); VI_VAR_STAT_RES_S2 = (m_stat[0].auraA.sline.sumL - m_stat[0].auraA.sline.sumR) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr); VI_VAR_STAT_RES_S4 = (m_stat[2].auraA.sline.cl - m_stat[2].auraA.sline.cr) / (m_stat[2].auraA.sline.cl + m_stat[2].auraA.sline.cr); VI_VAR_STAT_RES_S5 = (m_stat[1].auraA.sline.cl - m_stat[1].auraA.sline.cr) / (m_stat[1].auraA.sline.cl + m_stat[1].auraA.sline.cr); VI_VAR_STAT_RES_S6 = (m_stat[0].auraA.sline.cl - m_stat[0].auraA.sline.cr) / (m_stat[0].auraA.sline.cl + m_stat[0].auraA.sline.cr); VI_VAR_STAT_RES_S7 = m_stat[0].auraA.sline.maxL - m_stat[0].auraA.sline.maxR; VI_VAR_STAT_RES_P1 = m_stat[1].auraB.statCS; VI_VAR_STAT_RES_P2 = m_stat[0].auraB.statCS; VI_VAR_STAT_RES_P3 = m_stat[1].auraB.statSim; VI_VAR_STAT_RES_P4 = m_stat[0].auraB.statSim; hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraA.statHistW :m_stat[0].auraA.statHist; VI_VAR_STAT_RES_P8A = MakeCharming(hist.p, hist.s); VI_VAR_STAT_RES_P9A = MakeEntropyH(hist.p,hist.s); VI_VAR_STAT_RES_P10A = MakeEntropyD(hist.p,hist.s); VI_VAR_STAT_RES_P11A = MakeEntropyX(hist.p,hist.s); VI_VAR_STAT_RES_P12A = MakeEntropyS(hist.p,hist.s); hist = m_cfg.GetI1(VI_FILTER_HISTNW)? m_stat[0].auraB.statHistW :m_stat[0].auraB.statHist; VI_VAR_STAT_RES_P8F = MakeCharming(hist.p, hist.s); VI_VAR_STAT_RES_P9F = MakeEntropyH(hist.p,hist.s); VI_VAR_STAT_RES_P10F = MakeEntropyD(hist.p,hist.s); VI_VAR_STAT_RES_P11F = MakeEntropyX(hist.p,hist.s); VI_VAR_STAT_RES_P12F = MakeEntropyS(hist.p,hist.s); VI_VAR_STAT_RES_P16 = MakeComN(hist.p, hist.s); VI_VAR_STAT_RES_P17 = MakeComS(m_stat[0].auraA); VI_VAR_STAT_RES_P18 = (VI_VAR_STAT_RES_P16 + VI_VAR_STAT_RES_P17) / 2;  <a href="#a1fcb2c48c5d0f103dd1e001f8a4ec35f">More...</a><br /></td></tr>
@@ -205,26 +214,34 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memdesc:a4a2bee3b656476fdc3cb488a7019d7ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация метода не содержит программного кода.  <a href="#a4a2bee3b656476fdc3cb488a7019d7ae">More...</a><br /></td></tr>
 <tr class="separator:a4a2bee3b656476fdc3cb488a7019d7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d2e5915b3c1c9f6172291305a99bfe5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a7d2e5915b3c1c9f6172291305a99bfe5">FlushFPS</a> (void)</td></tr>
+<tr class="memdesc:a7d2e5915b3c1c9f6172291305a99bfe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение текущих значений FPS - аттрибуты типа <a class="el" href="class_c_stat_f_p_s.html" title="Аттрибут для определения частоты обработки кадров ">CStatFPS</a> - в настроечные параметры. VI_VAR_FPSIN; VI_VAR_FPSOUTF; VI_VAR_FPSOUTR; VI_VAR_FPSDROPF; VI_VAR_FPSDROPR;  <a href="#a7d2e5915b3c1c9f6172291305a99bfe5">More...</a><br /></td></tr>
 <tr class="separator:a7d2e5915b3c1c9f6172291305a99bfe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2c697a4748558b48789feca6a105042"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab2c697a4748558b48789feca6a105042">Start</a> (void)</td></tr>
+<tr class="memdesc:ab2c697a4748558b48789feca6a105042"><td class="mdescLeft">&#160;</td><td class="mdescRight">Начальная инициализация инстанса класса Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера == 3. Присвоение m_summ[i].id = { VI_VAR_N0, VI_VAR_N1, VI_VAR_N2 }[i]  <a href="#ab2c697a4748558b48789feca6a105042">More...</a><br /></td></tr>
 <tr class="separator:ab2c697a4748558b48789feca6a105042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65b898d96c06c5c9bf9f388b4a70f740"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a65b898d96c06c5c9bf9f388b4a70f740">CheckNRqst</a> (int w, int h)</td></tr>
 <tr class="memdesc:a65b898d96c06c5c9bf9f388b4a70f740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a65b898d96c06c5c9bf9f388b4a70f740">More...</a><br /></td></tr>
 <tr class="separator:a65b898d96c06c5c9bf9f388b4a70f740"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad231ab7aee4acfc00e9a55e778443ee4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ad231ab7aee4acfc00e9a55e778443ee4">MakeResultSrc</a> ()</td></tr>
-<tr class="memdesc:ad231ab7aee4acfc00e9a55e778443ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#ad231ab7aee4acfc00e9a55e778443ee4">More...</a><br /></td></tr>
+<tr class="memdesc:ad231ab7aee4acfc00e9a55e778443ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вывод результата на дисплей. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#ad231ab7aee4acfc00e9a55e778443ee4">More...</a><br /></td></tr>
 <tr class="separator:ad231ab7aee4acfc00e9a55e778443ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a238c46a9344e280e609dcd974ce40a02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a238c46a9344e280e609dcd974ce40a02">GetStatHistN</a> (int res, int *pHist256, float *pFPS)</td></tr>
+<tr class="memdesc:a238c46a9344e280e609dcd974ce40a02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант N). Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR. В предоставленном коде вызовов метода нет.  <a href="#a238c46a9344e280e609dcd974ce40a02">More...</a><br /></td></tr>
 <tr class="separator:a238c46a9344e280e609dcd974ce40a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8abf18dfc992c03f0dc9811be62ea5d5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a8abf18dfc992c03f0dc9811be62ea5d5">GetStatHistC</a> (int res, int *pHist256, float *pFPS)</td></tr>
+<tr class="memdesc:a8abf18dfc992c03f0dc9811be62ea5d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант C). Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR. В предоставленном коде вызовов метода нет.  <a href="#a8abf18dfc992c03f0dc9811be62ea5d5">More...</a><br /></td></tr>
 <tr class="separator:a8abf18dfc992c03f0dc9811be62ea5d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18bccff2c758d80e3d720953a0d949c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a18bccff2c758d80e3d720953a0d949c1">GetStatHistF</a> (int res, int *pHist256, float *pFPS)</td></tr>
+<tr class="memdesc:a18bccff2c758d80e3d720953a0d949c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F). Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR. В предоставленном коде вызовов метода нет.  <a href="#a18bccff2c758d80e3d720953a0d949c1">More...</a><br /></td></tr>
 <tr class="separator:a18bccff2c758d80e3d720953a0d949c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab631a7093c3f9e3e15b5a84e61358374"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab631a7093c3f9e3e15b5a84e61358374">GetStatHistFT</a> (int res, int *pHist256, float *pDT)</td></tr>
+<tr class="memdesc:ab631a7093c3f9e3e15b5a84e61358374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант FT). В предоставленном коде вызовов метода нет.  <a href="#ab631a7093c3f9e3e15b5a84e61358374">More...</a><br /></td></tr>
 <tr class="separator:ab631a7093c3f9e3e15b5a84e61358374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf949a2b1abf18f519937d3f787c5abf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf">MakeAnger</a> (void)</td></tr>
+<tr class="memdesc:adf949a2b1abf18f519937d3f787c5abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вызов одноимённого метода с параметрами для режима B и для режима A. MakeAnger(true); MakeAnger(false);  <a href="#adf949a2b1abf18f519937d3f787c5abf">More...</a><br /></td></tr>
 <tr class="separator:adf949a2b1abf18f519937d3f787c5abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a746c67a403f60418bf26e1e686db0c0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c">MakeStress</a> (void)</td></tr>
+<tr class="memdesc:a746c67a403f60418bf26e1e686db0c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вызов одноимённого метода с параметрами для режима B и для режима A. MakeStress(true); MakeStress(false);  <a href="#a746c67a403f60418bf26e1e686db0c0c">More...</a><br /></td></tr>
 <tr class="separator:a746c67a403f60418bf26e1e686db0c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04eac6867b0a19908706aa4181fc017e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a04eac6867b0a19908706aa4181fc017e">MakeAnger</a> (bool bModeB)</td></tr>
 <tr class="separator:a04eac6867b0a19908706aa4181fc017e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,7 +257,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memitem:a9037ada333cb78e24b8178703c1bace4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a9037ada333cb78e24b8178703c1bace4">tmp_aura_draw</a> (int res)</td></tr>
 <tr class="separator:a9037ada333cb78e24b8178703c1bace4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb7d69a59c1067240f248d50d7172ba6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afb7d69a59c1067240f248d50d7172ba6">OnNewVarDidable</a> (int id)</td></tr>
-<tr class="memdesc:afb7d69a59c1067240f248d50d7172ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.  <a href="#afb7d69a59c1067240f248d50d7172ba6">More...</a><br /></td></tr>
+<tr class="memdesc:afb7d69a59c1067240f248d50d7172ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset.  <a href="#afb7d69a59c1067240f248d50d7172ba6">More...</a><br /></td></tr>
 <tr class="separator:afb7d69a59c1067240f248d50d7172ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9ac11fcc300832a72d0be60be3419e6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab9ac11fcc300832a72d0be60be3419e6">IsMotion</a> (bool bSet=false)</td></tr>
 <tr class="memdesc:ab9ac11fcc300832a72d0be60be3419e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Чтение настройки для процедуры сенсора определения факта движения на основе ранее расчитанных статистических данных Если bSet == false и VI_FILTER_DISABLE_VI1 ненеулевой, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0 Иначе если VI_FILTER_MOTION не указан, то VI_FILTER_MOTION_SET сбрасывается и возвращается 0 Иначе производится ряд расчётов по настроечным параметрам, результат записывается в VI_FILTER_MOTION_SET и возвращается вычисленная величина  <a href="#ab9ac11fcc300832a72d0be60be3419e6">More...</a><br /></td></tr>
@@ -249,18 +266,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memdesc:aa31de24bd1b50c4206e8c3a6603985b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вызов метода <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если выполняется условие от процедуры сенсора движения. Получение текущего параметра для процедуры сенсора движения noise = IsMotion(true); Проверка необходимости вызова процедуры Reset - т.е. проверка условия noise == 3 || noise == -2 || m_statRelease[1].cntAin &gt; 0.7f; Вызов <a class="el" href="class_c_v_i_engine_base.html#a27a3545d7253a59150ea9c16e7b4f0ac" title="Сброс, то есть фактически перезапуск работы приложения. Действия: Пауза; Очиска результатов ClearStat...">Reset()</a> если условие выполняется  <a href="#aa31de24bd1b50c4206e8c3a6603985b2">More...</a><br /></td></tr>
 <tr class="separator:aa31de24bd1b50c4206e8c3a6603985b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bedb5c81d496c6c5496ba88cea82eb7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1bedb5c81d496c6c5496ba88cea82eb7">IsSkip</a> (void)</td></tr>
+<tr class="memdesc:a1bedb5c81d496c6c5496ba88cea82eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Признак того чтобы пропустить обработку кадра. Причины пропусков: Программа работает по факту движения, то есть заданны настройки для сенсора движения; Либо фильтры работают по большему количеству кадров чем сейчас считано.  <a href="#a1bedb5c81d496c6c5496ba88cea82eb7">More...</a><br /></td></tr>
 <tr class="separator:a1bedb5c81d496c6c5496ba88cea82eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa77b261660041465a8d3e68a7088dd0d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d">MakeState</a> (void)</td></tr>
+<tr class="memdesc:aa77b261660041465a8d3e68a7088dd0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров. if(state &gt;= lev) { m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 1); m_cfg.PutI1(VI_VAR_STATE_FLAG_P, 1); } else m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 0);  <a href="#aa77b261660041465a8d3e68a7088dd0d">More...</a><br /></td></tr>
 <tr class="separator:aa77b261660041465a8d3e68a7088dd0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab42744ae341c3653c24ae3fd38bc7ceb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab42744ae341c3653c24ae3fd38bc7ceb">MakeStateMacro</a> (void)</td></tr>
 <tr class="memdesc:ab42744ae341c3653c24ae3fd38bc7ceb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#ab42744ae341c3653c24ae3fd38bc7ceb">More...</a><br /></td></tr>
 <tr class="separator:ab42744ae341c3653c24ae3fd38bc7ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a835724aef2b6afbc88d5db31e8a13a08"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a835724aef2b6afbc88d5db31e8a13a08">MakeState</a> (float Ag, float St, float Tn)</td></tr>
+<tr class="memdesc:a835724aef2b6afbc88d5db31e8a13a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Выбор коэффициента либо среднее параметров, либо 0.8, либо 1.0 Код. Просто код. Лучше чем этот код не объяснишь. const float dAg = 0.75f; const float dSt = 0.80f; const float dTn = 0.60f; int ret = 0; if (Ag &gt; dAg) ret |= 1; if (St &gt; dSt) ret |= 2; if (Tn &gt; dTn) ret |= 4; switch (ret) { case 0: return (Ag + St + Tn) / 3.0f; case 1: case 2: case 4: return 0.8f; case 3: case 5: case 6: case 7: return 1.00f; default: break; } return 0;  <a href="#a835724aef2b6afbc88d5db31e8a13a08">More...</a><br /></td></tr>
 <tr class="separator:a835724aef2b6afbc88d5db31e8a13a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc">MakeFaceDraw</a> ()</td></tr>
-<tr class="memdesc:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a18c5dc58d55a37295b3dd4c451fb86fc">More...</a><br /></td></tr>
+<tr class="memdesc:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вывод картинки на экран через API в классе <a class="el" href="class_c_v_i_engine_face.html" title=" Класс реализации API для системы отображения, то есть дисплея. ">CVIEngineFace</a>. Берётся одна из картинок (какая есть в наличии) m_resultPtr[VI_RESULT_SRC_0]; m_resultPtr[VI_RESULT_SRC_A]; m_resultPtr[VI_RESULT_SRC_B]; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE.  <a href="#a18c5dc58d55a37295b3dd4c451fb86fc">More...</a><br /></td></tr>
 <tr class="separator:a18c5dc58d55a37295b3dd4c451fb86fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a784d5489bb89efa567e207d3539de0da"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a784d5489bb89efa567e207d3539de0da">MakeCharming</a> (int *pHist256, int len)</td></tr>
+<tr class="memdesc:a784d5489bb89efa567e207d3539de0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Формула по гистограмме Формула: sV = СУММА pHist256(i), sVX = СУММА i * pHist256(i), M = sVX / sV; d(i) = i*fps/len-M; sDV = d(i)*d(i)*pHist256(i); D = sDV / sV; S = sqrt(D); return (M-S)/fps; Используется только в <a class="el" href="class_c_v_i_engine_base.html#a1fcb2c48c5d0f103dd1e001f8a4ec35f" title="Расчёт величин определённых в методике и записи их в настроечные параметры BOOL disabled2X =m_cfg...">CVIEngineBase::StatUpdate(void)</a>  <a href="#a784d5489bb89efa567e207d3539de0da">More...</a><br /></td></tr>
 <tr class="separator:a784d5489bb89efa567e207d3539de0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2617136f50ae63442e88809037ab9ff0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2617136f50ae63442e88809037ab9ff0">MakeEntropyX</a> (int *pHist256, int len)</td></tr>
 <tr class="memdesc:a2617136f50ae63442e88809037ab9ff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения энтропии по гистограмме сигнала (Вариант X - заимствование идеи из статистического критерия X^2) Термин энтропия означает численное обозначение некоторой неопределённости и используется в различных областях науки для анализа данных Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Затем по этой таблице был вычислено среднее значение M яркости ненулевых элементов (= математическое ожидание без учёта нулевых значений) Для каждого элементв вычисленно отклонение от линейно-равномерного распределения, то есть Если flen - максимальное значение яркости, то для каждого ненулевого значения i вычисляются коэффициенты dd(i) = (i/flen - M)^2 И вычисляется значение return ( СУММА dd(i)*pHist256(i) / СУММА pHist256(i) ) / sqrt( СУММА dd(i)*dd(i)*pHist256(i) / СУММА pHist256(i) )  <a href="#a2617136f50ae63442e88809037ab9ff0">More...</a><br /></td></tr>
@@ -278,12 +299,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memdesc:a4bde6b4202b8dfa683becb522949e09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление значения статистики по гистограмме сигнала. Гистограмма - это вторичная спецификация исходных данный, являющаяся просто подсчётом сколько раз встретился в исходных данных каждый образец. В данном случае исходными данными являются значения яркостей пискелей монохромного изображения, выраженых числами от 0 до 255 Для каждого значения i было подсчитано сколько раз оно встретилось и было занесено в таблицу pHist256 по соответствующему адресу i СУММА pHist256(i) = количество пикселей исходного изображения = ширина*высота Формула: nPI = (0.5/M_PI)*(0.5/M_PI); M = ( СУММА i * pHist256(i) ) / ( СУММА pHist256(i) ); dx(i) = pHist256(i) - M; t(i) = i - M; z(i) = nPI*exp(-0.5*t(i)*t(i)); SumZ = СУММА nPI*exp(-0.5*t(i)*t(i)); S = sqrt( ( СУММА dx(i) * dx(i) * pHist256(i) ) / ( СУММА pHist256(i) ) ); K = ( СУММА z(i) ) / ( СУММА pHist256(i) ); return max( 0.0, min( sqrt( СУММА (pHist256[i] * K - z(i))^2 ) / sqrt( СУММА z(i)^2 ) , 1.0 ) );  <a href="#a4bde6b4202b8dfa683becb522949e09c">More...</a><br /></td></tr>
 <tr class="separator:a4bde6b4202b8dfa683becb522949e09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eaa6b468b27249a359a67ce1ce32c4f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a6eaa6b468b27249a359a67ce1ce32c4f">MakeComS</a> (<a class="el" href="class_a_u_r_a___s_t_a_t.html">AURA_STAT</a> &amp;aura)</td></tr>
+<tr class="memdesc:a6eaa6b468b27249a359a67ce1ce32c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление средней величины по значениям ранее рассчитанных строк в структуре <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a>. Теоретический смысл формулы непонятен. nl = aura.line.size(); sW = СУММА abs(aura.line[y].cwl-aura.line[y].cwr)/max(aura.line[y].cwl,aura.line[y].cwr); sC = СУММА abs(aura.line[y].aColorL - aura.line[y].aColorR)/255.0f; return 1.0f - (sC+sW)/(2*nl);  <a href="#a6eaa6b468b27249a359a67ce1ce32c4f">More...</a><br /></td></tr>
 <tr class="separator:a6eaa6b468b27249a359a67ce1ce32c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2575b5618d3f87d4b10bb1f7294a3bad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2575b5618d3f87d4b10bb1f7294a3bad">SrcMaskLoad</a> (LPCWSTR file)</td></tr>
-<tr class="memdesc:a2575b5618d3f87d4b10bb1f7294a3bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загрузка монохромного изображения m_imgSrcMask из файла Задание размера монохромного изображения m_imgSrcMask равным ширине и высоте изображения в файле Заполнение монохромного изображения m_imgSrcMask значениями 0x00 и 0xFF на основании значений пикселей изображения в файле При этом при заполнении m_imgSrcMask значениями используется вертикально перевёрнутое изображения из файла В m_imgSrcMask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение COLORREF (чёрный цвет) и записывается значение 0xFF во всех остальных случаяж The COLORREF value is used to specify an RGB color.  <a href="#a2575b5618d3f87d4b10bb1f7294a3bad">More...</a><br /></td></tr>
+<tr class="memdesc:a2575b5618d3f87d4b10bb1f7294a3bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Загрузка монохромного изображения m_imgSrcMask из файла Задание размера монохромного изображения m_imgSrcMask равным ширине и высоте изображения в файле Заполнение монохромного изображения m_imgSrcMask значениями 0x00 и 0xFF на основании значений пикселей изображения в файле При этом при заполнении m_imgSrcMask значениями используется вертикально перевёрнутое изображения из файла В m_imgSrcMask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение COLORREF (чёрный цвет) и записывается значение 0xFF во всех остальных случаяж The COLORREF value is used to specify an RGB color. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a2575b5618d3f87d4b10bb1f7294a3bad">More...</a><br /></td></tr>
 <tr class="separator:a2575b5618d3f87d4b10bb1f7294a3bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d96cf239567fda73e26950353c69159"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1d96cf239567fda73e26950353c69159">SrcMaskSave</a> (LPCWSTR file)</td></tr>
-<tr class="memdesc:a1d96cf239567fda73e26950353c69159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение монохромного изображения m_imgSrcMask в файле Сперва каждому пикселю в m_imgSrcMask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0xFFFFFF на основании значений пикселей в m_imgSrcMask В память записывается значение 0x00000000 если соответствующий пиксель в m_imgSrcMask имеет нулевое значение (чёрный цвет) и записывается значение 0x00FFFFFF во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла  <a href="#a1d96cf239567fda73e26950353c69159">More...</a><br /></td></tr>
+<tr class="memdesc:a1d96cf239567fda73e26950353c69159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Сохранение монохромного изображения m_imgSrcMask в файле Сперва каждому пикселю в m_imgSrcMask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0xFFFFFF на основании значений пикселей в m_imgSrcMask В память записывается значение 0x00000000 если соответствующий пиксель в m_imgSrcMask имеет нулевое значение (чёрный цвет) и записывается значение 0x00FFFFFF во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#a1d96cf239567fda73e26950353c69159">More...</a><br /></td></tr>
 <tr class="separator:a1d96cf239567fda73e26950353c69159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac394163149bb674cf127f16392f41047"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ac394163149bb674cf127f16392f41047">SrcMaskReset</a> ()</td></tr>
 <tr class="memdesc:ac394163149bb674cf127f16392f41047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Очистка двумерного массива m_imgSrcMask Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#ac394163149bb674cf127f16392f41047">More...</a><br /></td></tr>
@@ -292,15 +314,16 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetMode</b> (int tag,
 <tr class="memdesc:aa12afe22df5c306e03eb855d4fed4fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Присвоение нулевого значения элементу двумерного массива m_imgSrcMask по указанным координатам. Если массив m_imgSrcMask пустой то он создаётся с размерами взятыми у m_imgSrc8 и заполняется байтами 0xFF. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#aa12afe22df5c306e03eb855d4fed4fce">More...</a><br /></td></tr>
 <tr class="separator:aa12afe22df5c306e03eb855d4fed4fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa7d51c8145d1094997fc485508dd402"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aaa7d51c8145d1094997fc485508dd402">GetAura</a> (int *pCWL, int *pCWR, int *pCR, int *pCL, int nProc, bool bB)</td></tr>
+<tr class="memdesc:aaa7d51c8145d1094997fc485508dd402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Заполнение массивов pCWL и pCWR ранее вычисленными значениями статистики ауры (длинами линий); Заполнение массивов pCR и pCL ранее вычисленными значениями цветами ауры; Данные структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> берутся <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> &amp;aura = bB ? m_statRelease[nProc].auraB : m_statRelease[nProc].auraA; Количество обрабатываемых элементов int cnt = aura.line.size();  <a href="#aaa7d51c8145d1094997fc485508dd402">More...</a><br /></td></tr>
 <tr class="separator:aaa7d51c8145d1094997fc485508dd402"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33937f3f067ec0fa9829c7a40b54be50"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a33937f3f067ec0fa9829c7a40b54be50">CanMakeHist</a> (int id)</td></tr>
-<tr class="memdesc:a33937f3f067ec0fa9829c7a40b54be50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка возможности потроения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется.  <a href="#a33937f3f067ec0fa9829c7a40b54be50">More...</a><br /></td></tr>
+<tr class="memdesc:a33937f3f067ec0fa9829c7a40b54be50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка возможности построения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется.  <a href="#a33937f3f067ec0fa9829c7a40b54be50">More...</a><br /></td></tr>
 <tr class="separator:a33937f3f067ec0fa9829c7a40b54be50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d144bb4fec300b83067404ffdc9ae6f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a1d144bb4fec300b83067404ffdc9ae6f">NeedSrcImageProc</a> ()</td></tr>
 <tr class="memdesc:a1d144bb4fec300b83067404ffdc9ae6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Проверка значения настроечного параметра VI_FACE_ENABLE Возвращает true если параметр VI_FACE_ENABLE установлен в ненулевое значение  <a href="#a1d144bb4fec300b83067404ffdc9ae6f">More...</a><br /></td></tr>
 <tr class="separator:a1d144bb4fec300b83067404ffdc9ae6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcadee160287c12571501a09c222bea3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afcadee160287c12571501a09c222bea3">NewSource</a> ()</td></tr>
-<tr class="memdesc:afcadee160287c12571501a09c222bea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения.  <a href="#afcadee160287c12571501a09c222bea3">More...</a><br /></td></tr>
+<tr class="memdesc:afcadee160287c12571501a09c222bea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. По сути является вызовом одноимённого метода класса <a class="el" href="class_c_v_i_engine_audio2.html" title="Видимо реализация API для управления камерой и микрофоном. Вполне возможно что автор сперва сделал по...">CVIEngineAudio2</a> для аттрибута m_audio + обнуление некоторых настроечных параметров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов.  <a href="#afcadee160287c12571501a09c222bea3">More...</a><br /></td></tr>
 <tr class="separator:afcadee160287c12571501a09c222bea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -312,10 +335,13 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:acb273d8d1df0ad615bec58b0a9c5f1cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Метод для создания из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить и указатель на параметры В качестве параметра передаётся указатель на инстанс данного класса. Эта процедура рабочей нити выполняет только одно действие - вызывает метод AddImageThreadLocal8 инстанса данного класса.  <a href="#acb273d8d1df0ad615bec58b0a9c5f1cc">More...</a><br /></td></tr>
 <tr class="separator:acb273d8d1df0ad615bec58b0a9c5f1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96058275b74d792351596a389ee29bbd"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a96058275b74d792351596a389ee29bbd">res2n</a> (int res)</td></tr>
+<tr class="memdesc:a96058275b74d792351596a389ee29bbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res. Просто вызов одноимённой глобальной функции класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>.  <a href="#a96058275b74d792351596a389ee29bbd">More...</a><br /></td></tr>
 <tr class="separator:a96058275b74d792351596a389ee29bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f8fba45abd4bb564101fb090de26a48"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2f8fba45abd4bb564101fb090de26a48">IsModeA</a> (int res)</td></tr>
+<tr class="memdesc:a2f8fba45abd4bb564101fb090de26a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление признака работы в режиме A согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>.  <a href="#a2f8fba45abd4bb564101fb090de26a48">More...</a><br /></td></tr>
 <tr class="separator:a2f8fba45abd4bb564101fb090de26a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7029194ddd71a7322746e962a3ed5b46"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a7029194ddd71a7322746e962a3ed5b46">IsModeB</a> (int res)</td></tr>
+<tr class="memdesc:a7029194ddd71a7322746e962a3ed5b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вычисление признака работы в режиме B согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>.  <a href="#a7029194ddd71a7322746e962a3ed5b46">More...</a><br /></td></tr>
 <tr class="separator:a7029194ddd71a7322746e962a3ed5b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -341,12 +367,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a36e1cc3cb814a08af53e9b4076b51dae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a36e1cc3cb814a08af53e9b4076b51dae">m_nThreadsRqst</a></td></tr>
 <tr class="separator:a36e1cc3cb814a08af53e9b4076b51dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0041ab05a40ba6a0bca65c78ea9d8189"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0041ab05a40ba6a0bca65c78ea9d8189">m_nThreads</a></td></tr>
+<tr class="memdesc:a0041ab05a40ba6a0bca65c78ea9d8189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Текущее количество паралельных потоков вычислений, т.е. текущее количество дочерних инстансов классов <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> для управления потоками вычислений  <a href="#a0041ab05a40ba6a0bca65c78ea9d8189">More...</a><br /></td></tr>
 <tr class="separator:a0041ab05a40ba6a0bca65c78ea9d8189"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fdf197fd70d474cf4365abba485c461"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_thread.html">CVIEngineThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4fdf197fd70d474cf4365abba485c461">m_therads</a> [8]</td></tr>
 <tr class="separator:a4fdf197fd70d474cf4365abba485c461"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="memItemLeft" align="right" valign="top">CMTCriticalSection&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a66562cd6aaf7fd0f9ade29c9096b9851">m_locks</a> [LVI_CNT]</td></tr>
+<tr class="memitem:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_m_t_critical_section.html">CMTCriticalSection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a66562cd6aaf7fd0f9ade29c9096b9851">m_locks</a> [LVI_CNT]</td></tr>
+<tr class="memdesc:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Адресное пространство где находятся семафоры. Для семафора требуется участок памяти доступный из всех параллельных нитей. Управление семафором осуществляктся через класс <a class="el" href="class_c_m_t_single_lock.html" title="Данный класс является классом для управления доступом к ресурсам в многопоточных приложениях Represen...">CMTSingleLock</a>. Статьи по теме <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx</a>  <a href="#a66562cd6aaf7fd0f9ade29c9096b9851">More...</a><br /></td></tr>
 <tr class="separator:a66562cd6aaf7fd0f9ade29c9096b9851"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88f59347ca703a36ea9965b96b3ab552"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_event.html">CVIEngineEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a88f59347ca703a36ea9965b96b3ab552">m_events</a> [EVI_CNT]</td></tr>
+<tr class="memdesc:a88f59347ca703a36ea9965b96b3ab552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m_events[id] - это инстанс триггера для события с идентификатором id.  <a href="#a88f59347ca703a36ea9965b96b3ab552">More...</a><br /></td></tr>
 <tr class="separator:a88f59347ca703a36ea9965b96b3ab552"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_timer.html">CVITimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a928c4511d2e46b9cd4b7c9b3b7322855">m_timer</a></td></tr>
 <tr class="memdesc:a928c4511d2e46b9cd4b7c9b3b7322855"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.  <a href="#a928c4511d2e46b9cd4b7c9b3b7322855">More...</a><br /></td></tr>
@@ -355,6 +384,7 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a8709ba629c654585cc38d13ccf3a23b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Реализация работы с системными часами. Успользуется для замеров времени работы процедур обработки изображений с целью оптимизации производительности программы на конкретном компьютере.  <a href="#a8709ba629c654585cc38d13ccf3a23b8">More...</a><br /></td></tr>
 <tr class="separator:a8709ba629c654585cc38d13ccf3a23b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e3c27e7d2ed527eca5445a669080838"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0e3c27e7d2ed527eca5445a669080838">m_tMakeImage</a></td></tr>
+<tr class="memdesc:a0e3c27e7d2ed527eca5445a669080838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Отметка времени при обработке изображения кадра  <a href="#a0e3c27e7d2ed527eca5445a669080838">More...</a><br /></td></tr>
 <tr class="separator:a0e3c27e7d2ed527eca5445a669080838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d6409bd350e84190cd6904732c4fe83"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a0d6409bd350e84190cd6904732c4fe83">m_tVideo</a></td></tr>
 <tr class="memdesc:a0d6409bd350e84190cd6904732c4fe83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Отметка времени и длительность при обработке изображения кадра  <a href="#a0d6409bd350e84190cd6904732c4fe83">More...</a><br /></td></tr>
@@ -384,8 +414,10 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoTPrev</b></
 <tr class="memitem:aa909c6b38f749c7b4d848f8b2de331bc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aa909c6b38f749c7b4d848f8b2de331bc">m_bLock</a></td></tr>
 <tr class="separator:aa909c6b38f749c7b4d848f8b2de331bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f173a318d25c068952f2c68f4248208"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4f173a318d25c068952f2c68f4248208">m_nMake</a></td></tr>
+<tr class="memdesc:a4f173a318d25c068952f2c68f4248208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции <a class="el" href="class_c_v_i_engine_base.html#a3426944a03bac2f5a8c135c217f9cf8c" title="Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех ...">MakeImage()</a>. Способ применения: m_nMake ++; ... КОД ЗДЕСЬ ... ; m_nMake &ndash;;  <a href="#a4f173a318d25c068952f2c68f4248208">More...</a><br /></td></tr>
 <tr class="separator:a4f173a318d25c068952f2c68f4248208"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c62f336b24d613e0320d2e6f676b89b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2c62f336b24d613e0320d2e6f676b89b">m_cMake</a> [EVI_CNT]</td></tr>
+<tr class="memdesc:a2c62f336b24d613e0320d2e6f676b89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции <a class="el" href="class_c_v_i_engine_base.html#aa59b55fc315394f4c19cb7d95c399913" title="Поднятие флага сигнала command у всех параллельных процессов. m_therads[k]->m_events[command].Set(); Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру. ">Make()</a>. Способ применения: m_cMake[command] ++; ... КОД ЗДЕСЬ ... ; m_cMake[command] &ndash;;  <a href="#a2c62f336b24d613e0320d2e6f676b89b">More...</a><br /></td></tr>
 <tr class="separator:a2c62f336b24d613e0320d2e6f676b89b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a359f07597366b8c81727c32c9ff931be"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a359f07597366b8c81727c32c9ff931be">m_imgSrcF</a></td></tr>
 <tr class="separator:a359f07597366b8c81727c32c9ff931be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -408,10 +440,13 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoTPrev</b></
 <tr class="memdesc:a0b3b91816e3f19ec5e531c5ad903be98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Друхмерный массив чисел с плавающей точкой монохромного изображения, хранящий накладываемую на обрабатываемые исходные данные маску яркости пикселей  <a href="#a0b3b91816e3f19ec5e531c5ad903be98">More...</a><br /></td></tr>
 <tr class="separator:a0b3b91816e3f19ec5e531c5ad903be98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b792994f8c587ebdd4296031032f68"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_s_u_m___i_m_g.html">SUM_IMG</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a29b792994f8c587ebdd4296031032f68">m_summ</a></td></tr>
+<tr class="memdesc:a29b792994f8c587ebdd4296031032f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив вычисленных различных изображений от различных обработчиков. По своей сути является картоы, поскольку структура <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a> содержит аттрибут id == идентификатору обработчика.  <a href="#a29b792994f8c587ebdd4296031032f68">More...</a><br /></td></tr>
 <tr class="separator:a29b792994f8c587ebdd4296031032f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a73ff2aaa9eeb589ce6ea73ef5dd62fda">m_stat</a></td></tr>
+<tr class="memdesc:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив вычисленных различных статистик от различных обработчиков. Данные в элементах массива формируются сведением данных от параллельных обработчиков фрагментов изображений.  <a href="#a73ff2aaa9eeb589ce6ea73ef5dd62fda">More...</a><br /></td></tr>
 <tr class="separator:a73ff2aaa9eeb589ce6ea73ef5dd62fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0a3c99fb49cddb42615132833b483d5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_s_u_m_m___s_t_a_t.html">SUMM_STAT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#ab0a3c99fb49cddb42615132833b483d5">m_statRelease</a></td></tr>
+<tr class="memdesc:ab0a3c99fb49cddb42615132833b483d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Массив вычисленных различных статистик от различных обработчиков, предназначенный для отобоажения  <a href="#ab0a3c99fb49cddb42615132833b483d5">More...</a><br /></td></tr>
 <tr class="separator:ab0a3c99fb49cddb42615132833b483d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91282745c78c776f8922e20c4f3198f5"><td class="memItemLeft" align="right" valign="top">CVIEngineProc2x&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a91282745c78c776f8922e20c4f3198f5">m_stat2</a></td></tr>
 <tr class="separator:a91282745c78c776f8922e20c4f3198f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -420,46 +455,62 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>m_tVideoTPrev</b></
 <tr class="memitem:a4415e8a105218982c6358907ae6f380e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; CVIEngineAura6 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4415e8a105218982c6358907ae6f380e">m_aura6B</a></td></tr>
 <tr class="separator:a4415e8a105218982c6358907ae6f380e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afab397345881a9b8a44e6f8eae9805f0"><td class="memItemLeft" align="right" valign="top">CVIEngineVPos&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afab397345881a9b8a44e6f8eae9805f0">m_vPos</a></td></tr>
+<tr class="memdesc:afab397345881a9b8a44e6f8eae9805f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо относится к позиции вывода изображения на дисплей.  <a href="#afab397345881a9b8a44e6f8eae9805f0">More...</a><br /></td></tr>
 <tr class="separator:afab397345881a9b8a44e6f8eae9805f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad8ff35fe2bc6a8d6da03b8f93ea3341"><td class="memItemLeft" align="right" valign="top">CStatAVG_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aad8ff35fe2bc6a8d6da03b8f93ea3341">m_statAVG</a></td></tr>
+<tr class="memdesc:aad8ff35fe2bc6a8d6da03b8f93ea3341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо дополнительный алгоритм по расчёту параметров. Название напоминает усреднение чего-то.  <a href="#aad8ff35fe2bc6a8d6da03b8f93ea3341">More...</a><br /></td></tr>
 <tr class="separator:aad8ff35fe2bc6a8d6da03b8f93ea3341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a475ef6e1419c21ec5d68097a4cd822ee"><td class="memItemLeft" align="right" valign="top">CStatFFTW_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a475ef6e1419c21ec5d68097a4cd822ee">m_statFFT</a></td></tr>
+<tr class="memdesc:a475ef6e1419c21ec5d68097a4cd822ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо дополнительный алгоритм по расчёту параметров. Название напоминает Быстрое преобразование Фурье <a href="https://ru.wikipedia.org/wiki/">https://ru.wikipedia.org/wiki/</a>Быстрое_преобразование_Фурье. Одно из подобного класса быстрых преобразований - преобразования Адамара <a href="https://github.com/dprotopopov/fwht">https://github.com/dprotopopov/fwht</a>  <a href="#a475ef6e1419c21ec5d68097a4cd822ee">More...</a><br /></td></tr>
 <tr class="separator:a475ef6e1419c21ec5d68097a4cd822ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb0ef36905047eafd79bea2911824b7f"><td class="memItemLeft" align="right" valign="top">CStatLDF_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#abb0ef36905047eafd79bea2911824b7f">m_statLDF</a></td></tr>
+<tr class="memdesc:abb0ef36905047eafd79bea2911824b7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо хук при добавлении параметра в настроечные параметры  <a href="#abb0ef36905047eafd79bea2911824b7f">More...</a><br /></td></tr>
 <tr class="separator:abb0ef36905047eafd79bea2911824b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8628211a0ca23ea36cf4059f3ab47f74"><td class="memItemLeft" align="right" valign="top">CStatFN_Pack&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a8628211a0ca23ea36cf4059f3ab47f74">m_statFn</a></td></tr>
+<tr class="memdesc:a8628211a0ca23ea36cf4059f3ab47f74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо хук при добавлении параметра в настроечные параметры  <a href="#a8628211a0ca23ea36cf4059f3ab47f74">More...</a><br /></td></tr>
 <tr class="separator:a8628211a0ca23ea36cf4059f3ab47f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63cd16114d368eec7c2bce4c4ac8e9c8"><td class="memItemLeft" align="right" valign="top">std::list&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a63cd16114d368eec7c2bce4c4ac8e9c8">m_divMaker</a></td></tr>
+<tr class="memdesc:a63cd16114d368eec7c2bce4c4ac8e9c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Буфер данных для применения медианного фильтра  <a href="#a63cd16114d368eec7c2bce4c4ac8e9c8">More...</a><br /></td></tr>
 <tr class="separator:a63cd16114d368eec7c2bce4c4ac8e9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34c8596778c068f60030853df3589147"><td class="memItemLeft" align="right" valign="top">std::map&lt; int, DWORD * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a34c8596778c068f60030853df3589147">m_resultPtr</a></td></tr>
+<tr class="memdesc:a34c8596778c068f60030853df3589147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Карта вычисленных изображений. Каждому виду отображаемого результата соответствут свой ключ.  <a href="#a34c8596778c068f60030853df3589147">More...</a><br /></td></tr>
 <tr class="separator:a34c8596778c068f60030853df3589147"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec00e6d3113182f3193b3b4345c4e433"><td class="memItemLeft" align="right" valign="top">SIZE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#aec00e6d3113182f3193b3b4345c4e433">m_resultSize</a></td></tr>
+<tr class="memdesc:aec00e6d3113182f3193b3b4345c4e433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Видимо текущее значение размеров формируемого изображения для визуализации  <a href="#aec00e6d3113182f3193b3b4345c4e433">More...</a><br /></td></tr>
 <tr class="separator:aec00e6d3113182f3193b3b4345c4e433"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a756c886b931c2c905085558d219d4045"><td class="memItemLeft" align="right" valign="top">DWORD&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a756c886b931c2c905085558d219d4045">m_resultVer</a></td></tr>
 <tr class="separator:a756c886b931c2c905085558d219d4045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f8d2ef96946316d4b11b4eef209cd35"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3f8d2ef96946316d4b11b4eef209cd35">m_fpsIn</a></td></tr>
+<tr class="memitem:a3f8d2ef96946316d4b11b4eef209cd35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3f8d2ef96946316d4b11b4eef209cd35">m_fpsIn</a></td></tr>
+<tr class="memdesc:a3f8d2ef96946316d4b11b4eef209cd35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Аттрибут для определения частоты обработки кадров  <a href="#a3f8d2ef96946316d4b11b4eef209cd35">More...</a><br /></td></tr>
 <tr class="separator:a3f8d2ef96946316d4b11b4eef209cd35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68263a05d2dcb87863aac27632c6fefa"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a68263a05d2dcb87863aac27632c6fefa">m_fpsOutF</a></td></tr>
+<tr class="memitem:a68263a05d2dcb87863aac27632c6fefa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a68263a05d2dcb87863aac27632c6fefa">m_fpsOutF</a></td></tr>
+<tr class="memdesc:a68263a05d2dcb87863aac27632c6fefa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Аттрибут для определения частоты обработки кадров  <a href="#a68263a05d2dcb87863aac27632c6fefa">More...</a><br /></td></tr>
 <tr class="separator:a68263a05d2dcb87863aac27632c6fefa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afe15eeaa45219bf0b4c4ffbf08887d4a">m_fpsDropF</a></td></tr>
+<tr class="memitem:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#afe15eeaa45219bf0b4c4ffbf08887d4a">m_fpsDropF</a></td></tr>
+<tr class="memdesc:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Аттрибут для определения частоты обработки кадров  <a href="#afe15eeaa45219bf0b4c4ffbf08887d4a">More...</a><br /></td></tr>
 <tr class="separator:afe15eeaa45219bf0b4c4ffbf08887d4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2ad39d8c6557ef3c0dd6fb9dc376c8b5">m_fpsOutR</a></td></tr>
+<tr class="memitem:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a2ad39d8c6557ef3c0dd6fb9dc376c8b5">m_fpsOutR</a></td></tr>
+<tr class="memdesc:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Аттрибут для определения частоты обработки кадров  <a href="#a2ad39d8c6557ef3c0dd6fb9dc376c8b5">More...</a><br /></td></tr>
 <tr class="separator:a2ad39d8c6557ef3c0dd6fb9dc376c8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="memItemLeft" align="right" valign="top">CStatFPS&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3bd5b977e29332c55f1eaf9a1192d03a">m_fpsDropR</a></td></tr>
+<tr class="memitem:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a3bd5b977e29332c55f1eaf9a1192d03a">m_fpsDropR</a></td></tr>
+<tr class="memdesc:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Аттрибут для определения частоты обработки кадров  <a href="#a3bd5b977e29332c55f1eaf9a1192d03a">More...</a><br /></td></tr>
 <tr class="separator:a3bd5b977e29332c55f1eaf9a1192d03a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a914dcdad5bb4fa5d7c0363122aa5fa0b"><td class="memItemLeft" align="right" valign="top">CVIEngineCrop&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a914dcdad5bb4fa5d7c0363122aa5fa0b">m_crop</a></td></tr>
+<tr class="memdesc:a914dcdad5bb4fa5d7c0363122aa5fa0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Инстанс на API манипулирования изображением  <a href="#a914dcdad5bb4fa5d7c0363122aa5fa0b">More...</a><br /></td></tr>
 <tr class="separator:a914dcdad5bb4fa5d7c0363122aa5fa0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f19c0757146848a5e16bbe1a2a8d6f9"><td class="memItemLeft" align="right" valign="top">CVIEngineDistortion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a5f19c0757146848a5e16bbe1a2a8d6f9">m_Distortion</a></td></tr>
+<tr class="memdesc:a5f19c0757146848a5e16bbe1a2a8d6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Вероятнее всего инстанс класса библиотеки видеоэффектов.  <a href="#a5f19c0757146848a5e16bbe1a2a8d6f9">More...</a><br /></td></tr>
 <tr class="separator:a5f19c0757146848a5e16bbe1a2a8d6f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af130df6a0fc2f75aeea417af333755a2"><td class="memItemLeft" align="right" valign="top">CVIEngineProcDT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#af130df6a0fc2f75aeea417af333755a2">m_procF6</a></td></tr>
 <tr class="separator:af130df6a0fc2f75aeea417af333755a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67ce30a4c5018bdb7d33725094454166"><td class="memItemLeft" align="right" valign="top">CVIEngineFace *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a67ce30a4c5018bdb7d33725094454166">m_pFace</a></td></tr>
+<tr class="memitem:a67ce30a4c5018bdb7d33725094454166"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c_v_i_engine_face.html">CVIEngineFace</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a67ce30a4c5018bdb7d33725094454166">m_pFace</a></td></tr>
+<tr class="memdesc:a67ce30a4c5018bdb7d33725094454166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Указатель на инстанс API вывода на дисплей  <a href="#a67ce30a4c5018bdb7d33725094454166">More...</a><br /></td></tr>
 <tr class="separator:a67ce30a4c5018bdb7d33725094454166"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d289b3028ab2b3c1a91bf08de42144e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d289b3028ab2b3c1a91bf08de42144e"></a>
-HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage</b></td></tr>
+<tr class="memitem:a4d289b3028ab2b3c1a91bf08de42144e"><td class="memItemLeft" align="right" valign="top">HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a4d289b3028ab2b3c1a91bf08de42144e">m_hThreadAddImage</a></td></tr>
+<tr class="memdesc:a4d289b3028ab2b3c1a91bf08de42144e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Дескриптор параллельной нити с обработчиком AddImageThreadLocal  <a href="#a4d289b3028ab2b3c1a91bf08de42144e">More...</a><br /></td></tr>
 <tr class="separator:a4d289b3028ab2b3c1a91bf08de42144e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81b0c7b485feb8404fa06b2e91300d14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81b0c7b485feb8404fa06b2e91300d14"></a>
-HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8</b></td></tr>
+<tr class="memitem:a81b0c7b485feb8404fa06b2e91300d14"><td class="memItemLeft" align="right" valign="top">HANDLE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_v_i_engine_base.html#a81b0c7b485feb8404fa06b2e91300d14">m_hThreadAddImage8</a></td></tr>
+<tr class="memdesc:a81b0c7b485feb8404fa06b2e91300d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Дескриптор параллельной нити с обработчиком AddImageThreadLocal8  <a href="#a81b0c7b485feb8404fa06b2e91300d14">More...</a><br /></td></tr>
 <tr class="separator:a81b0c7b485feb8404fa06b2e91300d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -516,7 +567,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Используемая палитра цветов </p>
 
 </div>
 </div>
@@ -568,7 +619,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Процедура получения очередной порции данных для обработки. Список шагов: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. </p>
+<p>Процедура получения очередной порции данных для обработки. Список шагов: Действия по оптимизации частоты обработки кадров. Синхронизация таймера. Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. Подготовка масок для обрабатываемых изображений. Вызов интерфейсных функций подключаемых программных модулей для получения кадра изображения в m_imgSrc8 или m_imgSrc24 в зависимости от настроек. Поднятие флагов готовности данных для дальнейшей обработки. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td></td></tr>
@@ -596,7 +647,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Чтение очередного кадра изображения в аттрибут m_imgSrc8. Конвертация в массив чисел с плавающей точкой. Вызов когда требуется <a class="el" href="class_c_v_i_engine_base.html#ac9fbe14762f4d2bf7d0bffe451a329ee" title="Назначение процедуры - чтение кадров с требуемой частотой и запуск обработки, заданной VI_VAR_FPSMAXR...">AddImageThreadProc()</a>. Процедура содержит задержку для соблюдения требуемой часоты чтения кадров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 
 </div>
 </div>
@@ -694,7 +745,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE. В цикле производится ожидание до появление флага EVI_DONE. Eсли не был поднят флаг EVI_ADD8, то вызывается метод <a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5">AddImage8()</a>; Всегда поднимается флаг готовности кадра m_events[EVI_ADD8_READY].Set(); Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить </p>
+<p>Обработка взведённых флагов сигналов в цикле пока не скажут - Хватит! - while(!m_bDone &amp;&amp; !m_bStop) То есть используется сигнально-событийная схема работы программы. Для каждого сигнала предусмотрен свой обработчик. По окончании обработки каждого сигнала взводится флаг m_evReady. По проверяются и обрабатываются только флаги EVI_ADD8 и EVI_DONE. В цикле производится ожидание до появление флага EVI_DONE. Eсли не был поднят флаг EVI_ADD8, то вызывается метод <a class="el" href="class_c_v_i_engine_base.html#a3fe6ae4f9ac6b9422c22d99878f424f5" title="Чтение очередного кадра изображения в аттрибут m_imgSrc8. Конвертация в массив чисел с плавающей точк...">AddImage8()</a>; Всегда поднимается флаг готовности кадра m_events[EVI_ADD8_READY].Set(); Метод вызывается из "рабочей" нити Windows - то есть параллельного процесса для создания которого требуется только указатель на функцию которую надо выполнить </p>
 
 </div>
 </div>
@@ -711,7 +762,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Назначение процедуры - чтение кадров с требуемой частотой и запуск обработки, заданной VI_VAR_FPSMAXR. Телодвижения в коде несовсем понятны, но в результате всё сводится к запуску MakeImage - процедуры обработки очередной порции кадров изображения. Хотя по-ходу успевают к чему-то применить медианный фильтр - это фильтр подавления шумов на изображении. Возвращает требуемую задержку в тиках ( 1000 тиков = 1 сек ) перед следующим запуском этой процедуры, рассчитанную на основе настроечного параметра VI_VAR_FPSMAXR, то есть чтобы обработка шла с заданным количеством кадров/сек. Данный метод вызывается в цикле в методе AddImageThreadLocal, который вызывается в свою очередь из метода "рабочего" процесса Windows, запускаемого единственной параллельной нитью - то есть просто цикл в бэкграунде. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 
 </div>
 </div>
@@ -729,7 +780,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Проверка возможности потроения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. </p>
+<p>Проверка возможности построения гистограммы указаного типа. Всегда возвращает true. В известном коде программы не используется. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>Идентификатор типа гистограммы</td></tr>
@@ -752,7 +803,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF. </p>
+<p>Восстановление значения настроечного параметра VI_FILTER_FPSDIV значением настроечного параметра VI_FILTER_FPSDIV_RQST. В случае если настроечный параметр VI_FILTER_FPSDIV отличался от настроечного параметра VI_FILTER_FPSDIV_RQST, производится очистка массива m_srcF. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 
 </div>
 </div>
@@ -840,7 +891,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Останов ранее запущенных параллельных потоков для вычислений. </p>
+<p>Останов ранее запущенных параллельных потоков для вычислений. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bLock</td><td>Признак блокирования семафора LVI_ALL с ожиданием его освобождения другими процессами</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -858,10 +915,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Запуск параллельных нитей Windows для параллельных вычислений. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">bLock</td><td></td></tr>
+    <tr><td class="paramname">bLock</td><td>Признак блокирования семафора LVI_ALL с ожиданием его освобождения другими процессами</td></tr>
   </table>
   </dd>
 </dl>
@@ -882,7 +939,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Сохранение текущих значений FPS - аттрибуты типа <a class="el" href="class_c_stat_f_p_s.html" title="Аттрибут для определения частоты обработки кадров ">CStatFPS</a> - в настроечные параметры. VI_VAR_FPSIN; VI_VAR_FPSOUTF; VI_VAR_FPSOUTR; VI_VAR_FPSDROPF; VI_VAR_FPSDROPR; </p>
 
 </div>
 </div>
@@ -934,7 +991,18 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Заполнение массивов pCWL и pCWR ранее вычисленными значениями статистики ауры (длинами линий); Заполнение массивов pCR и pCL ранее вычисленными значениями цветами ауры; Данные структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> берутся <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a> &amp;aura = bB ? m_statRelease[nProc].auraB : m_statRelease[nProc].auraA; Количество обрабатываемых элементов int cnt = aura.line.size(); </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pCWL</td><td>Указатель на массив длин линий для левой части</td></tr>
+    <tr><td class="paramname">pCWR</td><td>Указатель на массив длин линий для правой части</td></tr>
+    <tr><td class="paramname">pCR</td><td>Указатель на массив цветов для левой части</td></tr>
+    <tr><td class="paramname">pCL</td><td>Указатель на массив цветов для правой части</td></tr>
+    <tr><td class="paramname">nProc</td><td>Индекс элемента в массиве m_statRelease</td></tr>
+    <tr><td class="paramname">bB</td><td>Признак вывода результата режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -952,7 +1020,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программв. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) То есть простенько - без вяких лишних околонаучных движений. SYSTEM_INFO info; GetSystemInfo(&amp;info); nProc = info.dwNumberOfProcessors; </p>
+<p>Расчёт оптимального количества параллельных процессов для данного компьютера, на котором выполняется программа. Данная реализация возвращает просто количество процессоров в на компьютере, но не более 8-ми и не менее 1-го ;) То есть простенько - без вяких лишних околонаучных движений. SYSTEM_INFO info; GetSystemInfo(&amp;info); nProc = info.dwNumberOfProcessors; </p>
 
 </div>
 </div>
@@ -992,7 +1060,16 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Если он не задан, то берутся значения размеров из m_resultSize. Возвращает через параметры значение из карты m_resultPtr по ключу id и размеры изображения. Возвращает true, если размеры в VI_VAR_SIZE совпадают со значениями в m_resultSize и существует запись для ключа id в карте m_resultPtr. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Ключ карты m_resultPtr</td></tr>
+    <tr><td class="paramname">ptr</td><td>Указатель на возвращаемое значение указателя</td></tr>
+    <tr><td class="paramname">pw</td><td>Указатель на возвращаемое значение ширины</td></tr>
+    <tr><td class="paramname">ph</td><td>Указатель на возвращаемое значение высоты</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1032,7 +1109,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Копирование значений x-ого столца и y-ой строки по указанным значениям указателей. Исходный массив для копирования определяется на основе настроечного параметра VI_MODE_RESULT. VI_RESULT_SRC_0 m_arrSrc.begin()-&gt;i.begin(); VI_RESULT_SRC_A m_arrSrc.begin()-&gt;i.begin(); VI_RESULT_SRC_B m_arrSrc.begin()-&gt;i.begin(); VI_RESULT_VI0_A m_summ[0]-&gt;i[h*2]; VI_RESULT_VI0_B m_summ[0]-&gt;i[h*3]; VI_RESULT_VI1_A m_summ[1]-&gt;i[h*2]; VI_RESULT_VI1_B m_summ[1]-&gt;i[h*3]; VI_RESULT_VI2_A m_summ[2]-&gt;i[h*2]; VI_RESULT_VI2_B m_summ[2]-&gt;i[h*3]; VI_RESULT_DELTA_A m_arrDelta.begin()-&gt;i[0]; VI_RESULT_DELTA_B m_arrDelta.begin()-&gt;i[0]; Если m_cfg.GetI1(VI_MODE_RESULT) = VI_RESULT_DELTA_B, то производится умножение на 255.0; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Применяется технология SSE для ускорения копирования и преобразования типов. </p>
 
 </div>
 </div>
@@ -1072,7 +1149,16 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Копирование из m_imgSrc8 значений x-ого столца и y-ой строки по указанным значениям указателей. m_imgSrc8 - двумерный массив монохромного изображения [0;255]; То есть будет выполнятся преобразования из BYTE в float. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Номер столбца</td></tr>
+    <tr><td class="paramname">y</td><td>Номер строки</td></tr>
+    <tr><td class="paramname">px</td><td>Указатель на массив возвращаемых значений столбца</td></tr>
+    <tr><td class="paramname">py</td><td>Указатель на массив возвращаемых значений строки</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1106,7 +1192,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант C). Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR. В предоставленном коде вызовов метода нет. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
+    <tr><td class="paramname">pHist256</td><td>Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 </td></tr>
+    <tr><td class="paramname">pFPS</td><td>Указатель на проверяемое-возвращаемое значение частоты кадров/сек</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1140,7 +1234,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант F). Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR. В предоставленном коде вызовов метода нет. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
+    <tr><td class="paramname">pHist256</td><td>Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 </td></tr>
+    <tr><td class="paramname">pFPS</td><td>Указатель на проверяемое-возвращаемое значение частоты кадров/сек</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1174,7 +1276,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант FT). В предоставленном коде вызовов метода нет. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
+    <tr><td class="paramname">pHist256</td><td>Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 </td></tr>
+    <tr><td class="paramname">pDT</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1208,7 +1318,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение таблицы гистограммы яркостий пикселей по вычисленному изображению (вариант N). Так же проверяется что *pFPS не пустое, в противном случае заполняется значением из нестроечного параметра VI_VAR_FPSOUTR. В предоставленном коде вызовов метода нет. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
+    <tr><td class="paramname">pHist256</td><td>Указатель на гистограмму монохромного изображения, то есть на таблицу количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до 255 </td></tr>
+    <tr><td class="paramname">pFPS</td><td>Указатель на проверяемое-возвращаемое значение частоты кадров/сек</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1260,7 +1378,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Заполнение массива по указателю значениями pN[i] = m_cfg.GetI1(m_summ[i].id); Возвращает размер массива m_summ; Для подробностей надо смотреть описание структуры <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a>; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pN</td><td>Указатель на заполняемый массив значениями pN[i] = m_cfg.GetI1(m_summ[i].id);</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1278,7 +1402,13 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Получение значения настроесного параметра return m_cfg.GetI1(m_summ[pos].id); Для подробностей надо смотреть описание структуры <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a>; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>Индекс элемента в массиве m_summ</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1304,10 +1434,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление признака работы в режиме A согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">res</td><td></td></tr>
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
   </table>
   </dd>
 </dl>
@@ -1336,10 +1466,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление признака работы в режиме B согласно списку допустимых значений переменной res Просто вызов одноимённой глобальной функции класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">res</td><td></td></tr>
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
   </table>
   </dd>
 </dl>
@@ -1392,7 +1522,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Признак того чтобы пропустить обработку кадра. Причины пропусков: Программа работает по факту движения, то есть заданны настройки для сенсора движения; Либо фильтры работают по большему количеству кадров чем сейчас считано. </p>
 
 </div>
 </div>
@@ -1434,7 +1564,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вызов одноимённого метода с параметрами для режима B и для режима A. MakeAnger(true); MakeAnger(false); </p>
 
 </div>
 </div>
@@ -1453,6 +1583,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><div class="memdoc">
 
 <p></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bModeB</td><td>Признак формирования результата для режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1480,7 +1616,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Формула по гистограмме Формула: sV = СУММА pHist256(i), sVX = СУММА i * pHist256(i), M = sVX / sV; d(i) = i*fps/len-M; sDV = d(i)*d(i)*pHist256(i); D = sDV / sV; S = sqrt(D); return (M-S)/fps; Используется только в <a class="el" href="class_c_v_i_engine_base.html#a1fcb2c48c5d0f103dd1e001f8a4ec35f" title="Расчёт величин определённых в методике и записи их в настроечные параметры BOOL disabled2X =m_cfg...">CVIEngineBase::StatUpdate(void)</a> </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pHist256</td><td>Гистограмма монохромного изображения, то есть таблица количества пискелей монохромного изображения имеющих заданную яркость. При этом полагается что монохромное изображение было предствлено в виде массива целых чисел в диапазоне от 0 до len-1 </td></tr>
+    <tr><td class="paramname">len</td><td>Размер массива. Фактически является верхней границей яркости исходного монохромного изображения+1 </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1533,13 +1676,31 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление средней величины по значениям ранее рассчитанных строк в структуре <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a>. Теоретический смысл формулы непонятен. nl = aura.line.size(); sW = СУММА abs(aura.line[y].cwl-aura.line[y].cwr)/max(aura.line[y].cwl,aura.line[y].cwr); sC = СУММА abs(aura.line[y].aColorL - aura.line[y].aColorR)/255.0f; return 1.0f - (sC+sW)/(2*nl); </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">aura</td><td></td></tr>
+    <tr><td class="paramname">aura</td><td>Ссылка на инстанс структуры <a class="el" href="class_a_u_r_a___s_t_a_t.html" title="Структура для хранения статистики по вычисленному дельта-изображению ">AURA_STAT</a></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a96dd47cc32f324e133644e7f823507ad"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CVIEngineBase::MakeDefPal </td>
+          <td>(</td>
+          <td class="paramtype">RGBQUAD *&#160;</td>
+          <td class="paramname"><em>pal</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Получение палитры цветов. В предоставненом коде описание отсутствует, вызовов есть только в кострукторе класса. </p>
 
 </div>
 </div>
@@ -1697,7 +1858,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Вывод картинки на экран через API в классе <a class="el" href="class_c_v_i_engine_face.html" title=" Класс реализации API для системы отображения, то есть дисплея. ">CVIEngineFace</a>. Берётся одна из картинок (какая есть в наличии) m_resultPtr[VI_RESULT_SRC_0]; m_resultPtr[VI_RESULT_SRC_A]; m_resultPtr[VI_RESULT_SRC_B]; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1737,7 +1898,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги: Сброс если надо - Reset(true); Сдвиг очереди кадров - <a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535" title="Сдвиг очереди кадров ">NextSrc()</a>; Сброс ранее рассчитанных данных - <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Получение очередного изображения CVIEngineFace::AddImage; Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического: <a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf">MakeAnger()</a>; <a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c">MakeStress()</a>; <a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d">MakeState()</a>; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов - <a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc" title="Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. ">MakeFaceDraw()</a>; Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра: m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех шагов, которые проходит обработка изображения - то есть последовательный вызов процедур обработки и расчётов. Часть расчётов осуществляется в параллельных потоках. Чтобы потоки обработки приступили к соответствующей обработке своего фрагмента изображения, то просто взводится соответствующий флага сигнала у всех параллельных потоков обработки методом Make. Шаги: Сброс если надо - Reset(true); Сдвиг очереди кадров - <a class="el" href="class_c_v_i_engine_base.html#aa1aa2604f40dd77bc49ca6ff8fd81535" title="Сдвиг очереди кадров в памяти ">NextSrc()</a>; Сброс ранее рассчитанных данных - <a class="el" href="class_c_v_i_engine_base.html#a10d6138a2c8f4c4c946bf930c268be6b" title="Сброс, очистка и обнуление ранее вычисленных статистических значений. То есть подготовка массива m_st...">ClearStat()</a>; Получение очередного изображения CVIEngineFace::AddImage; Последовательное применение различных обработок кадра - фильтрация шумов, расчёт статистики, расчёт изображения ауры - если по ходу не подали сигнал остановки вычислений; Сведение результатов от фрагментов вместе и расчёт статистических значений; Наконец, вызов методов собственно которые должны реализовавать методику определения чего-то психологического: <a class="el" href="class_c_v_i_engine_base.html#adf949a2b1abf18f519937d3f787c5abf" title="Вызов одноимённого метода с параметрами для режима B и для режима A. MakeAnger(true); MakeAnger(false...">MakeAnger()</a>; <a class="el" href="class_c_v_i_engine_base.html#a746c67a403f60418bf26e1e686db0c0c" title="Вызов одноимённого метода с параметрами для режима B и для режима A. MakeStress(true); MakeStress(fal...">MakeStress()</a>; <a class="el" href="class_c_v_i_engine_base.html#aa77b261660041465a8d3e68a7088dd0d" title="Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров. if(state >= lev) { m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 1); m_cfg.PutI1(VI_VAR_STATE_FLAG_P, 1); } else m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 0); ">MakeState()</a>; Вызов процедур подготовки результатов для визуализации; Вызов процедуры визуализации результатов - <a class="el" href="class_c_v_i_engine_base.html#a18c5dc58d55a37295b3dd4c451fb86fc" title="Вывод картинки на экран через API в классе CVIEngineFace. Берётся одна из картинок (какая есть в нали...">MakeFaceDraw()</a>; Расчёт затраченного времени на обработку и производительности (FPS), формирование номера сдедующего кадра: m_cfg.PutF1(VI_VAR_FPSOUTR, m_fpsOutR.Put()); m_cfg.PutI1(VI_VAR_NFRAME, m_cfg.GetI1(VI_VAR_NFRAME) + 1); Конец процедуры; Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pFI</td><td>Указатель на массив пикселей в формате чисел с плавющей точной. Видимо зарезервировано для дайнейшего использования.</td></tr>
@@ -1783,7 +1944,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Вывод результата на дисплей. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
 
 </div>
 </div>
@@ -1819,7 +1980,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Выбор коэффициента либо из настроек, либо рассчитать на основе вычисленных статистик, вызовом одноимённой функции с параметрами, сохранение параметров. if(state &gt;= lev) { m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 1); m_cfg.PutI1(VI_VAR_STATE_FLAG_P, 1); } else m_cfg.PutI1(VI_VAR_STATE_FLAG_A, 0); </p>
 
 </div>
 </div>
@@ -1853,7 +2014,15 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Выбор коэффициента либо среднее параметров, либо 0.8, либо 1.0 Код. Просто код. Лучше чем этот код не объяснишь. const float dAg = 0.75f; const float dSt = 0.80f; const float dTn = 0.60f; int ret = 0; if (Ag &gt; dAg) ret |= 1; if (St &gt; dSt) ret |= 2; if (Tn &gt; dTn) ret |= 4; switch (ret) { case 0: return (Ag + St + Tn) / 3.0f; case 1: case 2: case 4: return 0.8f; case 3: case 5: case 6: case 7: return 1.00f; default: break; } return 0; </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Ag</td><td></td></tr>
+    <tr><td class="paramname">St</td><td></td></tr>
+    <tr><td class="paramname">Tn</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1949,7 +2118,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вызов одноимённого метода с параметрами для режима B и для режима A. MakeStress(true); MakeStress(false); </p>
 
 </div>
 </div>
@@ -1968,6 +2137,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><div class="memdoc">
 
 <p>Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bModeB</td><td>Признак формирования результата для режима B</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2009,7 +2184,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. </p>
+<p>Подготовки различных внутренних структур к готовности получать данные от устройства захвата звука или изображения. По сути является вызовом одноимённого метода класса <a class="el" href="class_c_v_i_engine_audio2.html" title="Видимо реализация API для управления камерой и микрофоном. Вполне возможно что автор сперва сделал по...">CVIEngineAudio2</a> для аттрибута m_audio + обнуление некоторых настроечных параметров. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 
 </div>
 </div>
@@ -2027,7 +2202,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Сдвиг очереди кадров </p>
+<p>Сдвиг очереди кадров в памяти </p>
 
 </div>
 </div>
@@ -2063,7 +2238,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо хук при добавлении параметра в настроечные параметры </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td></td></tr>
@@ -2088,7 +2263,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Прверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. </p>
+<p>Проверка что настроечный параметр с указанным id установлен, и, в противном случае, выполнение операции Reset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>Идентификатор настроечного параметра</td></tr>
@@ -2144,10 +2319,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вычисление признака работы в режимах 0,1 или 2 согласно списку допустимых значений переменной res. Просто вызов одноимённой глобальной функции класса <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">res</td><td></td></tr>
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
   </table>
   </dd>
 </dl>
@@ -2202,13 +2377,41 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. </p>
+<p>Сброс настроечного параметра VI_VAR_NFRAME. Изменение размера массивов m_arrSrc и m_arrDelta до размера cnt + 1 и изменение размеров аллокированной под кадры памяти. Размер исходного изображения берётся из настроечного параметра VI_VAR_SIZE. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cnt</td><td>Новое количество обрабатываемых кадров</td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a22ba2d068df7651b957bb7cb00a324be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CVIEngineBase::SetMode </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>В предоставненом коде описание отсутствует, вызовов метода нет. </p>
 
 </div>
 </div>
@@ -2226,10 +2429,10 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Задание идентификатора ключа в реестре Windows для хранения настроечных параметров </p>
+<p>Задание идентификатора ключа в реестре Windows для хранения группы настроечных параметров </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">group</td><td>Идентификатор ключа в реестре Windows</td></tr>
+    <tr><td class="paramname">group</td><td>Идентификатор группы ключей в реестре Windows</td></tr>
   </table>
   </dd>
 </dl>
@@ -2272,7 +2475,16 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Проверяет наличие записи в карте m_resultPtr по ключу id и значению ptr и совпадение размера в m_resultSize с переданными значениями. Если что-то не совпадает или не хватет, то добавляет в карту m_resultPtr по ключу id значению ptr; задаёт значение размера m_resultSize равным переданным параметрам; Возвращает false если размер изображения не совпадает с хранящимся в настроечном параметре VI_VAR_SIZE; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>Ключ карты m_resultPtr</td></tr>
+    <tr><td class="paramname">ptr</td><td></td></tr>
+    <tr><td class="paramname">w</td><td>Ширина изображения</td></tr>
+    <tr><td class="paramname">h</td><td>Высота изображения</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2342,7 +2554,14 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера. Присвоение m_summ[i].id = pN[i] и очистка памяти выделеной для хранения строк изображений m_summ[i].i.clear();m_summ[i].si.clear(); Инициализация структур ClearStat(m_stat[i]) если азмер массивов был изменён. Для подробностей надо смотреть описание структуры <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a>; Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cnt</td><td>Новый размер массивов</td></tr>
+    <tr><td class="paramname">pN</td><td>Список значений аттрибута m_summ[i].id</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2395,7 +2614,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Загрузка монохромного изображения m_imgSrcMask из файла Задание размера монохромного изображения m_imgSrcMask равным ширине и высоте изображения в файле Заполнение монохромного изображения m_imgSrcMask значениями 0x00 и 0xFF на основании значений пикселей изображения в файле При этом при заполнении m_imgSrcMask значениями используется вертикально перевёрнутое изображения из файла В m_imgSrcMask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение COLORREF (чёрный цвет) и записывается значение 0xFF во всех остальных случаяж The COLORREF value is used to specify an RGB color. </p>
+<p>Загрузка монохромного изображения m_imgSrcMask из файла Задание размера монохромного изображения m_imgSrcMask равным ширине и высоте изображения в файле Заполнение монохромного изображения m_imgSrcMask значениями 0x00 и 0xFF на основании значений пикселей изображения в файле При этом при заполнении m_imgSrcMask значениями используется вертикально перевёрнутое изображения из файла В m_imgSrcMask записывается значение 0x00 если соответствующий пиксель имеет нулевое значение COLORREF (чёрный цвет) и записывается значение 0xFF во всех остальных случаяж The COLORREF value is used to specify an RGB color. Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Имя файла</td></tr>
@@ -2436,7 +2655,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p>Сохранение монохромного изображения m_imgSrcMask в файле Сперва каждому пикселю в m_imgSrcMask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0xFFFFFF на основании значений пикселей в m_imgSrcMask В память записывается значение 0x00000000 если соответствующий пиксель в m_imgSrcMask имеет нулевое значение (чёрный цвет) и записывается значение 0x00FFFFFF во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла </p>
+<p>Сохранение монохромного изображения m_imgSrcMask в файле Сперва каждому пикселю в m_imgSrcMask соответствует 32 бита данных в ОЗУ Каждый байт монохромного изображения заменяется на 4 байта данных в ОЗУ Заполнение файла производится только значениями 0x000000 и 0xFFFFFF на основании значений пикселей в m_imgSrcMask В память записывается значение 0x00000000 если соответствующий пиксель в m_imgSrcMask имеет нулевое значение (чёрный цвет) и записывается значение 0x00FFFFFF во всех остальных случаяж Затем сформированный массив байт созраняется как изображение в формате соответствующем расширению имени файла Поддерживает блокирование ресурсов для возможности использования функции из нескольких параллельных процессов. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>Имя файла</td></tr>
@@ -2460,7 +2679,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Начальная инициализация инстанса класса Изменение размеров массивов m_stat, m_summ, m_aura6A, m_aura6B до нового размера == 3. Присвоение m_summ[i].id = { VI_VAR_N0, VI_VAR_N1, VI_VAR_N2 }[i] </p>
 
 </div>
 </div>
@@ -2522,7 +2741,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </table>
 </div><div class="memdoc">
 
-<p>Блокирование ресурсов с ожидание их освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. </p>
+<p>Блокирование семафора LVI_ALL с ожиданием его освобождения другими процессами. То есть после выполнения данного метода все дочерние процессы будут находится в одинаковом статусе и можно считать-записать данные во все из-в них. Точная реализация механизмов семафоров в данной программе неизвестна, но не может сильно отличатся от стандартных механизмов Windows. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">res</td><td></td></tr>
@@ -2565,6 +2784,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><div class="memdoc">
 
 <p></p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">res</td><td>Набор двоичных флагов</td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -2793,7 +3018,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции <a class="el" href="class_c_v_i_engine_base.html#aa59b55fc315394f4c19cb7d95c399913" title="Поднятие флага сигнала command у всех параллельных процессов. m_therads[k]->m_events[command].Set(); Параллельные процессы у себя в цикле проверяют поднятость флагов у своего инстанса и выполняют соответствующую сигналу процедуру. ">Make()</a>. Способ применения: m_cMake[command] ++; ... КОД ЗДЕСЬ ... ; m_cMake[command] &ndash;; </p>
 
 </div>
 </div>
@@ -2807,7 +3032,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Инстанс на API манипулирования изображением </p>
 
 </div>
 </div>
@@ -2821,7 +3046,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Вероятнее всего инстанс класса библиотеки видеоэффектов. </p>
 
 </div>
 </div>
@@ -2835,7 +3060,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Буфер данных для применения медианного фильтра </p>
 
 </div>
 </div>
@@ -2849,7 +3074,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Массив программно управляемых событийных триггеров. Размер массива равен количеству всех возможных событий, которые могут формироватся программой. m_events[id] - это инстанс триггера для события с идентификатором id. </p>
 
 </div>
 </div>
@@ -2858,12 +3083,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CStatFPS CVIEngineBase::m_fpsDropF</td>
+          <td class="memname"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a> CVIEngineBase::m_fpsDropF</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Аттрибут для определения частоты обработки кадров </p>
 
 </div>
 </div>
@@ -2872,12 +3097,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CStatFPS CVIEngineBase::m_fpsDropR</td>
+          <td class="memname"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a> CVIEngineBase::m_fpsDropR</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Аттрибут для определения частоты обработки кадров </p>
 
 </div>
 </div>
@@ -2886,12 +3111,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CStatFPS CVIEngineBase::m_fpsIn</td>
+          <td class="memname"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a> CVIEngineBase::m_fpsIn</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Аттрибут для определения частоты обработки кадров </p>
 
 </div>
 </div>
@@ -2900,12 +3125,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CStatFPS CVIEngineBase::m_fpsOutF</td>
+          <td class="memname"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a> CVIEngineBase::m_fpsOutF</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Аттрибут для определения частоты обработки кадров </p>
 
 </div>
 </div>
@@ -2914,12 +3139,40 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CStatFPS CVIEngineBase::m_fpsOutR</td>
+          <td class="memname"><a class="el" href="class_c_stat_f_p_s.html">CStatFPS</a> CVIEngineBase::m_fpsOutR</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Аттрибут для определения частоты обработки кадров </p>
+
+</div>
+</div>
+<a class="anchor" id="a4d289b3028ab2b3c1a91bf08de42144e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANDLE CVIEngineBase::m_hThreadAddImage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Дескриптор параллельной нити с обработчиком AddImageThreadLocal </p>
+
+</div>
+</div>
+<a class="anchor" id="a81b0c7b485feb8404fa06b2e91300d14"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HANDLE CVIEngineBase::m_hThreadAddImage8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Дескриптор параллельной нити с обработчиком AddImageThreadLocal8 </p>
 
 </div>
 </div>
@@ -2984,12 +3237,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CMTCriticalSection CVIEngineBase::m_locks[LVI_CNT]</td>
+          <td class="memname"><a class="el" href="class_c_m_t_critical_section.html">CMTCriticalSection</a> CVIEngineBase::m_locks[LVI_CNT]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Адресное пространство где находятся семафоры. Для семафора требуется участок памяти доступный из всех параллельных нитей. Управление семафором осуществляктся через класс <a class="el" href="class_c_m_t_single_lock.html" title="Данный класс является классом для управления доступом к ресурсам в многопоточных приложениях Represen...">CMTSingleLock</a>. Статьи по теме <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/ms682530(v=vs.85).aspx</a> </p>
 
 </div>
 </div>
@@ -3003,7 +3256,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Элемент для устранения конфликтов в многопроцессорной среде. Используется в функции <a class="el" href="class_c_v_i_engine_base.html#a3426944a03bac2f5a8c135c217f9cf8c" title="Процедура обработки очередной порции кадров изображения. Собственно и содержит перечисление всех тех ...">MakeImage()</a>. Способ применения: m_nMake ++; ... КОД ЗДЕСЬ ... ; m_nMake &ndash;; </p>
 
 </div>
 </div>
@@ -3017,7 +3270,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Текущее количество паралельных потоков вычислений, т.е. текущее количество дочерних инстансов классов <a class="el" href="class_c_v_i_engine_thread.html" title="Класс для реализации расчётов в многопоточной среде. Является классом для управления одним потоком ра...">CVIEngineThread</a> для управления потоками вычислений </p>
 
 </div>
 </div>
@@ -3040,12 +3293,12 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CVIEngineFace* CVIEngineBase::m_pFace</td>
+          <td class="memname"><a class="el" href="class_c_v_i_engine_face.html">CVIEngineFace</a>* CVIEngineBase::m_pFace</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Указатель на инстанс API вывода на дисплей </p>
 
 </div>
 </div>
@@ -3073,7 +3326,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Карта вычисленных изображений. Каждому виду отображаемого результата соответствут свой ключ. </p>
 
 </div>
 </div>
@@ -3087,7 +3340,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо текущее значение размеров формируемого изображения для визуализации </p>
 
 </div>
 </div>
@@ -3143,7 +3396,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Массив вычисленных различных статистик от различных обработчиков. Данные в элементах массива формируются сведением данных от параллельных обработчиков фрагментов изображений. </p>
 
 </div>
 </div>
@@ -3171,7 +3424,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо дополнительный алгоритм по расчёту параметров. Название напоминает усреднение чего-то. </p>
 
 </div>
 </div>
@@ -3185,7 +3438,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо дополнительный алгоритм по расчёту параметров. Название напоминает Быстрое преобразование Фурье <a href="https://ru.wikipedia.org/wiki/">https://ru.wikipedia.org/wiki/</a>Быстрое_преобразование_Фурье. Одно из подобного класса быстрых преобразований - преобразования Адамара <a href="https://github.com/dprotopopov/fwht">https://github.com/dprotopopov/fwht</a> </p>
 
 </div>
 </div>
@@ -3199,7 +3452,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо хук при добавлении параметра в настроечные параметры </p>
 
 </div>
 </div>
@@ -3213,7 +3466,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо хук при добавлении параметра в настроечные параметры </p>
 
 </div>
 </div>
@@ -3227,7 +3480,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Массив вычисленных различных статистик от различных обработчиков, предназначенный для отобоажения </p>
 
 </div>
 </div>
@@ -3241,7 +3494,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Массив вычисленных различных изображений от различных обработчиков. По своей сути является картоы, поскольку структура <a class="el" href="class_s_u_m___i_m_g.html" title="Структура для работы с монохромными изображениями. Монохромные изображения хранятся в виде последоват...">SUM_IMG</a> содержит аттрибут id == идентификатору обработчика. </p>
 
 </div>
 </div>
@@ -3297,7 +3550,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Отметка времени при обработке изображения кадра </p>
 
 </div>
 </div>
@@ -3353,7 +3606,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
       </table>
 </div><div class="memdoc">
 
-<p></p>
+<p>Видимо относится к позиции вывода изображения на дисплей. </p>
 
 </div>
 </div>
@@ -3364,7 +3617,7 @@ HANDLE&#160;</td><td class="memItemRight" valign="bottom"><b>m_hThreadAddImage8<
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 18 2014 23:52:38 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 20 2014 05:37:55 for VibraImage by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.8
 </small></address>

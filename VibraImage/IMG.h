@@ -20,6 +20,7 @@ public:
 class SUM_IMG {
 public:
 	/// <summary>
+	/// Идентификатор соответствующей переменной в настроечных параметрах
 	/// </summary>
 	int id;
 	/// <summary>
